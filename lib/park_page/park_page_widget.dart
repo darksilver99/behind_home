@@ -223,9 +223,11 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   ),
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      _model.paginatedDataTableController
-                                          .paginatorController
-                                          .goToFirstPage();
+                                      if (_model.dataList.isNotEmpty) {
+                                        _model.paginatedDataTableController
+                                            .paginatorController
+                                            .goToFirstPage();
+                                      }
                                       _model.startDate =
                                           functions.getStartDateOfMonth(
                                               functions.getDateTimeFormat(
