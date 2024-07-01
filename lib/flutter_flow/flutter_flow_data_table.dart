@@ -7,7 +7,7 @@ export 'package:data_table_2/data_table_2.dart' show DataColumn2;
 
 const _kDataTableHorizontalMargin = 48.0;
 const kDefaultColumnSpacing = 56.0;
-const _kMinRowsPerPage = 5;
+const _kMinRowsPerPage = 10;
 
 typedef ColumnsBuilder<T> = List<DataColumn> Function(void Function(int, bool));
 typedef DataRowBuilder<T> = DataRow? Function(
