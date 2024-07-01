@@ -121,7 +121,19 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.pushNamed('ParkPage');
+              context.pushNamed(
+                'ParkPage',
+                queryParameters: {
+                  'collectionName': serializeParam(
+                    'aa',
+                    ParamType.String,
+                  ),
+                  'menuName': serializeParam(
+                    'bb',
+                    ParamType.String,
+                  ),
+                }.withoutNulls,
+              );
             },
             child: Text(
               'Dashboard',

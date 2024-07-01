@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<dynamic>> getDataList(dynamic lastDocment) async {
+Future<List<dynamic>> getDataList(
+  dynamic lastDocment,
+  String collectionName,
+) async {
   // Add your function code here!
   return [1, 2, 3];
 }

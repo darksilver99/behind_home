@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -190,12 +189,6 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            FFAppState().menuData = MenuDataStruct(
-                              subject: columnBehindMenuListRecord.subject,
-                              collectionName:
-                                  columnBehindMenuListRecord.collectionName,
-                            );
-                            setState(() {});
                             await actions.goToPage(
                               context,
                               columnBehindMenuListRecord.pathName,
