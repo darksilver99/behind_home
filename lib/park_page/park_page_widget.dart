@@ -232,12 +232,16 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                           functions.getStartDateOfMonth(
                                               functions.getDateTimeFormat(
                                                   _model.dropDownValue1!,
-                                                  _model.dropDownValue2!));
+                                                  _model.dropDownValue2!,
+                                                  FFAppConstants.thaiMonthList
+                                                      .toList()));
                                       _model.endDate =
                                           functions.getEndDateOfMonth(
                                               functions.getDateTimeFormat(
                                                   _model.dropDownValue1!,
-                                                  _model.dropDownValue2!));
+                                                  _model.dropDownValue2!,
+                                                  FFAppConstants.thaiMonthList
+                                                      .toList()));
                                       _model.dataResult2 =
                                           await queryTransactionListRecordOnce(
                                         queryBuilder: (transactionListRecord) =>
