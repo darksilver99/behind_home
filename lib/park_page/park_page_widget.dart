@@ -49,16 +49,14 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
       _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
       _model.dataResult = await queryTransactionListRecordOnce(
         queryBuilder: (transactionListRecord) => transactionListRecord
-            .where(Filter.or(
-              Filter(
-                'date_in',
-                isGreaterThanOrEqualTo: _model.startDate,
-              ),
-              Filter(
-                'date_in',
-                isLessThanOrEqualTo: _model.endDate,
-              ),
-            ))
+            .where(
+              'date_in',
+              isGreaterThanOrEqualTo: _model.startDate,
+            )
+            .where(
+              'date_in',
+              isLessThanOrEqualTo: _model.endDate,
+            )
             .orderBy('date_in', descending: true),
       );
       _model.dataList =
@@ -246,18 +244,16 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                           await queryTransactionListRecordOnce(
                                         queryBuilder: (transactionListRecord) =>
                                             transactionListRecord
-                                                .where(Filter.or(
-                                                  Filter(
-                                                    'date_in',
-                                                    isGreaterThanOrEqualTo:
-                                                        _model.startDate,
-                                                  ),
-                                                  Filter(
-                                                    'date_in',
-                                                    isLessThanOrEqualTo:
-                                                        _model.endDate,
-                                                  ),
-                                                ))
+                                                .where(
+                                                  'date_in',
+                                                  isGreaterThanOrEqualTo:
+                                                      _model.startDate,
+                                                )
+                                                .where(
+                                                  'date_in',
+                                                  isLessThanOrEqualTo:
+                                                      _model.endDate,
+                                                )
                                                 .orderBy('date_in',
                                                     descending: true),
                                       );
