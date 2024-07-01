@@ -99,6 +99,8 @@ String getTimeDuration(
 DateTime getDateTimeFormat(
   String month,
   String year,
+  List<String> monthList,
 ) {
-  return DateTime.now();
+  int indexOfMonth = monthList.indexOf(month);
+  return DateTime(int.parse(year), indexOfMonth + 1, 1);
 }
