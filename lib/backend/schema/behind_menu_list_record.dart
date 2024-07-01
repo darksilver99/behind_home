@@ -50,7 +50,7 @@ class BehindMenuListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('behind_menu_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/behind_menu_list');
 
   static Stream<BehindMenuListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => BehindMenuListRecord.fromSnapshot(s));
