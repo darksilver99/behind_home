@@ -145,8 +145,11 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     controller:
                                         _model.dropDownValueController1 ??=
                                             FormFieldController<String>(
-                                      _model.dropDownValue1 ??= functions
-                                          .getCurrentMonth(getCurrentTimestamp),
+                                      _model.dropDownValue1 ??=
+                                          functions.getCurrentMonth(
+                                              getCurrentTimestamp,
+                                              FFAppConstants.thaiMonthList
+                                                  .toList()),
                                     ),
                                     options: FFAppConstants.thaiMonthList,
                                     onChanged: (val) => setState(
@@ -221,8 +224,45 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     isMultiSelect: false,
                                   ),
                                   FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
+                                    onPressed: () async {
+                                      _model.paginatedDataTableController
+                                          .paginatorController
+                                          .goToFirstPage();
+                                      _model.startDate =
+                                          functions.getStartDateOfMonth(
+                                              functions.getDateTimeFormat(
+                                                  _model.dropDownValue1!,
+                                                  _model.dropDownValue2!));
+                                      _model.endDate =
+                                          functions.getEndDateOfMonth(
+                                              functions.getDateTimeFormat(
+                                                  _model.dropDownValue1!,
+                                                  _model.dropDownValue2!));
+                                      _model.dataResult2 =
+                                          await queryTransactionListRecordOnce(
+                                        queryBuilder: (transactionListRecord) =>
+                                            transactionListRecord
+                                                .where(Filter.or(
+                                                  Filter(
+                                                    'date_in',
+                                                    isGreaterThanOrEqualTo:
+                                                        _model.startDate,
+                                                  ),
+                                                  Filter(
+                                                    'date_in',
+                                                    isLessThanOrEqualTo:
+                                                        _model.endDate,
+                                                  ),
+                                                ))
+                                                .orderBy('date_in',
+                                                    descending: true),
+                                      );
+                                      _model.dataList = _model.dataResult2!
+                                          .toList()
+                                          .cast<TransactionListRecord>();
+                                      setState(() {});
+
+                                      setState(() {});
                                     },
                                     text: 'ค้นหา',
                                     options: FFButtonOptions(
@@ -448,6 +488,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                           selectable: false,
                           hidePaginator: false,
                           showFirstLastButtons: false,
+                          minWidth: 800.0,
                           headingRowHeight: 56.0,
                           dataRowHeight: 48.0,
                           columnSpacing: 20.0,
