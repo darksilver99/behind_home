@@ -1,11 +1,17 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
+import '/component_view/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,11 +45,24 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.dataResult = await actions.getDataList(
-        null!,
-        widget.collectionName!,
+      _model.startDate = functions.getStartDateOfMonth(getCurrentTimestamp);
+      _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
+      _model.dataResult = await queryTransactionListRecordOnce(
+        queryBuilder: (transactionListRecord) => transactionListRecord
+            .where(Filter.or(
+              Filter(
+                'date_in',
+                isGreaterThanOrEqualTo: _model.startDate,
+              ),
+              Filter(
+                'date_in',
+                isLessThanOrEqualTo: _model.endDate,
+              ),
+            ))
+            .orderBy('date_in', descending: true),
       );
-      _model.dataList = _model.dataResult!.toList().cast<dynamic>();
+      _model.dataList =
+          _model.dataResult!.toList().cast<TransactionListRecord>();
       setState(() {});
     });
 
@@ -100,147 +119,349 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Expanded(
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 64.0, 0.0, 0.0),
-                      child: Column(
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Expanded(
-                            child: Builder(
-                              builder: (context) {
-                                final dataListView = _model.dataList.toList();
-                                return FlutterFlowDataTable<dynamic>(
-                                  controller:
-                                      _model.paginatedDataTableController,
-                                  data: dataListView,
-                                  columnsBuilder: (onSortChanged) => [
-                                    DataColumn2(
-                                      label: DefaultTextStyle.merge(
-                                        softWrap: true,
-                                        child: Text(
-                                          'Edit Header 1',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                letterSpacing: 0.0,
-                                              ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 32.0, 0.0),
+                              child: Wrap(
+                                spacing: 8.0,
+                                runSpacing: 8.0,
+                                alignment: WrapAlignment.start,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                direction: Axis.horizontal,
+                                runAlignment: WrapAlignment.start,
+                                verticalDirection: VerticalDirection.down,
+                                clipBehavior: Clip.none,
+                                children: [
+                                  FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController1 ??=
+                                            FormFieldController<String>(
+                                      _model.dropDownValue1 ??= functions
+                                          .getCurrentMonth(getCurrentTimestamp),
+                                    ),
+                                    options: FFAppConstants.thaiMonthList,
+                                    onChanged: (val) => setState(
+                                        () => _model.dropDownValue1 = val),
+                                    width: 300.0,
+                                    height: 56.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          letterSpacing: 0.0,
                                         ),
-                                      ),
+                                    hintText: 'เลือกเดือน',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
                                     ),
-                                    DataColumn2(
-                                      label: DefaultTextStyle.merge(
-                                        softWrap: true,
-                                        child: Text(
-                                          'Edit Header 2',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    DataColumn2(
-                                      label: DefaultTextStyle.merge(
-                                        softWrap: true,
-                                        child: Text(
-                                          'Edit Header 3',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                  dataRowBuilder: (dataListViewItem,
-                                          dataListViewIndex,
-                                          selected,
-                                          onSelectChanged) =>
-                                      DataRow(
-                                    color: MaterialStateProperty.all(
-                                      dataListViewIndex % 2 == 0
-                                          ? FlutterFlowTheme.of(context)
-                                              .secondaryBackground
-                                          : FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                    ),
-                                    cells: [
-                                      Text(
-                                        'Edit Column 1',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                      Text(
-                                        'Edit Column 2',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                      Text(
-                                        'Edit Column 3',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ].map((c) => DataCell(c)).toList(),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 8.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
                                   ),
-                                  onPageChanged: (currentRowIndex) async {
-                                    _model.nextDataList =
-                                        await actions.getDataList(
-                                      null!,
-                                      widget.collectionName!,
-                                    );
-                                    _model.dataList = functions
-                                        .updateDataList(
-                                            _model.nextDataList!.toList(),
-                                            _model.dataList.toList())
-                                        .toList()
-                                        .cast<dynamic>();
-                                    setState(() {});
-
-                                    setState(() {});
-                                  },
-                                  paginated: true,
-                                  selectable: false,
-                                  hidePaginator: false,
-                                  showFirstLastButtons: false,
-                                  headingRowHeight: 56.0,
-                                  dataRowHeight: 48.0,
-                                  columnSpacing: 20.0,
-                                  headingRowColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  addHorizontalDivider: true,
-                                  addTopAndBottomDivider: false,
-                                  hideDefaultHorizontalDivider: true,
-                                  horizontalDividerColor:
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  horizontalDividerThickness: 1.0,
-                                  addVerticalDivider: false,
-                                );
-                              },
+                                  FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController2 ??=
+                                            FormFieldController<String>(
+                                      _model.dropDownValue2 ??= functions
+                                          .getCurrentYear(getCurrentTimestamp),
+                                    ),
+                                    options: functions
+                                        .getYearList(getCurrentTimestamp),
+                                    onChanged: (val) => setState(
+                                        () => _model.dropDownValue2 = val),
+                                    width: 300.0,
+                                    height: 56.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    hintText: 'เลือกปี',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 8.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  ),
+                                  FFButtonWidget(
+                                    onPressed: () {
+                                      print('Button pressed ...');
+                                    },
+                                    text: 'ค้นหา',
+                                    options: FFButtonOptions(
+                                      height: 56.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          32.0, 0.0, 32.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Builder(
+                      builder: (context) {
+                        final dataListView = _model.dataList.toList();
+                        if (dataListView.isEmpty) {
+                          return NoDataViewWidget();
+                        }
+                        return FlutterFlowDataTable<TransactionListRecord>(
+                          controller: _model.paginatedDataTableController,
+                          data: dataListView,
+                          columnsBuilder: (onSortChanged) => [
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Text(
+                                  'วันเวลาเข้า-ออก',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Text(
+                                  'ระยะเวลา',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Text(
+                                  'ชื่อ-สกุลผู้มาติดต่อ',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Text(
+                                  'วัตถุประสงค์',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Text(
+                                  'ประเภทรถ',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ],
+                          dataRowBuilder: (dataListViewItem, dataListViewIndex,
+                                  selected, onSelectChanged) =>
+                              DataRow(
+                            color: MaterialStateProperty.all(
+                              dataListViewIndex % 2 == 0
+                                  ? FlutterFlowTheme.of(context)
+                                      .secondaryBackground
+                                  : FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                            ),
+                            cells: [
+                              Builder(
+                                builder: (context) {
+                                  if (dataListViewItem.dateOut != null) {
+                                    return Text(
+                                      '${dateTimeFormat('d/M/y', dataListViewItem.dateIn)} ${dateTimeFormat('Hm', dataListViewItem.dateIn)} - ${dateTimeFormat('d/M/y', dataListViewItem.dateOut)} ${dateTimeFormat('Hm', dataListViewItem.dateOut)}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    );
+                                  } else {
+                                    return Text(
+                                      '${dateTimeFormat('d/M/y', dataListViewItem.dateIn)} ${dateTimeFormat('Hm', dataListViewItem.dateIn)}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    );
+                                  }
+                                },
+                              ),
+                              Builder(
+                                builder: (context) {
+                                  if (dataListViewItem.dateOut != null) {
+                                    return Text(
+                                      functions.getTimeDuration(
+                                          dataListViewItem.dateIn!,
+                                          dataListViewItem.dateOut!),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    );
+                                  } else {
+                                    return Text(
+                                      functions.getTimeDuration(
+                                          dataListViewItem.dateIn!,
+                                          getCurrentTimestamp),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    );
+                                  }
+                                },
+                              ),
+                              Text(
+                                '${dataListViewItem.preName}${dataListViewItem.firstName} ${dataListViewItem.lastName}',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Text(
+                                dataListViewItem.objective,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Text(
+                                dataListViewItem.carType,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ].map((c) => DataCell(c)).toList(),
+                          ),
+                          emptyBuilder: () => NoDataViewWidget(),
+                          paginated: true,
+                          selectable: false,
+                          hidePaginator: false,
+                          showFirstLastButtons: false,
+                          headingRowHeight: 56.0,
+                          dataRowHeight: 48.0,
+                          columnSpacing: 20.0,
+                          headingRowColor: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(0.0),
+                          addHorizontalDivider: true,
+                          addTopAndBottomDivider: false,
+                          hideDefaultHorizontalDivider: true,
+                          horizontalDividerColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          horizontalDividerThickness: 1.0,
+                          addVerticalDivider: false,
+                        );
+                      },
                     ),
                   ),
                 ],
