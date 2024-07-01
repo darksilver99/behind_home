@@ -51,6 +51,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -70,7 +72,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'รถ-เข้าออก',
+            FFAppState().menuData.subject,
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Urbanist',
                   color: Colors.white,
