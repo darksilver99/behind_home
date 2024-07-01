@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -165,50 +166,10 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 3.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0.0),
-                        bottomRight: Radius.circular(8.0),
-                        topLeft: Radius.circular(0.0),
-                        topRight: Radius.circular(8.0),
-                      ),
-                    ),
-                    child: Container(
-                      width: 45.0,
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(8.0),
-                          topLeft: Radius.circular(0.0),
-                          topRight: Radius.circular(8.0),
-                        ),
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Icon(
-                          Icons.menu_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              wrapWithModel(
+                model: _model.menuToggleViewModel,
+                updateCallback: () => setState(() {}),
+                child: MenuToggleViewWidget(),
               ),
             ],
           ),

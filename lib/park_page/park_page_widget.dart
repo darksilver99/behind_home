@@ -1,3 +1,5 @@
+import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
+import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -44,6 +46,14 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        drawer: Drawer(
+          elevation: 16.0,
+          child: wrapWithModel(
+            model: _model.menuViewModel,
+            updateCallback: () => setState(() {}),
+            child: MenuViewWidget(),
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -195,6 +205,11 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                     ),
                   ),
                 ],
+              ),
+              wrapWithModel(
+                model: _model.menuToggleViewModel,
+                updateCallback: () => setState(() {}),
+                child: MenuToggleViewWidget(),
               ),
             ],
           ),
