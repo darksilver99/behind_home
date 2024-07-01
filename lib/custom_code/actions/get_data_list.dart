@@ -9,10 +9,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future goToPage(
-  BuildContext context,
-  String pathName,
-) async {
+Future<List<dynamic>> getDataList(dynamic lastDocment) async {
   // Add your function code here!
-  context.pushNamed(pathName);
+  return [1, 2, 3];
 }

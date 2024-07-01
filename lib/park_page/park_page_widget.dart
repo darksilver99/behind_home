@@ -4,7 +4,10 @@ import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'park_page_model.dart';
@@ -27,6 +30,15 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
     super.initState();
     _model = createModel(context, () => ParkPageModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.dataResult = await actions.getDataList(
+        null!,
+      );
+      _model.dataList = _model.dataResult!.toList().cast<dynamic>();
+      setState(() {});
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -39,6 +51,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -58,7 +72,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'รถ-เข้าออก',
+            FFAppState().menuData.subject,
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Urbanist',
                   color: Colors.white,
@@ -87,11 +101,11 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                           Expanded(
                             child: Builder(
                               builder: (context) {
-                                final testListView = _model.testList.toList();
-                                return FlutterFlowDataTable<String>(
+                                final dataListView = _model.dataList.toList();
+                                return FlutterFlowDataTable<dynamic>(
                                   controller:
                                       _model.paginatedDataTableController,
-                                  data: testListView,
+                                  data: dataListView,
                                   columnsBuilder: (onSortChanged) => [
                                     DataColumn2(
                                       label: DefaultTextStyle.merge(
@@ -136,13 +150,13 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       ),
                                     ),
                                   ],
-                                  dataRowBuilder: (testListViewItem,
-                                          testListViewIndex,
+                                  dataRowBuilder: (dataListViewItem,
+                                          dataListViewIndex,
                                           selected,
                                           onSelectChanged) =>
                                       DataRow(
                                     color: MaterialStateProperty.all(
-                                      testListViewIndex % 2 == 0
+                                      dataListViewIndex % 2 == 0
                                           ? FlutterFlowTheme.of(context)
                                               .secondaryBackground
                                           : FlutterFlowTheme.of(context)
@@ -178,6 +192,21 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       ),
                                     ].map((c) => DataCell(c)).toList(),
                                   ),
+                                  onPageChanged: (currentRowIndex) async {
+                                    _model.nextDataList =
+                                        await actions.getDataList(
+                                      null!,
+                                    );
+                                    _model.dataList = functions
+                                        .updateDataList(
+                                            _model.nextDataList!.toList(),
+                                            _model.dataList.toList())
+                                        .toList()
+                                        .cast<dynamic>();
+                                    setState(() {});
+
+                                    setState(() {});
+                                  },
                                   paginated: true,
                                   selectable: false,
                                   hidePaginator: false,
