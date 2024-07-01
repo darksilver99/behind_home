@@ -13,4 +13,5 @@ Future goToPage(
   String pathName,
 ) async {
   // Add your function code here!
+  context.pushNamed(pathName);
 }
