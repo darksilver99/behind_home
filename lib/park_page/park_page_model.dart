@@ -46,6 +46,8 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<TransactionListRecord>? dataResult2;
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<TransactionListRecord>();

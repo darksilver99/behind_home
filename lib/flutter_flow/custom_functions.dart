@@ -21,16 +21,26 @@ List<dynamic> updateDataList(
   return currentList;
 }
 
-String getCurrentMonth(DateTime currentDate) {
-  return "มกราคม";
+String getCurrentMonth(
+  DateTime currentDate,
+  List<String> monthList,
+) {
+  return monthList[currentDate.month - 1];
 }
 
 List<String> getYearList(DateTime currentDate) {
-  return ['2024', '2025', '2026', '2027'];
+  int currentYear = DateTime.now().year;
+  int firstYear = currentYear - 4;
+  List<String> yearList = [];
+  for (int i = firstYear; i <= currentYear; i++) {
+    yearList.add(i.toString());
+  }
+  yearList.sort((a, b) => b.compareTo(a));
+  return yearList;
 }
 
 String getCurrentYear(DateTime currentDate) {
-  return '2024';
+  return currentDate.year.toString();
 }
 
 DateTime getStartDateOfMonth(DateTime date) {
@@ -84,4 +94,11 @@ String getTimeDuration(
   result.write('$minutes นาที');
 
   return result.toString().trim(); // Trim any trailing spaces
+}
+
+DateTime getDateTimeFormat(
+  String month,
+  String year,
+) {
+  return DateTime.now();
 }
