@@ -22,7 +22,8 @@ Future<List<dynamic>> getDataList(
     lastDocumentSnapshot = lastDocument;
   }
   Query query = FirebaseFirestore.instance
-      .collection('project_list/${FFAppState().projectData.projectDocID}/$collectionName')
+      .collection(
+          'project_list/${FFAppState().projectData.projectDocID}/$collectionName')
       .orderBy('create_date', descending: true)
       .limit(FFAppConstants.pageSize);
 
