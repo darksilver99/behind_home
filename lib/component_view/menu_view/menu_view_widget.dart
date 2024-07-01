@@ -192,6 +192,8 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                             await actions.goToPage(
                               context,
                               columnBehindMenuListRecord.pathName,
+                              columnBehindMenuListRecord.subject,
+                              columnBehindMenuListRecord.collectionName,
                             );
                           },
                           child: Column(
