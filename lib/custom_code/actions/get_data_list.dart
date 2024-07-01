@@ -10,9 +10,36 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 Future<List<dynamic>> getDataList(
-  dynamic lastDocment,
+  dynamic lastDocument,
   String collectionName,
 ) async {
   // Add your function code here!
-  return [1, 2, 3];
+  print("getDataList");
+  print("collectionName : $collectionName");
+
+  DocumentSnapshot? lastDocumentSnapshot;
+  if (lastDocument is DocumentSnapshot) {
+    lastDocumentSnapshot = lastDocument;
+  }
+  Query query = FirebaseFirestore.instance
+      .collection(
+          'project_list/${FFAppState().projectData.projectDocID}/$collectionName')
+      .orderBy('create_date', descending: true)
+      .limit(FFAppConstants.pageSize);
+
+  if (lastDocumentSnapshot != null) {
+    query = query.startAfterDocument(lastDocumentSnapshot);
+  }
+
+  QuerySnapshot querySnapshot = await query.get();
+  if (querySnapshot.docs.isNotEmpty) {
+    lastDocumentSnapshot = querySnapshot.docs.last;
+  }
+
+  print("querySnapshot.docs.length");
+  print(querySnapshot.docs.length);
+  print("lastDocumentSnapshot");
+  print(lastDocumentSnapshot!.reference.path);
+
+  return querySnapshot.docs;
 }
