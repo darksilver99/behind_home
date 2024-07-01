@@ -60,16 +60,6 @@ class FFAppState extends ChangeNotifier {
   void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
     updateFn(_configData);
   }
-
-  MenuDataStruct _menuData = MenuDataStruct();
-  MenuDataStruct get menuData => _menuData;
-  set menuData(MenuDataStruct value) {
-    _menuData = value;
-  }
-
-  void updateMenuDataStruct(Function(MenuDataStruct) updateFn) {
-    updateFn(_menuData);
-  }
 }
 
 void _safeInit(Function() initializeField) {

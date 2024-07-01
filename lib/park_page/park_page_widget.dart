@@ -14,7 +14,14 @@ import 'park_page_model.dart';
 export 'park_page_model.dart';
 
 class ParkPageWidget extends StatefulWidget {
-  const ParkPageWidget({super.key});
+  const ParkPageWidget({
+    super.key,
+    required this.collectionName,
+    required this.menuName,
+  });
+
+  final String? collectionName;
+  final String? menuName;
 
   @override
   State<ParkPageWidget> createState() => _ParkPageWidgetState();
@@ -51,8 +58,6 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -72,7 +77,10 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            FFAppState().menuData.subject,
+            valueOrDefault<String>(
+              widget.menuName,
+              '-',
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Urbanist',
                   color: Colors.white,
