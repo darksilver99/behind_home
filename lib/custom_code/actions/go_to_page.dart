@@ -12,7 +12,21 @@ import 'package:flutter/material.dart';
 Future goToPage(
   BuildContext context,
   String pathName,
+  String menuName,
+  String collectionName,
 ) async {
   // Add your function code here!
-  context.pushNamed(pathName);
+  context.pushNamed(
+    pathName,
+    queryParameters: {
+      'collectionName': serializeParam(
+        collectionName,
+        ParamType.String,
+      ),
+      'menuName': serializeParam(
+        menuName,
+        ParamType.String,
+      ),
+    }.withoutNulls,
+  );
 }
