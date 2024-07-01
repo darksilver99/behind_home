@@ -9,10 +9,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'park_page_widget.dart' show ParkPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,6 +37,19 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
 
   DateTime? endDate;
 
+  bool isFullList = true;
+
+  List<TransactionListRecord> tmpDataList = [];
+  void addToTmpDataList(TransactionListRecord item) => tmpDataList.add(item);
+  void removeFromTmpDataList(TransactionListRecord item) =>
+      tmpDataList.remove(item);
+  void removeAtIndexFromTmpDataList(int index) => tmpDataList.removeAt(index);
+  void insertAtIndexInTmpDataList(int index, TransactionListRecord item) =>
+      tmpDataList.insert(index, item);
+  void updateTmpDataListAtIndex(
+          int index, Function(TransactionListRecord) updateFn) =>
+      tmpDataList[index] = updateFn(tmpDataList[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -48,6 +63,12 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
   FormFieldController<String>? dropDownValueController2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<TransactionListRecord>? dataResult2;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Custom Action - filterDataList] action in TextField widget.
+  List<TransactionListRecord>? dataResult3;
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<TransactionListRecord>();
@@ -65,6 +86,9 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+
     menuToggleViewModel.dispose();
     menuViewModel.dispose();
   }
