@@ -15,6 +15,5 @@ Future<List<dynamic>> getDataList(
 ) async {
   // Add your function code here!
   print("getDataList");
-  print(FFAppState().menuData);
   return [1, 2, 3, 4];
 }

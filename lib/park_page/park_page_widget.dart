@@ -41,6 +41,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.dataResult = await actions.getDataList(
         null,
+        widget.collectionName!,
       );
       _model.dataList = _model.dataResult!.toList().cast<dynamic>();
       setState(() {});
@@ -204,6 +205,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     _model.nextDataList =
                                         await actions.getDataList(
                                       null,
+                                      widget.collectionName!,
                                     );
                                     _model.dataList = functions
                                         .updateDataList(
