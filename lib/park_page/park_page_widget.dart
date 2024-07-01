@@ -33,7 +33,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.dataResult = await actions.getDataList(
-        null!,
+        null,
       );
       _model.dataList = _model.dataResult!.toList().cast<dynamic>();
       setState(() {});
@@ -195,7 +195,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   onPageChanged: (currentRowIndex) async {
                                     _model.nextDataList =
                                         await actions.getDataList(
-                                      null!,
+                                      null,
                                     );
                                     _model.dataList = functions
                                         .updateDataList(

@@ -11,5 +11,7 @@ import 'package:flutter/material.dart';
 
 Future<List<dynamic>> getDataList(dynamic lastDocment) async {
   // Add your function code here!
-  return [1, 2, 3];
+  print("getDataList");
+  print(FFAppState().menuData);
+  return [1, 2, 3, 4];
 }
