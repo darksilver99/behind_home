@@ -9,7 +9,14 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<TransactionListRecord>> filterDataList(String keyword) async {
+Future<List<TransactionListRecord>> filterDataList(
+  String keyword,
+  List<TransactionListRecord> dataList,
+) async {
   // Add your function code here!
-  return [];
+  dataList.where((doc) {
+    return doc.carRegistration.contains(keyword) ||
+        doc.firstName.contains(keyword);
+  }).toList();
+  return dataList;
 }
