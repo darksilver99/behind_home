@@ -108,3 +108,10 @@ DateTime getDateTimeFormat(
 String imageToString(String image) {
   return image.toString();
 }
+
+String convertPhoneNumber(String phoneNumber) {
+  if (phoneNumber.startsWith('0')) {
+    return '+66' + phoneNumber.substring(1);
+  }
+  return phoneNumber;
+}
