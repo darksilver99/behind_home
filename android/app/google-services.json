@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "58197813367",
-    "project_id": "park-check-1vbeik",
-    "storage_bucket": "park-check-1vbeik.appspot.com"
+    "project_number": "720882714928",
+    "project_id": "smarts-products",
+    "storage_bucket": "smarts-products.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:58197813367:android:4e95d1aa84a31e2e853e72",
+        "mobilesdk_app_id": "1:720882714928:android:2666d64b6b71adfa0060f5",
         "android_client_info": {
           "package_name": "com.silver.behindhome"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB30n7KxePq0FH2Wf4SFiyw-La0mOsssC4"
+          "current_key": "AIzaSyAr170r0ke8jKx8hhbpxoOaQlyDTsEznqc"
         }
       ],
       "services": {
@@ -26,7 +26,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:58197813367:android:2ae6d3f307d4dfc1853e72",
+        "mobilesdk_app_id": "1:720882714928:android:c553ac9e3fd638e00060f5",
         "android_client_info": {
           "package_name": "com.silver.parkcheck"
         }
@@ -34,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB30n7KxePq0FH2Wf4SFiyw-La0mOsssC4"
+          "current_key": "AIzaSyAr170r0ke8jKx8hhbpxoOaQlyDTsEznqc"
         }
       ],
       "services": {
