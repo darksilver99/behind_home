@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/component_view/loading_view/loading_view_widget.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/component_view/no_data_view/no_data_view_widget.dart';
@@ -9,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/park_view/park_detail_view/park_detail_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'park_page_widget.dart' show ParkPageWidget;
@@ -48,6 +50,8 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
           int index, Function(TransactionListRecord) updateFn) =>
       tmpDataList[index] = updateFn(tmpDataList[index]);
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -72,12 +76,15 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
       FlutterFlowDataTableController<TransactionListRecord>();
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
+  // Model for LoadingView component.
+  late LoadingViewModel loadingViewModel;
   // Model for menuView component.
   late MenuViewModel menuViewModel;
 
   @override
   void initState(BuildContext context) {
     menuToggleViewModel = createModel(context, () => MenuToggleViewModel());
+    loadingViewModel = createModel(context, () => LoadingViewModel());
     menuViewModel = createModel(context, () => MenuViewModel());
   }
 
@@ -88,6 +95,7 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
     textController?.dispose();
 
     menuToggleViewModel.dispose();
+    loadingViewModel.dispose();
     menuViewModel.dispose();
   }
 }

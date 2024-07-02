@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/component_view/loading_view/loading_view_widget.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/component_view/no_data_view/no_data_view_widget.dart';
@@ -9,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/park_view/park_detail_view/park_detail_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -142,7 +144,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 0.0),
+                                        32.0, 0.0, 32.0, 8.0),
                                     child: Wrap(
                                       spacing: 8.0,
                                       runSpacing: 8.0,
@@ -328,6 +330,49 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                 BorderRadius.circular(8.0),
                                           ),
                                         ),
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            if (_model.dataList.isNotEmpty) {
+                                              _model.isLoading = true;
+                                              setState(() {});
+                                              await Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 2000));
+                                              await actions.exportExcel(
+                                                _model.dataList.toList(),
+                                              );
+                                              _model.isLoading = false;
+                                              setState(() {});
+                                            }
+                                          },
+                                          text: 'Export Excel',
+                                          options: FFButtonOptions(
+                                            height: 56.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 0.0, 32.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .success,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -349,7 +394,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     focusNode: _model.textFieldFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.textController',
-                                      Duration(milliseconds: 100),
+                                      Duration(milliseconds: 300),
                                       () async {
                                         if (_model.textController.text !=
                                                 null &&
@@ -719,27 +764,67 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.remove_red_eye_sharp,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
+                                  Builder(
+                                    builder: (context) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: ParkDetailViewWidget(
+                                                  transactionDocument:
+                                                      dataListViewItem,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.remove_red_eye_sharp,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          Text(
+                                            'ดูข้อมูล',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  fontSize: 8.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        'ดูข้อมูล',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              fontSize: 8.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -774,6 +859,12 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                 updateCallback: () => setState(() {}),
                 child: MenuToggleViewWidget(),
               ),
+              if (_model.isLoading)
+                wrapWithModel(
+                  model: _model.loadingViewModel,
+                  updateCallback: () => setState(() {}),
+                  child: LoadingViewWidget(),
+                ),
             ],
           ),
         ),
