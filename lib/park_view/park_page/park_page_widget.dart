@@ -336,10 +336,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             if (_model.dataList.isNotEmpty) {
                                               _model.isLoading = true;
                                               setState(() {});
-                                              await Future.delayed(
-                                                  const Duration(
-                                                      milliseconds: 2000));
-                                              await actions.exportExcel(
+                                              await actions
+                                                  .exportTransactionPark(
                                                 _model.dataList.toList(),
                                               );
                                               _model.isLoading = false;
