@@ -237,17 +237,36 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                 );
                                                 return;
                                               }
-                                              await authManager.beginPhoneAuth(
-                                                context: context,
-                                                phoneNumber: phoneNumberVal,
-                                                onCodeSent: (context) async {
-                                                  context.goNamedAuth(
-                                                    'OtpPage',
-                                                    context.mounted,
-                                                    ignoreRedirect: true,
-                                                  );
-                                                },
-                                              );
+                                              try{
+                                                await authManager.beginPhoneAuth(
+                                                  context: context,
+                                                  phoneNumber: phoneNumberVal,
+                                                  onCodeSent: (context) async {
+                                                    context.goNamedAuth(
+                                                      'OtpPage',
+                                                      context.mounted,
+                                                      ignoreRedirect: true,
+                                                    );
+                                                  },
+                                                );
+                                              }catch(e){
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('ขออภัยไม่พบผู้ใช้นี้ในระบบ'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                                          child: Text('ตกลง'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                _model.textController?.text = '';
+                                              }
+
                                             },
                                             text: 'เข้าสู่ระบบ',
                                             options: FFButtonOptions(
