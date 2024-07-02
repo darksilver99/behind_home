@@ -343,34 +343,32 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     focusNode: _model.textFieldFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.textController',
-                                      Duration(milliseconds: 2000),
-                                      () => setState(() {}),
-                                    ),
-                                    onFieldSubmitted: (_) async {
-                                      if (_model.textController.text != null &&
-                                          _model.textController.text != '') {
-                                        _model.dataResult3 =
-                                            await actions.filterDataList(
-                                          _model.textController.text,
-                                        );
-                                        _model.isFullList = false;
-                                        _model.tmpDataList = _model.dataList
-                                            .toList()
-                                            .cast<TransactionListRecord>();
-                                        _model.dataList = _model.dataResult3!
-                                            .toList()
-                                            .cast<TransactionListRecord>();
-                                        setState(() {});
-                                      } else {
-                                        _model.isFullList = true;
-                                        _model.dataList = _model.tmpDataList
-                                            .toList()
-                                            .cast<TransactionListRecord>();
-                                        setState(() {});
-                                      }
+                                      Duration(milliseconds: 100),
+                                      () async {
+                                        if (_model.textController.text !=
+                                                null &&
+                                            _model.textController.text != '') {
+                                          _model.dataResult3 =
+                                              await actions.filterDataList(
+                                            _model.textController.text,
+                                          );
+                                          _model.tmpDataList = _model.dataList
+                                              .toList()
+                                              .cast<TransactionListRecord>();
+                                          _model.dataList = _model.dataResult3!
+                                              .toList()
+                                              .cast<TransactionListRecord>();
+                                          setState(() {});
+                                        } else {
+                                          _model.dataList = _model.tmpDataList
+                                              .toList()
+                                              .cast<TransactionListRecord>();
+                                          setState(() {});
+                                        }
 
-                                      setState(() {});
-                                    },
+                                        setState(() {});
+                                      },
+                                    ),
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -435,6 +433,38 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                           ? InkWell(
                                               onTap: () async {
                                                 _model.textController?.clear();
+                                                if (_model.textController
+                                                            .text !=
+                                                        null &&
+                                                    _model.textController
+                                                            .text !=
+                                                        '') {
+                                                  _model.dataResult3 =
+                                                      await actions
+                                                          .filterDataList(
+                                                    _model.textController.text,
+                                                  );
+                                                  _model.tmpDataList = _model
+                                                      .dataList
+                                                      .toList()
+                                                      .cast<
+                                                          TransactionListRecord>();
+                                                  _model.dataList = _model
+                                                      .dataResult3!
+                                                      .toList()
+                                                      .cast<
+                                                          TransactionListRecord>();
+                                                  setState(() {});
+                                                } else {
+                                                  _model.dataList = _model
+                                                      .tmpDataList
+                                                      .toList()
+                                                      .cast<
+                                                          TransactionListRecord>();
+                                                  setState(() {});
+                                                }
+
+                                                setState(() {});
                                                 setState(() {});
                                               },
                                               child: Icon(
