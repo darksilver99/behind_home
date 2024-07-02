@@ -67,6 +67,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           _model.dataResult!.toList().cast<TransactionListRecord>();
       _model.tmpDataList =
           _model.dataResult!.toList().cast<TransactionListRecord>();
+      _model.isLoading = false;
       setState(() {});
     });
 
