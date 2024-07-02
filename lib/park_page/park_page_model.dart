@@ -37,8 +37,6 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
 
   DateTime? endDate;
 
-  bool isFullList = true;
-
   List<TransactionListRecord> tmpDataList = [];
   void addToTmpDataList(TransactionListRecord item) => tmpDataList.add(item);
   void removeFromTmpDataList(TransactionListRecord item) =>
