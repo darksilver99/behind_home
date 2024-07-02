@@ -63,6 +63,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
       );
       _model.dataList =
           _model.dataResult!.toList().cast<TransactionListRecord>();
+      _model.tmpDataList =
+          _model.dataResult!.toList().cast<TransactionListRecord>();
       setState(() {});
     });
 
@@ -290,6 +292,10 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                 .dataResult2!
                                                 .toList()
                                                 .cast<TransactionListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult2!
+                                                .toList()
+                                                .cast<TransactionListRecord>();
                                             setState(() {});
 
                                             setState(() {});
@@ -353,9 +359,6 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             _model.textController.text,
                                             _model.dataList.toList(),
                                           );
-                                          _model.tmpDataList = _model.dataList
-                                              .toList()
-                                              .cast<TransactionListRecord>();
                                           _model.dataList = _model.dataResult3!
                                               .toList()
                                               .cast<TransactionListRecord>();
@@ -446,11 +449,6 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                     _model.textController.text,
                                                     _model.dataList.toList(),
                                                   );
-                                                  _model.tmpDataList = _model
-                                                      .dataList
-                                                      .toList()
-                                                      .cast<
-                                                          TransactionListRecord>();
                                                   _model.dataList = _model
                                                       .dataResult3!
                                                       .toList()
