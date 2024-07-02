@@ -14,9 +14,9 @@ Future<List<TransactionListRecord>> filterDataList(
   List<TransactionListRecord> dataList,
 ) async {
   // Add your function code here!
-  dataList.where((doc) {
+  List<TransactionListRecord> transactionSearchedList = dataList.where((doc) {
     return doc.carRegistration.contains(keyword) ||
         doc.firstName.contains(keyword);
   }).toList();
-  return dataList;
+  return transactionSearchedList;
 }
