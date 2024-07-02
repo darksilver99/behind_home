@@ -339,6 +339,12 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                               await actions
                                                   .exportTransactionPark(
                                                 _model.dataList.toList(),
+                                                functions.getCurrentMonth(
+                                                    _model.startDate!,
+                                                    FFAppConstants.thaiMonthList
+                                                        .toList()),
+                                                functions.getCurrentYear(
+                                                    _model.startDate!),
                                               );
                                               _model.isLoading = false;
                                               setState(() {});
