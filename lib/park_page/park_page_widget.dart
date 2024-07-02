@@ -351,6 +351,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                           _model.dataResult3 =
                                               await actions.filterDataList(
                                             _model.textController.text,
+                                            _model.dataList.toList(),
                                           );
                                           _model.tmpDataList = _model.dataList
                                               .toList()
@@ -443,6 +444,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                       await actions
                                                           .filterDataList(
                                                     _model.textController.text,
+                                                    _model.dataList.toList(),
                                                   );
                                                   _model.tmpDataList = _model
                                                       .dataList
