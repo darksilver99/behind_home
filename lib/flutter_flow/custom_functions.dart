@@ -104,3 +104,7 @@ DateTime getDateTimeFormat(
   int indexOfMonth = monthList.indexOf(month);
   return DateTime(int.parse(year), indexOfMonth + 1, 1);
 }
+
+String imageToString(String image) {
+  return image.toString();
+}
