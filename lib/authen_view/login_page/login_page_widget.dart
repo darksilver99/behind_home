@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -206,6 +207,21 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                       .validate()) {
                                                 return;
                                               }
+                                              setState(() {
+                                                _model.textController?.text =
+                                                    functions
+                                                        .convertPhoneNumber(
+                                                            _model
+                                                                .textController
+                                                                .text);
+                                                _model.textController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .textController!
+                                                            .text
+                                                            .length);
+                                              });
                                               final phoneNumberVal =
                                                   _model.textController.text;
                                               if (phoneNumberVal == null ||
