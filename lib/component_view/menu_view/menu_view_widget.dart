@@ -60,13 +60,18 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                   child: Container(
                     width: 60.0,
                     height: 60.0,
-                    clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).alternate,
                       shape: BoxShape.circle,
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).accent3,
+                        width: 2.0,
+                      ),
                     ),
-                    child: Image.network(
-                      'https://picsum.photos/seed/280/600',
-                      fit: BoxFit.cover,
+                    child: Icon(
+                      Icons.person_rounded,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 32.0,
                     ),
                   ),
                 ),
