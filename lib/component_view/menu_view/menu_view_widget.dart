@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'menu_view_model.dart';
@@ -68,10 +69,13 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                         width: 2.0,
                       ),
                     ),
-                    child: Icon(
-                      Icons.person_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 32.0,
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: FaIcon(
+                        FontAwesomeIcons.userAlt,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 32.0,
+                      ),
                     ),
                   ),
                 ),
