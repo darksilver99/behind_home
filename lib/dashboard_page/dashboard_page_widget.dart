@@ -116,31 +116,14 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          title: InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () async {
-              context.pushNamed(
-                'ParkPage',
-                queryParameters: {
-                  'menuName': serializeParam(
-                    'ข้อมูลรถเข้า-ออก',
-                    ParamType.String,
-                  ),
-                }.withoutNulls,
-              );
-            },
-            child: Text(
-              'Dashboard',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Urbanist',
-                    color: Colors.white,
-                    fontSize: 22.0,
-                    letterSpacing: 0.0,
-                  ),
-            ),
+          title: Text(
+            'Dashboard',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Urbanist',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                  letterSpacing: 0.0,
+                ),
           ),
           actions: [],
           centerTitle: true,
