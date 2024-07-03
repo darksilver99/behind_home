@@ -126,7 +126,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                 'ParkPage',
                 queryParameters: {
                   'menuName': serializeParam(
-                    'bb',
+                    'ข้อมูลรถเข้า-ออก',
                     ParamType.String,
                   ),
                 }.withoutNulls,
