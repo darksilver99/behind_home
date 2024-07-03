@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +25,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     super.initState();
     _model = createModel(context, () => LoginPageModel());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.emailTextController ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
 
-    authManager.handlePhoneAuthStateChanges(context);
+    _model.passwordTextController ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -114,15 +115,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 16.0),
+                                                    0.0, 16.0, 0.0, 8.0),
                                             child: TextFormField(
-                                              controller: _model.textController,
+                                              controller:
+                                                  _model.emailTextController,
                                               focusNode:
-                                                  _model.textFieldFocusNode,
+                                                  _model.textFieldFocusNode1,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
-                                                labelText: 'เบอร์โทรศัพท์',
+                                                labelText: 'อีเมล',
                                                 labelStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -192,10 +194,114 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                         fontFamily: 'Manrope',
                                                         letterSpacing: 0.0,
                                                       ),
-                                              keyboardType:
-                                                  TextInputType.number,
                                               validator: _model
-                                                  .textControllerValidator
+                                                  .emailTextControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.passwordTextController,
+                                              focusNode:
+                                                  _model.textFieldFocusNode2,
+                                              autofocus: false,
+                                              obscureText:
+                                                  !_model.passwordVisibility,
+                                              decoration: InputDecoration(
+                                                labelText: 'รหัสผ่าน',
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                suffixIcon: InkWell(
+                                                  onTap: () => setState(
+                                                    () => _model
+                                                            .passwordVisibility =
+                                                        !_model
+                                                            .passwordVisibility,
+                                                  ),
+                                                  focusNode: FocusNode(
+                                                      skipTraversal: true),
+                                                  child: Icon(
+                                                    _model.passwordVisibility
+                                                        ? Icons
+                                                            .visibility_outlined
+                                                        : Icons
+                                                            .visibility_off_outlined,
+                                                    size: 22.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              validator: _model
+                                                  .passwordTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -207,47 +313,23 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                       .validate()) {
                                                 return;
                                               }
-                                              setState(() {
-                                                _model.textController?.text =
-                                                    functions
-                                                        .convertPhoneNumber(
-                                                            _model
-                                                                .textController
-                                                                .text);
-                                                _model.textController
-                                                        ?.selection =
-                                                    TextSelection.collapsed(
-                                                        offset: _model
-                                                            .textController!
-                                                            .text
-                                                            .length);
-                                              });
-                                              final phoneNumberVal =
-                                                  _model.textController.text;
-                                              if (phoneNumberVal == null ||
-                                                  phoneNumberVal.isEmpty ||
-                                                  !phoneNumberVal
-                                                      .startsWith('+')) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                        'Phone Number is required and has to start with +.'),
-                                                  ),
-                                                );
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
+
+                                              final user = await authManager
+                                                  .signInWithEmail(
+                                                context,
+                                                _model.emailTextController.text,
+                                                _model.passwordTextController
+                                                    .text,
+                                              );
+                                              if (user == null) {
                                                 return;
                                               }
-                                              await authManager.beginPhoneAuth(
-                                                context: context,
-                                                phoneNumber: phoneNumberVal,
-                                                onCodeSent: (context) async {
-                                                  context.goNamedAuth(
-                                                    'OtpPage',
-                                                    context.mounted,
-                                                    ignoreRedirect: true,
-                                                  );
-                                                },
-                                              );
+
+                                              context.goNamedAuth(
+                                                  'DashboardPage',
+                                                  context.mounted);
                                             },
                                             text: 'เข้าสู่ระบบ',
                                             options: FFButtonOptions(
