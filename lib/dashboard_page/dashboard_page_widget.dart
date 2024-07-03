@@ -223,6 +223,17 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0.0),
+                                                    child: Image.asset(
+                                                      'assets/images/car_12568782.png',
+                                                      width: 64.0,
+                                                      height: 64.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -340,6 +351,17 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0.0),
+                                                    child: Image.asset(
+                                                      'assets/images/car_12568818.png',
+                                                      width: 64.0,
+                                                      height: 64.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -449,6 +471,17 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0.0),
+                                                    child: Image.asset(
+                                                      'assets/images/car_12568782.png',
+                                                      width: 64.0,
+                                                      height: 64.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
