@@ -110,10 +110,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/parkPage',
           requireAuth: true,
           builder: (context, params) => ParkPageWidget(
-            collectionName: params.getParam(
-              'collectionName',
-              ParamType.String,
-            ),
             menuName: params.getParam(
               'menuName',
               ParamType.String,

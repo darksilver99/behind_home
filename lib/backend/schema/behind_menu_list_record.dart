@@ -41,18 +41,12 @@ class BehindMenuListRecord extends FirestoreRecord {
   int get seq => _seq ?? 0;
   bool hasSeq() => _seq != null;
 
-  // "collection_name" field.
-  String? _collectionName;
-  String get collectionName => _collectionName ?? '';
-  bool hasCollectionName() => _collectionName != null;
-
   void _initializeFields() {
     _status = castToType<int>(snapshotData['status']);
     _subject = snapshotData['subject'] as String?;
     _pathName = snapshotData['path_name'] as String?;
     _icon = snapshotData['icon'] as String?;
     _seq = castToType<int>(snapshotData['seq']);
-    _collectionName = snapshotData['collection_name'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -95,7 +89,6 @@ Map<String, dynamic> createBehindMenuListRecordData({
   String? pathName,
   String? icon,
   int? seq,
-  String? collectionName,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -104,7 +97,6 @@ Map<String, dynamic> createBehindMenuListRecordData({
       'path_name': pathName,
       'icon': icon,
       'seq': seq,
-      'collection_name': collectionName,
     }.withoutNulls,
   );
 
@@ -121,13 +113,12 @@ class BehindMenuListRecordDocumentEquality
         e1?.subject == e2?.subject &&
         e1?.pathName == e2?.pathName &&
         e1?.icon == e2?.icon &&
-        e1?.seq == e2?.seq &&
-        e1?.collectionName == e2?.collectionName;
+        e1?.seq == e2?.seq;
   }
 
   @override
-  int hash(BehindMenuListRecord? e) => const ListEquality().hash(
-      [e?.status, e?.subject, e?.pathName, e?.icon, e?.seq, e?.collectionName]);
+  int hash(BehindMenuListRecord? e) => const ListEquality()
+      .hash([e?.status, e?.subject, e?.pathName, e?.icon, e?.seq]);
 
   @override
   bool isValidKey(Object? o) => o is BehindMenuListRecord;

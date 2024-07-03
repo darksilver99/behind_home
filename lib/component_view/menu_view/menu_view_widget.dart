@@ -193,7 +193,6 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                               context,
                               columnBehindMenuListRecord.pathName,
                               columnBehindMenuListRecord.subject,
-                              columnBehindMenuListRecord.collectionName,
                             );
                           },
                           child: Column(
