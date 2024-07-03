@@ -115,3 +115,13 @@ String convertPhoneNumber(String phoneNumber) {
   }
   return phoneNumber;
 }
+
+DateTime getStartDayTime(DateTime date) {
+  DateTime startOfDay = DateTime(date.year, date.month, date.day);
+  return startOfDay;
+}
+
+DateTime getEndDayTime(DateTime date) {
+  DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 0, 0);
+  return endOfDay;
+}
