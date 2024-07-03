@@ -286,13 +286,17 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                       int textCount =
                                                           snapshot.data!;
                                                       return Text(
-                                                        formatNumber(
-                                                          textCount,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .automatic,
+                                                        valueOrDefault<String>(
+                                                          formatNumber(
+                                                            textCount,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .automatic,
+                                                          ),
+                                                          '0',
                                                         ),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
@@ -391,13 +395,17 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                       int textCount =
                                                           snapshot.data!;
                                                       return Text(
-                                                        formatNumber(
-                                                          textCount,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .automatic,
+                                                        valueOrDefault<String>(
+                                                          formatNumber(
+                                                            textCount,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .automatic,
+                                                          ),
+                                                          '0',
                                                         ),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
@@ -488,13 +496,17 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                       int textCount =
                                                           snapshot.data!;
                                                       return Text(
-                                                        formatNumber(
-                                                          textCount,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .automatic,
+                                                        valueOrDefault<String>(
+                                                          formatNumber(
+                                                            textCount,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .automatic,
+                                                          ),
+                                                          '0',
                                                         ),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
