@@ -26,11 +26,9 @@ export 'park_page_model.dart';
 class ParkPageWidget extends StatefulWidget {
   const ParkPageWidget({
     super.key,
-    required this.collectionName,
     required this.menuName,
   });
 
-  final String? collectionName;
   final String? menuName;
 
   @override
@@ -387,174 +385,151 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Flexible(
-                                child: Align(
-                                  alignment: AlignmentDirectional(1.0, 0.0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    child: Container(
-                                      width: 300.0,
-                                      child: TextFormField(
-                                        controller: _model.textController,
-                                        focusNode: _model.textFieldFocusNode,
-                                        onChanged: (_) => EasyDebounce.debounce(
-                                          '_model.textController',
-                                          Duration(milliseconds: 300),
-                                          () async {
-                                            if (_model.textController.text !=
-                                                    null &&
-                                                _model.textController.text !=
-                                                    '') {
-                                              _model.dataResult3 =
-                                                  await actions.filterDataList(
-                                                _model.textController.text,
-                                                _model.tmpDataList.toList(),
-                                              );
-                                              _model.dataList = _model
-                                                  .dataResult3!
-                                                  .toList()
-                                                  .cast<
-                                                      TransactionListRecord>();
-                                              setState(() {});
-                                            } else {
-                                              _model.dataList = _model
-                                                  .tmpDataList
-                                                  .toList()
-                                                  .cast<
-                                                      TransactionListRecord>();
-                                              setState(() {});
-                                            }
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 0.0, 8.0, 0.0),
+                                child: Container(
+                                  width: 300.0,
+                                  child: TextFormField(
+                                    controller: _model.textController,
+                                    focusNode: _model.textFieldFocusNode,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.textController',
+                                      Duration(milliseconds: 300),
+                                      () async {
+                                        if (_model.textController.text !=
+                                                null &&
+                                            _model.textController.text != '') {
+                                          _model.dataResult3 =
+                                              await actions.filterDataList(
+                                            _model.textController.text,
+                                            _model.tmpDataList.toList(),
+                                          );
+                                          _model.dataList = _model.dataResult3!
+                                              .toList()
+                                              .cast<TransactionListRecord>();
+                                          setState(() {});
+                                        } else {
+                                          _model.dataList = _model.tmpDataList
+                                              .toList()
+                                              .cast<TransactionListRecord>();
+                                          setState(() {});
+                                        }
 
-                                            setState(() {});
-                                          },
-                                        ),
-                                        autofocus: false,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText:
-                                              'ระบุคำค้นหา ชื่อ, ทะเบียนรถ',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                          filled: true,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context).info,
-                                          prefixIcon: Icon(
-                                            Icons.search_rounded,
-                                            size: 24.0,
-                                          ),
-                                          suffixIcon: _model.textController!
-                                                  .text.isNotEmpty
-                                              ? InkWell(
-                                                  onTap: () async {
-                                                    _model.textController
-                                                        ?.clear();
-                                                    if (_model.textController
-                                                                .text !=
-                                                            null &&
-                                                        _model.textController
-                                                                .text !=
-                                                            '') {
-                                                      _model.dataResult3 =
-                                                          await actions
-                                                              .filterDataList(
-                                                        _model.textController
-                                                            .text,
-                                                        _model.tmpDataList
-                                                            .toList(),
-                                                      );
-                                                      _model.dataList = _model
-                                                          .dataResult3!
-                                                          .toList()
-                                                          .cast<
-                                                              TransactionListRecord>();
-                                                      setState(() {});
-                                                    } else {
-                                                      _model.dataList = _model
-                                                          .tmpDataList
-                                                          .toList()
-                                                          .cast<
-                                                              TransactionListRecord>();
-                                                      setState(() {});
-                                                    }
-
-                                                    setState(() {});
-                                                    setState(() {});
-                                                  },
-                                                  child: Icon(
-                                                    Icons.clear,
-                                                    size: 24.0,
-                                                  ),
-                                                )
-                                              : null,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        textAlign: TextAlign.start,
-                                        validator: _model
-                                            .textControllerValidator
-                                            .asValidator(context),
-                                      ),
+                                        setState(() {});
+                                      },
                                     ),
+                                    autofocus: false,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'ระบุคำค้นหา ชื่อ, ทะเบียนรถ',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).info,
+                                      prefixIcon: Icon(
+                                        Icons.search_rounded,
+                                        size: 24.0,
+                                      ),
+                                      suffixIcon: _model
+                                              .textController!.text.isNotEmpty
+                                          ? InkWell(
+                                              onTap: () async {
+                                                _model.textController?.clear();
+                                                if (_model.textController
+                                                            .text !=
+                                                        null &&
+                                                    _model.textController
+                                                            .text !=
+                                                        '') {
+                                                  _model.dataResult3 =
+                                                      await actions
+                                                          .filterDataList(
+                                                    _model.textController.text,
+                                                    _model.tmpDataList.toList(),
+                                                  );
+                                                  _model.dataList = _model
+                                                      .dataResult3!
+                                                      .toList()
+                                                      .cast<
+                                                          TransactionListRecord>();
+                                                  setState(() {});
+                                                } else {
+                                                  _model.dataList = _model
+                                                      .tmpDataList
+                                                      .toList()
+                                                      .cast<
+                                                          TransactionListRecord>();
+                                                  setState(() {});
+                                                }
+
+                                                setState(() {});
+                                                setState(() {});
+                                              },
+                                              child: Icon(
+                                                Icons.clear,
+                                                size: 24.0,
+                                              ),
+                                            )
+                                          : null,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    validator: _model.textControllerValidator
+                                        .asValidator(context),
                                   ),
                                 ),
                               ),

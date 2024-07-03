@@ -124,10 +124,6 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
               context.pushNamed(
                 'ParkPage',
                 queryParameters: {
-                  'collectionName': serializeParam(
-                    'aa',
-                    ParamType.String,
-                  ),
                   'menuName': serializeParam(
                     'bb',
                     ParamType.String,
