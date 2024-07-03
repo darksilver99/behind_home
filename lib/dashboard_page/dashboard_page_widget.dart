@@ -346,7 +346,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 16.0),
                                                     child: Text(
-                                                      'รายการรถค้างทั้งหมด',
+                                                      'จำนวนรถค้างทั้งหมด',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
