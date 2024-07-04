@@ -125,3 +125,7 @@ DateTime getEndDayTime(DateTime date) {
   DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 0, 0);
   return endOfDay;
 }
+
+String dateTimeTh(DateTime date) {
+  return DateFormat('d MMMM yyyy HH:mm:ss', "th_TH").format(DateTime);
+}
