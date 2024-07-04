@@ -554,7 +554,23 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                               label: DefaultTextStyle.merge(
                                 softWrap: true,
                                 child: Text(
-                                  'วันเวลาเข้า-ออก',
+                                  'วันเวลาเข้า',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Text(
+                                  'วันเวลาออก',
                                   style: FlutterFlowTheme.of(context)
                                       .labelLarge
                                       .override(
@@ -674,11 +690,21 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       .primaryBackground,
                             ),
                             cells: [
+                              Text(
+                                functions.dateTimeTh(dataListViewItem.dateIn!),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
                               Builder(
                                 builder: (context) {
                                   if (dataListViewItem.dateOut != null) {
                                     return Text(
-                                      '${dateTimeFormat('d/M/y', dataListViewItem.dateIn)} ${dateTimeFormat('Hm', dataListViewItem.dateIn)} - ${dateTimeFormat('d/M/y', dataListViewItem.dateOut)} ${dateTimeFormat('Hm', dataListViewItem.dateOut)}',
+                                      functions.dateTimeTh(
+                                          dataListViewItem.dateOut!),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -688,7 +714,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     );
                                   } else {
                                     return Text(
-                                      '${dateTimeFormat('d/M/y', dataListViewItem.dateIn)} ${dateTimeFormat('Hm', dataListViewItem.dateIn)}',
+                                      '-',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
