@@ -127,5 +127,7 @@ DateTime getEndDayTime(DateTime date) {
 }
 
 String dateTimeTh(DateTime date) {
-  return DateFormat('d MMMM yyyy HH:mm:ss', "th_TH").format(DateTime);
+  final DateFormat formatter = DateFormat('d MMMM yyyy HH:mm:ss', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
