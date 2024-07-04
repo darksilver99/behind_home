@@ -97,14 +97,14 @@ Future exportTransactionPark(
     cell = sheetObject
         .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: i + 2));
     cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(functions.dateTimeTh(dataList[i].dateIn));
+    cell.value = TextCellValue(functions.dateTimeTh(dataList[i].dateIn!));
 
     cell = sheetObject
         .cell(CellIndex.indexByColumnRow(columnIndex: 7, rowIndex: i + 2));
     cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
     cell.value = TextCellValue(dataList[i].dateOut == null
         ? '-'
-        : functions.dateTimeTh(dataList[i].dateOut));
+        : functions.dateTimeTh(dataList[i].dateOut!));
 
     cell = sheetObject
         .cell(CellIndex.indexByColumnRow(columnIndex: 8, rowIndex: i + 2));
