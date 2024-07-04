@@ -71,13 +71,14 @@ String getTimeDuration(
   DateTime dateIn,
   DateTime dateOut,
 ) {
-// Calculate the duration between the two dates
+  // Calculate the duration between the two dates
   Duration duration = dateOut.difference(dateIn);
 
-  // Calculate the days, hours, and minutes
+  // Calculate the days, hours, minutes, and seconds
   int days = duration.inDays;
   int hours = duration.inHours.remainder(24);
   int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
 
   // Construct the formatted string based on the duration
   StringBuffer result = StringBuffer();
@@ -91,7 +92,12 @@ String getTimeDuration(
     result.write('$hours ชม. ');
   }
 
-  result.write('$minutes นาที');
+  if (minutes > 0 || hours > 0 || days > 0) {
+    // Only show minutes if there are any days, hours, or minutes
+    result.write('$minutes นาที ');
+  }
+
+  result.write('$seconds วินาที');
 
   return result.toString().trim(); // Trim any trailing spaces
 }
