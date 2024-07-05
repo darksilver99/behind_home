@@ -324,7 +324,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                               columnIndex];
                                       return Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 0.0, 0.0),
+                                            16.0, 4.0, 0.0, 4.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -340,22 +340,12 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          0.0),
-                                                  child: Image.network(
-                                                    columnSubMenuListRecord
-                                                        .icon,
-                                                    width: 32.0,
-                                                    height: 32.0,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
+                                              Icon(
+                                                Icons.circle_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 12.0,
                                               ),
                                               Expanded(
                                                 child: Text(
@@ -375,7 +365,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                           ),
                                         ),
                                       );
-                                    }).divide(SizedBox(height: 8.0)),
+                                    }).divide(SizedBox(height: 5.0)),
                                   );
                                 },
                               ),

@@ -206,118 +206,123 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             },
                                           ),
                                         ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            final selectedMedia =
-                                                await selectMediaWithSourceBottomSheet(
-                                              context: context,
-                                              maxWidth: 120.00,
-                                              imageQuality: 100,
-                                              allowPhoto: true,
-                                            );
-                                            if (selectedMedia != null &&
-                                                selectedMedia.every((m) =>
-                                                    validateFileFormat(
-                                                        m.storagePath,
-                                                        context))) {
-                                              setState(() => _model
-                                                  .isDataUploading = true);
-                                              var selectedUploadedFiles =
-                                                  <FFUploadedFile>[];
+                                        Flexible(
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              final selectedMedia =
+                                                  await selectMediaWithSourceBottomSheet(
+                                                context: context,
+                                                maxWidth: 120.00,
+                                                imageQuality: 100,
+                                                allowPhoto: true,
+                                              );
+                                              if (selectedMedia != null &&
+                                                  selectedMedia.every((m) =>
+                                                      validateFileFormat(
+                                                          m.storagePath,
+                                                          context))) {
+                                                setState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
 
-                                              var downloadUrls = <String>[];
-                                              try {
-                                                selectedUploadedFiles =
-                                                    selectedMedia
-                                                        .map((m) =>
-                                                            FFUploadedFile(
-                                                              name: m
-                                                                  .storagePath
-                                                                  .split('/')
-                                                                  .last,
-                                                              bytes: m.bytes,
-                                                              height: m
-                                                                  .dimensions
-                                                                  ?.height,
-                                                              width: m
-                                                                  .dimensions
-                                                                  ?.width,
-                                                              blurHash:
-                                                                  m.blurHash,
-                                                            ))
-                                                        .toList();
+                                                var downloadUrls = <String>[];
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedMedia
+                                                          .map((m) =>
+                                                              FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                          .toList();
 
-                                                downloadUrls =
-                                                    (await Future.wait(
-                                                  selectedMedia.map(
-                                                    (m) async =>
-                                                        await uploadData(
-                                                            m.storagePath,
-                                                            m.bytes),
-                                                  ),
-                                                ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
-                                              } finally {
-                                                _model.isDataUploading = false;
-                                              }
-                                              if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
-                                                setState(() {
-                                                  _model.uploadedLocalFile =
-                                                      selectedUploadedFiles
-                                                          .first;
-                                                  _model.uploadedFileUrl =
-                                                      downloadUrls.first;
-                                                });
-                                              } else {
-                                                setState(() {});
-                                                return;
-                                              }
-                                            }
-
-                                            if (_model.uploadedFileUrl !=
-                                                    null &&
-                                                _model.uploadedFileUrl != '') {
-                                              _model.logo =
-                                                  _model.uploadedFileUrl;
-                                              setState(() {});
-                                            }
-                                          },
-                                          text: 'อัพโหลดรูปภาพ',
-                                          icon: Icon(
-                                            Icons.upload_rounded,
-                                            size: 15.0,
-                                          ),
-                                          options: FFButtonOptions(
-                                            height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
+                                                  downloadUrls =
+                                                      (await Future.wait(
+                                                    selectedMedia.map(
+                                                      (m) async =>
+                                                          await uploadData(
+                                                              m.storagePath,
+                                                              m.bytes),
                                                     ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
+                                                  ))
+                                                          .where(
+                                                              (u) => u != null)
+                                                          .map((u) => u!)
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                            .length ==
+                                                        selectedMedia.length &&
+                                                    downloadUrls.length ==
+                                                        selectedMedia.length) {
+                                                  setState(() {
+                                                    _model.uploadedLocalFile =
+                                                        selectedUploadedFiles
+                                                            .first;
+                                                    _model.uploadedFileUrl =
+                                                        downloadUrls.first;
+                                                  });
+                                                } else {
+                                                  setState(() {});
+                                                  return;
+                                                }
+                                              }
+
+                                              if (_model.uploadedFileUrl !=
+                                                      null &&
+                                                  _model.uploadedFileUrl !=
+                                                      '') {
+                                                _model.logo =
+                                                    _model.uploadedFileUrl;
+                                                setState(() {});
+                                              }
+                                            },
+                                            text: 'อัพโหลดรูปภาพ',
+                                            icon: Icon(
+                                              Icons.upload_rounded,
+                                              size: 15.0,
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -1301,120 +1306,126 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        await FFAppState()
-                                            .projectData
-                                            .projectReference!
-                                            .update({
-                                          ...createProjectListRecordData(
-                                            updateDate: getCurrentTimestamp,
-                                            stampField: _model.stampFieldName,
-                                            logo: _model.logo,
-                                            enableContactAddress:
-                                                _model.switchValue,
-                                          ),
-                                          ...mapToFirestore(
-                                            {
-                                              'car_list': _model.carList,
-                                              'objective_list':
-                                                  _model.objectiveList,
-                                              'stamp_list': _model.stampList,
-                                            },
-                                          ),
-                                        });
-                                        _model.projectResult =
-                                            await queryProjectListRecordOnce(
-                                          queryBuilder: (projectListRecord) =>
-                                              projectListRecord.where(
-                                            'create_by',
-                                            isEqualTo: currentUserReference,
-                                          ),
-                                          singleRecord: true,
-                                        ).then((s) => s.firstOrNull);
-                                        FFAppState().updateProjectDataStruct(
-                                          (e) => e
-                                            ..projectStampList = _model
-                                                .projectResult!.stampList
-                                                .toList()
-                                            ..projectObjectiveList = _model
-                                                .projectResult!.objectiveList
-                                                .toList()
-                                            ..projectCarList = _model
-                                                .projectResult!.carList
-                                                .toList()
-                                            ..enableContactAddress = _model
-                                                .projectResult
-                                                ?.enableContactAddress
-                                            ..logo = _model.projectResult?.logo,
-                                        );
-                                        setState(() {});
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                  'บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('ตกลง'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                        _model.carList = FFAppState()
-                                            .projectData
-                                            .projectCarList
-                                            .toList()
-                                            .cast<String>();
-                                        _model.objectiveList = FFAppState()
-                                            .projectData
-                                            .projectObjectiveList
-                                            .toList()
-                                            .cast<String>();
-                                        _model.stampList = FFAppState()
-                                            .projectData
-                                            .projectStampList
-                                            .toList()
-                                            .cast<String>();
-                                        _model.stampFieldName =
-                                            FFAppState().projectData.stampField;
-                                        _model.logo =
-                                            FFAppState().projectData.logo;
-                                        setState(() {});
-
-                                        setState(() {});
-                                      },
-                                      text: 'บันทึกข้อมูล',
-                                      options: FFButtonOptions(
-                                        width: 300.0,
-                                        height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color: Colors.white,
-                                              fontSize: 22.0,
-                                              letterSpacing: 0.0,
+                                    Flexible(
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          await FFAppState()
+                                              .projectData
+                                              .projectReference!
+                                              .update({
+                                            ...createProjectListRecordData(
+                                              updateDate: getCurrentTimestamp,
+                                              stampField: _model.stampFieldName,
+                                              logo: _model.logo,
+                                              enableContactAddress:
+                                                  _model.switchValue,
                                             ),
-                                        elevation: 3.0,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
+                                            ...mapToFirestore(
+                                              {
+                                                'car_list': _model.carList,
+                                                'objective_list':
+                                                    _model.objectiveList,
+                                                'stamp_list': _model.stampList,
+                                              },
+                                            ),
+                                          });
+                                          _model.projectResult =
+                                              await queryProjectListRecordOnce(
+                                            queryBuilder: (projectListRecord) =>
+                                                projectListRecord.where(
+                                              'create_by',
+                                              isEqualTo: currentUserReference,
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          FFAppState().updateProjectDataStruct(
+                                            (e) => e
+                                              ..projectStampList = _model
+                                                  .projectResult!.stampList
+                                                  .toList()
+                                              ..projectObjectiveList = _model
+                                                  .projectResult!.objectiveList
+                                                  .toList()
+                                              ..projectCarList = _model
+                                                  .projectResult!.carList
+                                                  .toList()
+                                              ..enableContactAddress = _model
+                                                  .projectResult
+                                                  ?.enableContactAddress
+                                              ..logo =
+                                                  _model.projectResult?.logo,
+                                          );
+                                          setState(() {});
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('ตกลง'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                          _model.carList = FFAppState()
+                                              .projectData
+                                              .projectCarList
+                                              .toList()
+                                              .cast<String>();
+                                          _model.objectiveList = FFAppState()
+                                              .projectData
+                                              .projectObjectiveList
+                                              .toList()
+                                              .cast<String>();
+                                          _model.stampList = FFAppState()
+                                              .projectData
+                                              .projectStampList
+                                              .toList()
+                                              .cast<String>();
+                                          _model.stampFieldName = FFAppState()
+                                              .projectData
+                                              .stampField;
+                                          _model.logo =
+                                              FFAppState().projectData.logo;
+                                          setState(() {});
+
+                                          setState(() {});
+                                        },
+                                        text: 'บันทึกข้อมูล',
+                                        options: FFButtonOptions(
+                                          width: 300.0,
+                                          height: 50.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    color: Colors.white,
+                                                    fontSize: 22.0,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          elevation: 3.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
                                       ),
                                     ),
                                   ],
