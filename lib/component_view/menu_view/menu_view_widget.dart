@@ -227,24 +227,25 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                           columnBehindMenuListRecordList.length, (columnIndex) {
                         final columnBehindMenuListRecord =
                             columnBehindMenuListRecordList[columnIndex];
-                        return InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await actions.goToPage(
-                              context,
-                              columnBehindMenuListRecord.pathName,
-                              columnBehindMenuListRecord.subject,
-                            );
-                          },
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 16.0, 0.0, 16.0),
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 8.0, 0.0, 8.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await actions.goToPage(
+                                    context,
+                                    columnBehindMenuListRecord.pathName,
+                                    columnBehindMenuListRecord.subject,
+                                  );
+                                },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -278,15 +279,119 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                   ],
                                 ),
                               ),
-                              Container(
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 0.0, 8.0),
+                              child: StreamBuilder<List<SubMenuListRecord>>(
+                                stream: querySubMenuListRecord(
+                                  parent: columnBehindMenuListRecord.reference,
+                                  queryBuilder: (subMenuListRecord) =>
+                                      subMenuListRecord
+                                          .where(
+                                            'status',
+                                            isEqualTo: 1,
+                                          )
+                                          .orderBy('seq'),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<SubMenuListRecord>
+                                      columnSubMenuListRecordList =
+                                      snapshot.data!;
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: List.generate(
+                                        columnSubMenuListRecordList.length,
+                                        (columnIndex) {
+                                      final columnSubMenuListRecord =
+                                          columnSubMenuListRecordList[
+                                              columnIndex];
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 0.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await actions.goToPage(
+                                              context,
+                                              columnSubMenuListRecord.pathName,
+                                              columnSubMenuListRecord.subject,
+                                            );
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                  child: Image.network(
+                                                    columnSubMenuListRecord
+                                                        .icon,
+                                                    width: 32.0,
+                                                    height: 32.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  columnSubMenuListRecord
+                                                      .subject,
+                                                  maxLines: 1,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }).divide(SizedBox(height: 8.0)),
+                                  );
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: Container(
                                 width: double.infinity,
                                 height: 1.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).alternate,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         );
                       }),
                     ),
