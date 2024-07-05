@@ -233,7 +233,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 8.0, 0.0, 8.0),
+                                  8.0, 8.0, 0.0, 8.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -282,7 +282,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 0.0, 8.0),
+                                  32.0, 0.0, 0.0, 8.0),
                               child: StreamBuilder<List<SubMenuListRecord>>(
                                 stream: querySubMenuListRecord(
                                   parent: columnBehindMenuListRecord.reference,
@@ -340,12 +340,17 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Icon(
-                                                Icons.circle_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 12.0,
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: Icon(
+                                                  Icons.circle_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 12.0,
+                                                ),
                                               ),
                                               Expanded(
                                                 child: Text(
