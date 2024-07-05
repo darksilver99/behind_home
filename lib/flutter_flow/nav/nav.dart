@@ -121,6 +121,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/testPage',
           requireAuth: true,
           builder: (context, params) => TestPageWidget(),
+        ),
+        FFRoute(
+          name: 'ParkSettingPage',
+          path: '/parkSettingPage',
+          requireAuth: true,
+          builder: (context, params) => ParkSettingPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
