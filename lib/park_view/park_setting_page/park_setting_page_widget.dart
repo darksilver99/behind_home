@@ -11,6 +11,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'park_setting_page_model.dart';
@@ -37,6 +38,19 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ParkSettingPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.carList =
+          FFAppState().projectData.projectCarList.toList().cast<String>();
+      _model.objectiveList =
+          FFAppState().projectData.projectObjectiveList.toList().cast<String>();
+      _model.stampList =
+          FFAppState().projectData.projectStampList.toList().cast<String>();
+      _model.stampFieldName = FFAppState().projectData.stampField;
+      _model.logo = FFAppState().projectData.logo;
+      setState(() {});
+    });
 
     _model.switchValue = FFAppState().projectData.enableContactAddress;
     _model.carTypeValueTextController ??= TextEditingController();
