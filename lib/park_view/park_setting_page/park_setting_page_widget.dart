@@ -160,6 +160,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                 return Image.network(
                                                   _model.logo!,
                                                   width: 80.0,
+                                                  height: 80.0,
                                                   fit: BoxFit.cover,
                                                 );
                                               } else {
@@ -428,8 +429,6 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
-                                                        labelText:
-                                                            'ระบุประเภทรถ',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -440,6 +439,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
+                                                        hintText:
+                                                            'ระบุประเภทรถ',
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -733,8 +734,6 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
-                                                        labelText:
-                                                            'ระบุวัตถุประสงค์',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -745,6 +744,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
+                                                        hintText:
+                                                            'ระบุวัตถุประสงค์',
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1041,8 +1042,6 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
-                                                        labelText:
-                                                            'ตราประทับ/ลายเซ็นต์',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1053,6 +1052,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
+                                                        hintText:
+                                                            'ตราประทับ/ลายเซ็นต์',
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
