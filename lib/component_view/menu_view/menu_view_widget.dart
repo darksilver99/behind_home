@@ -192,212 +192,256 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
             color: FlutterFlowTheme.of(context).alternate,
           ),
           Expanded(
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
-              child: StreamBuilder<List<BehindMenuListRecord>>(
-                stream: queryBehindMenuListRecord(
-                  queryBuilder: (behindMenuListRecord) => behindMenuListRecord
-                      .where(
-                        'status',
-                        isEqualTo: 1,
-                      )
-                      .orderBy('seq'),
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            FlutterFlowTheme.of(context).primary,
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFFCDCDCD),
+              ),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                child: StreamBuilder<List<BehindMenuListRecord>>(
+                  stream: queryBehindMenuListRecord(
+                    queryBuilder: (behindMenuListRecord) => behindMenuListRecord
+                        .where(
+                          'status',
+                          isEqualTo: 1,
+                        )
+                        .orderBy('seq'),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }
-                  List<BehindMenuListRecord> columnBehindMenuListRecordList =
-                      snapshot.data!;
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: List.generate(
-                          columnBehindMenuListRecordList.length, (columnIndex) {
-                        final columnBehindMenuListRecord =
-                            columnBehindMenuListRecordList[columnIndex];
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 8.0, 0.0, 8.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await actions.goToPage(
-                                    context,
-                                    columnBehindMenuListRecord.pathName,
-                                    columnBehindMenuListRecord.subject,
-                                  );
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 8.0, 0.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: Image.network(
-                                          columnBehindMenuListRecord.icon,
-                                          width: 32.0,
-                                          height: 32.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        columnBehindMenuListRecord.subject,
-                                        maxLines: 2,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              fontSize: 18.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                      );
+                    }
+                    List<BehindMenuListRecord> columnBehindMenuListRecordList =
+                        snapshot.data!;
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                            List.generate(columnBehindMenuListRecordList.length,
+                                (columnIndex) {
+                          final columnBehindMenuListRecord =
+                              columnBehindMenuListRecordList[columnIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 0.0, 0.0, 8.0),
-                              child: StreamBuilder<List<SubMenuListRecord>>(
-                                stream: querySubMenuListRecord(
-                                  parent: columnBehindMenuListRecord.reference,
-                                  queryBuilder: (subMenuListRecord) =>
-                                      subMenuListRecord
-                                          .where(
-                                            'status',
-                                            isEqualTo: 1,
-                                          )
-                                          .orderBy('seq'),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 60.0,
+                                    decoration: BoxDecoration(),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 8.0, 0.0, 8.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await actions.goToPage(
+                                            context,
+                                            columnBehindMenuListRecord.pathName,
+                                            columnBehindMenuListRecord.subject,
+                                          );
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(0.0),
+                                                child: Image.network(
+                                                  columnBehindMenuListRecord
+                                                      .icon,
+                                                  width: 32.0,
+                                                  height: 32.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                columnBehindMenuListRecord
+                                                    .subject,
+                                                maxLines: 2,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    );
-                                  }
-                                  List<SubMenuListRecord>
-                                      columnSubMenuListRecordList =
-                                      snapshot.data!;
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: List.generate(
-                                        columnSubMenuListRecordList.length,
-                                        (columnIndex) {
-                                      final columnSubMenuListRecord =
-                                          columnSubMenuListRecordList[
-                                              columnIndex];
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 0.0, 4.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await actions.goToPage(
-                                              context,
-                                              columnSubMenuListRecord.pathName,
-                                              columnSubMenuListRecord.subject,
-                                            );
-                                          },
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 0.0, 8.0),
+                                    child:
+                                        StreamBuilder<List<SubMenuListRecord>>(
+                                      stream: querySubMenuListRecord(
+                                        parent: columnBehindMenuListRecord
+                                            .reference,
+                                        queryBuilder: (subMenuListRecord) =>
+                                            subMenuListRecord
+                                                .where(
+                                                  'status',
+                                                  isEqualTo: 1,
+                                                )
+                                                .orderBy('seq'),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<SubMenuListRecord>
+                                            columnSubMenuListRecordList =
+                                            snapshot.data!;
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: List.generate(
+                                              columnSubMenuListRecordList
+                                                  .length, (columnIndex) {
+                                            final columnSubMenuListRecord =
+                                                columnSubMenuListRecordList[
+                                                    columnIndex];
+                                            return Container(
+                                              width: double.infinity,
+                                              height: 50.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
+                                              child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: Icon(
-                                                  Icons.circle_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 12.0,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  columnSubMenuListRecord
-                                                      .subject,
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
+                                                        16.0, 4.0, 8.0, 4.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await actions.goToPage(
+                                                      context,
+                                                      columnSubMenuListRecord
+                                                          .pathName,
+                                                      columnSubMenuListRecord
+                                                          .subject,
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: Icon(
+                                                          Icons.circle_rounded,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          size: 12.0,
+                                                        ),
                                                       ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          columnSubMenuListRecord
+                                                              .subject,
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Manrope',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .underline,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    }).divide(SizedBox(height: 5.0)),
-                                  );
-                                },
+                                            );
+                                          }).divide(SizedBox(height: 5.0)),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: 1.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
-                  );
-                },
+                          );
+                        }),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ),
