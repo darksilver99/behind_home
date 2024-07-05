@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -10,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -1320,6 +1322,32 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             },
                                           ),
                                         });
+                                        _model.projectResult =
+                                            await queryProjectListRecordOnce(
+                                          queryBuilder: (projectListRecord) =>
+                                              projectListRecord.where(
+                                            'create_by',
+                                            isEqualTo: currentUserReference,
+                                          ),
+                                          singleRecord: true,
+                                        ).then((s) => s.firstOrNull);
+                                        FFAppState().updateProjectDataStruct(
+                                          (e) => e
+                                            ..projectStampList = _model
+                                                .projectResult!.stampList
+                                                .toList()
+                                            ..projectObjectiveList = _model
+                                                .projectResult!.objectiveList
+                                                .toList()
+                                            ..projectCarList = _model
+                                                .projectResult!.carList
+                                                .toList()
+                                            ..enableContactAddress = _model
+                                                .projectResult
+                                                ?.enableContactAddress
+                                            ..logo = _model.projectResult?.logo,
+                                        );
+                                        setState(() {});
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {
@@ -1337,6 +1365,28 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             );
                                           },
                                         );
+                                        _model.carList = FFAppState()
+                                            .projectData
+                                            .projectCarList
+                                            .toList()
+                                            .cast<String>();
+                                        _model.objectiveList = FFAppState()
+                                            .projectData
+                                            .projectObjectiveList
+                                            .toList()
+                                            .cast<String>();
+                                        _model.stampList = FFAppState()
+                                            .projectData
+                                            .projectStampList
+                                            .toList()
+                                            .cast<String>();
+                                        _model.stampFieldName =
+                                            FFAppState().projectData.stampField;
+                                        _model.logo =
+                                            FFAppState().projectData.logo;
+                                        setState(() {});
+
+                                        setState(() {});
                                       },
                                       text: 'บันทึกข้อมูล',
                                       options: FFButtonOptions(

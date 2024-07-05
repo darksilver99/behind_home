@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'park_setting_page_widget.dart' show ParkSettingPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,6 +92,8 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
   String? get stampListValue => stampListValueController?.value?.firstOrNull;
   set stampListValue(String? val) =>
       stampListValueController?.value = val != null ? [val] : [];
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  ProjectListRecord? projectResult;
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for menuView component.
