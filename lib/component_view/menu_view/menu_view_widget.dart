@@ -57,7 +57,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
           if (FFAppState().projectData.projectName != null &&
               FFAppState().projectData.projectName != '')
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 8.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -185,12 +185,6 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                 ],
               ),
             ),
-          Divider(
-            thickness: 1.0,
-            indent: 16.0,
-            endIndent: 16.0,
-            color: FlutterFlowTheme.of(context).alternate,
-          ),
           Expanded(
             child: Container(
               width: double.infinity,
