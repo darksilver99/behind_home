@@ -771,6 +771,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       functions
                                           .dateTimeTh(dataListViewItem.dateIn!),
                                       textAlign: TextAlign.center,
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
