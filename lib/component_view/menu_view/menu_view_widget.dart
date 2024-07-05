@@ -253,7 +253,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                     decoration: BoxDecoration(),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 0.0, 8.0),
+                                          8.0, 8.0, 8.0, 8.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -298,11 +298,15 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
                                                         ),
                                               ),
+                                            ),
+                                            Icon(
+                                              Icons.navigate_next_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
                                             ),
                                           ],
                                         ),
@@ -422,6 +426,15 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                                         .underline,
                                                               ),
                                                         ),
+                                                      ),
+                                                      Icon(
+                                                        Icons
+                                                            .navigate_next_rounded,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
                                                       ),
                                                     ],
                                                   ),
