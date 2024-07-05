@@ -31,11 +31,6 @@ class SubMenuListRecord extends FirestoreRecord {
   String get subject => _subject ?? '';
   bool hasSubject() => _subject != null;
 
-  // "icon" field.
-  String? _icon;
-  String get icon => _icon ?? '';
-  bool hasIcon() => _icon != null;
-
   // "path_name" field.
   String? _pathName;
   String get pathName => _pathName ?? '';
@@ -47,7 +42,6 @@ class SubMenuListRecord extends FirestoreRecord {
     _status = castToType<int>(snapshotData['status']);
     _seq = castToType<int>(snapshotData['seq']);
     _subject = snapshotData['subject'] as String?;
-    _icon = snapshotData['icon'] as String?;
     _pathName = snapshotData['path_name'] as String?;
   }
 
@@ -94,7 +88,6 @@ Map<String, dynamic> createSubMenuListRecordData({
   int? status,
   int? seq,
   String? subject,
-  String? icon,
   String? pathName,
 }) {
   final firestoreData = mapToFirestore(
@@ -102,7 +95,6 @@ Map<String, dynamic> createSubMenuListRecordData({
       'status': status,
       'seq': seq,
       'subject': subject,
-      'icon': icon,
       'path_name': pathName,
     }.withoutNulls,
   );
@@ -118,13 +110,12 @@ class SubMenuListRecordDocumentEquality implements Equality<SubMenuListRecord> {
     return e1?.status == e2?.status &&
         e1?.seq == e2?.seq &&
         e1?.subject == e2?.subject &&
-        e1?.icon == e2?.icon &&
         e1?.pathName == e2?.pathName;
   }
 
   @override
-  int hash(SubMenuListRecord? e) => const ListEquality()
-      .hash([e?.status, e?.seq, e?.subject, e?.icon, e?.pathName]);
+  int hash(SubMenuListRecord? e) =>
+      const ListEquality().hash([e?.status, e?.seq, e?.subject, e?.pathName]);
 
   @override
   bool isValidKey(Object? o) => o is SubMenuListRecord;
