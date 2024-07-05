@@ -789,6 +789,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       functions.dateTimeTh(
                                           dataListViewItem.dateOut!),
                                       textAlign: TextAlign.center,
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -800,6 +801,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     return Text(
                                       '-',
                                       textAlign: TextAlign.center,
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -822,6 +824,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                 dataListViewItem.dateIn!,
                                                 dataListViewItem.dateOut!),
                                             textAlign: TextAlign.center,
+                                            maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -835,6 +838,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                 dataListViewItem.dateIn!,
                                                 getCurrentTimestamp),
                                             textAlign: TextAlign.center,
+                                            maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -855,6 +859,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     child: Text(
                                       '${dataListViewItem.preName}${dataListViewItem.firstName} ${dataListViewItem.lastName}',
                                       textAlign: TextAlign.center,
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -872,6 +877,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     child: Text(
                                       '${dataListViewItem.carRegistration} ${dataListViewItem.carRegistrationProvince}',
                                       textAlign: TextAlign.center,
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -906,6 +912,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                     child: Text(
                                       dataListViewItem.carType,
                                       textAlign: TextAlign.center,
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
