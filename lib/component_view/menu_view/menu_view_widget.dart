@@ -253,7 +253,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                     decoration: BoxDecoration(),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
+                                          8.0, 8.0, 8.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -360,7 +360,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                     columnIndex];
                                             return Container(
                                               width: double.infinity,
-                                              height: 50.0,
+                                              height: 40.0,
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
@@ -421,9 +421,6 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                                     'Manrope',
                                                                 letterSpacing:
                                                                     0.0,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
                                                               ),
                                                         ),
                                                       ),
