@@ -791,7 +791,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                       TextFormField(
                                         controller: _model.textController1,
                                         focusNode: _model.textFieldFocusNode,
-                                        autofocus: true,
+                                        autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelStyle:
@@ -821,7 +821,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               fontFamily: 'Manrope',
                                               letterSpacing: 0.0,
                                             ),
-                                        maxLines: 5,
+                                        maxLines: 8,
                                         keyboardType: TextInputType.multiline,
                                         validator: _model
                                             .textController1Validator
