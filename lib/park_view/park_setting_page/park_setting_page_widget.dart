@@ -217,7 +217,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                       false;
                                                               if (confirmDialogResponse) {
                                                                 _model.logo =
-                                                                    null;
+                                                                    '';
                                                                 setState(() {});
                                                               }
                                                             },
