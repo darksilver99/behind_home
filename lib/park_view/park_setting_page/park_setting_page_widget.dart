@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'park_setting_page_model.dart';
@@ -157,11 +158,83 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             builder: (context) {
                                               if (_model.logo != null &&
                                                   _model.logo != '') {
-                                                return Image.network(
-                                                  _model.logo!,
+                                                return Container(
                                                   width: 80.0,
                                                   height: 80.0,
-                                                  fit: BoxFit.cover,
+                                                  child: Stack(
+                                                    children: [
+                                                      Image.network(
+                                                        _model.logo!,
+                                                        width: 80.0,
+                                                        height: 80.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                1.0, -1.0),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      2.0,
+                                                                      2.0,
+                                                                      0.0),
+                                                          child: InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              var confirmDialogResponse =
+                                                                  await showDialog<
+                                                                          bool>(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (alertDialogContext) {
+                                                                          return AlertDialog(
+                                                                            title:
+                                                                                Text('ต้องการลบ ?'),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                child: Text('ยกเลิก'),
+                                                                              ),
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                child: Text('ตกลง'),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      ) ??
+                                                                      false;
+                                                              if (confirmDialogResponse) {
+                                                                _model.logo =
+                                                                    null;
+                                                                setState(() {});
+                                                              }
+                                                            },
+                                                            child: FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .solidTimesCircle,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error,
+                                                              size: 24.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 );
                                               } else {
                                                 return Material(
