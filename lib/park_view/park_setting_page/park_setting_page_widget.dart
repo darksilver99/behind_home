@@ -58,9 +58,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
     });
 
     _model.switchValue = FFAppState().projectData.enableContactAddress;
-    _model.moreDetailSwitchValue =
-        FFAppState().projectData.enableContactAddress;
-    _model.moreImageSwitchValue = FFAppState().projectData.enableContactAddress;
+    _model.moreDetailSwitchValue = FFAppState().projectData.enableMoreDetail;
+    _model.moreImageSwitchValue = FFAppState().projectData.enableMoreImage;
     _model.carTypeValueTextController ??= TextEditingController();
     _model.carTypeValueFocusNode ??= FocusNode();
 
