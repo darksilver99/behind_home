@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/component_view/edit_text_view/edit_text_view_widget.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -51,6 +52,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
           FFAppState().projectData.projectStampList.toList().cast<String>();
       _model.stampFieldName = FFAppState().projectData.stampField;
       _model.logo = FFAppState().projectData.logo;
+      _model.moreDetailField = FFAppState().projectData.moreDetailField;
       setState(() {});
     });
 
@@ -470,18 +472,117 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              'แสดงช่องกรอก \"${FFAppState().projectData.moreDetailField}\"',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Text(
+                                                      'แสดงช่องกรอก \"${_model.moreDetailField}\"',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Manrope',
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Builder(
+                                                    builder: (context) =>
+                                                        InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (dialogContext) {
+                                                            return Dialog(
+                                                              elevation: 0,
+                                                              insetPadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              alignment: AlignmentDirectional(
+                                                                      0.0, 0.0)
+                                                                  .resolve(
+                                                                      Directionality.of(
+                                                                          context)),
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child:
+                                                                    EditTextViewWidget(),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(() =>
+                                                                _model.moreDetailFieldResult =
+                                                                    value));
+
+                                                        if (_model.moreDetailFieldResult !=
+                                                                null &&
+                                                            _model.moreDetailFieldResult !=
+                                                                '') {
+                                                          _model.moreDetailField =
+                                                              _model
+                                                                  .moreDetailFieldResult;
+                                                          setState(() {});
+                                                        }
+
+                                                        setState(() {});
+                                                      },
+                                                      child: Text(
+                                                        'แก้ไขคำ',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: Color(
+                                                                      0xFF5767F8),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
                                                       ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Switch.adaptive(
@@ -1501,6 +1602,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                   _model.moreDetailSwitchValue,
                                               enableMoreImage:
                                                   _model.moreImageSwitchValue,
+                                              moreDetailField:
+                                                  _model.moreDetailField,
                                             ),
                                             ...mapToFirestore(
                                               {

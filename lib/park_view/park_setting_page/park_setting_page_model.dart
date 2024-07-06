@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/component_view/edit_text_view/edit_text_view_widget.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -53,6 +54,8 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
 
   String? logo;
 
+  String? moreDetailField;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -63,6 +66,8 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
 
   // State field(s) for Switch widget.
   bool? switchValue;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Text widget.
+  String? moreDetailFieldResult;
   // State field(s) for moreDetailSwitch widget.
   bool? moreDetailSwitchValue;
   // State field(s) for moreImageSwitch widget.
