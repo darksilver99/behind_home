@@ -60,6 +60,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
     _model.switchValue = FFAppState().projectData.enableContactAddress;
     _model.moreDetailSwitchValue = FFAppState().projectData.enableMoreDetail;
     _model.moreImageSwitchValue = FFAppState().projectData.enableMoreImage;
+    _model.textController1 ??=
+        TextEditingController(text: FFAppState().projectData.textInLastSlip);
+    _model.textFieldFocusNode ??= FocusNode();
+
     _model.carTypeValueTextController ??= TextEditingController();
     _model.carTypeValueFocusNode ??= FocusNode();
 
@@ -757,6 +761,71 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                     .secondaryText,
                                           ),
                                         ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: Text(
+                                          'ข้อความท้ายสลิป',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: _model.textController1,
+                                        focusNode: _model.textFieldFocusNode,
+                                        autofocus: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: 'ข้อความท้ายสลิป',
+                                          hintStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          focusedErrorBorder: InputBorder.none,
+                                          filled: true,
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        maxLines: 5,
+                                        keyboardType: TextInputType.multiline,
+                                        validator: _model
+                                            .textController1Validator
+                                            .asValidator(context),
                                       ),
                                     ],
                                   ),
@@ -1705,6 +1774,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                   _model.moreDetailField,
                                               moreImageField:
                                                   _model.moreImageField,
+                                              textInLastSlip:
+                                                  _model.textController1.text,
                                             ),
                                             ...mapToFirestore(
                                               {
