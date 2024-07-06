@@ -56,6 +56,8 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
 
   String? moreDetailField;
 
+  String? moreImageField;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -70,6 +72,8 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
   String? moreDetailFieldResult;
   // State field(s) for moreDetailSwitch widget.
   bool? moreDetailSwitchValue;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Text widget.
+  String? moreImageFieldResult;
   // State field(s) for moreImageSwitch widget.
   bool? moreImageSwitchValue;
   // State field(s) for carTypeValue widget.
