@@ -391,13 +391,14 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                                                   FlutterFlowExpandedImageView(
                                                                 image: Image
                                                                     .network(
-                                                                  'https://picsum.photos/seed/352/600',
+                                                                  moreImageFieldItem,
                                                                   fit: BoxFit
                                                                       .contain,
                                                                 ),
                                                                 allowRotation:
                                                                     false,
-                                                                tag: 'imageTag',
+                                                                tag:
+                                                                    moreImageFieldItem,
                                                                 useHeroAnimation:
                                                                     true,
                                                               ),
@@ -405,7 +406,8 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                                           );
                                                         },
                                                         child: Hero(
-                                                          tag: 'imageTag',
+                                                          tag:
+                                                              moreImageFieldItem,
                                                           transitionOnUserGestures:
                                                               true,
                                                           child: ClipRRect(
@@ -415,7 +417,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                                                         8.0),
                                                             child:
                                                                 Image.network(
-                                                              'https://picsum.photos/seed/352/600',
+                                                              moreImageFieldItem,
                                                               width: 64.0,
                                                               height: 64.0,
                                                               fit: BoxFit.cover,
