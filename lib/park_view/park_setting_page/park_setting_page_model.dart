@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -10,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'park_setting_page_widget.dart' show ParkSettingPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -63,6 +63,10 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
 
   // State field(s) for Switch widget.
   bool? switchValue;
+  // State field(s) for moreDetailSwitch widget.
+  bool? moreDetailSwitchValue;
+  // State field(s) for moreImageSwitch widget.
+  bool? moreImageSwitchValue;
   // State field(s) for carTypeValue widget.
   FocusNode? carTypeValueFocusNode;
   TextEditingController? carTypeValueTextController;

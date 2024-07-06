@@ -81,6 +81,36 @@ class ProjectListRecord extends FirestoreRecord {
   bool get enableContactAddress => _enableContactAddress ?? false;
   bool hasEnableContactAddress() => _enableContactAddress != null;
 
+  // "expire_date" field.
+  DateTime? _expireDate;
+  DateTime? get expireDate => _expireDate;
+  bool hasExpireDate() => _expireDate != null;
+
+  // "text_in_last_slip" field.
+  String? _textInLastSlip;
+  String get textInLastSlip => _textInLastSlip ?? '';
+  bool hasTextInLastSlip() => _textInLastSlip != null;
+
+  // "enable_more_detail" field.
+  bool? _enableMoreDetail;
+  bool get enableMoreDetail => _enableMoreDetail ?? false;
+  bool hasEnableMoreDetail() => _enableMoreDetail != null;
+
+  // "enable_more_image" field.
+  bool? _enableMoreImage;
+  bool get enableMoreImage => _enableMoreImage ?? false;
+  bool hasEnableMoreImage() => _enableMoreImage != null;
+
+  // "more_detail_field" field.
+  String? _moreDetailField;
+  String get moreDetailField => _moreDetailField ?? '';
+  bool hasMoreDetailField() => _moreDetailField != null;
+
+  // "more_image_field" field.
+  String? _moreImageField;
+  String get moreImageField => _moreImageField ?? '';
+  bool hasMoreImageField() => _moreImageField != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -95,6 +125,12 @@ class ProjectListRecord extends FirestoreRecord {
     _logo = snapshotData['logo'] as String?;
     _backgroundImage = castToType<int>(snapshotData['background_image']);
     _enableContactAddress = snapshotData['enable_contact_address'] as bool?;
+    _expireDate = snapshotData['expire_date'] as DateTime?;
+    _textInLastSlip = snapshotData['text_in_last_slip'] as String?;
+    _enableMoreDetail = snapshotData['enable_more_detail'] as bool?;
+    _enableMoreImage = snapshotData['enable_more_image'] as bool?;
+    _moreDetailField = snapshotData['more_detail_field'] as String?;
+    _moreImageField = snapshotData['more_image_field'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -142,6 +178,12 @@ Map<String, dynamic> createProjectListRecordData({
   String? logo,
   int? backgroundImage,
   bool? enableContactAddress,
+  DateTime? expireDate,
+  String? textInLastSlip,
+  bool? enableMoreDetail,
+  bool? enableMoreImage,
+  String? moreDetailField,
+  String? moreImageField,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -155,6 +197,12 @@ Map<String, dynamic> createProjectListRecordData({
       'logo': logo,
       'background_image': backgroundImage,
       'enable_contact_address': enableContactAddress,
+      'expire_date': expireDate,
+      'text_in_last_slip': textInLastSlip,
+      'enable_more_detail': enableMoreDetail,
+      'enable_more_image': enableMoreImage,
+      'more_detail_field': moreDetailField,
+      'more_image_field': moreImageField,
     }.withoutNulls,
   );
 
@@ -179,7 +227,13 @@ class ProjectListRecordDocumentEquality implements Equality<ProjectListRecord> {
         e1?.updateDate == e2?.updateDate &&
         e1?.logo == e2?.logo &&
         e1?.backgroundImage == e2?.backgroundImage &&
-        e1?.enableContactAddress == e2?.enableContactAddress;
+        e1?.enableContactAddress == e2?.enableContactAddress &&
+        e1?.expireDate == e2?.expireDate &&
+        e1?.textInLastSlip == e2?.textInLastSlip &&
+        e1?.enableMoreDetail == e2?.enableMoreDetail &&
+        e1?.enableMoreImage == e2?.enableMoreImage &&
+        e1?.moreDetailField == e2?.moreDetailField &&
+        e1?.moreImageField == e2?.moreImageField;
   }
 
   @override
@@ -196,7 +250,13 @@ class ProjectListRecordDocumentEquality implements Equality<ProjectListRecord> {
         e?.updateDate,
         e?.logo,
         e?.backgroundImage,
-        e?.enableContactAddress
+        e?.enableContactAddress,
+        e?.expireDate,
+        e?.textInLastSlip,
+        e?.enableMoreDetail,
+        e?.enableMoreImage,
+        e?.moreDetailField,
+        e?.moreImageField
       ]);
 
   @override

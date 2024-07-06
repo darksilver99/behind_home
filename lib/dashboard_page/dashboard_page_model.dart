@@ -1,11 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dashboard_page_widget.dart' show DashboardPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -10,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +55,9 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
     });
 
     _model.switchValue = FFAppState().projectData.enableContactAddress;
+    _model.moreDetailSwitchValue =
+        FFAppState().projectData.enableContactAddress;
+    _model.moreImageSwitchValue = FFAppState().projectData.enableContactAddress;
     _model.carTypeValueTextController ??= TextEditingController();
     _model.carTypeValueFocusNode ??= FocusNode();
 
@@ -455,6 +458,109 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                     ],
                                   ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'แสดงช่องกรอก \"${FFAppState().projectData.moreDetailField}\"',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            ),
+                                          ),
+                                          Switch.adaptive(
+                                            value:
+                                                _model.moreDetailSwitchValue!,
+                                            onChanged: (newValue) async {
+                                              setState(() =>
+                                                  _model.moreDetailSwitchValue =
+                                                      newValue!);
+                                            },
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            activeTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            inactiveTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            inactiveThumbColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryText,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'แสดงช่องรูปถ่ายเพิ่มเติม',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            ),
+                                          ),
+                                          Switch.adaptive(
+                                            value: _model.moreImageSwitchValue!,
+                                            onChanged: (newValue) async {
+                                              setState(() =>
+                                                  _model.moreImageSwitchValue =
+                                                      newValue!);
+                                            },
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            activeTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            inactiveTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            inactiveThumbColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryText,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Divider(
                                   thickness: 3.0,
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -645,7 +751,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         ),
                                       ),
                                       Text(
-                                        '(แตะเพื่อลบ)',
+                                        '(เลือกเพื่อลบ)',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -703,7 +809,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
-                                                  .secondary,
+                                                  .alternate,
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
@@ -716,10 +822,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               ),
                                           iconColor:
                                               FlutterFlowTheme.of(context)
-                                                  .primaryText,
+                                                  .secondaryText,
                                           iconSize: 18.0,
                                           labelPadding: EdgeInsets.all(8.0),
-                                          elevation: 4.0,
+                                          elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(24.0),
                                         ),
@@ -952,7 +1058,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         ),
                                       ),
                                       Text(
-                                        '(แตะเพื่อลบ)',
+                                        '(เลือกเพื่อลบ)',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -1011,7 +1117,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
-                                                  .secondary,
+                                                  .alternate,
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
@@ -1024,10 +1130,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               ),
                                           iconColor:
                                               FlutterFlowTheme.of(context)
-                                                  .primaryText,
+                                                  .secondaryText,
                                           iconSize: 18.0,
                                           labelPadding: EdgeInsets.all(8.0),
-                                          elevation: 4.0,
+                                          elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(24.0),
                                         ),
@@ -1259,7 +1365,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         ),
                                       ),
                                       Text(
-                                        '(แตะเพื่อลบ)',
+                                        '(เลือกเพื่อลบ)',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -1317,7 +1423,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
-                                                  .secondary,
+                                                  .alternate,
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
@@ -1330,10 +1436,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               ),
                                           iconColor:
                                               FlutterFlowTheme.of(context)
-                                                  .primaryText,
+                                                  .secondaryText,
                                           iconSize: 18.0,
                                           labelPadding: EdgeInsets.all(8.0),
-                                          elevation: 4.0,
+                                          elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(24.0),
                                         ),
@@ -1391,6 +1497,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               logo: _model.logo,
                                               enableContactAddress:
                                                   _model.switchValue,
+                                              enableMoreDetail:
+                                                  _model.moreDetailSwitchValue,
+                                              enableMoreImage:
+                                                  _model.moreImageSwitchValue,
                                             ),
                                             ...mapToFirestore(
                                               {
@@ -1410,24 +1520,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             ),
                                             singleRecord: true,
                                           ).then((s) => s.firstOrNull);
-                                          FFAppState().updateProjectDataStruct(
-                                            (e) => e
-                                              ..projectStampList = _model
-                                                  .projectResult!.stampList
-                                                  .toList()
-                                              ..projectObjectiveList = _model
-                                                  .projectResult!.objectiveList
-                                                  .toList()
-                                              ..projectCarList = _model
-                                                  .projectResult!.carList
-                                                  .toList()
-                                              ..enableContactAddress = _model
-                                                  .projectResult
-                                                  ?.enableContactAddress
-                                              ..logo =
-                                                  _model.projectResult?.logo,
+                                          await action_blocks.createProjectData(
+                                            context,
+                                            projectResult: _model.projectResult,
                                           );
-                                          setState(() {});
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
