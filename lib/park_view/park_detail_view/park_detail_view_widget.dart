@@ -46,6 +46,8 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Container(
@@ -247,6 +249,59 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                     Expanded(
                                       child: Text(
                                         'จุดประสงค์ : ${widget.transactionDocument?.objective}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              fontSize: 20.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    if (FFAppState()
+                                        .projectData
+                                        .enableContactAddress)
+                                      Expanded(
+                                        child: Text(
+                                          'ที่อยู่ที่มาติดต่อ : ${valueOrDefault<String>(
+                                            widget.transactionDocument
+                                                ?.contactAddress,
+                                            '-',
+                                          )}',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'ที่อยู่ที่มาติดต่อ : ${valueOrDefault<String>(
+                                          widget.transactionDocument
+                                              ?.contactAddress,
+                                          '-',
+                                        )}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
