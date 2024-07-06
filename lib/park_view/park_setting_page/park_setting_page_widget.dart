@@ -53,6 +53,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
       _model.stampFieldName = FFAppState().projectData.stampField;
       _model.logo = FFAppState().projectData.logo;
       _model.moreDetailField = FFAppState().projectData.moreDetailField;
+      _model.moreImageField = FFAppState().projectData.moreImageField;
       setState(() {});
     });
 
@@ -623,18 +624,117 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              'แสดงช่องรูปถ่ายเพิ่มเติม',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Text(
+                                                      'แสดงช่อง \"${_model.moreImageField}\"',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Manrope',
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Builder(
+                                                    builder: (context) =>
+                                                        InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (dialogContext) {
+                                                            return Dialog(
+                                                              elevation: 0,
+                                                              insetPadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              alignment: AlignmentDirectional(
+                                                                      0.0, 0.0)
+                                                                  .resolve(
+                                                                      Directionality.of(
+                                                                          context)),
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child:
+                                                                    EditTextViewWidget(),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(() =>
+                                                                _model.moreImageFieldResult =
+                                                                    value));
+
+                                                        if (_model.moreImageFieldResult !=
+                                                                null &&
+                                                            _model.moreImageFieldResult !=
+                                                                '') {
+                                                          _model.moreImageField =
+                                                              _model
+                                                                  .moreImageFieldResult;
+                                                          setState(() {});
+                                                        }
+
+                                                        setState(() {});
+                                                      },
+                                                      child: Text(
+                                                        'แก้ไขคำ',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: Color(
+                                                                      0xFF5767F8),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
                                                       ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Switch.adaptive(
@@ -1604,6 +1704,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                   _model.moreImageSwitchValue,
                                               moreDetailField:
                                                   _model.moreDetailField,
+                                              moreImageField:
+                                                  _model.moreImageField,
                                             ),
                                             ...mapToFirestore(
                                               {
