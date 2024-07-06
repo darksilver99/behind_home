@@ -76,6 +76,10 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
   String? moreImageFieldResult;
   // State field(s) for moreImageSwitch widget.
   bool? moreImageSwitchValue;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController1;
+  String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for carTypeValue widget.
   FocusNode? carTypeValueFocusNode;
   TextEditingController? carTypeValueTextController;
@@ -121,6 +125,9 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
+    textController1?.dispose();
+
     carTypeValueFocusNode?.dispose();
     carTypeValueTextController?.dispose();
 
