@@ -634,7 +634,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                             .fromSTEB(0.0, 0.0,
                                                                 8.0, 0.0),
                                                     child: Text(
-                                                      'แสดงช่อง \"${_model.moreImageField}\"',
+                                                      'แสดงช่อง(รูปถ่าย) \"${_model.moreImageField}\"',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
