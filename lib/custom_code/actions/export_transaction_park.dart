@@ -21,18 +21,24 @@ Future exportTransactionPark(
 ) async {
   // Add your function code here!
   List<String> headerList = [
+    "เวลาเข้า",
+    "เวลาออก",
+    "เวลารวม",
+    "ตราประทับ",
     "ทะเบียน",
     "จังหวัดทะเบียน",
     "ประเภทรถ",
     "ชื่อ",
     "จุดประสงค์",
-    "ที่อยู่ที่มาติดต่อ",
-    "เวลาเข้า",
-    "เวลาออก",
-    "เวลารวม",
-    "ตราประทับ"
   ];
 
+  if (FFAppState().projectData.enableContactAddress) {
+    headerList.add("ที่อยู่ที่มาติดต่อ");
+  }
+
+  if (FFAppState().projectData.enableMoreDetail) {
+    headerList.add(FFAppState().projectData.moreDetailField);
+  }
   // config
   var excel = Excel.createExcel();
   Sheet sheetObject = excel['Sheet1'];
@@ -66,59 +72,70 @@ Future exportTransactionPark(
     var cell = sheetObject
         .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 2));
     cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(dataList[i].carRegistration);
-
-    cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: i + 2));
-    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(dataList[i].carRegistrationProvince);
-
-    cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: i + 2));
-    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(dataList[i].carType);
-
-    cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: i + 2));
-    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(
-        '${dataList[i].preName}${dataList[i].firstName} ${dataList[i].lastName}');
-
-    cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: i + 2));
-    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(dataList[i].objective);
-
-    cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 5, rowIndex: i + 2));
-    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-    cell.value = TextCellValue(
-        dataList[i].contactAddress.isEmpty ? '-' : dataList[i].contactAddress);
-
-    cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: i + 2));
-    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
     cell.value = TextCellValue(functions.dateTimeTh(dataList[i].dateIn!));
 
     cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 7, rowIndex: i + 2));
+        .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: i + 2));
     cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
     cell.value = TextCellValue(dataList[i].dateOut == null
         ? '-'
         : functions.dateTimeTh(dataList[i].dateOut!));
 
     cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 8, rowIndex: i + 2));
+        .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: i + 2));
     cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
     cell.value = TextCellValue(dataList[i].dateOut == null
         ? '-'
         : functions.getTimeDuration(dataList[i].dateIn!, dataList[i].dateOut!));
 
     cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: i + 2));
+        .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: i + 2));
     cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
     cell.value =
         TextCellValue(dataList[i].stamp.isEmpty ? '-' : dataList[i].stamp);
+
+    cell = sheetObject
+        .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: i + 2));
+    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+    cell.value = TextCellValue(dataList[i].carRegistration);
+
+    cell = sheetObject
+        .cell(CellIndex.indexByColumnRow(columnIndex: 5, rowIndex: i + 2));
+    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+    cell.value = TextCellValue(dataList[i].carRegistrationProvince);
+
+    cell = sheetObject
+        .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: i + 2));
+    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+    cell.value = TextCellValue(dataList[i].carType);
+
+    cell = sheetObject
+        .cell(CellIndex.indexByColumnRow(columnIndex: 7, rowIndex: i + 2));
+    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+    cell.value = TextCellValue(
+        '${dataList[i].preName}${dataList[i].firstName} ${dataList[i].lastName}');
+
+    cell = sheetObject
+        .cell(CellIndex.indexByColumnRow(columnIndex: 8, rowIndex: i + 2));
+    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+    cell.value = TextCellValue(dataList[i].objective);
+
+    if (FFAppState().projectData.enableContactAddress) {
+      cell = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: i + 2));
+      cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+      cell.value = TextCellValue(dataList[i].contactAddress.isEmpty
+          ? '-'
+          : dataList[i].contactAddress);
+    }
+
+    if (FFAppState().projectData.enableMoreDetail) {
+      cell = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 10, rowIndex: i + 2));
+      cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+      cell.value = TextCellValue(
+          dataList[i].moreDetail.isEmpty ? '-' : dataList[i].moreDetail);
+    }
   }
 
   // autoSize Columns
