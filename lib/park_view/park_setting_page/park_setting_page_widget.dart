@@ -414,356 +414,340 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                   thickness: 3.0,
                                   color: FlutterFlowTheme.of(context).alternate,
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'แสดงช่องกรอก \"ที่อยู่ที่มาติดต่อ\"',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'แสดงช่องกรอก \"ที่อยู่ที่มาติดต่อ\"',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  fontSize: 16.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                           ),
-                                          Switch.adaptive(
-                                            value: _model.switchValue!,
-                                            onChanged: (newValue) async {
-                                              setState(() => _model
-                                                  .switchValue = newValue!);
-                                            },
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            activeTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            inactiveTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            inactiveThumbColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                        Switch.adaptive(
+                                          value: _model.switchValue!,
+                                          onChanged: (newValue) async {
+                                            setState(() =>
+                                                _model.switchValue = newValue!);
+                                          },
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          activeTrackColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          inactiveTrackColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          inactiveThumbColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                8.0, 0.0),
+                                Divider(
+                                  thickness: 3.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 8.0, 0.0),
+                                                  child: Text(
+                                                    'แสดงช่องกรอก \"${_model.moreDetailField}\"',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: Builder(
+                                                  builder: (context) => InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  EditTextViewWidget(),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() =>
+                                                              _model.moreDetailFieldResult =
+                                                                  value));
+
+                                                      if (_model.moreDetailFieldResult !=
+                                                              null &&
+                                                          _model.moreDetailFieldResult !=
+                                                              '') {
+                                                        _model.moreDetailField =
+                                                            _model
+                                                                .moreDetailFieldResult;
+                                                        setState(() {});
+                                                      }
+
+                                                      setState(() {});
+                                                    },
                                                     child: Text(
-                                                      'แสดงช่องกรอก \"${_model.moreDetailField}\"',
+                                                      'แก้ไขคำ',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily:
                                                                 'Manrope',
-                                                            fontSize: 16.0,
+                                                            color: Color(
+                                                                0xFF5767F8),
                                                             letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
                                                           ),
                                                     ),
                                                   ),
                                                 ),
-                                                Flexible(
-                                                  child: Builder(
-                                                    builder: (context) =>
-                                                        InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (dialogContext) {
-                                                            return Dialog(
-                                                              elevation: 0,
-                                                              insetPadding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              alignment: AlignmentDirectional(
-                                                                      0.0, 0.0)
-                                                                  .resolve(
-                                                                      Directionality.of(
-                                                                          context)),
-                                                              child:
-                                                                  GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child:
-                                                                    EditTextViewWidget(),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ).then((value) =>
-                                                            safeSetState(() =>
-                                                                _model.moreDetailFieldResult =
-                                                                    value));
-
-                                                        if (_model.moreDetailFieldResult !=
-                                                                null &&
-                                                            _model.moreDetailFieldResult !=
-                                                                '') {
-                                                          _model.moreDetailField =
-                                                              _model
-                                                                  .moreDetailFieldResult;
-                                                          setState(() {});
-                                                        }
-
-                                                        setState(() {});
-                                                      },
-                                                      child: Text(
-                                                        'แก้ไขคำ',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  color: Color(
-                                                                      0xFF5767F8),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .underline,
-                                                                ),
-                                                      ),
-                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Switch.adaptive(
+                                          value: _model.moreDetailSwitchValue!,
+                                          onChanged: (newValue) async {
+                                            setState(() =>
+                                                _model.moreDetailSwitchValue =
+                                                    newValue!);
+                                          },
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          activeTrackColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          inactiveTrackColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          inactiveThumbColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 3.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 8.0, 0.0),
+                                                  child: Text(
+                                                    'แสดงช่อง(รูปถ่าย) \"${_model.moreImageField}\"',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                          Switch.adaptive(
-                                            value:
-                                                _model.moreDetailSwitchValue!,
-                                            onChanged: (newValue) async {
-                                              setState(() =>
-                                                  _model.moreDetailSwitchValue =
-                                                      newValue!);
-                                            },
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            activeTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            inactiveTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            inactiveThumbColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                8.0, 0.0),
+                                              ),
+                                              Flexible(
+                                                child: Builder(
+                                                  builder: (context) => InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  EditTextViewWidget(),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() =>
+                                                              _model.moreImageFieldResult =
+                                                                  value));
+
+                                                      if (_model.moreImageFieldResult !=
+                                                              null &&
+                                                          _model.moreImageFieldResult !=
+                                                              '') {
+                                                        _model.moreImageField =
+                                                            _model
+                                                                .moreImageFieldResult;
+                                                        setState(() {});
+                                                      }
+
+                                                      setState(() {});
+                                                    },
                                                     child: Text(
-                                                      'แสดงช่อง(รูปถ่าย) \"${_model.moreImageField}\"',
+                                                      'แก้ไขคำ',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily:
                                                                 'Manrope',
-                                                            fontSize: 16.0,
+                                                            color: Color(
+                                                                0xFF5767F8),
                                                             letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
                                                           ),
                                                     ),
                                                   ),
                                                 ),
-                                                Flexible(
-                                                  child: Builder(
-                                                    builder: (context) =>
-                                                        InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (dialogContext) {
-                                                            return Dialog(
-                                                              elevation: 0,
-                                                              insetPadding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              alignment: AlignmentDirectional(
-                                                                      0.0, 0.0)
-                                                                  .resolve(
-                                                                      Directionality.of(
-                                                                          context)),
-                                                              child:
-                                                                  GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child:
-                                                                    EditTextViewWidget(),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ).then((value) =>
-                                                            safeSetState(() =>
-                                                                _model.moreImageFieldResult =
-                                                                    value));
-
-                                                        if (_model.moreImageFieldResult !=
-                                                                null &&
-                                                            _model.moreImageFieldResult !=
-                                                                '') {
-                                                          _model.moreImageField =
-                                                              _model
-                                                                  .moreImageFieldResult;
-                                                          setState(() {});
-                                                        }
-
-                                                        setState(() {});
-                                                      },
-                                                      child: Text(
-                                                        'แก้ไขคำ',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  color: Color(
-                                                                      0xFF5767F8),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .underline,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                          Switch.adaptive(
-                                            value: _model.moreImageSwitchValue!,
-                                            onChanged: (newValue) async {
-                                              setState(() =>
-                                                  _model.moreImageSwitchValue =
-                                                      newValue!);
-                                            },
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            activeTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            inactiveTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            inactiveThumbColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                        Switch.adaptive(
+                                          value: _model.moreImageSwitchValue!,
+                                          onChanged: (newValue) async {
+                                            setState(() =>
+                                                _model.moreImageSwitchValue =
+                                                    newValue!);
+                                          },
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          activeTrackColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          inactiveTrackColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          inactiveThumbColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 3.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -863,7 +847,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .alternate,
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -1160,168 +1144,146 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 1.0,
-                                          child: Container(
-                                            height: 60.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: TextFormField(
-                                                      controller: _model
-                                                          .objectiveValueTextController,
-                                                      focusNode: _model
-                                                          .objectiveValueFocusNode,
-                                                      autofocus: false,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        labelStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                        hintText:
-                                                            'ระบุวัตถุประสงค์',
-                                                        hintStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                        enabledBorder:
-                                                            InputBorder.none,
-                                                        focusedBorder:
-                                                            InputBorder.none,
-                                                        errorBorder:
-                                                            InputBorder.none,
-                                                        focusedErrorBorder:
-                                                            InputBorder.none,
-                                                      ),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Manrope',
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                      validator: _model
-                                                          .objectiveValueTextControllerValidator
-                                                          .asValidator(context),
+                                        child: Container(
+                                          height: 60.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 0.0, 0.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: TextFormField(
+                                                    controller: _model
+                                                        .objectiveValueTextController,
+                                                    focusNode: _model
+                                                        .objectiveValueFocusNode,
+                                                    autofocus: false,
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      labelStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Manrope',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      hintText:
+                                                          'ระบุวัตถุประสงค์',
+                                                      hintStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Manrope',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      enabledBorder:
+                                                          InputBorder.none,
+                                                      focusedBorder:
+                                                          InputBorder.none,
+                                                      errorBorder:
+                                                          InputBorder.none,
+                                                      focusedErrorBorder:
+                                                          InputBorder.none,
                                                     ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                    validator: _model
+                                                        .objectiveValueTextControllerValidator
+                                                        .asValidator(context),
                                                   ),
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      if (_model.objectiveValueTextController
-                                                                  .text !=
-                                                              null &&
-                                                          _model.objectiveValueTextController
-                                                                  .text !=
-                                                              '') {
-                                                        if (!_model
-                                                            .objectiveList
-                                                            .contains(_model
-                                                                .objectiveValueTextController
-                                                                .text)) {
-                                                          _model.addToObjectiveList(
-                                                              _model
-                                                                  .objectiveValueTextController
-                                                                  .text);
-                                                        }
-                                                        setState(() {
-                                                          _model
+                                                ),
+                                                FFButtonWidget(
+                                                  onPressed: () async {
+                                                    if (_model.objectiveValueTextController
+                                                                .text !=
+                                                            null &&
+                                                        _model.objectiveValueTextController
+                                                                .text !=
+                                                            '') {
+                                                      if (!_model.objectiveList
+                                                          .contains(_model
                                                               .objectiveValueTextController
-                                                              ?.text = '';
-                                                          _model.objectiveValueTextController
-                                                                  ?.selection =
-                                                              TextSelection.collapsed(
-                                                                  offset: _model
-                                                                      .objectiveValueTextController!
-                                                                      .text
-                                                                      .length);
-                                                        });
+                                                              .text)) {
+                                                        _model.addToObjectiveList(
+                                                            _model
+                                                                .objectiveValueTextController
+                                                                .text);
                                                       }
-                                                    },
-                                                    text: 'เพิ่ม',
-                                                    options: FFButtonOptions(
-                                                      height: 60.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                      setState(() {
+                                                        _model
+                                                            .objectiveValueTextController
+                                                            ?.text = '';
+                                                        _model.objectiveValueTextController
+                                                                ?.selection =
+                                                            TextSelection.collapsed(
+                                                                offset: _model
+                                                                    .objectiveValueTextController!
+                                                                    .text
+                                                                    .length);
+                                                      });
+                                                    }
+                                                  },
+                                                  text: 'เพิ่ม',
+                                                  options: FFButtonOptions(
+                                                    height: 60.0,
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                24.0, 0.0),
+                                                    iconPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderSide: BorderSide(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                color: Colors
-                                                                    .white,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                      elevation: 0.0,
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 0.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                0.0),
-                                                      ),
+                                                      width: 0.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(0.0),
+                                                      bottomRight:
+                                                          Radius.circular(0.0),
+                                                      topLeft:
+                                                          Radius.circular(0.0),
+                                                      topRight:
+                                                          Radius.circular(0.0),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -1476,7 +1438,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .alternate,
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
