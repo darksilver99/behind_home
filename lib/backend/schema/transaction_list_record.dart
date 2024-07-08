@@ -116,6 +116,11 @@ class TransactionListRecord extends FirestoreRecord {
   List<String> get moreImage => _moreImage ?? const [];
   bool hasMoreImage() => _moreImage != null;
 
+  // "transaction_number" field.
+  String? _transactionNumber;
+  String get transactionNumber => _transactionNumber ?? '';
+  bool hasTransactionNumber() => _transactionNumber != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _cardNumber = snapshotData['card_number'] as String?;
@@ -138,6 +143,7 @@ class TransactionListRecord extends FirestoreRecord {
     _registrationImage = snapshotData['registration_image'] as String?;
     _moreDetail = snapshotData['more_detail'] as String?;
     _moreImage = getDataList(snapshotData['more_image']);
+    _transactionNumber = snapshotData['transaction_number'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -194,6 +200,7 @@ Map<String, dynamic> createTransactionListRecordData({
   String? cardImage,
   String? registrationImage,
   String? moreDetail,
+  String? transactionNumber,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -216,6 +223,7 @@ Map<String, dynamic> createTransactionListRecordData({
       'card_image': cardImage,
       'registration_image': registrationImage,
       'more_detail': moreDetail,
+      'transaction_number': transactionNumber,
     }.withoutNulls,
   );
 
@@ -248,7 +256,8 @@ class TransactionListRecordDocumentEquality
         e1?.cardImage == e2?.cardImage &&
         e1?.registrationImage == e2?.registrationImage &&
         e1?.moreDetail == e2?.moreDetail &&
-        listEquality.equals(e1?.moreImage, e2?.moreImage);
+        listEquality.equals(e1?.moreImage, e2?.moreImage) &&
+        e1?.transactionNumber == e2?.transactionNumber;
   }
 
   @override
@@ -272,7 +281,8 @@ class TransactionListRecordDocumentEquality
         e?.cardImage,
         e?.registrationImage,
         e?.moreDetail,
-        e?.moreImage
+        e?.moreImage,
+        e?.transactionNumber
       ]);
 
   @override
