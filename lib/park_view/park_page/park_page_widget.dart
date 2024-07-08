@@ -553,6 +553,22 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                             DataColumn2(
                               label: DefaultTextStyle.merge(
                                 softWrap: true,
+                                child: Text(
+                                  'หมายเลขขาเข้า',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -763,6 +779,15 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       .primaryBackground,
                             ),
                             cells: [
+                              Text(
+                                dataListViewItem.transactionNumber,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
