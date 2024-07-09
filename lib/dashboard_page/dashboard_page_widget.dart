@@ -685,22 +685,12 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 fontSize: 14.0,
                                                               ),
                                                               showLabels: true,
+                                                              labelTextStyle:
+                                                                  TextStyle(
+                                                                fontSize: 12.0,
+                                                              ),
                                                               labelInterval:
                                                                   10.0,
-                                                              labelFormatter:
-                                                                  LabelFormatter(
-                                                                numberFormat:
-                                                                    (val) =>
-                                                                        formatNumber(
-                                                                  val,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .decimal,
-                                                                  decimalType:
-                                                                      DecimalType
-                                                                          .automatic,
-                                                                ),
-                                                              ),
                                                               reservedSize:
                                                                   42.0,
                                                             ),
