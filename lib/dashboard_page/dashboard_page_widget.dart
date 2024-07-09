@@ -611,7 +611,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                       0.0,
                                                                       0.0,
                                                                       0.0,
-                                                                      32.0),
+                                                                      48.0),
                                                           child: Text(
                                                             'จำนวนรถเข้าย้อนหลัง 7 วัน',
                                                             style: FlutterFlowTheme
@@ -630,65 +630,69 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width:
-                                                              double.infinity,
-                                                          height: 200.0,
-                                                          child:
-                                                              FlutterFlowBarChart(
-                                                            barData: [
-                                                              FFBarChartData(
-                                                                yData: _model
-                                                                    .valueList,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              )
-                                                            ],
-                                                            xLabels:
-                                                                _model.dateList,
-                                                            barWidth: 32.0,
-                                                            barBorderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                            groupSpace: 8.0,
-                                                            alignment:
-                                                                BarChartAlignment
-                                                                    .spaceAround,
-                                                            chartStylingInfo:
-                                                                ChartStylingInfo(
-                                                              enableTooltip:
-                                                                  true,
-                                                              tooltipBackgroundColor:
-                                                                  Color(
-                                                                      0x4A000000),
-                                                              backgroundColor:
-                                                                  FlutterFlowTheme.of(
+                                                        Expanded(
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            child:
+                                                                FlutterFlowBarChart(
+                                                              barData: [
+                                                                FFBarChartData(
+                                                                  yData: _model
+                                                                      .valueList,
+                                                                  color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .secondaryBackground,
-                                                              showBorder: false,
-                                                            ),
-                                                            axisBounds:
-                                                                AxisBounds(),
-                                                            xAxisLabelInfo:
-                                                                AxisLabelInfo(
-                                                              showLabels: true,
-                                                              labelInterval:
-                                                                  10.0,
-                                                              reservedSize:
-                                                                  28.0,
-                                                            ),
-                                                            yAxisLabelInfo:
-                                                                AxisLabelInfo(
-                                                              title:
-                                                                  'จำนวนรถเข้า',
-                                                              titleTextStyle:
-                                                                  TextStyle(
-                                                                fontSize: 14.0,
+                                                                      .primary,
+                                                                )
+                                                              ],
+                                                              xLabels: _model
+                                                                  .dateList,
+                                                              barWidth: 32.0,
+                                                              barBorderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              groupSpace: 8.0,
+                                                              alignment:
+                                                                  BarChartAlignment
+                                                                      .spaceAround,
+                                                              chartStylingInfo:
+                                                                  ChartStylingInfo(
+                                                                enableTooltip:
+                                                                    true,
+                                                                tooltipBackgroundColor:
+                                                                    Colors
+                                                                        .black,
+                                                                backgroundColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                showBorder:
+                                                                    false,
                                                               ),
-                                                              reservedSize:
-                                                                  42.0,
+                                                              axisBounds:
+                                                                  AxisBounds(),
+                                                              xAxisLabelInfo:
+                                                                  AxisLabelInfo(
+                                                                showLabels:
+                                                                    true,
+                                                                labelInterval:
+                                                                    10.0,
+                                                                reservedSize:
+                                                                    28.0,
+                                                              ),
+                                                              yAxisLabelInfo:
+                                                                  AxisLabelInfo(
+                                                                title:
+                                                                    'จำนวนรถเข้า',
+                                                                titleTextStyle:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                ),
+                                                                reservedSize:
+                                                                    42.0,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
