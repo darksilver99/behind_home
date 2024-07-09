@@ -647,7 +647,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                             ],
                                                             xLabels:
                                                                 _model.dateList,
-                                                            barWidth: 16.0,
+                                                            barWidth: 32.0,
                                                             barBorderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -658,8 +658,6 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                     .spaceAround,
                                                             chartStylingInfo:
                                                                 ChartStylingInfo(
-                                                              enableTooltip:
-                                                                  true,
                                                               backgroundColor:
                                                                   FlutterFlowTheme.of(
                                                                           context)
@@ -684,6 +682,9 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                   TextStyle(
                                                                 fontSize: 14.0,
                                                               ),
+                                                              showLabels: true,
+                                                              labelInterval:
+                                                                  10.0,
                                                               reservedSize:
                                                                   42.0,
                                                             ),
