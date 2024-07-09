@@ -44,6 +44,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.checkExpireDate(context);
       _model.carList =
           FFAppState().projectData.projectCarList.toList().cast<String>();
       _model.objectiveList =
