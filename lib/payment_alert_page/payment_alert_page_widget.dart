@@ -1,10 +1,16 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'payment_alert_page_model.dart';
@@ -26,6 +32,51 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PaymentAlertPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Function() _navigate = () {};
+      _model.projectResult = await queryProjectListRecordOnce(
+        queryBuilder: (projectListRecord) => projectListRecord.where(
+          'create_by',
+          isEqualTo: currentUserReference,
+        ),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      if (_model.projectResult?.reference != null) {
+        await action_blocks.createProjectData(
+          context,
+          projectResult: _model.projectResult,
+        );
+        await action_blocks.checkExpireDate(context);
+        await action_blocks.getConfigData(context);
+
+        setState(() {});
+      } else {
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              title: Text('ขออภัย ยังไม่มีโครงการ'),
+              content: Text('กรุณาสร้างโครงการผ่านแอปก่อน'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('ตกลง'),
+                ),
+              ],
+            );
+          },
+        );
+        GoRouter.of(context).prepareAuthEvent();
+        await authManager.signOut();
+        GoRouter.of(context).clearRedirectLocation();
+
+        _navigate = () => context.goNamedAuth('LoginPage', context.mounted);
+      }
+
+      _navigate();
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
