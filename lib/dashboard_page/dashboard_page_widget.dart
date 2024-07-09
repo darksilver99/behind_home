@@ -37,7 +37,6 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       Function() _navigate = () {};
-      await action_blocks.checkExpireDate(context);
       _model.projectResult = await queryProjectListRecordOnce(
         queryBuilder: (projectListRecord) => projectListRecord.where(
           'create_by',
@@ -50,6 +49,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
           context,
           projectResult: _model.projectResult,
         );
+        await action_blocks.checkExpireDate(context);
         await action_blocks.getConfigData(context);
         _model.isLoading = false;
         setState(() {});
