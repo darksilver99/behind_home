@@ -10,3 +10,4 @@ export '/detail_with_image_page/detail_with_image_page_widget.dart'
     show DetailWithImagePageWidget;
 export '/payment_alert_page/payment_alert_page_widget.dart'
     show PaymentAlertPageWidget;
+export '/payment_page/payment_page_widget.dart' show PaymentPageWidget;

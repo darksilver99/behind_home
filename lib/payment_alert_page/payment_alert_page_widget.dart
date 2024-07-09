@@ -48,6 +48,36 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            context.goNamed('PaymentPage');
+          },
+          backgroundColor: Color(0xFF3400FF),
+          elevation: 8.0,
+          label: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                child: Icon(
+                  Icons.payments_outlined,
+                  color: FlutterFlowTheme.of(context).info,
+                  size: 32.0,
+                ),
+              ),
+              Text(
+                'ชำระเงิน',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Manrope',
+                      color: FlutterFlowTheme.of(context).info,
+                      fontSize: 24.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+        ),
         drawer: Drawer(
           elevation: 16.0,
           child: wrapWithModel(
