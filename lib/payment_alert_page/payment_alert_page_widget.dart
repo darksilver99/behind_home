@@ -48,7 +48,6 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
           context,
           projectResult: _model.projectResult,
         );
-        await action_blocks.checkExpireDate(context);
         await action_blocks.getConfigData(context);
 
         setState(() {});
