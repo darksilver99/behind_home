@@ -38,7 +38,7 @@ class DashboardPageModel extends FlutterFlowModel<DashboardPageWidget> {
   void updateDateListAtIndex(int index, Function(String) updateFn) =>
       dateList[index] = updateFn(dateList[index]);
 
-  List<int> valueList = [1, 3, 5, 7, 3, 2, 0];
+  List<int> valueList = [120, 150, 200, 250, 100, 80, 90];
   void addToValueList(int item) => valueList.add(item);
   void removeFromValueList(int item) => valueList.remove(item);
   void removeAtIndexFromValueList(int index) => valueList.removeAt(index);
