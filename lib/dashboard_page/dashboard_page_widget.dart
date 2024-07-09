@@ -660,6 +660,9 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 ChartStylingInfo(
                                                               enableTooltip:
                                                                   true,
+                                                              tooltipBackgroundColor:
+                                                                  Colors
+                                                                      .transparent,
                                                               backgroundColor:
                                                                   FlutterFlowTheme.of(
                                                                           context)
