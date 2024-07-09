@@ -584,7 +584,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                           24.0),
                                                 ),
                                                 child: Container(
-                                                  width: 300.0,
+                                                  width: 970.0,
                                                   height: 300.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
@@ -670,11 +670,22 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 AxisBounds(),
                                                             xAxisLabelInfo:
                                                                 AxisLabelInfo(
+                                                              title: 'วัน',
+                                                              titleTextStyle:
+                                                                  TextStyle(
+                                                                fontSize: 14.0,
+                                                              ),
                                                               reservedSize:
                                                                   28.0,
                                                             ),
                                                             yAxisLabelInfo:
                                                                 AxisLabelInfo(
+                                                              title:
+                                                                  'จำนวนรถเข้า',
+                                                              titleTextStyle:
+                                                                  TextStyle(
+                                                                fontSize: 14.0,
+                                                              ),
                                                               reservedSize:
                                                                   42.0,
                                                             ),
