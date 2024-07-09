@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/park_view/park_detail_view/park_detail_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,6 +48,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.checkExpireDate(context);
       _model.startDate = functions.getStartDateOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
       _model.dataResult = await queryTransactionListRecordOnce(
