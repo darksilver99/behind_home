@@ -684,13 +684,6 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                   TextStyle(
                                                                 fontSize: 14.0,
                                                               ),
-                                                              showLabels: true,
-                                                              labelTextStyle:
-                                                                  TextStyle(
-                                                                fontSize: 12.0,
-                                                              ),
-                                                              labelInterval:
-                                                                  10.0,
                                                               reservedSize:
                                                                   42.0,
                                                             ),
