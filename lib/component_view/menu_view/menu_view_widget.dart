@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -354,7 +355,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                     columnIndex];
                                             return Container(
                                               width: double.infinity,
-                                              height: 40.0,
+                                              height: 46.0,
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
@@ -374,13 +375,45 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    await actions.goToPage(
-                                                      context,
-                                                      columnSubMenuListRecord
-                                                          .pathName,
-                                                      columnSubMenuListRecord
-                                                          .subject,
-                                                    );
+                                                    if (columnSubMenuListRecord
+                                                            .type ==
+                                                        'app') {
+                                                      await actions.goToPage(
+                                                        context,
+                                                        columnSubMenuListRecord
+                                                            .pathName,
+                                                        columnSubMenuListRecord
+                                                            .subject,
+                                                      );
+                                                    } else if (columnSubMenuListRecord
+                                                            .type ==
+                                                        'web') {
+                                                    } else if (columnSubMenuListRecord
+                                                            .type ==
+                                                        'app_image') {
+                                                      context.pushNamed(
+                                                        'DetailWithImagePage',
+                                                        queryParameters: {
+                                                          'menuName':
+                                                              serializeParam(
+                                                            columnSubMenuListRecord
+                                                                .subject,
+                                                            ParamType.String,
+                                                          ),
+                                                          'image':
+                                                              serializeParam(
+                                                            functions.strToImage(
+                                                                columnSubMenuListRecord
+                                                                    .pathName),
+                                                            ParamType.String,
+                                                          ),
+                                                        }.withoutNulls,
+                                                      );
+                                                    } else {
+                                                      await launchURL(
+                                                          columnSubMenuListRecord
+                                                              .pathName);
+                                                    }
                                                   },
                                                   child: Row(
                                                     mainAxisSize:
@@ -406,13 +439,14 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                         child: Text(
                                                           columnSubMenuListRecord
                                                               .subject,
-                                                          maxLines: 1,
+                                                          maxLines: 2,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Manrope',
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),

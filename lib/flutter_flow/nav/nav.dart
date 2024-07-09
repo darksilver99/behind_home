@@ -132,6 +132,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'DetailWithImagePage',
+          path: '/detailWithImagePage',
+          requireAuth: true,
+          builder: (context, params) => DetailWithImagePageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+            image: params.getParam(
+              'image',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
