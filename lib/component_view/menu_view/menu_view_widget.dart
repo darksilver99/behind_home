@@ -255,6 +255,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
+                                          Navigator.pop(context);
                                           await actions.goToPage(
                                             context,
                                             columnBehindMenuListRecord.pathName,
