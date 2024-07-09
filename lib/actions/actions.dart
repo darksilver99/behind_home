@@ -64,9 +64,10 @@ Future checkExpireDate(BuildContext context) async {
     FFAppState().isSkipExpireAlert = false;
   }
   if (getCurrentTimestamp > FFAppState().projectData.expireDate!) {
-    Navigator.pop(context);
-
-    context.goNamed('PaymentAlertPage');
+    if (Navigator.of(context).canPop()) {
+      context.pop();
+    }
+    context.pushNamed('PaymentAlertPage');
   } else {
     if (getCurrentTimestamp >
         functions.getBeforeDay(5, FFAppState().projectData.expireDate!)) {
