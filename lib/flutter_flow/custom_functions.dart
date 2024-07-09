@@ -137,3 +137,7 @@ String dateTimeTh(DateTime date) {
   final buddhistYear = date.year + 543;
   return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
+
+String strToImage(String str) {
+  return str;
+}
