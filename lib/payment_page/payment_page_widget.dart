@@ -227,7 +227,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                       _model.uploadedFileUrl !=
                                                           '') {
                                                     _model.slipImage =
-                                                        _model.slipImage;
+                                                        _model.uploadedFileUrl;
                                                     setState(() {});
                                                   }
                                                 },
