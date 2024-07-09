@@ -670,11 +670,9 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 AxisBounds(),
                                                             xAxisLabelInfo:
                                                                 AxisLabelInfo(
-                                                              title: 'วัน',
-                                                              titleTextStyle:
-                                                                  TextStyle(
-                                                                fontSize: 14.0,
-                                                              ),
+                                                              showLabels: true,
+                                                              labelInterval:
+                                                                  10.0,
                                                               reservedSize:
                                                                   28.0,
                                                             ),
