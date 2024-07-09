@@ -662,7 +662,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                     true,
                                                                 tooltipBackgroundColor:
                                                                     Color(
-                                                                        0xDA000000),
+                                                                        0x7F000000),
                                                                 backgroundColor:
                                                                     FlutterFlowTheme.of(
                                                                             context)
