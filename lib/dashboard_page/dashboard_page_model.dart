@@ -22,13 +22,13 @@ class DashboardPageModel extends FlutterFlowModel<DashboardPageWidget> {
   bool isLoading = true;
 
   List<String> dateList = [
-    'วันที่ 1',
-    'วันที่ 2',
-    'วันที่ 3',
-    'วันที่ 4',
-    'วันที่ 5',
-    'วันที่ 6',
-    'วันที่ 7'
+    '1/7 (120)',
+    '2/7 (150)',
+    '3/7 (200)',
+    '4/7 (250)',
+    '5/7 (100)',
+    '6/7 (80)',
+    '7/7 (90)'
   ];
   void addToDateList(String item) => dateList.add(item);
   void removeFromDateList(String item) => dateList.remove(item);
