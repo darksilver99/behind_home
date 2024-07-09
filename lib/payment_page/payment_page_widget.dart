@@ -97,13 +97,19 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.network(
-                                    FFAppState().projectData.paymentDetailImage,
-                                    width: double.infinity,
-                                    height: 500.0,
-                                    fit: BoxFit.contain,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 16.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      FFAppState()
+                                          .projectData
+                                          .paymentDetailImage,
+                                      width: double.infinity,
+                                      height: 500.0,
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
                                 ),
                                 Padding(
