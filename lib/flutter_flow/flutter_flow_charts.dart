@@ -111,7 +111,7 @@ class FlutterFlowBarChart extends StatelessWidget {
                   color: rodSettings.borderColor,
                 ),
               );
-            }).toList());
+            }).toList(),showingTooltipIndicators: [0]);
       }).toList();
 
   List<BarChartGroupData> get stacks => dataMap.entries.map((entry) {
