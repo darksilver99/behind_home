@@ -658,6 +658,8 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                     .spaceAround,
                                                             chartStylingInfo:
                                                                 ChartStylingInfo(
+                                                              enableTooltip:
+                                                                  true,
                                                               backgroundColor:
                                                                   FlutterFlowTheme.of(
                                                                           context)
@@ -685,6 +687,20 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                               showLabels: true,
                                                               labelInterval:
                                                                   10.0,
+                                                              labelFormatter:
+                                                                  LabelFormatter(
+                                                                numberFormat:
+                                                                    (val) =>
+                                                                        formatNumber(
+                                                                  val,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .decimal,
+                                                                  decimalType:
+                                                                      DecimalType
+                                                                          .automatic,
+                                                                ),
+                                                              ),
                                                               reservedSize:
                                                                   42.0,
                                                             ),
