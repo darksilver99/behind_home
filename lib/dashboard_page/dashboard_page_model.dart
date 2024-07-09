@@ -21,15 +21,7 @@ class DashboardPageModel extends FlutterFlowModel<DashboardPageWidget> {
 
   bool isLoading = true;
 
-  List<String> dateList = [
-    '1/7 (120)',
-    '2/7 (150)',
-    '3/7 (200)',
-    '4/7 (250)',
-    '5/7 (100)',
-    '6/7 (80)',
-    '7/7 (90)'
-  ];
+  List<String> dateList = ['1/7', '2/7', '3/7', '4/7', '5/7', '6/7', '7/7'];
   void addToDateList(String item) => dateList.add(item);
   void removeFromDateList(String item) => dateList.remove(item);
   void removeAtIndexFromDateList(int index) => dateList.removeAt(index);
