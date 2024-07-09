@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import '/component_view/expire_alert_view/expire_alert_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -54,4 +55,34 @@ Future getConfigData(BuildContext context) async {
     guideImagePath: configResult?.guideImagePath,
     promotionDefaultImage: configResult?.promotionDefaultImage,
   );
+}
+
+Future checkExpireDate(BuildContext context) async {
+  if (functions.getStartDayTime(getCurrentTimestamp) !=
+      functions.getStartDayTime(FFAppState().currentDate!)) {
+    FFAppState().currentDate = functions.getStartDayTime(getCurrentTimestamp);
+    FFAppState().isSkipExpireAlert = false;
+  }
+  if (getCurrentTimestamp > FFAppState().projectData.expireDate!) {
+    context.goNamed('PaymentAlertPage');
+  } else {
+    if (getCurrentTimestamp >
+        functions.getBeforeDay(5, FFAppState().projectData.expireDate!)) {
+      if (!FFAppState().isSkipExpireAlert) {
+        await showDialog(
+          context: context,
+          builder: (dialogContext) {
+            return Dialog(
+              elevation: 0,
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              alignment: AlignmentDirectional(0.0, 0.0)
+                  .resolve(Directionality.of(context)),
+              child: ExpireAlertViewWidget(),
+            );
+          },
+        );
+      }
+    }
+  }
 }

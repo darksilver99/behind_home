@@ -151,3 +151,11 @@ String dateTh(DateTime date) {
   final buddhistYear = date.year + 543;
   return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
+
+DateTime getBeforeDay(
+  int pastDay,
+  DateTime date,
+) {
+  DateTime pastDate = date.subtract(Duration(days: pastDay));
+  return pastDate;
+}

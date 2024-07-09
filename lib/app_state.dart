@@ -30,6 +30,15 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _currentDate = prefs.containsKey('ff_currentDate')
+          ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_currentDate')!)
+          : _currentDate;
+    });
+    _safeInit(() {
+      _isSkipExpireAlert =
+          prefs.getBool('ff_isSkipExpireAlert') ?? _isSkipExpireAlert;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -59,6 +68,22 @@ class FFAppState extends ChangeNotifier {
 
   void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
     updateFn(_configData);
+  }
+
+  DateTime? _currentDate = DateTime.fromMillisecondsSinceEpoch(1720501200000);
+  DateTime? get currentDate => _currentDate;
+  set currentDate(DateTime? value) {
+    _currentDate = value;
+    value != null
+        ? prefs.setInt('ff_currentDate', value.millisecondsSinceEpoch)
+        : prefs.remove('ff_currentDate');
+  }
+
+  bool _isSkipExpireAlert = false;
+  bool get isSkipExpireAlert => _isSkipExpireAlert;
+  set isSkipExpireAlert(bool value) {
+    _isSkipExpireAlert = value;
+    prefs.setBool('ff_isSkipExpireAlert', value);
   }
 }
 
