@@ -50,7 +50,10 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
-            context.goNamed('PaymentPage');
+            if (Navigator.of(context).canPop()) {
+              context.pop();
+            }
+            context.pushNamed('PaymentPage');
           },
           backgroundColor: Color(0xFF3400FF),
           elevation: 8.0,
