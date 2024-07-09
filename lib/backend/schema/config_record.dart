@@ -66,6 +66,16 @@ class ConfigRecord extends FirestoreRecord {
   int get defaultBackgroundImage => _defaultBackgroundImage ?? 0;
   bool hasDefaultBackgroundImage() => _defaultBackgroundImage != null;
 
+  // "guide_image_path" field.
+  String? _guideImagePath;
+  String get guideImagePath => _guideImagePath ?? '';
+  bool hasGuideImagePath() => _guideImagePath != null;
+
+  // "promotion_default_image" field.
+  String? _promotionDefaultImage;
+  String get promotionDefaultImage => _promotionDefaultImage ?? '';
+  bool hasPromotionDefaultImage() => _promotionDefaultImage != null;
+
   void _initializeFields() {
     _ocrApi = snapshotData['ocr_api'] as String?;
     _defaultStampList = getDataList(snapshotData['default_stamp_list']);
@@ -78,6 +88,8 @@ class ConfigRecord extends FirestoreRecord {
     _provinceList = getDataList(snapshotData['province_list']);
     _defaultBackgroundImage =
         castToType<int>(snapshotData['default_background_image']);
+    _guideImagePath = snapshotData['guide_image_path'] as String?;
+    _promotionDefaultImage = snapshotData['promotion_default_image'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -117,12 +129,16 @@ Map<String, dynamic> createConfigRecordData({
   String? ocrApi,
   String? defaultStampField,
   int? defaultBackgroundImage,
+  String? guideImagePath,
+  String? promotionDefaultImage,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'ocr_api': ocrApi,
       'default_stamp_field': defaultStampField,
       'default_background_image': defaultBackgroundImage,
+      'guide_image_path': guideImagePath,
+      'promotion_default_image': promotionDefaultImage,
     }.withoutNulls,
   );
 
@@ -145,7 +161,9 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         listEquality.equals(e1?.ocrAlertText, e2?.ocrAlertText) &&
         listEquality.equals(e1?.ocrErrorText, e2?.ocrErrorText) &&
         listEquality.equals(e1?.provinceList, e2?.provinceList) &&
-        e1?.defaultBackgroundImage == e2?.defaultBackgroundImage;
+        e1?.defaultBackgroundImage == e2?.defaultBackgroundImage &&
+        e1?.guideImagePath == e2?.guideImagePath &&
+        e1?.promotionDefaultImage == e2?.promotionDefaultImage;
   }
 
   @override
@@ -159,7 +177,9 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.ocrAlertText,
         e?.ocrErrorText,
         e?.provinceList,
-        e?.defaultBackgroundImage
+        e?.defaultBackgroundImage,
+        e?.guideImagePath,
+        e?.promotionDefaultImage
       ]);
 
   @override
