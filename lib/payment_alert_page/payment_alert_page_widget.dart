@@ -49,10 +49,6 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
           projectResult: _model.projectResult,
         );
         await action_blocks.getConfigData(context);
-        if (scaffoldKey.currentState!.isDrawerOpen ||
-            scaffoldKey.currentState!.isEndDrawerOpen) {
-          Navigator.pop(context);
-        }
 
         setState(() {});
       } else {
