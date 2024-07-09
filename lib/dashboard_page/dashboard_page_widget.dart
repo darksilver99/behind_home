@@ -49,6 +49,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
           context,
           projectResult: _model.projectResult,
         );
+        await action_blocks.getConfigData(context);
         _model.isLoading = false;
         setState(() {});
       } else {

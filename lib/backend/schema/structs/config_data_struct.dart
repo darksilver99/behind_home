@@ -20,6 +20,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
     List<String>? ocrErrorText,
     List<String>? provinceList,
     int? defaultBackgroundImage,
+    String? guideImagePath,
+    String? promotionDefaultImage,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _ocrApi = ocrApi,
         _defaultStampField = defaultStampField,
@@ -31,6 +33,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _ocrErrorText = ocrErrorText,
         _provinceList = provinceList,
         _defaultBackgroundImage = defaultBackgroundImage,
+        _guideImagePath = guideImagePath,
+        _promotionDefaultImage = promotionDefaultImage,
         super(firestoreUtilData);
 
   // "ocr_api" field.
@@ -134,6 +138,20 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasDefaultBackgroundImage() => _defaultBackgroundImage != null;
 
+  // "guide_image_path" field.
+  String? _guideImagePath;
+  String get guideImagePath => _guideImagePath ?? '';
+  set guideImagePath(String? val) => _guideImagePath = val;
+
+  bool hasGuideImagePath() => _guideImagePath != null;
+
+  // "promotion_default_image" field.
+  String? _promotionDefaultImage;
+  String get promotionDefaultImage => _promotionDefaultImage ?? '';
+  set promotionDefaultImage(String? val) => _promotionDefaultImage = val;
+
+  bool hasPromotionDefaultImage() => _promotionDefaultImage != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         ocrApi: data['ocr_api'] as String?,
@@ -147,6 +165,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         provinceList: getDataList(data['province_list']),
         defaultBackgroundImage:
             castToType<int>(data['default_background_image']),
+        guideImagePath: data['guide_image_path'] as String?,
+        promotionDefaultImage: data['promotion_default_image'] as String?,
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -164,6 +184,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'ocr_error_text': _ocrErrorText,
         'province_list': _provinceList,
         'default_background_image': _defaultBackgroundImage,
+        'guide_image_path': _guideImagePath,
+        'promotion_default_image': _promotionDefaultImage,
       }.withoutNulls;
 
   @override
@@ -214,6 +236,14 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'default_background_image': serializeParam(
           _defaultBackgroundImage,
           ParamType.int,
+        ),
+        'guide_image_path': serializeParam(
+          _guideImagePath,
+          ParamType.String,
+        ),
+        'promotion_default_image': serializeParam(
+          _promotionDefaultImage,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -269,6 +299,16 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        guideImagePath: deserializeParam(
+          data['guide_image_path'],
+          ParamType.String,
+          false,
+        ),
+        promotionDefaultImage: deserializeParam(
+          data['promotion_default_image'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -287,7 +327,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         listEquality.equals(ocrAlertText, other.ocrAlertText) &&
         listEquality.equals(ocrErrorText, other.ocrErrorText) &&
         listEquality.equals(provinceList, other.provinceList) &&
-        defaultBackgroundImage == other.defaultBackgroundImage;
+        defaultBackgroundImage == other.defaultBackgroundImage &&
+        guideImagePath == other.guideImagePath &&
+        promotionDefaultImage == other.promotionDefaultImage;
   }
 
   @override
@@ -301,7 +343,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         ocrAlertText,
         ocrErrorText,
         provinceList,
-        defaultBackgroundImage
+        defaultBackgroundImage,
+        guideImagePath,
+        promotionDefaultImage
       ]);
 }
 
@@ -309,6 +353,8 @@ ConfigDataStruct createConfigDataStruct({
   String? ocrApi,
   String? defaultStampField,
   int? defaultBackgroundImage,
+  String? guideImagePath,
+  String? promotionDefaultImage,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -318,6 +364,8 @@ ConfigDataStruct createConfigDataStruct({
       ocrApi: ocrApi,
       defaultStampField: defaultStampField,
       defaultBackgroundImage: defaultBackgroundImage,
+      guideImagePath: guideImagePath,
+      promotionDefaultImage: promotionDefaultImage,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

@@ -111,6 +111,21 @@ class ProjectListRecord extends FirestoreRecord {
   String get moreImageField => _moreImageField ?? '';
   bool hasMoreImageField() => _moreImageField != null;
 
+  // "promotion_image" field.
+  String? _promotionImage;
+  String get promotionImage => _promotionImage ?? '';
+  bool hasPromotionImage() => _promotionImage != null;
+
+  // "payment_detail_image" field.
+  String? _paymentDetailImage;
+  String get paymentDetailImage => _paymentDetailImage ?? '';
+  bool hasPaymentDetailImage() => _paymentDetailImage != null;
+
+  // "payment_alert_text" field.
+  List<String>? _paymentAlertText;
+  List<String> get paymentAlertText => _paymentAlertText ?? const [];
+  bool hasPaymentAlertText() => _paymentAlertText != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -131,6 +146,9 @@ class ProjectListRecord extends FirestoreRecord {
     _enableMoreImage = snapshotData['enable_more_image'] as bool?;
     _moreDetailField = snapshotData['more_detail_field'] as String?;
     _moreImageField = snapshotData['more_image_field'] as String?;
+    _promotionImage = snapshotData['promotion_image'] as String?;
+    _paymentDetailImage = snapshotData['payment_detail_image'] as String?;
+    _paymentAlertText = getDataList(snapshotData['payment_alert_text']);
   }
 
   static CollectionReference get collection =>
@@ -184,6 +202,8 @@ Map<String, dynamic> createProjectListRecordData({
   bool? enableMoreImage,
   String? moreDetailField,
   String? moreImageField,
+  String? promotionImage,
+  String? paymentDetailImage,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -203,6 +223,8 @@ Map<String, dynamic> createProjectListRecordData({
       'enable_more_image': enableMoreImage,
       'more_detail_field': moreDetailField,
       'more_image_field': moreImageField,
+      'promotion_image': promotionImage,
+      'payment_detail_image': paymentDetailImage,
     }.withoutNulls,
   );
 
@@ -233,7 +255,10 @@ class ProjectListRecordDocumentEquality implements Equality<ProjectListRecord> {
         e1?.enableMoreDetail == e2?.enableMoreDetail &&
         e1?.enableMoreImage == e2?.enableMoreImage &&
         e1?.moreDetailField == e2?.moreDetailField &&
-        e1?.moreImageField == e2?.moreImageField;
+        e1?.moreImageField == e2?.moreImageField &&
+        e1?.promotionImage == e2?.promotionImage &&
+        e1?.paymentDetailImage == e2?.paymentDetailImage &&
+        listEquality.equals(e1?.paymentAlertText, e2?.paymentAlertText);
   }
 
   @override
@@ -256,7 +281,10 @@ class ProjectListRecordDocumentEquality implements Equality<ProjectListRecord> {
         e?.enableMoreDetail,
         e?.enableMoreImage,
         e?.moreDetailField,
-        e?.moreImageField
+        e?.moreImageField,
+        e?.promotionImage,
+        e?.paymentDetailImage,
+        e?.paymentAlertText
       ]);
 
   @override

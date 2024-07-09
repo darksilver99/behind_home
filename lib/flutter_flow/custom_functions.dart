@@ -141,3 +141,13 @@ String dateTimeTh(DateTime date) {
 String strToImage(String str) {
   return str;
 }
+
+DocumentReference configReference() {
+  return FirebaseFirestore.instance.doc("config/park_car_app");
+}
+
+String dateTh(DateTime date) {
+  final DateFormat formatter = DateFormat('d MMMM yyyy', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
+}

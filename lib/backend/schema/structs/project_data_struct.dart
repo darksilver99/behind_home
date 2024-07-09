@@ -27,6 +27,9 @@ class ProjectDataStruct extends FFFirebaseStruct {
     String? moreDetailField,
     String? moreImageField,
     String? textInLastSlip,
+    String? promotionImage,
+    String? paymentDetailImage,
+    List<String>? paymentAlertText,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _projectDocID = projectDocID,
         _projectName = projectName,
@@ -45,6 +48,9 @@ class ProjectDataStruct extends FFFirebaseStruct {
         _moreDetailField = moreDetailField,
         _moreImageField = moreImageField,
         _textInLastSlip = textInLastSlip,
+        _promotionImage = promotionImage,
+        _paymentDetailImage = paymentDetailImage,
+        _paymentAlertText = paymentAlertText,
         super(firestoreUtilData);
 
   // "projectDocID" field.
@@ -181,6 +187,31 @@ class ProjectDataStruct extends FFFirebaseStruct {
 
   bool hasTextInLastSlip() => _textInLastSlip != null;
 
+  // "promotion_image" field.
+  String? _promotionImage;
+  String get promotionImage => _promotionImage ?? '';
+  set promotionImage(String? val) => _promotionImage = val;
+
+  bool hasPromotionImage() => _promotionImage != null;
+
+  // "payment_detail_image" field.
+  String? _paymentDetailImage;
+  String get paymentDetailImage => _paymentDetailImage ?? '';
+  set paymentDetailImage(String? val) => _paymentDetailImage = val;
+
+  bool hasPaymentDetailImage() => _paymentDetailImage != null;
+
+  // "payment_alert_text" field.
+  List<String>? _paymentAlertText;
+  List<String> get paymentAlertText => _paymentAlertText ?? const [];
+  set paymentAlertText(List<String>? val) => _paymentAlertText = val;
+
+  void updatePaymentAlertText(Function(List<String>) updateFn) {
+    updateFn(_paymentAlertText ??= []);
+  }
+
+  bool hasPaymentAlertText() => _paymentAlertText != null;
+
   static ProjectDataStruct fromMap(Map<String, dynamic> data) =>
       ProjectDataStruct(
         projectDocID: data['projectDocID'] as String?,
@@ -200,6 +231,9 @@ class ProjectDataStruct extends FFFirebaseStruct {
         moreDetailField: data['more_detail_field'] as String?,
         moreImageField: data['more_image_field'] as String?,
         textInLastSlip: data['text_in_last_slip'] as String?,
+        promotionImage: data['promotion_image'] as String?,
+        paymentDetailImage: data['payment_detail_image'] as String?,
+        paymentAlertText: getDataList(data['payment_alert_text']),
       );
 
   static ProjectDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -224,6 +258,9 @@ class ProjectDataStruct extends FFFirebaseStruct {
         'more_detail_field': _moreDetailField,
         'more_image_field': _moreImageField,
         'text_in_last_slip': _textInLastSlip,
+        'promotion_image': _promotionImage,
+        'payment_detail_image': _paymentDetailImage,
+        'payment_alert_text': _paymentAlertText,
       }.withoutNulls;
 
   @override
@@ -298,6 +335,19 @@ class ProjectDataStruct extends FFFirebaseStruct {
         'text_in_last_slip': serializeParam(
           _textInLastSlip,
           ParamType.String,
+        ),
+        'promotion_image': serializeParam(
+          _promotionImage,
+          ParamType.String,
+        ),
+        'payment_detail_image': serializeParam(
+          _paymentDetailImage,
+          ParamType.String,
+        ),
+        'payment_alert_text': serializeParam(
+          _paymentAlertText,
+          ParamType.String,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -389,6 +439,21 @@ class ProjectDataStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        promotionImage: deserializeParam(
+          data['promotion_image'],
+          ParamType.String,
+          false,
+        ),
+        paymentDetailImage: deserializeParam(
+          data['payment_detail_image'],
+          ParamType.String,
+          false,
+        ),
+        paymentAlertText: deserializeParam<String>(
+          data['payment_alert_text'],
+          ParamType.String,
+          true,
+        ),
       );
 
   @override
@@ -414,7 +479,10 @@ class ProjectDataStruct extends FFFirebaseStruct {
         enableMoreDetail == other.enableMoreDetail &&
         moreDetailField == other.moreDetailField &&
         moreImageField == other.moreImageField &&
-        textInLastSlip == other.textInLastSlip;
+        textInLastSlip == other.textInLastSlip &&
+        promotionImage == other.promotionImage &&
+        paymentDetailImage == other.paymentDetailImage &&
+        listEquality.equals(paymentAlertText, other.paymentAlertText);
   }
 
   @override
@@ -435,7 +503,10 @@ class ProjectDataStruct extends FFFirebaseStruct {
         enableMoreDetail,
         moreDetailField,
         moreImageField,
-        textInLastSlip
+        textInLastSlip,
+        promotionImage,
+        paymentDetailImage,
+        paymentAlertText
       ]);
 }
 
@@ -454,6 +525,8 @@ ProjectDataStruct createProjectDataStruct({
   String? moreDetailField,
   String? moreImageField,
   String? textInLastSlip,
+  String? promotionImage,
+  String? paymentDetailImage,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -474,6 +547,8 @@ ProjectDataStruct createProjectDataStruct({
       moreDetailField: moreDetailField,
       moreImageField: moreImageField,
       textInLastSlip: textInLastSlip,
+      promotionImage: promotionImage,
+      paymentDetailImage: paymentDetailImage,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
