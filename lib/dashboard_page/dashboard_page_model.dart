@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dashboard_page_widget.dart' show DashboardPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,6 +45,10 @@ class DashboardPageModel extends FlutterFlowModel<DashboardPageWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in DashboardPage widget.
   ProjectListRecord? projectResult;
+  // Stores action output result for [Custom Action - getParkChartDataList] action in DashboardPage widget.
+  List<String>? parkChartDataList;
+  // Stores action output result for [Custom Action - getParkChartValueList] action in DashboardPage widget.
+  List<int>? parkChartValueList;
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for menuView component.

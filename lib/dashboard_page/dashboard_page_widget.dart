@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -51,7 +52,11 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
         );
         await action_blocks.checkExpireDate(context);
         await action_blocks.getConfigData(context);
+        _model.parkChartDataList = await actions.getParkChartDataList();
+        _model.parkChartValueList = await actions.getParkChartValueList();
         _model.isLoading = false;
+        _model.dateList = _model.parkChartDataList!.toList().cast<String>();
+        _model.valueList = _model.parkChartValueList!.toList().cast<int>();
         setState(() {});
       } else {
         await showDialog(
@@ -632,72 +637,73 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 ),
                                                           ),
                                                         ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            child:
-                                                                FlutterFlowBarChart(
-                                                              barData: [
-                                                                FFBarChartData(
-                                                                  yData: _model
-                                                                      .valueList,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                )
-                                                              ],
-                                                              xLabels: _model
-                                                                  .dateList,
-                                                              barWidth: 32.0,
-                                                              barBorderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                              groupSpace: 8.0,
-                                                              alignment:
-                                                                  BarChartAlignment
-                                                                      .spaceAround,
-                                                              chartStylingInfo:
-                                                                  ChartStylingInfo(
-                                                                enableTooltip:
-                                                                    true,
-                                                                tooltipBackgroundColor:
-                                                                    Color(
-                                                                        0x7F000000),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
+                                                        if (!_model.isLoading)
+                                                          Expanded(
+                                                            child: Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              child:
+                                                                  FlutterFlowBarChart(
+                                                                barData: [
+                                                                  FFBarChartData(
+                                                                    yData: _model
+                                                                        .valueList,
+                                                                    color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondaryBackground,
-                                                                showBorder:
-                                                                    false,
-                                                              ),
-                                                              axisBounds:
-                                                                  AxisBounds(),
-                                                              xAxisLabelInfo:
-                                                                  AxisLabelInfo(
-                                                                showLabels:
-                                                                    true,
-                                                                labelInterval:
-                                                                    10.0,
-                                                                reservedSize:
-                                                                    28.0,
-                                                              ),
-                                                              yAxisLabelInfo:
-                                                                  AxisLabelInfo(
-                                                                title:
-                                                                    'จำนวนรถเข้า',
-                                                                titleTextStyle:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      14.0,
+                                                                        .primary,
+                                                                  )
+                                                                ],
+                                                                xLabels: _model
+                                                                    .dateList,
+                                                                barWidth: 32.0,
+                                                                barBorderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8.0),
+                                                                groupSpace: 8.0,
+                                                                alignment:
+                                                                    BarChartAlignment
+                                                                        .spaceAround,
+                                                                chartStylingInfo:
+                                                                    ChartStylingInfo(
+                                                                  enableTooltip:
+                                                                      true,
+                                                                  tooltipBackgroundColor:
+                                                                      Color(
+                                                                          0x7F000000),
+                                                                  backgroundColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                  showBorder:
+                                                                      false,
                                                                 ),
-                                                                reservedSize:
-                                                                    42.0,
+                                                                axisBounds:
+                                                                    AxisBounds(),
+                                                                xAxisLabelInfo:
+                                                                    AxisLabelInfo(
+                                                                  showLabels:
+                                                                      true,
+                                                                  labelInterval:
+                                                                      10.0,
+                                                                  reservedSize:
+                                                                      28.0,
+                                                                ),
+                                                                yAxisLabelInfo:
+                                                                    AxisLabelInfo(
+                                                                  title:
+                                                                      'จำนวนรถเข้า',
+                                                                  titleTextStyle:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        14.0,
+                                                                  ),
+                                                                  reservedSize:
+                                                                      42.0,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
                                                       ],
                                                     ),
                                                   ),
