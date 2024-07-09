@@ -153,6 +153,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/paymentAlertPage',
           requireAuth: true,
           builder: (context, params) => PaymentAlertPageWidget(),
+        ),
+        FFRoute(
+          name: 'PaymentPage',
+          path: '/paymentPage',
+          requireAuth: true,
+          builder: (context, params) => PaymentPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
