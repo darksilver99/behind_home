@@ -611,7 +611,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                       0.0,
                                                                       0.0,
                                                                       0.0,
-                                                                      16.0),
+                                                                      32.0),
                                                           child: Text(
                                                             'จำนวนรถเข้าย้อนหลัง 7 วัน',
                                                             style: FlutterFlowTheme
@@ -661,8 +661,8 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                               enableTooltip:
                                                                   true,
                                                               tooltipBackgroundColor:
-                                                                  Colors
-                                                                      .transparent,
+                                                                  Color(
+                                                                      0x4A000000),
                                                               backgroundColor:
                                                                   FlutterFlowTheme.of(
                                                                           context)
