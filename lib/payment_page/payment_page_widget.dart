@@ -466,8 +466,11 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                 );
                                               },
                                             );
-
-                                            context.goNamed('DashboardPage');
+                                            if (Navigator.of(context)
+                                                .canPop()) {
+                                              context.pop();
+                                            }
+                                            context.pushNamed('DashboardPage');
                                           } else {
                                             await showDialog(
                                               context: context,
