@@ -132,7 +132,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'หมายเลขขาเข้า : ${widget.transactionDocument?.transactionNumber}',
+                                        'หมายเลขขาเข้า : ${widget!.transactionDocument?.transactionNumber}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -156,7 +156,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Text(
-                                          'ทะเบียน : ${widget.transactionDocument?.carRegistration}',
+                                          'ทะเบียน : ${widget!.transactionDocument?.carRegistration}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -167,10 +167,10 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                         ),
                                       ),
                                     ),
-                                    if (widget.transactionDocument
+                                    if (widget!.transactionDocument
                                                 ?.registrationImage !=
                                             null &&
-                                        widget.transactionDocument
+                                        widget!.transactionDocument
                                                 ?.registrationImage !=
                                             '')
                                       InkWell(
@@ -180,7 +180,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           await launchURL(
-                                              functions.imageToString(widget
+                                              functions.imageToString(widget!
                                                   .transactionDocument!
                                                   .registrationImage));
                                         },
@@ -208,7 +208,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'จังหวัดทะเบียน : ${widget.transactionDocument?.carRegistrationProvince}',
+                                        'จังหวัดทะเบียน : ${widget!.transactionDocument?.carRegistrationProvince}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -229,7 +229,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'ประเภทรถ : ${widget.transactionDocument?.carType}',
+                                        'ประเภทรถ : ${widget!.transactionDocument?.carType}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -250,7 +250,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'ชื่อ : ${widget.transactionDocument?.preName}${widget.transactionDocument?.firstName} ${widget.transactionDocument?.lastName}',
+                                        'ชื่อ : ${widget!.transactionDocument?.preName}${widget!.transactionDocument?.firstName} ${widget!.transactionDocument?.lastName}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -271,7 +271,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'จุดประสงค์ : ${widget.transactionDocument?.objective}',
+                                        'จุดประสงค์ : ${widget!.transactionDocument?.objective}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -297,7 +297,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                         Expanded(
                                           child: Text(
                                             'ที่อยู่ที่มาติดต่อ : ${valueOrDefault<String>(
-                                              widget.transactionDocument
+                                              widget!.transactionDocument
                                                   ?.contactAddress,
                                               '-',
                                             )}',
@@ -323,7 +323,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                       Expanded(
                                         child: Text(
                                           '${FFAppState().projectData.moreDetailField} : ${valueOrDefault<String>(
-                                            widget.transactionDocument
+                                            widget!.transactionDocument
                                                 ?.moreDetail,
                                             '-',
                                           )}',
@@ -367,11 +367,12 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                             Expanded(
                                               child: Builder(
                                                 builder: (context) {
-                                                  final moreImageField = widget
+                                                  final moreImageField = widget!
                                                           .transactionDocument
                                                           ?.moreImage
                                                           ?.toList() ??
                                                       [];
+
                                                   return Wrap(
                                                     spacing: 8.0,
                                                     runSpacing: 8.0,
@@ -465,7 +466,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'เวลาเข้า : ${functions.dateTimeTh(widget.transactionDocument!.dateIn!)}',
+                                        'เวลาเข้า : ${functions.dateTimeTh(widget!.transactionDocument!.dateIn!)}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -486,7 +487,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'เวลาออก : ${widget.transactionDocument?.dateOut != null ? functions.dateTimeTh(widget.transactionDocument!.dateOut!) : 'ยังไม่ออก'}',
+                                        'เวลาออก : ${widget!.transactionDocument?.dateOut != null ? functions.dateTimeTh(widget!.transactionDocument!.dateOut!) : 'ยังไม่ออก'}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -507,7 +508,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'เวลารวม : ${widget.transactionDocument?.dateOut != null ? functions.getTimeDuration(widget.transactionDocument!.dateIn!, widget.transactionDocument!.dateOut!) : functions.getTimeDuration(widget.transactionDocument!.dateIn!, getCurrentTimestamp)}',
+                                        'เวลารวม : ${widget!.transactionDocument?.dateOut != null ? functions.getTimeDuration(widget!.transactionDocument!.dateIn!, widget!.transactionDocument!.dateOut!) : functions.getTimeDuration(widget!.transactionDocument!.dateIn!, getCurrentTimestamp)}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -529,7 +530,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                     Expanded(
                                       child: Text(
                                         'ตราประทับ : ${valueOrDefault<String>(
-                                          widget.transactionDocument?.stamp,
+                                          widget!.transactionDocument?.stamp,
                                           '-',
                                         )}',
                                         style: FlutterFlowTheme.of(context)

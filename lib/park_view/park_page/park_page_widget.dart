@@ -106,7 +106,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           automaticallyImplyLeading: false,
           title: Text(
             valueOrDefault<String>(
-              widget.menuName,
+              widget!.menuName,
               '-',
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -548,6 +548,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                         if (dataListView.isEmpty) {
                           return NoDataViewWidget();
                         }
+
                         return FlutterFlowDataTable<TransactionListRecord>(
                           controller: _model.paginatedDataTableController,
                           data: dataListView,
@@ -809,35 +810,42 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   ),
                                 ],
                               ),
-                              Builder(
-                                builder: (context) {
-                                  if (dataListViewItem.dateOut != null) {
-                                    return Text(
-                                      functions.dateTimeTh(
-                                          dataListViewItem.dateOut!),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    );
-                                  } else {
-                                    return Text(
-                                      '-',
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    );
-                                  }
-                                },
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Builder(
+                                      builder: (context) {
+                                        if (dataListViewItem.dateOut != null) {
+                                          return Text(
+                                            functions.dateTimeTh(
+                                                dataListViewItem.dateOut!),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          );
+                                        } else {
+                                          return Text(
+                                            '-',
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,

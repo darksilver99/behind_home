@@ -73,7 +73,7 @@ class _DetailWithImagePageWidgetState extends State<DetailWithImagePageWidget> {
           automaticallyImplyLeading: false,
           title: Text(
             valueOrDefault<String>(
-              widget.menuName,
+              widget!.menuName,
               '-',
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -107,7 +107,7 @@ class _DetailWithImagePageWidgetState extends State<DetailWithImagePageWidget> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.network(
-                                    widget.image!,
+                                    widget!.image!,
                                     width: double.infinity,
                                     fit: BoxFit.contain,
                                   ),
