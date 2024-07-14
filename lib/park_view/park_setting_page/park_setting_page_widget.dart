@@ -108,7 +108,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
           automaticallyImplyLeading: false,
           title: Text(
             valueOrDefault<String>(
-              widget.menuName,
+              widget!.menuName,
               '-',
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(

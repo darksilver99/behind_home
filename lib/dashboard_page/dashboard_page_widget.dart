@@ -179,7 +179,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                           child: Wrap(
                                             spacing: 32.0,
                                             runSpacing: 32.0,
-                                            alignment: WrapAlignment.start,
+                                            alignment: WrapAlignment.center,
                                             crossAxisAlignment:
                                                 WrapCrossAlignment.start,
                                             direction: Axis.horizontal,
@@ -291,6 +291,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                           }
                                                           int textCount =
                                                               snapshot.data!;
+
                                                           return Text(
                                                             valueOrDefault<
                                                                 String>(
@@ -423,6 +424,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                           }
                                                           int textCount =
                                                               snapshot.data!;
+
                                                           return Text(
                                                             valueOrDefault<
                                                                 String>(
@@ -547,6 +549,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                           }
                                                           int textCount =
                                                               snapshot.data!;
+
                                                           return Text(
                                                             valueOrDefault<
                                                                 String>(

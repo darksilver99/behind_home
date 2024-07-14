@@ -220,6 +220,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                     }
                     List<BehindMenuListRecord> columnBehindMenuListRecordList =
                         snapshot.data!;
+
                     return SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -319,7 +320,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 0.0, 8.0),
+                                        24.0, 0.0, 0.0, 8.0),
                                     child:
                                         StreamBuilder<List<SubMenuListRecord>>(
                                       stream: querySubMenuListRecord(
@@ -354,6 +355,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                         List<SubMenuListRecord>
                                             columnSubMenuListRecordList =
                                             snapshot.data!;
+
                                         return Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: List.generate(
@@ -362,118 +364,143 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                             final columnSubMenuListRecord =
                                                 columnSubMenuListRecordList[
                                                     columnIndex];
-                                            return Container(
-                                              width: double.infinity,
-                                              height: 46.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 4.0, 8.0, 4.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (columnSubMenuListRecord
-                                                            .type ==
-                                                        'app') {
-                                                      await actions.goToPage(
-                                                        context,
-                                                        columnSubMenuListRecord
-                                                            .pathName,
-                                                        columnSubMenuListRecord
-                                                            .subject,
-                                                      );
-                                                    } else if (columnSubMenuListRecord
-                                                            .type ==
-                                                        'web') {
-                                                    } else if (columnSubMenuListRecord
-                                                            .type ==
-                                                        'app_image') {
-                                                      context.pushNamed(
-                                                        'DetailWithImagePage',
-                                                        queryParameters: {
-                                                          'menuName':
-                                                              serializeParam(
-                                                            columnSubMenuListRecord
-                                                                .subject,
-                                                            ParamType.String,
-                                                          ),
-                                                          'image':
-                                                              serializeParam(
-                                                            functions.strToImage(
-                                                                columnSubMenuListRecord
-                                                                    .pathName),
-                                                            ParamType.String,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    } else {
-                                                      await launchURL(
-                                                          columnSubMenuListRecord
-                                                              .pathName);
-                                                    }
-                                                  },
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: Icon(
-                                                          Icons.circle_rounded,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          size: 12.0,
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          columnSubMenuListRecord
-                                                              .subject,
-                                                          maxLines: 2,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                fontSize: 14.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .navigate_next_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        size: 24.0,
-                                                      ),
-                                                    ],
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 32.0, 0.0),
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    height: 1.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 46.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 4.0,
+                                                                8.0, 4.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        if (columnSubMenuListRecord
+                                                                .type ==
+                                                            'app') {
+                                                          await actions
+                                                              .goToPage(
+                                                            context,
+                                                            columnSubMenuListRecord
+                                                                .pathName,
+                                                            columnSubMenuListRecord
+                                                                .subject,
+                                                          );
+                                                        } else if (columnSubMenuListRecord
+                                                                .type ==
+                                                            'web') {
+                                                        } else if (columnSubMenuListRecord
+                                                                .type ==
+                                                            'app_image') {
+                                                          context.pushNamed(
+                                                            'DetailWithImagePage',
+                                                            queryParameters: {
+                                                              'menuName':
+                                                                  serializeParam(
+                                                                columnSubMenuListRecord
+                                                                    .subject,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'image':
+                                                                  serializeParam(
+                                                                functions.strToImage(
+                                                                    columnSubMenuListRecord
+                                                                        .pathName),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          await launchURL(
+                                                              columnSubMenuListRecord
+                                                                  .pathName);
+                                                        }
+                                                      },
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .circle_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryText,
+                                                              size: 12.0,
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              columnSubMenuListRecord
+                                                                  .subject,
+                                                              maxLines: 2,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Manrope',
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons
+                                                                .navigate_next_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             );
                                           }).divide(SizedBox(height: 5.0)),
                                         );
