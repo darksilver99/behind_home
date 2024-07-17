@@ -159,6 +159,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/paymentPage',
           requireAuth: true,
           builder: (context, params) => PaymentPageWidget(),
+        ),
+        FFRoute(
+          name: 'ResidenPage',
+          path: '/residentPage',
+          requireAuth: true,
+          builder: (context, params) => ResidenPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

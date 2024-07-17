@@ -159,3 +159,15 @@ DateTime getBeforeDay(
   DateTime pastDate = date.subtract(Duration(days: pastDay));
   return pastDate;
 }
+
+String getResidentStatus(int status) {
+  if (status == 1) {
+    return "อนุมัติแล้ว";
+  } else if (status == 0) {
+    return "รออนุมัติ";
+  } else if (status == 3) {
+    return "ไม่อนุมัติ";
+  } else {
+    return "-";
+  }
+}
