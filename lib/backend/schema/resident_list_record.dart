@@ -44,7 +44,7 @@ class ResidentListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('resident_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/resident_list');
 
   static Stream<ResidentListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ResidentListRecord.fromSnapshot(s));
