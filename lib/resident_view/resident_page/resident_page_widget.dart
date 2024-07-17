@@ -18,11 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'residen_page_model.dart';
-export 'residen_page_model.dart';
+import 'resident_page_model.dart';
+export 'resident_page_model.dart';
 
-class ResidenPageWidget extends StatefulWidget {
-  const ResidenPageWidget({
+class ResidentPageWidget extends StatefulWidget {
+  const ResidentPageWidget({
     super.key,
     required this.menuName,
   });
@@ -30,18 +30,18 @@ class ResidenPageWidget extends StatefulWidget {
   final String? menuName;
 
   @override
-  State<ResidenPageWidget> createState() => _ResidenPageWidgetState();
+  State<ResidentPageWidget> createState() => _ResidentPageWidgetState();
 }
 
-class _ResidenPageWidgetState extends State<ResidenPageWidget> {
-  late ResidenPageModel _model;
+class _ResidentPageWidgetState extends State<ResidentPageWidget> {
+  late ResidentPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ResidenPageModel());
+    _model = createModel(context, () => ResidentPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
