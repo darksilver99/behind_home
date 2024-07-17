@@ -36,11 +36,23 @@ class ResidentListRecord extends FirestoreRecord {
   String get contactAddress => _contactAddress ?? '';
   bool hasContactAddress() => _contactAddress != null;
 
+  // "update_by" field.
+  DocumentReference? _updateBy;
+  DocumentReference? get updateBy => _updateBy;
+  bool hasUpdateBy() => _updateBy != null;
+
+  // "update_date" field.
+  DateTime? _updateDate;
+  DateTime? get updateDate => _updateDate;
+  bool hasUpdateDate() => _updateDate != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
     _contactAddress = snapshotData['contact_address'] as String?;
+    _updateBy = snapshotData['update_by'] as DocumentReference?;
+    _updateDate = snapshotData['update_date'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -82,6 +94,8 @@ Map<String, dynamic> createResidentListRecordData({
   DocumentReference? createBy,
   int? status,
   String? contactAddress,
+  DocumentReference? updateBy,
+  DateTime? updateDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -89,6 +103,8 @@ Map<String, dynamic> createResidentListRecordData({
       'create_by': createBy,
       'status': status,
       'contact_address': contactAddress,
+      'update_by': updateBy,
+      'update_date': updateDate,
     }.withoutNulls,
   );
 
@@ -104,12 +120,20 @@ class ResidentListRecordDocumentEquality
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.status == e2?.status &&
-        e1?.contactAddress == e2?.contactAddress;
+        e1?.contactAddress == e2?.contactAddress &&
+        e1?.updateBy == e2?.updateBy &&
+        e1?.updateDate == e2?.updateDate;
   }
 
   @override
-  int hash(ResidentListRecord? e) => const ListEquality()
-      .hash([e?.createDate, e?.createBy, e?.status, e?.contactAddress]);
+  int hash(ResidentListRecord? e) => const ListEquality().hash([
+        e?.createDate,
+        e?.createBy,
+        e?.status,
+        e?.contactAddress,
+        e?.updateBy,
+        e?.updateDate
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is ResidentListRecord;
