@@ -525,7 +525,32 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                               ),
                                             );
                                           },
-                                        ).then((value) => setState(() {}));
+                                        ).then((value) => safeSetState(
+                                            () => _model.isUpdate = value));
+
+                                        if ((_model.isUpdate != null &&
+                                                _model.isUpdate != '') &&
+                                            (_model.isUpdate == 'update')) {
+                                          _model.dataResult2 =
+                                              await queryResidentListRecordOnce(
+                                            queryBuilder:
+                                                (residentListRecord) =>
+                                                    residentListRecord.orderBy(
+                                                        'create_date',
+                                                        descending: true),
+                                          );
+                                          _model.dataList = _model.dataResult2!
+                                              .toList()
+                                              .cast<ResidentListRecord>();
+                                          _model.tmpDataList = _model
+                                              .dataResult2!
+                                              .toList()
+                                              .cast<ResidentListRecord>();
+                                          _model.isLoading = false;
+                                          setState(() {});
+                                        }
+
+                                        setState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,

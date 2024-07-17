@@ -65,6 +65,10 @@ class ResidentPageModel extends FlutterFlowModel<ResidentPageWidget> {
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<ResidentListRecord>();
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Column widget.
+  String? isUpdate;
+  // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
+  List<ResidentListRecord>? dataResult2;
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for LoadingView component.

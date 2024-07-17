@@ -368,6 +368,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                               updateDate: getCurrentTimestamp,
                                               updateBy: currentUserReference,
                                             ));
+                                            Navigator.pop(context, 'update');
                                           },
                                           text: 'บันทึกข้อมูล',
                                           options: FFButtonOptions(
