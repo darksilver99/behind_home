@@ -5,11 +5,9 @@ import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/component_view/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -126,198 +124,6 @@ class _ResidenPageWidgetState extends State<ResidenPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 8.0),
-                                    child: Wrap(
-                                      spacing: 8.0,
-                                      runSpacing: 8.0,
-                                      alignment: WrapAlignment.start,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.start,
-                                      direction: Axis.horizontal,
-                                      runAlignment: WrapAlignment.start,
-                                      verticalDirection: VerticalDirection.down,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        FlutterFlowDropDown<String>(
-                                          controller: _model
-                                                  .dropDownValueController1 ??=
-                                              FormFieldController<String>(
-                                            _model.dropDownValue1 ??=
-                                                functions.getCurrentMonth(
-                                                    getCurrentTimestamp,
-                                                    FFAppConstants.thaiMonthList
-                                                        .toList()),
-                                          ),
-                                          options: FFAppConstants.thaiMonthList,
-                                          onChanged: (val) => setState(() =>
-                                              _model.dropDownValue1 = val),
-                                          width: 300.0,
-                                          height: 56.0,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          hintText: 'เลือกเดือน',
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          elevation: 2.0,
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .alternate,
-                                          borderWidth: 2.0,
-                                          borderRadius: 8.0,
-                                          margin:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 4.0, 16.0, 4.0),
-                                          hidesUnderline: true,
-                                          isOverButton: true,
-                                          isSearchable: false,
-                                          isMultiSelect: false,
-                                        ),
-                                        FlutterFlowDropDown<String>(
-                                          controller: _model
-                                                  .dropDownValueController2 ??=
-                                              FormFieldController<String>(
-                                            _model.dropDownValue2 ??=
-                                                functions.getCurrentYear(
-                                                    getCurrentTimestamp),
-                                          ),
-                                          options: functions
-                                              .getYearList(getCurrentTimestamp),
-                                          onChanged: (val) => setState(() =>
-                                              _model.dropDownValue2 = val),
-                                          width: 300.0,
-                                          height: 56.0,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          hintText: 'เลือกปี',
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          elevation: 2.0,
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .alternate,
-                                          borderWidth: 2.0,
-                                          borderRadius: 8.0,
-                                          margin:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 4.0, 16.0, 4.0),
-                                          hidesUnderline: true,
-                                          isOverButton: true,
-                                          isSearchable: false,
-                                          isMultiSelect: false,
-                                        ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            if (_model.dataList.isNotEmpty) {
-                                              _model
-                                                  .paginatedDataTableController
-                                                  .paginatorController
-                                                  .goToFirstPage();
-                                            }
-                                            _model.startDate =
-                                                functions.getStartDateOfMonth(
-                                                    functions.getDateTimeFormat(
-                                                        _model.dropDownValue1!,
-                                                        _model.dropDownValue2!,
-                                                        FFAppConstants
-                                                            .thaiMonthList
-                                                            .toList()));
-                                            _model.endDate =
-                                                functions.getEndDateOfMonth(
-                                                    functions.getDateTimeFormat(
-                                                        _model.dropDownValue1!,
-                                                        _model.dropDownValue2!,
-                                                        FFAppConstants
-                                                            .thaiMonthList
-                                                            .toList()));
-                                            _model.dataResult2 =
-                                                await queryResidentListRecordOnce(
-                                              queryBuilder:
-                                                  (residentListRecord) =>
-                                                      residentListRecord
-                                                          .orderBy(
-                                                              'create_date',
-                                                              descending: true),
-                                            );
-                                            _model.dataList = _model
-                                                .dataResult2!
-                                                .toList()
-                                                .cast<ResidentListRecord>();
-                                            _model.tmpDataList = _model
-                                                .dataResult2!
-                                                .toList()
-                                                .cast<ResidentListRecord>();
-                                            setState(() {});
-
-                                            setState(() {});
-                                          },
-                                          text: 'ค้นหา',
-                                          options: FFButtonOptions(
-                                            height: 56.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    32.0, 0.0, 32.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -565,17 +371,25 @@ class _ResidenPageWidgetState extends State<ResidenPageWidget> {
                             DataColumn2(
                               label: DefaultTextStyle.merge(
                                 softWrap: true,
-                                child: Text(
-                                  'จัดการข้อมูล',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: 'Manrope',
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                        letterSpacing: 0.0,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'จัดการข้อมูล',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -646,14 +460,35 @@ class _ResidenPageWidgetState extends State<ResidenPageWidget> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                'Edit Column 4',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Manrope',
-                                      letterSpacing: 0.0,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.remove_red_eye_sharp,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                        Text(
+                                          'ดูข้อมูล',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 8.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
                                     ),
+                                  ),
+                                ],
                               ),
                             ].map((c) => DataCell(c)).toList(),
                           ),
