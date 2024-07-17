@@ -85,6 +85,43 @@ class FFAppState extends ChangeNotifier {
     _isSkipExpireAlert = value;
     prefs.setBool('ff_isSkipExpireAlert', value);
   }
+
+  List<ResidentStatusDataStruct> _residentStatusList = [
+    ResidentStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"รออนุมัติ\"}')),
+    ResidentStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"อนุมัติแล้ว\"}')),
+    ResidentStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"3\",\"subject\":\"ไม่อนุมัติ\"}'))
+  ];
+  List<ResidentStatusDataStruct> get residentStatusList => _residentStatusList;
+  set residentStatusList(List<ResidentStatusDataStruct> value) {
+    _residentStatusList = value;
+  }
+
+  void addToResidentStatusList(ResidentStatusDataStruct value) {
+    residentStatusList.add(value);
+  }
+
+  void removeFromResidentStatusList(ResidentStatusDataStruct value) {
+    residentStatusList.remove(value);
+  }
+
+  void removeAtIndexFromResidentStatusList(int index) {
+    residentStatusList.removeAt(index);
+  }
+
+  void updateResidentStatusListAtIndex(
+    int index,
+    ResidentStatusDataStruct Function(ResidentStatusDataStruct) updateFn,
+  ) {
+    residentStatusList[index] = updateFn(_residentStatusList[index]);
+  }
+
+  void insertAtIndexInResidentStatusList(
+      int index, ResidentStatusDataStruct value) {
+    residentStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
