@@ -8,6 +8,9 @@ export '/park_view/park_setting_page/park_setting_page_widget.dart'
     show ParkSettingPageWidget;
 export '/detail_with_image_page/detail_with_image_page_widget.dart'
     show DetailWithImagePageWidget;
-export '/payment_alert_page/payment_alert_page_widget.dart'
+export '/payment_view/payment_alert_page/payment_alert_page_widget.dart'
     show PaymentAlertPageWidget;
-export '/payment_page/payment_page_widget.dart' show PaymentPageWidget;
+export '/payment_view/payment_page/payment_page_widget.dart'
+    show PaymentPageWidget;
+export '/resident_view/residen_page/residen_page_widget.dart'
+    show ResidenPageWidget;
