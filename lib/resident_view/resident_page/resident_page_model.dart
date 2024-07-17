@@ -11,7 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'residen_page_widget.dart' show ResidenPageWidget;
+import 'resident_page_widget.dart' show ResidentPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -20,7 +20,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ResidenPageModel extends FlutterFlowModel<ResidenPageWidget> {
+class ResidentPageModel extends FlutterFlowModel<ResidentPageWidget> {
   ///  Local state fields for this page.
 
   List<ResidentListRecord> dataList = [];
@@ -53,7 +53,7 @@ class ResidenPageModel extends FlutterFlowModel<ResidenPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Firestore Query - Query a collection] action in ResidenPage widget.
+  // Stores action output result for [Firestore Query - Query a collection] action in ResidentPage widget.
   List<ResidentListRecord>? dataResult;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;

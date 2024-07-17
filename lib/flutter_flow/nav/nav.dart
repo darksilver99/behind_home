@@ -161,10 +161,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PaymentPageWidget(),
         ),
         FFRoute(
-          name: 'ResidenPage',
+          name: 'ResidentPage',
           path: '/residentPage',
           requireAuth: true,
-          builder: (context, params) => ResidenPageWidget(
+          builder: (context, params) => ResidentPageWidget(
             menuName: params.getParam(
               'menuName',
               ParamType.String,

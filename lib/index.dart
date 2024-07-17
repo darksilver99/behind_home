@@ -12,5 +12,5 @@ export '/payment_view/payment_alert_page/payment_alert_page_widget.dart'
     show PaymentAlertPageWidget;
 export '/payment_view/payment_page/payment_page_widget.dart'
     show PaymentPageWidget;
-export '/resident_view/residen_page/residen_page_widget.dart'
-    show ResidenPageWidget;
+export '/resident_view/resident_page/resident_page_widget.dart'
+    show ResidentPageWidget;
