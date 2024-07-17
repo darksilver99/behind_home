@@ -324,8 +324,59 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 0.0),
                                           child: FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
+                                            onPressed: () async {
+                                              var confirmDialogResponse =
+                                                  await showDialog<bool>(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'ต้องการลบลูกบ้านคนนี้?'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext,
+                                                                        false),
+                                                                child: Text(
+                                                                    'ยกเลิก'),
+                                                              ),
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext,
+                                                                        true),
+                                                                child: Text(
+                                                                    'ยืนยัน'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ) ??
+                                                      false;
+                                              if (confirmDialogResponse) {
+                                                await widget!
+                                                    .dataDocument!.reference
+                                                    .delete();
+
+                                                await columnUsersRecord
+                                                    .reference
+                                                    .update({
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'project_list': FieldValue
+                                                          .arrayRemove([
+                                                        FFAppState()
+                                                            .projectData
+                                                            .projectReference
+                                                      ]),
+                                                    },
+                                                  ),
+                                                });
+                                                Navigator.pop(
+                                                    context, 'update');
+                                              }
                                             },
                                             text: 'ลบข้อมูล',
                                             options: FFButtonOptions(
