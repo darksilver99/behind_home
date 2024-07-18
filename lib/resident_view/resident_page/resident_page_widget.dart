@@ -301,7 +301,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'ชื่อ ลูกบ้าน/ผู้เช้า',
+                                        'ชื่อ-สกุล',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
