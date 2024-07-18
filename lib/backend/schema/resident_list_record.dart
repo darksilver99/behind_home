@@ -46,6 +46,16 @@ class ResidentListRecord extends FirestoreRecord {
   DateTime? get updateDate => _updateDate;
   bool hasUpdateDate() => _updateDate != null;
 
+  // "admin_detail" field.
+  String? _adminDetail;
+  String get adminDetail => _adminDetail ?? '';
+  bool hasAdminDetail() => _adminDetail != null;
+
+  // "resident_name" field.
+  String? _residentName;
+  String get residentName => _residentName ?? '';
+  bool hasResidentName() => _residentName != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -53,6 +63,8 @@ class ResidentListRecord extends FirestoreRecord {
     _contactAddress = snapshotData['contact_address'] as String?;
     _updateBy = snapshotData['update_by'] as DocumentReference?;
     _updateDate = snapshotData['update_date'] as DateTime?;
+    _adminDetail = snapshotData['admin_detail'] as String?;
+    _residentName = snapshotData['resident_name'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -96,6 +108,8 @@ Map<String, dynamic> createResidentListRecordData({
   String? contactAddress,
   DocumentReference? updateBy,
   DateTime? updateDate,
+  String? adminDetail,
+  String? residentName,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -105,6 +119,8 @@ Map<String, dynamic> createResidentListRecordData({
       'contact_address': contactAddress,
       'update_by': updateBy,
       'update_date': updateDate,
+      'admin_detail': adminDetail,
+      'resident_name': residentName,
     }.withoutNulls,
   );
 
@@ -122,7 +138,9 @@ class ResidentListRecordDocumentEquality
         e1?.status == e2?.status &&
         e1?.contactAddress == e2?.contactAddress &&
         e1?.updateBy == e2?.updateBy &&
-        e1?.updateDate == e2?.updateDate;
+        e1?.updateDate == e2?.updateDate &&
+        e1?.adminDetail == e2?.adminDetail &&
+        e1?.residentName == e2?.residentName;
   }
 
   @override
@@ -132,7 +150,9 @@ class ResidentListRecordDocumentEquality
         e?.status,
         e?.contactAddress,
         e?.updateBy,
-        e?.updateDate
+        e?.updateDate,
+        e?.adminDetail,
+        e?.residentName
       ]);
 
   @override
