@@ -231,7 +231,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'วันเวลาที่เริ่มเป็นลูกบ้าน : ${functions.dateTimeTh(widget!.dataDocument!.createDate!)}',
+                                            'วันเวลาที่สมัคร : ${functions.dateTimeTh(widget!.dataDocument!.createDate!)}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -287,7 +287,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                             controller: _model.textController,
                                             focusNode:
                                                 _model.textFieldFocusNode,
-                                            autofocus: true,
+                                            autofocus: false,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelStyle:
@@ -354,6 +354,8 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                                   letterSpacing: 0.0,
                                                 ),
                                             maxLines: 5,
+                                            keyboardType:
+                                                TextInputType.multiline,
                                             validator: _model
                                                 .textControllerValidator
                                                 .asValidator(context),
