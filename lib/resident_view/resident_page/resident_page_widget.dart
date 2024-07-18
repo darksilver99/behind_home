@@ -352,7 +352,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันเวลาที่เริ่มเป็นลูกบ้าน',
+                                        'วันเวลาที่สมัคร',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
