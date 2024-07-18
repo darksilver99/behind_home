@@ -40,6 +40,10 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
     super.initState();
     _model = createModel(context, () => ResidentDetailViewModel());
 
+    _model.textController ??=
+        TextEditingController(text: widget!.dataDocument?.adminDetail);
+    _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -158,7 +162,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'ชื่อ-สกุล : ${columnUsersRecord.firstName} ${columnUsersRecord.lastName}',
+                                            'ชื่อ-สกุล : ${widget!.dataDocument?.residentName}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -248,19 +252,144 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
-                                    child: Row(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Column(
                                       mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          'สถานะลูกบ้าน : ',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  'รายละเอียดเพิ่มเกี่ยวกับลูกบ้าน : ',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
                                               ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 300.0,
+                                          child: TextFormField(
+                                            controller: _model.textController,
+                                            focusNode:
+                                                _model.textFieldFocusNode,
+                                            autofocus: true,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              hintText: 'รายละเอียดเพิ่มเติม',
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                            maxLines: 5,
+                                            validator: _model
+                                                .textControllerValidator
+                                                .asValidator(context),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 16.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'สถานะลูกบ้าน : ',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         FlutterFlowDropDown<int>(
                                           controller:
@@ -418,6 +547,8 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                               status: _model.dropDownValue,
                                               updateDate: getCurrentTimestamp,
                                               updateBy: currentUserReference,
+                                              adminDetail:
+                                                  _model.textController.text,
                                             ));
                                             Navigator.pop(context, 'update');
                                           },

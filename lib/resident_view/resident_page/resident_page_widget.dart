@@ -166,7 +166,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText: 'ระบุคำค้นหา เลขที่ห้อง',
+                                      labelText: 'ระบุคำค้นหา เลขที่ห้อง, ชื่อ',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -298,11 +298,10 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                 softWrap: true,
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันเวลาที่เริ่มเป็นลูกบ้าน',
+                                        'ชื่อ ลูกบ้าน/ผู้เช้า',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -328,6 +327,32 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                     Expanded(
                                       child: Text(
                                         'บ้าน/ห้อง เลขที่',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'วันเวลาที่เริ่มเป็นลูกบ้าน',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -411,8 +436,10 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      functions.dateTimeTh(
-                                          dataListViewItem.createDate!),
+                                      valueOrDefault<String>(
+                                        dataListViewItem.residentName,
+                                        '-',
+                                      ),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -431,6 +458,25 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                   Expanded(
                                     child: Text(
                                       dataListViewItem.contactAddress,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      functions.dateTimeTh(
+                                          dataListViewItem.createDate!),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)

@@ -16,7 +16,8 @@ Future<List<ResidentListRecord>> filterResidentList(
 ) async {
   // Add your function code here!
   List<ResidentListRecord> residentSearchedList = dataList.where((doc) {
-    return doc.contactAddress.contains(keyword);
+    return doc.contactAddress.contains(keyword) ||
+        doc.residentName.contains(keyword);
   }).toList();
   return residentSearchedList;
 }
