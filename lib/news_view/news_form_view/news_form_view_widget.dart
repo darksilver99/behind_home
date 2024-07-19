@@ -866,7 +866,9 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                             _model.dropDownValueController ??=
                                                 FormFieldController<int>(
                                           _model.dropDownValue ??=
-                                              widget!.dataDocument?.status,
+                                              widget!.dataDocument != null
+                                                  ? widget!.dataDocument?.status
+                                                  : 1,
                                         ),
                                         options: List<int>.from(FFAppState()
                                             .dataStatusList
