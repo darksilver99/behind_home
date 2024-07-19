@@ -5,10 +5,12 @@ import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/component_view/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/resident_view/resident_detail_view/resident_detail_view_widget.dart';
+import '/flutter_flow/form_field_controller.dart';
+import '/news_view/news_form_view/news_form_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -19,11 +21,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'resident_page_model.dart';
-export 'resident_page_model.dart';
+import 'news_page_model.dart';
+export 'news_page_model.dart';
 
-class ResidentPageWidget extends StatefulWidget {
-  const ResidentPageWidget({
+class NewsPageWidget extends StatefulWidget {
+  const NewsPageWidget({
     super.key,
     required this.menuName,
   });
@@ -31,31 +33,38 @@ class ResidentPageWidget extends StatefulWidget {
   final String? menuName;
 
   @override
-  State<ResidentPageWidget> createState() => _ResidentPageWidgetState();
+  State<NewsPageWidget> createState() => _NewsPageWidgetState();
 }
 
-class _ResidentPageWidgetState extends State<ResidentPageWidget> {
-  late ResidentPageModel _model;
+class _NewsPageWidgetState extends State<NewsPageWidget> {
+  late NewsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ResidentPageModel());
+    _model = createModel(context, () => NewsPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await action_blocks.checkExpireDate(context);
       _model.startDate = functions.getStartDateOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
-      _model.dataResult = await queryResidentListRecordOnce(
-        queryBuilder: (residentListRecord) =>
-            residentListRecord.orderBy('create_date', descending: true),
+      _model.dataResult = await queryNewsListRecordOnce(
+        queryBuilder: (newsListRecord) => newsListRecord
+            .where(
+              'create_date',
+              isGreaterThanOrEqualTo: _model.startDate,
+            )
+            .where(
+              'create_date',
+              isLessThanOrEqualTo: _model.endDate,
+            )
+            .orderBy('create_date', descending: true),
       );
-      _model.dataList = _model.dataResult!.toList().cast<ResidentListRecord>();
-      _model.tmpDataList =
-          _model.dataResult!.toList().cast<ResidentListRecord>();
+      _model.dataList = _model.dataResult!.toList().cast<NewsListRecord>();
+      _model.tmpDataList = _model.dataResult!.toList().cast<NewsListRecord>();
       _model.isLoading = false;
       setState(() {});
     });
@@ -125,14 +134,322 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 8.0, 0.0),
-                                child: Container(
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 32.0, 8.0),
+                                    child: Wrap(
+                                      spacing: 8.0,
+                                      runSpacing: 8.0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.start,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .dropDownValueController1 ??=
+                                              FormFieldController<String>(
+                                            _model.dropDownValue1 ??=
+                                                functions.getCurrentMonth(
+                                                    getCurrentTimestamp,
+                                                    FFAppConstants.thaiMonthList
+                                                        .toList()),
+                                          ),
+                                          options: FFAppConstants.thaiMonthList,
+                                          onChanged: (val) => setState(() =>
+                                              _model.dropDownValue1 = val),
+                                          width: 300.0,
+                                          height: 56.0,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: 'เลือกเดือน',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          borderWidth: 2.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 4.0, 16.0, 4.0),
+                                          hidesUnderline: true,
+                                          isOverButton: true,
+                                          isSearchable: false,
+                                          isMultiSelect: false,
+                                        ),
+                                        FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .dropDownValueController2 ??=
+                                              FormFieldController<String>(
+                                            _model.dropDownValue2 ??=
+                                                functions.getCurrentYear(
+                                                    getCurrentTimestamp),
+                                          ),
+                                          options: functions
+                                              .getYearList(getCurrentTimestamp),
+                                          onChanged: (val) => setState(() =>
+                                              _model.dropDownValue2 = val),
+                                          width: 300.0,
+                                          height: 56.0,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: 'เลือกปี',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          borderWidth: 2.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 4.0, 16.0, 4.0),
+                                          hidesUnderline: true,
+                                          isOverButton: true,
+                                          isSearchable: false,
+                                          isMultiSelect: false,
+                                        ),
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            if (_model.dataList.isNotEmpty) {
+                                              _model
+                                                  .paginatedDataTableController
+                                                  .paginatorController
+                                                  .goToFirstPage();
+                                            }
+                                            _model.startDate =
+                                                functions.getStartDateOfMonth(
+                                                    functions.getDateTimeFormat(
+                                                        _model.dropDownValue1!,
+                                                        _model.dropDownValue2!,
+                                                        FFAppConstants
+                                                            .thaiMonthList
+                                                            .toList()));
+                                            _model.endDate =
+                                                functions.getEndDateOfMonth(
+                                                    functions.getDateTimeFormat(
+                                                        _model.dropDownValue1!,
+                                                        _model.dropDownValue2!,
+                                                        FFAppConstants
+                                                            .thaiMonthList
+                                                            .toList()));
+                                            _model.dataResult2 =
+                                                await queryNewsListRecordOnce(
+                                              queryBuilder: (newsListRecord) =>
+                                                  newsListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
+                                            );
+                                            _model.dataList = _model
+                                                .dataResult2!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult2!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            setState(() {});
+
+                                            setState(() {});
+                                          },
+                                          text: 'ค้นหา',
+                                          options: FFButtonOptions(
+                                            height: 56.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 0.0, 32.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                        Builder(
+                                          builder: (context) => FFButtonWidget(
+                                            onPressed: () async {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: NewsFormViewWidget(
+                                                        title: 'เพิ่มข้อมูล',
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) => safeSetState(
+                                                  () => _model.isUpdate2 =
+                                                      value));
+
+                                              if ((_model.isUpdate2 != null &&
+                                                      _model.isUpdate2 != '') &&
+                                                  (_model.isUpdate ==
+                                                      'update')) {
+                                                _model.dataResult5 =
+                                                    await queryNewsListRecordOnce(
+                                                  queryBuilder:
+                                                      (newsListRecord) =>
+                                                          newsListRecord
+                                                              .where(
+                                                                'create_date',
+                                                                isGreaterThanOrEqualTo:
+                                                                    _model
+                                                                        .startDate,
+                                                              )
+                                                              .where(
+                                                                'create_date',
+                                                                isLessThanOrEqualTo:
+                                                                    _model
+                                                                        .endDate,
+                                                              )
+                                                              .orderBy(
+                                                                  'create_date',
+                                                                  descending:
+                                                                      true),
+                                                );
+                                                _model.dataList = _model
+                                                    .dataResult5!
+                                                    .toList()
+                                                    .cast<NewsListRecord>();
+                                                _model.tmpDataList = _model
+                                                    .dataResult5!
+                                                    .toList()
+                                                    .cast<NewsListRecord>();
+                                                _model.isLoading = false;
+                                                setState(() {});
+                                              }
+
+                                              setState(() {});
+                                            },
+                                            text: 'เพิ่มข้อมูล',
+                                            options: FFButtonOptions(
+                                              height: 56.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .success,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 0.0, 32.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
                                   width: 300.0,
                                   child: TextFormField(
                                     controller: _model.textController,
@@ -145,18 +462,18 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                                 null &&
                                             _model.textController.text != '') {
                                           _model.dataResult3 =
-                                              await actions.filterResidentList(
+                                              await actions.filterNewsList(
                                             _model.textController.text,
                                             _model.tmpDataList.toList(),
                                           );
                                           _model.dataList = _model.dataResult3!
                                               .toList()
-                                              .cast<ResidentListRecord>();
+                                              .cast<NewsListRecord>();
                                           setState(() {});
                                         } else {
                                           _model.dataList = _model.tmpDataList
                                               .toList()
-                                              .cast<ResidentListRecord>();
+                                              .cast<NewsListRecord>();
                                           setState(() {});
                                         }
 
@@ -166,7 +483,8 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText: 'ระบุคำค้นหา เลขที่ห้อง, ชื่อ',
+                                      labelText:
+                                          'ระบุคำค้นหา หัวข้อ, รายละเอียด',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -235,22 +553,20 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                                         '') {
                                                   _model.dataResult3 =
                                                       await actions
-                                                          .filterResidentList(
+                                                          .filterNewsList(
                                                     _model.textController.text,
                                                     _model.tmpDataList.toList(),
                                                   );
                                                   _model.dataList = _model
                                                       .dataResult3!
                                                       .toList()
-                                                      .cast<
-                                                          ResidentListRecord>();
+                                                      .cast<NewsListRecord>();
                                                   setState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
-                                                      .cast<
-                                                          ResidentListRecord>();
+                                                      .cast<NewsListRecord>();
                                                   setState(() {});
                                                 }
 
@@ -274,8 +590,8 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                         .asValidator(context),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -289,60 +605,10 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                           return NoDataViewWidget();
                         }
 
-                        return FlutterFlowDataTable<ResidentListRecord>(
+                        return FlutterFlowDataTable<NewsListRecord>(
                           controller: _model.paginatedDataTableController,
                           data: dataListView,
                           columnsBuilder: (onSortChanged) => [
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'ชื่อ-สกุล',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'บ้าน/ห้อง เลขที่',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
                             DataColumn2(
                               label: DefaultTextStyle.merge(
                                 softWrap: true,
@@ -352,7 +618,82 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันเวลาที่สมัคร',
+                                        'หัวข้อ',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'รายละเอียด',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'วันที่สร้าง',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'วันที่แก้ไข',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -436,10 +777,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      valueOrDefault<String>(
-                                        dataListViewItem.residentName,
-                                        '-',
-                                      ),
+                                      dataListViewItem.subject,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -457,7 +795,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      dataListViewItem.contactAddress,
+                                      dataListViewItem.detail,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -494,39 +832,36 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      functions.getResidentStatus(
-                                          dataListViewItem.status),
+                                      valueOrDefault<String>(
+                                        functions.dateTimeTh(
+                                            dataListViewItem.updateDate!),
+                                        '-',
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Manrope',
-                                            color: () {
-                                              if (dataListViewItem.status ==
-                                                  1) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .success;
-                                              } else if (dataListViewItem
-                                                      .status ==
-                                                  0) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .warning;
-                                              } else if (dataListViewItem
-                                                      .status ==
-                                                  3) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .error;
-                                              } else {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .primaryText;
-                                              }
-                                            }(),
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      functions.getDataStatus(
+                                          dataListViewItem.status),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
                                           ),
                                     ),
                                   ),
@@ -564,9 +899,10 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                                             _model.unfocusNode)
                                                     : FocusScope.of(context)
                                                         .unfocus(),
-                                                child: ResidentDetailViewWidget(
+                                                child: NewsFormViewWidget(
                                                   dataDocument:
                                                       dataListViewItem,
+                                                  title: 'แก้ไขข้อมูล',
                                                 ),
                                               ),
                                             );
@@ -577,21 +913,30 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                         if ((_model.isUpdate != null &&
                                                 _model.isUpdate != '') &&
                                             (_model.isUpdate == 'update')) {
-                                          _model.dataResult2 =
-                                              await queryResidentListRecordOnce(
-                                            queryBuilder:
-                                                (residentListRecord) =>
-                                                    residentListRecord.orderBy(
-                                                        'create_date',
+                                          _model.dataResult4 =
+                                              await queryNewsListRecordOnce(
+                                            queryBuilder: (newsListRecord) =>
+                                                newsListRecord
+                                                    .where(
+                                                      'create_date',
+                                                      isGreaterThanOrEqualTo:
+                                                          _model.startDate,
+                                                    )
+                                                    .where(
+                                                      'create_date',
+                                                      isLessThanOrEqualTo:
+                                                          _model.endDate,
+                                                    )
+                                                    .orderBy('create_date',
                                                         descending: true),
                                           );
-                                          _model.dataList = _model.dataResult2!
+                                          _model.dataList = _model.dataResult4!
                                               .toList()
-                                              .cast<ResidentListRecord>();
+                                              .cast<NewsListRecord>();
                                           _model.tmpDataList = _model
-                                              .dataResult2!
+                                              .dataResult4!
                                               .toList()
-                                              .cast<ResidentListRecord>();
+                                              .cast<NewsListRecord>();
                                           _model.isLoading = false;
                                           setState(() {});
                                         }

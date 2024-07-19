@@ -171,3 +171,7 @@ String getResidentStatus(int status) {
     return "-";
   }
 }
+
+String getDataStatus(int status) {
+  return status.toString();
+}

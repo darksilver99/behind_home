@@ -122,6 +122,40 @@ class FFAppState extends ChangeNotifier {
       int index, ResidentStatusDataStruct value) {
     residentStatusList.insert(index, value);
   }
+
+  List<DataStatusStruct> _dataStatusList = [
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"ไม่แสดงข้อมูล\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"แสดงข้อมูล\"}'))
+  ];
+  List<DataStatusStruct> get dataStatusList => _dataStatusList;
+  set dataStatusList(List<DataStatusStruct> value) {
+    _dataStatusList = value;
+  }
+
+  void addToDataStatusList(DataStatusStruct value) {
+    dataStatusList.add(value);
+  }
+
+  void removeFromDataStatusList(DataStatusStruct value) {
+    dataStatusList.remove(value);
+  }
+
+  void removeAtIndexFromDataStatusList(int index) {
+    dataStatusList.removeAt(index);
+  }
+
+  void updateDataStatusListAtIndex(
+    int index,
+    DataStatusStruct Function(DataStatusStruct) updateFn,
+  ) {
+    dataStatusList[index] = updateFn(_dataStatusList[index]);
+  }
+
+  void insertAtIndexInDataStatusList(int index, DataStatusStruct value) {
+    dataStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
