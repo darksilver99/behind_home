@@ -75,6 +75,8 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -495,7 +497,10 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                   Expanded(
                                     child: Text(
                                       functions.getResidentStatus(
-                                          dataListViewItem.status),
+                                          dataListViewItem.status,
+                                          FFAppState()
+                                              .residentStatusList
+                                              .toList()),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium

@@ -164,18 +164,26 @@ DateTime getBeforeDay(
   return pastDate;
 }
 
-String getResidentStatus(int status) {
-  if (status == 1) {
-    return "อนุมัติแล้ว";
-  } else if (status == 0) {
-    return "รออนุมัติ";
-  } else if (status == 3) {
-    return "ไม่อนุมัติ";
-  } else {
-    return "-";
+String getResidentStatus(
+  int status,
+  List<ResidentStatusDataStruct> residentStatusList,
+) {
+  for (var dataStatus in residentStatusList) {
+    if (dataStatus.status == status) {
+      return dataStatus.subject;
+    }
   }
+  return '-';
 }
 
-String getDataStatus(int status) {
-  return status.toString();
+String getDataStatus(
+  int status,
+  List<DataStatusStruct> statusList,
+) {
+  for (var dataStatus in statusList) {
+    if (dataStatus.status == status) {
+      return dataStatus.subject;
+    }
+  }
+  return '-';
 }
