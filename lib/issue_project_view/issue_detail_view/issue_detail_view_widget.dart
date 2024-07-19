@@ -172,7 +172,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
+                                    8.0, 0.0, 0.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -193,7 +193,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
+                                    8.0, 0.0, 0.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -218,7 +218,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
+                                    8.0, 0.0, 0.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -239,7 +239,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
+                                    8.0, 0.0, 0.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -257,6 +257,11 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                     ),
                                   ],
                                 ),
+                              ),
+                              Divider(
+                                height: 32.0,
+                                thickness: 3.0,
+                                color: FlutterFlowTheme.of(context).alternate,
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -416,6 +421,28 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'ข้อมูลสำหรับเจ้าหน้าที่',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              fontSize: 20.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 0.0, 0.0, 8.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -526,7 +553,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
+                                    8.0, 0.0, 0.0, 16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -721,6 +748,11 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                           ),
                         ),
                       ),
+                    ),
+                    Divider(
+                      height: 32.0,
+                      thickness: 3.0,
+                      color: FlutterFlowTheme.of(context).alternate,
                     ),
                   ],
                 ),
