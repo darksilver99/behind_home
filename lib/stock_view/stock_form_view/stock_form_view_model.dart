@@ -33,6 +33,8 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
   void updateImageListAtIndex(int index, Function(String) updateFn) =>
       imageList[index] = updateFn(imageList[index]);
 
+  bool isEmptyResident = false;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();

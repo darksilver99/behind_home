@@ -264,6 +264,19 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               .asValidator(context),
                                         ),
                                       ),
+                                      if (_model.isEmptyResident)
+                                        Text(
+                                          'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -1012,26 +1025,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   ),
                                                 });
                                               } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ กรุณาตรวจสอบ',
-                                                      style: TextStyle(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .info,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 2000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .error,
-                                                  ),
-                                                );
+                                                _model.isEmptyResident = true;
+                                                setState(() {});
                                                 if (_shouldSetState)
                                                   setState(() {});
                                                 return;
