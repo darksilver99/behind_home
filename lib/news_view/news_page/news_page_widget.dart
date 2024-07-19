@@ -894,100 +894,166 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Builder(
-                                    builder: (context) => InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
-                                                        .unfocus(),
-                                                child: NewsFormViewWidget(
-                                                  dataDocument:
-                                                      dataListViewItem,
-                                                  title: 'แก้ไขข้อมูล',
+                                    builder: (context) => Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: NewsFormViewWidget(
+                                                    dataDocument:
+                                                        dataListViewItem,
+                                                    title: 'แก้ไขข้อมูล',
+                                                  ),
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                          ).then((value) => safeSetState(
+                                              () => _model.isUpdate = value));
+
+                                          if ((_model.isUpdate != null &&
+                                                  _model.isUpdate != '') &&
+                                              (_model.isUpdate == 'update')) {
+                                            _model.dataResult4 =
+                                                await queryNewsListRecordOnce(
+                                              queryBuilder: (newsListRecord) =>
+                                                  newsListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
                                             );
-                                          },
-                                        ).then((value) => safeSetState(
-                                            () => _model.isUpdate = value));
+                                            _model.dataList = _model
+                                                .dataResult4!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult4!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.isLoading = false;
+                                            setState(() {});
+                                          }
 
-                                        if ((_model.isUpdate != null &&
-                                                _model.isUpdate != '') &&
-                                            (_model.isUpdate == 'update')) {
-                                          _model.dataResult4 =
-                                              await queryNewsListRecordOnce(
-                                            queryBuilder: (newsListRecord) =>
-                                                newsListRecord
-                                                    .where(
-                                                      'create_date',
-                                                      isGreaterThanOrEqualTo:
-                                                          _model.startDate,
-                                                    )
-                                                    .where(
-                                                      'create_date',
-                                                      isLessThanOrEqualTo:
-                                                          _model.endDate,
-                                                    )
-                                                    .orderBy('create_date',
-                                                        descending: true),
-                                          );
-                                          _model.dataList = _model.dataResult4!
-                                              .toList()
-                                              .cast<NewsListRecord>();
-                                          _model.tmpDataList = _model
-                                              .dataResult4!
-                                              .toList()
-                                              .cast<NewsListRecord>();
-                                          _model.isLoading = false;
                                           setState(() {});
-                                        }
-
-                                        setState(() {});
-                                      },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.remove_red_eye_sharp,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                          Text(
-                                            'ดูข้อมูล',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  fontSize: 8.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ],
+                                        },
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.remove_red_eye_sharp,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              'ดูข้อมูล',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 8.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await dataListViewItem.reference.delete();
+                                      _model.dataResult6 =
+                                          await queryNewsListRecordOnce(
+                                        queryBuilder: (newsListRecord) =>
+                                            newsListRecord
+                                                .where(
+                                                  'create_date',
+                                                  isGreaterThanOrEqualTo:
+                                                      _model.startDate,
+                                                )
+                                                .where(
+                                                  'create_date',
+                                                  isLessThanOrEqualTo:
+                                                      _model.endDate,
+                                                )
+                                                .orderBy('create_date',
+                                                    descending: true),
+                                      );
+                                      _model.dataList = _model.dataResult6!
+                                          .toList()
+                                          .cast<NewsListRecord>();
+                                      _model.tmpDataList = _model.dataResult6!
+                                          .toList()
+                                          .cast<NewsListRecord>();
+                                      _model.isLoading = false;
+                                      setState(() {});
+
+                                      setState(() {});
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.delete_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          size: 24.0,
+                                        ),
+                                        Text(
+                                          'ลบข้อมูล',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 8.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],

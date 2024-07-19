@@ -80,6 +80,8 @@ class NewsPageModel extends FlutterFlowModel<NewsPageWidget> {
   String? isUpdate;
   // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
   List<NewsListRecord>? dataResult4;
+  // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
+  List<NewsListRecord>? dataResult6;
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for LoadingView component.
