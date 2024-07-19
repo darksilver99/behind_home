@@ -14,3 +14,4 @@ export '/payment_view/payment_page/payment_page_widget.dart'
     show PaymentPageWidget;
 export '/resident_view/resident_page/resident_page_widget.dart'
     show ResidentPageWidget;
+export '/news_view/news_page/news_page_widget.dart' show NewsPageWidget;
