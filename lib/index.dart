@@ -17,3 +17,4 @@ export '/resident_view/resident_page/resident_page_widget.dart'
 export '/news_view/news_page/news_page_widget.dart' show NewsPageWidget;
 export '/issue_project_view/issue_project_page/issue_project_page_widget.dart'
     show IssueProjectPageWidget;
+export '/stock_view/stock_page/stock_page_widget.dart' show StockPageWidget;

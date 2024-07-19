@@ -10,7 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/news_view/news_form_view/news_form_view_widget.dart';
+import '/stock_view/stock_form_view/stock_form_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -21,11 +21,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'news_page_model.dart';
-export 'news_page_model.dart';
+import 'stock_page_model.dart';
+export 'stock_page_model.dart';
 
-class NewsPageWidget extends StatefulWidget {
-  const NewsPageWidget({
+class StockPageWidget extends StatefulWidget {
+  const StockPageWidget({
     super.key,
     required this.menuName,
   });
@@ -33,26 +33,26 @@ class NewsPageWidget extends StatefulWidget {
   final String? menuName;
 
   @override
-  State<NewsPageWidget> createState() => _NewsPageWidgetState();
+  State<StockPageWidget> createState() => _StockPageWidgetState();
 }
 
-class _NewsPageWidgetState extends State<NewsPageWidget> {
-  late NewsPageModel _model;
+class _StockPageWidgetState extends State<StockPageWidget> {
+  late StockPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NewsPageModel());
+    _model = createModel(context, () => StockPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await action_blocks.checkExpireDate(context);
       _model.startDate = functions.getStartDateOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
-      _model.dataResult = await queryNewsListRecordOnce(
-        queryBuilder: (newsListRecord) => newsListRecord
+      _model.dataResult = await queryStockListRecordOnce(
+        queryBuilder: (stockListRecord) => stockListRecord
             .where(
               'create_date',
               isGreaterThanOrEqualTo: _model.startDate,
@@ -63,8 +63,8 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
             )
             .orderBy('create_date', descending: true),
       );
-      _model.dataList = _model.dataResult!.toList().cast<NewsListRecord>();
-      _model.tmpDataList = _model.dataResult!.toList().cast<NewsListRecord>();
+      _model.dataList = _model.dataResult!.toList().cast<StockListRecord>();
+      _model.tmpDataList = _model.dataResult!.toList().cast<StockListRecord>();
       _model.isLoading = false;
       setState(() {});
     });
@@ -84,8 +84,6 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -273,9 +271,9 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                             .thaiMonthList
                                                             .toList()));
                                             _model.dataResult2 =
-                                                await queryNewsListRecordOnce(
-                                              queryBuilder: (newsListRecord) =>
-                                                  newsListRecord
+                                                await queryStockListRecordOnce(
+                                              queryBuilder: (stockListRecord) =>
+                                                  stockListRecord
                                                       .where(
                                                         'create_date',
                                                         isGreaterThanOrEqualTo:
@@ -292,11 +290,11 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                             _model.dataList = _model
                                                 .dataResult2!
                                                 .toList()
-                                                .cast<NewsListRecord>();
+                                                .cast<StockListRecord>();
                                             _model.tmpDataList = _model
                                                 .dataResult2!
                                                 .toList()
-                                                .cast<NewsListRecord>();
+                                                .cast<StockListRecord>();
                                             setState(() {});
 
                                             setState(() {});
@@ -358,8 +356,9 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                           : FocusScope.of(
                                                                   context)
                                                               .unfocus(),
-                                                      child: NewsFormViewWidget(
-                                                        title: 'เพิ่มข้อมูล',
+                                                      child:
+                                                          StockFormViewWidget(
+                                                        title: 'เพิ่มพัสดุ',
                                                       ),
                                                     ),
                                                   );
@@ -373,10 +372,10 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                   (_model.isUpdate2 ==
                                                       'update')) {
                                                 _model.dataResult5 =
-                                                    await queryNewsListRecordOnce(
+                                                    await queryStockListRecordOnce(
                                                   queryBuilder:
-                                                      (newsListRecord) =>
-                                                          newsListRecord
+                                                      (stockListRecord) =>
+                                                          stockListRecord
                                                               .where(
                                                                 'create_date',
                                                                 isGreaterThanOrEqualTo:
@@ -397,18 +396,18 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                 _model.dataList = _model
                                                     .dataResult5!
                                                     .toList()
-                                                    .cast<NewsListRecord>();
+                                                    .cast<StockListRecord>();
                                                 _model.tmpDataList = _model
                                                     .dataResult5!
                                                     .toList()
-                                                    .cast<NewsListRecord>();
+                                                    .cast<StockListRecord>();
                                                 _model.isLoading = false;
                                                 setState(() {});
                                               }
 
                                               setState(() {});
                                             },
-                                            text: 'เพิ่มข้อมูล',
+                                            text: 'เพิ่มพัสดุ',
                                             options: FFButtonOptions(
                                               height: 56.0,
                                               padding: EdgeInsetsDirectional
@@ -437,6 +436,52 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                             ),
                                           ),
                                         ),
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            if (_model.dataList.isNotEmpty) {
+                                              _model.isLoading = true;
+                                              setState(() {});
+                                              await actions.exportStock(
+                                                _model.dataList.toList(),
+                                                functions.getCurrentMonth(
+                                                    _model.startDate!,
+                                                    FFAppConstants.thaiMonthList
+                                                        .toList()),
+                                                functions.getCurrentYear(
+                                                    _model.startDate!),
+                                              );
+                                              _model.isLoading = false;
+                                              setState(() {});
+                                            }
+                                          },
+                                          text: 'Export Excel',
+                                          options: FFButtonOptions(
+                                            height: 56.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 0.0, 32.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .success,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -444,14 +489,14 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 0.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 0.0, 8.0, 0.0),
+                                child: Container(
                                   width: 300.0,
                                   child: TextFormField(
                                     controller: _model.textController,
@@ -464,18 +509,18 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                 null &&
                                             _model.textController.text != '') {
                                           _model.dataResult3 =
-                                              await actions.filterNewsList(
+                                              await actions.filterStockList(
                                             _model.textController.text,
                                             _model.tmpDataList.toList(),
                                           );
                                           _model.dataList = _model.dataResult3!
                                               .toList()
-                                              .cast<NewsListRecord>();
+                                              .cast<StockListRecord>();
                                           setState(() {});
                                         } else {
                                           _model.dataList = _model.tmpDataList
                                               .toList()
-                                              .cast<NewsListRecord>();
+                                              .cast<StockListRecord>();
                                           setState(() {});
                                         }
 
@@ -486,7 +531,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText:
-                                          'ระบุคำค้นหา หัวข้อ, รายละเอียด',
+                                          'ระบุคำค้นหา หมายเลขพัสดุ, บ้าน/ห้อง เลขที่',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -555,20 +600,20 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                         '') {
                                                   _model.dataResult3 =
                                                       await actions
-                                                          .filterNewsList(
+                                                          .filterStockList(
                                                     _model.textController.text,
                                                     _model.tmpDataList.toList(),
                                                   );
                                                   _model.dataList = _model
                                                       .dataResult3!
                                                       .toList()
-                                                      .cast<NewsListRecord>();
+                                                      .cast<StockListRecord>();
                                                   setState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
-                                                      .cast<NewsListRecord>();
+                                                      .cast<StockListRecord>();
                                                   setState(() {});
                                                 }
 
@@ -592,8 +637,8 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                         .asValidator(context),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -607,7 +652,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                           return NoDataViewWidget();
                         }
 
-                        return FlutterFlowDataTable<NewsListRecord>(
+                        return FlutterFlowDataTable<StockListRecord>(
                           controller: _model.paginatedDataTableController,
                           data: dataListView,
                           columnsBuilder: (onSortChanged) => [
@@ -620,7 +665,82 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'หัวข้อ',
+                                        'หมายเลขพัสดุ',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'วันที่รับพัสดุเข้าระบบ',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'วันที่ลูกบ้านรับพัสดุ',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            DataColumn2(
+                              label: DefaultTextStyle.merge(
+                                softWrap: true,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'บ้าน/ห้อง เลขที่',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -670,57 +790,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันที่สร้าง',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'วันที่แก้ไข',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'สถานะ',
+                                        'สถานะพัสดุ',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -779,25 +849,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      dataListViewItem.subject,
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      dataListViewItem.detail,
+                                      dataListViewItem.stockNumber,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -834,11 +886,44 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      valueOrDefault<String>(
-                                        functions.dateTimeTh(
-                                            dataListViewItem.updateDate),
-                                        '-',
-                                      ),
+                                      functions.dateTimeTh(
+                                          dataListViewItem.recevieDate),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      dataListViewItem.contactAddress,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      dataListViewItem.detail,
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -855,35 +940,14 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      functions.getDataStatus(
-                                          dataListViewItem.status,
-                                          FFAppState().dataStatusList.toList()),
+                                      dataListViewItem.status.toString(),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Manrope',
-                                            color: () {
-                                              if (dataListViewItem.status ==
-                                                  1) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .success;
-                                              } else if (dataListViewItem
-                                                      .status ==
-                                                  0) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .warning;
-                                              } else {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .primaryText;
-                                              }
-                                            }(),
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
@@ -893,198 +957,27 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Builder(
-                                    builder: (context) => Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 8.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await showDialog(
-                                            context: context,
-                                            builder: (dialogContext) {
-                                              return Dialog(
-                                                elevation: 0,
-                                                insetPadding: EdgeInsets.zero,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                alignment: AlignmentDirectional(
-                                                        0.0, 0.0)
-                                                    .resolve(Directionality.of(
-                                                        context)),
-                                                child: GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: NewsFormViewWidget(
-                                                    dataDocument:
-                                                        dataListViewItem,
-                                                    title: 'แก้ไขข้อมูล',
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then((value) => safeSetState(
-                                              () => _model.isUpdate = value));
-
-                                          if ((_model.isUpdate != null &&
-                                                  _model.isUpdate != '') &&
-                                              (_model.isUpdate == 'update')) {
-                                            _model.dataResult4 =
-                                                await queryNewsListRecordOnce(
-                                              queryBuilder: (newsListRecord) =>
-                                                  newsListRecord
-                                                      .where(
-                                                        'create_date',
-                                                        isGreaterThanOrEqualTo:
-                                                            _model.startDate,
-                                                      )
-                                                      .where(
-                                                        'create_date',
-                                                        isLessThanOrEqualTo:
-                                                            _model.endDate,
-                                                      )
-                                                      .orderBy('create_date',
-                                                          descending: true),
-                                            );
-                                            _model.dataList = _model
-                                                .dataResult4!
-                                                .toList()
-                                                .cast<NewsListRecord>();
-                                            _model.tmpDataList = _model
-                                                .dataResult4!
-                                                .toList()
-                                                .cast<NewsListRecord>();
-                                            _model.isLoading = false;
-                                            setState(() {});
-                                          }
-
-                                          setState(() {});
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.remove_red_eye_sharp,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                            Text(
-                                              'ดูข้อมูล',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        fontSize: 8.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.remove_red_eye_sharp,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
                                       ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      var confirmDialogResponse =
-                                          await showDialog<bool>(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'ต้องการลบข้อมูล?'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('ยกเลิก'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text('ยืนยัน'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ) ??
-                                              false;
-                                      if (confirmDialogResponse) {
-                                        await dataListViewItem.reference
-                                            .delete();
-                                        _model.dataResult6 =
-                                            await queryNewsListRecordOnce(
-                                          queryBuilder: (newsListRecord) =>
-                                              newsListRecord
-                                                  .where(
-                                                    'create_date',
-                                                    isGreaterThanOrEqualTo:
-                                                        _model.startDate,
-                                                  )
-                                                  .where(
-                                                    'create_date',
-                                                    isLessThanOrEqualTo:
-                                                        _model.endDate,
-                                                  )
-                                                  .orderBy('create_date',
-                                                      descending: true),
-                                        );
-                                        _model.dataList = _model.dataResult6!
-                                            .toList()
-                                            .cast<NewsListRecord>();
-                                        _model.tmpDataList = _model.dataResult6!
-                                            .toList()
-                                            .cast<NewsListRecord>();
-                                        _model.isLoading = false;
-                                        setState(() {});
-                                      }
-
-                                      setState(() {});
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.delete_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          size: 24.0,
-                                        ),
-                                        Text(
-                                          'ลบข้อมูล',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                fontSize: 8.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
+                                      Text(
+                                        'ดูข้อมูล',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              fontSize: 8.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
