@@ -363,31 +363,9 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                     ],
                                   ),
                                 ),
-                                if (widget!.dataDocument != null)
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'วันที่สร้างข้อมูล : ${functions.dateTimeTh(widget!.dataDocument?.createDate)}',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
+                                      0.0, 0.0, 0.0, 8.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -476,6 +454,28 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                     ],
                                   ),
                                 ),
+                                if (widget!.dataDocument != null)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 16.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'วันที่สร้างข้อมูล : ${functions.dateTimeTh(widget!.dataDocument?.createDate)}',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -492,7 +492,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                           (alertDialogContext) {
                                                         return AlertDialog(
                                                           title: Text(
-                                                              'ต้องการลบลูกบ้านคนนี้?'),
+                                                              'ต้องการลบรายการนี้?'),
                                                           actions: [
                                                             TextButton(
                                                               onPressed: () =>
