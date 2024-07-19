@@ -569,7 +569,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                           _model
                                                                               .displayImage) {
                                                                         _model.displayImage =
-                                                                            null;
+                                                                            '';
                                                                         setState(
                                                                             () {});
                                                                       }
