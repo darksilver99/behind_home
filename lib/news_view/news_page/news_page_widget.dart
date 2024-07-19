@@ -1003,32 +1003,62 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      await dataListViewItem.reference.delete();
-                                      _model.dataResult6 =
-                                          await queryNewsListRecordOnce(
-                                        queryBuilder: (newsListRecord) =>
-                                            newsListRecord
-                                                .where(
-                                                  'create_date',
-                                                  isGreaterThanOrEqualTo:
-                                                      _model.startDate,
-                                                )
-                                                .where(
-                                                  'create_date',
-                                                  isLessThanOrEqualTo:
-                                                      _model.endDate,
-                                                )
-                                                .orderBy('create_date',
-                                                    descending: true),
-                                      );
-                                      _model.dataList = _model.dataResult6!
-                                          .toList()
-                                          .cast<NewsListRecord>();
-                                      _model.tmpDataList = _model.dataResult6!
-                                          .toList()
-                                          .cast<NewsListRecord>();
-                                      _model.isLoading = false;
-                                      setState(() {});
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        'ต้องการลบข้อมูล?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: Text('ยกเลิก'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: Text('ยืนยัน'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        await dataListViewItem.reference
+                                            .delete();
+                                        _model.dataResult6 =
+                                            await queryNewsListRecordOnce(
+                                          queryBuilder: (newsListRecord) =>
+                                              newsListRecord
+                                                  .where(
+                                                    'create_date',
+                                                    isGreaterThanOrEqualTo:
+                                                        _model.startDate,
+                                                  )
+                                                  .where(
+                                                    'create_date',
+                                                    isLessThanOrEqualTo:
+                                                        _model.endDate,
+                                                  )
+                                                  .orderBy('create_date',
+                                                      descending: true),
+                                        );
+                                        _model.dataList = _model.dataResult6!
+                                            .toList()
+                                            .cast<NewsListRecord>();
+                                        _model.tmpDataList = _model.dataResult6!
+                                            .toList()
+                                            .cast<NewsListRecord>();
+                                        _model.isLoading = false;
+                                        setState(() {});
+                                      }
 
                                       setState(() {});
                                     },
