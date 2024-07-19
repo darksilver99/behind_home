@@ -58,6 +58,9 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
             _model.displayImage = _model.imageList.first;
             setState(() {});
           }
+        } else {
+          _model.displayImage = widget!.dataDocument?.displayImage;
+          setState(() {});
         }
       }
     });
@@ -754,6 +757,15 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 _model.addToImageList(
                                                     _model.uploadedFileUrl);
                                                 setState(() {});
+                                                setState(() {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                  _model.uploadedLocalFile =
+                                                      FFUploadedFile(
+                                                          bytes: Uint8List
+                                                              .fromList([]));
+                                                  _model.uploadedFileUrl = '';
+                                                });
                                               }
                                             },
                                             text: 'อัพโหลดรูป',
