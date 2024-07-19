@@ -84,6 +84,8 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -854,14 +856,34 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                   Expanded(
                                     child: Text(
                                       functions.getDataStatus(
-                                          dataListViewItem.status),
+                                          dataListViewItem.status,
+                                          FFAppState().dataStatusList.toList()),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Manrope',
+                                            color: () {
+                                              if (dataListViewItem.status ==
+                                                  1) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .success;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  0) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .warning;
+                                              } else {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primaryText;
+                                              }
+                                            }(),
                                             letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
