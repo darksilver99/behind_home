@@ -814,7 +814,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                   Expanded(
                                     child: Text(
                                       functions.dateTimeTh(
-                                          dataListViewItem.createDate!),
+                                          dataListViewItem.createDate),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -834,7 +834,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                     child: Text(
                                       valueOrDefault<String>(
                                         functions.dateTimeTh(
-                                            dataListViewItem.updateDate!),
+                                            dataListViewItem.updateDate),
                                         '-',
                                       ),
                                       textAlign: TextAlign.center,

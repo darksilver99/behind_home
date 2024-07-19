@@ -372,7 +372,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'วันที่สร้างข้อมูล : ${functions.dateTimeTh(widget!.dataDocument!.createDate!)}',
+                                            'วันที่สร้างข้อมูล : ${functions.dateTimeTh(widget!.dataDocument?.createDate)}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(

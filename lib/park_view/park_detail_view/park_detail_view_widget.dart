@@ -466,7 +466,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'เวลาเข้า : ${functions.dateTimeTh(widget!.transactionDocument!.dateIn!)}',
+                                        'เวลาเข้า : ${functions.dateTimeTh(widget!.transactionDocument?.dateIn)}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -487,7 +487,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'เวลาออก : ${widget!.transactionDocument?.dateOut != null ? functions.dateTimeTh(widget!.transactionDocument!.dateOut!) : 'ยังไม่ออก'}',
+                                        'เวลาออก : ${widget!.transactionDocument?.dateOut != null ? functions.dateTimeTh(widget!.transactionDocument?.dateOut) : 'ยังไม่ออก'}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
