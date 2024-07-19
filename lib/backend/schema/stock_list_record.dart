@@ -66,6 +66,16 @@ class StockListRecord extends FirestoreRecord {
   DocumentReference? get receiver => _receiver;
   bool hasReceiver() => _receiver != null;
 
+  // "contact_address" field.
+  String? _contactAddress;
+  String get contactAddress => _contactAddress ?? '';
+  bool hasContactAddress() => _contactAddress != null;
+
+  // "recevie_date" field.
+  DateTime? _recevieDate;
+  DateTime? get recevieDate => _recevieDate;
+  bool hasRecevieDate() => _recevieDate != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -77,6 +87,8 @@ class StockListRecord extends FirestoreRecord {
     _images = getDataList(snapshotData['images']);
     _residentRef = snapshotData['resident_ref'] as DocumentReference?;
     _receiver = snapshotData['receiver'] as DocumentReference?;
+    _contactAddress = snapshotData['contact_address'] as String?;
+    _recevieDate = snapshotData['recevie_date'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -123,6 +135,8 @@ Map<String, dynamic> createStockListRecordData({
   String? detail,
   DocumentReference? residentRef,
   DocumentReference? receiver,
+  String? contactAddress,
+  DateTime? recevieDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +149,8 @@ Map<String, dynamic> createStockListRecordData({
       'detail': detail,
       'resident_ref': residentRef,
       'receiver': receiver,
+      'contact_address': contactAddress,
+      'recevie_date': recevieDate,
     }.withoutNulls,
   );
 
@@ -156,7 +172,9 @@ class StockListRecordDocumentEquality implements Equality<StockListRecord> {
         e1?.detail == e2?.detail &&
         listEquality.equals(e1?.images, e2?.images) &&
         e1?.residentRef == e2?.residentRef &&
-        e1?.receiver == e2?.receiver;
+        e1?.receiver == e2?.receiver &&
+        e1?.contactAddress == e2?.contactAddress &&
+        e1?.recevieDate == e2?.recevieDate;
   }
 
   @override
@@ -170,7 +188,9 @@ class StockListRecordDocumentEquality implements Equality<StockListRecord> {
         e?.detail,
         e?.images,
         e?.residentRef,
-        e?.receiver
+        e?.receiver,
+        e?.contactAddress,
+        e?.recevieDate
       ]);
 
   @override
