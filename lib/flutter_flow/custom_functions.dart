@@ -132,6 +132,18 @@ DateTime getEndDayTime(DateTime date) {
   return endOfDay;
 }
 
+String getIssueStatus(
+  int status,
+  List<IssueStatusDataStruct> issueStatusList,
+) {
+  for (var dataStatus in issueStatusList) {
+    if (dataStatus.status == status) {
+      return dataStatus.subject;
+    }
+  }
+  return '-';
+}
+
 String dateTimeTh(DateTime? date) {
   if (date == null) {
     return "-";

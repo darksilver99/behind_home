@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,6 +9,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'issue_detail_view_model.dart';
@@ -38,6 +40,15 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => IssueDetailViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.tmpIssueStatusList =
+          FFAppState().issueStatusList.toList().cast<IssueStatusDataStruct>();
+      _model.removeAtIndexFromTmpIssueStatusList(0);
+      _model.removeAtIndexFromTmpIssueStatusList(0);
+      setState(() {});
+    });
 
     _model.textController ??=
         TextEditingController(text: widget!.dataDocument?.adminDetail);
@@ -540,12 +551,11 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                         _model.dropDownValue ??=
                                             widget!.dataDocument?.status,
                                       ),
-                                      options: List<int>.from(FFAppState()
-                                          .residentStatusList
+                                      options: List<int>.from(_model
+                                          .tmpIssueStatusList
                                           .map((e) => e.status)
                                           .toList()),
-                                      optionLabels: FFAppState()
-                                          .residentStatusList
+                                      optionLabels: _model.tmpIssueStatusList
                                           .map((e) => e.subject)
                                           .toList(),
                                       onChanged: (val) => setState(
