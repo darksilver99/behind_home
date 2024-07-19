@@ -62,7 +62,7 @@ class NewsListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('news_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/news_list');
 
   static Stream<NewsListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => NewsListRecord.fromSnapshot(s));
