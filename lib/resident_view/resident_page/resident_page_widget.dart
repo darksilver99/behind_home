@@ -476,7 +476,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                   Expanded(
                                     child: Text(
                                       functions.dateTimeTh(
-                                          dataListViewItem.createDate!),
+                                          dataListViewItem.createDate),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)

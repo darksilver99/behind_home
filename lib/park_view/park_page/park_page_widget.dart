@@ -797,7 +797,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   Expanded(
                                     child: Text(
                                       functions
-                                          .dateTimeTh(dataListViewItem.dateIn!),
+                                          .dateTimeTh(dataListViewItem.dateIn),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -819,7 +819,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                         if (dataListViewItem.dateOut != null) {
                                           return Text(
                                             functions.dateTimeTh(
-                                                dataListViewItem.dateOut!),
+                                                dataListViewItem.dateOut),
                                             textAlign: TextAlign.center,
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)

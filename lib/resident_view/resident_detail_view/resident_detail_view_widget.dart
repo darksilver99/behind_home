@@ -231,7 +231,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'วันเวลาที่สมัคร : ${functions.dateTimeTh(widget!.dataDocument!.createDate!)}',
+                                            'วันเวลาที่สมัคร : ${functions.dateTimeTh(widget!.dataDocument?.createDate)}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
