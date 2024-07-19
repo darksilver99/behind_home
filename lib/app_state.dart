@@ -156,6 +156,46 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInDataStatusList(int index, DataStatusStruct value) {
     dataStatusList.insert(index, value);
   }
+
+  List<IssueStatusDataStruct> _issueStatusList = [
+    IssueStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"ยังไม่อ่าน\"}')),
+    IssueStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"อ่านแล้ว\"}')),
+    IssueStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"3\",\"subject\":\"กำลังดำเนินการ\"}')),
+    IssueStatusDataStruct.fromSerializableMap(jsonDecode(
+        '{\"status\":\"4\",\"subject\":\"ดำเนินการเรียบร้อยแล้ว\"}')),
+    IssueStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"5\",\"subject\":\"ไม่สามารถดำเนินการได้\"}'))
+  ];
+  List<IssueStatusDataStruct> get issueStatusList => _issueStatusList;
+  set issueStatusList(List<IssueStatusDataStruct> value) {
+    _issueStatusList = value;
+  }
+
+  void addToIssueStatusList(IssueStatusDataStruct value) {
+    issueStatusList.add(value);
+  }
+
+  void removeFromIssueStatusList(IssueStatusDataStruct value) {
+    issueStatusList.remove(value);
+  }
+
+  void removeAtIndexFromIssueStatusList(int index) {
+    issueStatusList.removeAt(index);
+  }
+
+  void updateIssueStatusListAtIndex(
+    int index,
+    IssueStatusDataStruct Function(IssueStatusDataStruct) updateFn,
+  ) {
+    issueStatusList[index] = updateFn(_issueStatusList[index]);
+  }
+
+  void insertAtIndexInIssueStatusList(int index, IssueStatusDataStruct value) {
+    issueStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
