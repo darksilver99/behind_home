@@ -8,8 +8,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class NewsListRecord extends FirestoreRecord {
-  NewsListRecord._(
+class StockListRecord extends FirestoreRecord {
+  StockListRecord._(
     DocumentReference reference,
     Map<String, dynamic> data,
   ) : super(reference, data) {
@@ -41,10 +41,10 @@ class NewsListRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
-  // "subject" field.
-  String? _subject;
-  String get subject => _subject ?? '';
-  bool hasSubject() => _subject != null;
+  // "stock_number" field.
+  String? _stockNumber;
+  String get stockNumber => _stockNumber ?? '';
+  bool hasStockNumber() => _stockNumber != null;
 
   // "detail" field.
   String? _detail;
@@ -56,10 +56,15 @@ class NewsListRecord extends FirestoreRecord {
   List<String> get images => _images ?? const [];
   bool hasImages() => _images != null;
 
-  // "display_image" field.
-  String? _displayImage;
-  String get displayImage => _displayImage ?? '';
-  bool hasDisplayImage() => _displayImage != null;
+  // "resident_ref" field.
+  DocumentReference? _residentRef;
+  DocumentReference? get residentRef => _residentRef;
+  bool hasResidentRef() => _residentRef != null;
+
+  // "receiver" field.
+  DocumentReference? _receiver;
+  DocumentReference? get receiver => _receiver;
+  bool hasReceiver() => _receiver != null;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
@@ -67,55 +72,57 @@ class NewsListRecord extends FirestoreRecord {
     _updateDate = snapshotData['update_date'] as DateTime?;
     _updateBy = snapshotData['update_by'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
-    _subject = snapshotData['subject'] as String?;
+    _stockNumber = snapshotData['stock_number'] as String?;
     _detail = snapshotData['detail'] as String?;
     _images = getDataList(snapshotData['images']);
-    _displayImage = snapshotData['display_image'] as String?;
+    _residentRef = snapshotData['resident_ref'] as DocumentReference?;
+    _receiver = snapshotData['receiver'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('news_list');
+      FirebaseFirestore.instance.collection('stock_list');
 
-  static Stream<NewsListRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => NewsListRecord.fromSnapshot(s));
+  static Stream<StockListRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => StockListRecord.fromSnapshot(s));
 
-  static Future<NewsListRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => NewsListRecord.fromSnapshot(s));
+  static Future<StockListRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => StockListRecord.fromSnapshot(s));
 
-  static NewsListRecord fromSnapshot(DocumentSnapshot snapshot) =>
-      NewsListRecord._(
+  static StockListRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      StockListRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static NewsListRecord getDocumentFromData(
+  static StockListRecord getDocumentFromData(
     Map<String, dynamic> data,
     DocumentReference reference,
   ) =>
-      NewsListRecord._(reference, mapFromFirestore(data));
+      StockListRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'NewsListRecord(reference: ${reference.path}, data: $snapshotData)';
+      'StockListRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
   bool operator ==(other) =>
-      other is NewsListRecord &&
+      other is StockListRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
-Map<String, dynamic> createNewsListRecordData({
+Map<String, dynamic> createStockListRecordData({
   DateTime? createDate,
   DocumentReference? createBy,
   DateTime? updateDate,
   DocumentReference? updateBy,
   int? status,
-  String? subject,
+  String? stockNumber,
   String? detail,
-  String? displayImage,
+  DocumentReference? residentRef,
+  DocumentReference? receiver,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -124,45 +131,48 @@ Map<String, dynamic> createNewsListRecordData({
       'update_date': updateDate,
       'update_by': updateBy,
       'status': status,
-      'subject': subject,
+      'stock_number': stockNumber,
       'detail': detail,
-      'display_image': displayImage,
+      'resident_ref': residentRef,
+      'receiver': receiver,
     }.withoutNulls,
   );
 
   return firestoreData;
 }
 
-class NewsListRecordDocumentEquality implements Equality<NewsListRecord> {
-  const NewsListRecordDocumentEquality();
+class StockListRecordDocumentEquality implements Equality<StockListRecord> {
+  const StockListRecordDocumentEquality();
 
   @override
-  bool equals(NewsListRecord? e1, NewsListRecord? e2) {
+  bool equals(StockListRecord? e1, StockListRecord? e2) {
     const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.updateDate == e2?.updateDate &&
         e1?.updateBy == e2?.updateBy &&
         e1?.status == e2?.status &&
-        e1?.subject == e2?.subject &&
+        e1?.stockNumber == e2?.stockNumber &&
         e1?.detail == e2?.detail &&
         listEquality.equals(e1?.images, e2?.images) &&
-        e1?.displayImage == e2?.displayImage;
+        e1?.residentRef == e2?.residentRef &&
+        e1?.receiver == e2?.receiver;
   }
 
   @override
-  int hash(NewsListRecord? e) => const ListEquality().hash([
+  int hash(StockListRecord? e) => const ListEquality().hash([
         e?.createDate,
         e?.createBy,
         e?.updateDate,
         e?.updateBy,
         e?.status,
-        e?.subject,
+        e?.stockNumber,
         e?.detail,
         e?.images,
-        e?.displayImage
+        e?.residentRef,
+        e?.receiver
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is NewsListRecord;
+  bool isValidKey(Object? o) => o is StockListRecord;
 }

@@ -1,14 +1,20 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'news_form_view_model.dart';
 export 'news_form_view_model.dart';
@@ -40,6 +46,21 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NewsFormViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget!.dataDocument != null) {
+        _model.imageList = widget!.dataDocument!.images.toList().cast<String>();
+        setState(() {});
+        if (widget!.dataDocument?.displayImage == null ||
+            widget!.dataDocument?.displayImage == '') {
+          if (_model.imageList.isNotEmpty) {
+            _model.displayImage = _model.imageList.first;
+            setState(() {});
+          }
+        }
+      }
+    });
 
     _model.textController1 ??=
         TextEditingController(text: widget!.dataDocument?.subject);
@@ -368,6 +389,415 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'รูปแนบ : ',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final imageListView =
+                                                      _model.imageList.toList();
+
+                                                  return Wrap(
+                                                    spacing: 8.0,
+                                                    runSpacing: 8.0,
+                                                    alignment:
+                                                        WrapAlignment.start,
+                                                    crossAxisAlignment:
+                                                        WrapCrossAlignment
+                                                            .start,
+                                                    direction: Axis.horizontal,
+                                                    runAlignment:
+                                                        WrapAlignment.start,
+                                                    verticalDirection:
+                                                        VerticalDirection.down,
+                                                    clipBehavior: Clip.none,
+                                                    children: List.generate(
+                                                        imageListView.length,
+                                                        (imageListViewIndex) {
+                                                      final imageListViewItem =
+                                                          imageListView[
+                                                              imageListViewIndex];
+                                                      return Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        child: Stack(
+                                                          children: [
+                                                            InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                await Navigator
+                                                                    .push(
+                                                                  context,
+                                                                  PageTransition(
+                                                                    type: PageTransitionType
+                                                                        .fade,
+                                                                    child:
+                                                                        FlutterFlowExpandedImageView(
+                                                                      image: Image
+                                                                          .network(
+                                                                        imageListViewItem,
+                                                                        fit: BoxFit
+                                                                            .contain,
+                                                                        errorBuilder: (context,
+                                                                                error,
+                                                                                stackTrace) =>
+                                                                            Image.asset(
+                                                                          'assets/images/error_image.jpg',
+                                                                          fit: BoxFit
+                                                                              .contain,
+                                                                        ),
+                                                                      ),
+                                                                      allowRotation:
+                                                                          false,
+                                                                      tag:
+                                                                          imageListViewItem,
+                                                                      useHeroAnimation:
+                                                                          true,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: Hero(
+                                                                tag:
+                                                                    imageListViewItem,
+                                                                transitionOnUserGestures:
+                                                                    true,
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                  child: Image
+                                                                      .network(
+                                                                    imageListViewItem,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height: double
+                                                                        .infinity,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                    errorBuilder: (context,
+                                                                            error,
+                                                                            stackTrace) =>
+                                                                        Image
+                                                                            .asset(
+                                                                      'assets/images/error_image.jpg',
+                                                                      width: double
+                                                                          .infinity,
+                                                                      height: double
+                                                                          .infinity,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      1.0,
+                                                                      -1.0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            4.0,
+                                                                            4.0,
+                                                                            0.0),
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await FirebaseStorage
+                                                                        .instance
+                                                                        .refFromURL(
+                                                                            imageListViewItem)
+                                                                        .delete();
+                                                                    _model.removeFromImageList(
+                                                                        imageListViewItem);
+                                                                    setState(
+                                                                        () {});
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .cancel_rounded,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0.0, 1.0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            4.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            4.0),
+                                                                child:
+                                                                    FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    if (_model
+                                                                            .displayImage !=
+                                                                        imageListViewItem) {
+                                                                      _model.displayImage =
+                                                                          imageListViewItem;
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                  },
+                                                                  text:
+                                                                      'ตั้งรูปหน้าปก',
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        24.0,
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            4.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: _model.displayImage ==
+                                                                            imageListViewItem
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .alternate
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              8.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                    elevation:
+                                                                        3.0,
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    }),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              final selectedMedia =
+                                                  await selectMedia(
+                                                maxWidth: 600.00,
+                                                imageQuality: 80,
+                                                mediaSource:
+                                                    MediaSource.photoGallery,
+                                                multiImage: false,
+                                              );
+                                              if (selectedMedia != null &&
+                                                  selectedMedia.every((m) =>
+                                                      validateFileFormat(
+                                                          m.storagePath,
+                                                          context))) {
+                                                setState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
+
+                                                var downloadUrls = <String>[];
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedMedia
+                                                          .map((m) =>
+                                                              FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                          .toList();
+
+                                                  downloadUrls =
+                                                      (await Future.wait(
+                                                    selectedMedia.map(
+                                                      (m) async =>
+                                                          await uploadData(
+                                                              m.storagePath,
+                                                              m.bytes),
+                                                    ),
+                                                  ))
+                                                          .where(
+                                                              (u) => u != null)
+                                                          .map((u) => u!)
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                            .length ==
+                                                        selectedMedia.length &&
+                                                    downloadUrls.length ==
+                                                        selectedMedia.length) {
+                                                  setState(() {
+                                                    _model.uploadedLocalFile =
+                                                        selectedUploadedFiles
+                                                            .first;
+                                                    _model.uploadedFileUrl =
+                                                        downloadUrls.first;
+                                                  });
+                                                } else {
+                                                  setState(() {});
+                                                  return;
+                                                }
+                                              }
+
+                                              if (_model.uploadedFileUrl !=
+                                                      null &&
+                                                  _model.uploadedFileUrl !=
+                                                      '') {
+                                                _model.addToImageList(
+                                                    _model.uploadedFileUrl);
+                                                setState(() {});
+                                              }
+                                            },
+                                            text: 'อัพโหลดรูป',
+                                            icon: Icon(
+                                              Icons.image_rounded,
+                                              size: 24.0,
+                                            ),
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -569,33 +999,71 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 false;
                                             setState(() {});
                                             if (widget!.dataDocument != null) {
+                                              if ((_model.displayImage ==
+                                                          null ||
+                                                      _model.displayImage ==
+                                                          '') &&
+                                                  (_model
+                                                      .imageList.isNotEmpty)) {
+                                                _model.displayImage =
+                                                    _model.imageList.first;
+                                              }
+
                                               await widget!
                                                   .dataDocument!.reference
-                                                  .update(
-                                                      createNewsListRecordData(
-                                                status: _model.dropDownValue,
-                                                updateDate: getCurrentTimestamp,
-                                                updateBy: currentUserReference,
-                                                subject:
-                                                    _model.textController1.text,
-                                                detail:
-                                                    _model.textController2.text,
-                                              ));
+                                                  .update({
+                                                ...createNewsListRecordData(
+                                                  status: _model.dropDownValue,
+                                                  updateDate:
+                                                      getCurrentTimestamp,
+                                                  updateBy:
+                                                      currentUserReference,
+                                                  subject: _model
+                                                      .textController1.text,
+                                                  detail: _model
+                                                      .textController2.text,
+                                                  displayImage:
+                                                      _model.displayImage,
+                                                ),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'images': _model.imageList,
+                                                  },
+                                                ),
+                                              });
                                             } else {
+                                              if ((_model.displayImage ==
+                                                          null ||
+                                                      _model.displayImage ==
+                                                          '') &&
+                                                  (_model
+                                                      .imageList.isNotEmpty)) {
+                                                _model.displayImage =
+                                                    _model.imageList.first;
+                                              }
+
                                               await NewsListRecord.collection
                                                   .doc()
-                                                  .set(createNewsListRecordData(
-                                                    createDate:
-                                                        getCurrentTimestamp,
-                                                    createBy:
-                                                        currentUserReference,
-                                                    status:
-                                                        _model.dropDownValue,
-                                                    subject: _model
-                                                        .textController1.text,
-                                                    detail: _model
-                                                        .textController2.text,
-                                                  ));
+                                                  .set({
+                                                ...createNewsListRecordData(
+                                                  createDate:
+                                                      getCurrentTimestamp,
+                                                  createBy:
+                                                      currentUserReference,
+                                                  status: _model.dropDownValue,
+                                                  subject: _model
+                                                      .textController1.text,
+                                                  detail: _model
+                                                      .textController2.text,
+                                                  displayImage:
+                                                      _model.displayImage,
+                                                ),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'images': _model.imageList,
+                                                  },
+                                                ),
+                                              });
                                             }
 
                                             Navigator.pop(context, 'update');
