@@ -370,7 +370,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
 
                                               if ((_model.isUpdate2 != null &&
                                                       _model.isUpdate2 != '') &&
-                                                  (_model.isUpdate ==
+                                                  (_model.isUpdate2 ==
                                                       'update')) {
                                                 _model.dataResult5 =
                                                     await queryNewsListRecordOnce(
