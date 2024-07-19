@@ -188,7 +188,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                       fontFamily: 'Manrope',
                                                       letterSpacing: 0.0,
                                                     ),
-                                            hintText: 'รายละเอียดเพิ่มเติม',
+                                            hintText: 'หัวข้อ',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -460,6 +460,19 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                         isSearchable: false,
                                         isMultiSelect: false,
                                       ),
+                                      if (_model.isEmptyDropdown1Value)
+                                        Text(
+                                          'Field is required',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -548,39 +561,45 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                   .validate()) {
                                             return;
                                           }
-                                          if (_model.dropDownValue == null) {
-                                            return;
-                                          }
-                                          if (widget!.dataDocument != null) {
-                                            await widget!
-                                                .dataDocument!.reference
-                                                .update(
-                                                    createNewsListRecordData(
-                                              status: _model.dropDownValue,
-                                              updateDate: getCurrentTimestamp,
-                                              updateBy: currentUserReference,
-                                              subject:
-                                                  _model.textController1.text,
-                                              detail:
-                                                  _model.textController2.text,
-                                            ));
-                                          } else {
-                                            await NewsListRecord.collection
-                                                .doc()
-                                                .set(createNewsListRecordData(
-                                                  createDate:
-                                                      getCurrentTimestamp,
-                                                  createBy:
-                                                      currentUserReference,
-                                                  status: _model.dropDownValue,
-                                                  subject: _model
-                                                      .textController1.text,
-                                                  detail: _model
-                                                      .textController2.text,
-                                                ));
-                                          }
+                                          if (_model.dropDownValue != null) {
+                                            _model.isEmptyDropdown1Value =
+                                                false;
+                                            setState(() {});
+                                            if (widget!.dataDocument != null) {
+                                              await widget!
+                                                  .dataDocument!.reference
+                                                  .update(
+                                                      createNewsListRecordData(
+                                                status: _model.dropDownValue,
+                                                updateDate: getCurrentTimestamp,
+                                                updateBy: currentUserReference,
+                                                subject:
+                                                    _model.textController1.text,
+                                                detail:
+                                                    _model.textController2.text,
+                                              ));
+                                            } else {
+                                              await NewsListRecord.collection
+                                                  .doc()
+                                                  .set(createNewsListRecordData(
+                                                    createDate:
+                                                        getCurrentTimestamp,
+                                                    createBy:
+                                                        currentUserReference,
+                                                    status:
+                                                        _model.dropDownValue,
+                                                    subject: _model
+                                                        .textController1.text,
+                                                    detail: _model
+                                                        .textController2.text,
+                                                  ));
+                                            }
 
-                                          Navigator.pop(context, 'update');
+                                            Navigator.pop(context, 'update');
+                                          } else {
+                                            _model.isEmptyDropdown1Value = true;
+                                            setState(() {});
+                                          }
                                         },
                                         text: 'บันทึกข้อมูล',
                                         options: FFButtonOptions(
