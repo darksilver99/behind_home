@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/count_alert_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -305,6 +306,29 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                                       ),
                                                 ),
                                               ),
+                                            ),
+                                            Builder(
+                                              builder: (context) {
+                                                if (columnBehindMenuListRecord
+                                                        .pathName ==
+                                                    'IssueProjectPage') {
+                                                  return CountAlertViewWidget(
+                                                    key: Key(
+                                                        'Keyz4r_${columnIndex}_of_${columnBehindMenuListRecordList.length}'),
+                                                    pathName:
+                                                        columnBehindMenuListRecord
+                                                            .pathName,
+                                                  );
+                                                } else {
+                                                  return Container(
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                    ),
+                                                  );
+                                                }
+                                              },
                                             ),
                                             Icon(
                                               Icons.navigate_next_rounded,

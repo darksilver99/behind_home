@@ -48,6 +48,12 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
       _model.removeAtIndexFromTmpIssueStatusList(0);
       _model.removeAtIndexFromTmpIssueStatusList(0);
       setState(() {});
+      if (widget!.dataDocument?.status == 0) {
+        await widget!.dataDocument!.reference
+            .update(createIssueProjectListRecordData(
+          status: 1,
+        ));
+      }
     });
 
     _model.textController ??=
@@ -104,7 +110,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      Navigator.pop(context);
+                      Navigator.pop(context, 'update');
                     },
                     child: Icon(
                       Icons.close_rounded,
