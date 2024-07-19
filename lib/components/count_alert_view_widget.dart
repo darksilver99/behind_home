@@ -83,7 +83,7 @@ class _CountAlertViewWidgetState extends State<CountAlertViewWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
                   child: Text(
-                    '99',
+                    _model.totalAlert.toString(),
                     maxLines: 1,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Manrope',
