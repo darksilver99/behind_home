@@ -799,7 +799,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       functions
                                           .dateTimeTh(dataListViewItem.dateIn),
                                       textAlign: TextAlign.center,
-                                      maxLines: 2,
+                                      maxLines: 3,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -833,7 +833,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                           return Text(
                                             '-',
                                             textAlign: TextAlign.center,
-                                            maxLines: 2,
+                                            maxLines: 3,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
