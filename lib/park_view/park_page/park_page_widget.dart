@@ -578,7 +578,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันเวลา',
+                                        'วันเวลาเข้า',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
