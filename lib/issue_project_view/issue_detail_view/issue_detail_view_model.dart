@@ -31,22 +31,41 @@ class IssueDetailViewModel extends FlutterFlowModel<IssueDetailViewWidget> {
           int index, Function(IssueStatusDataStruct) updateFn) =>
       tmpIssueStatusList[index] = updateFn(tmpIssueStatusList[index]);
 
+  bool showRemarkNotComplete = false;
+
   ///  State fields for stateful widgets in this component.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
+  TextEditingController? textController1;
+  String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
+  // State field(s) for remark widget.
+  FocusNode? remarkFocusNode;
+  TextEditingController? remarkTextController;
+  String? Function(BuildContext, String?)? remarkTextControllerValidator;
+  String? _remarkTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    remarkTextControllerValidator = _remarkTextControllerValidator;
+  }
 
   @override
   void dispose() {
     textFieldFocusNode?.dispose();
-    textController?.dispose();
+    textController1?.dispose();
+
+    remarkFocusNode?.dispose();
+    remarkTextController?.dispose();
   }
 }

@@ -71,6 +71,11 @@ class IssueProjectListRecord extends FirestoreRecord {
   String get adminDetail => _adminDetail ?? '';
   bool hasAdminDetail() => _adminDetail != null;
 
+  // "remark_not_complete" field.
+  String? _remarkNotComplete;
+  String get remarkNotComplete => _remarkNotComplete ?? '';
+  bool hasRemarkNotComplete() => _remarkNotComplete != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -83,6 +88,7 @@ class IssueProjectListRecord extends FirestoreRecord {
     _contactPhone = snapshotData['contact_phone'] as String?;
     _contactAddress = snapshotData['contact_address'] as String?;
     _adminDetail = snapshotData['admin_detail'] as String?;
+    _remarkNotComplete = snapshotData['remark_not_complete'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -132,6 +138,7 @@ Map<String, dynamic> createIssueProjectListRecordData({
   String? contactPhone,
   String? contactAddress,
   String? adminDetail,
+  String? remarkNotComplete,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -146,6 +153,7 @@ Map<String, dynamic> createIssueProjectListRecordData({
       'contact_phone': contactPhone,
       'contact_address': contactAddress,
       'admin_detail': adminDetail,
+      'remark_not_complete': remarkNotComplete,
     }.withoutNulls,
   );
 
@@ -168,7 +176,8 @@ class IssueProjectListRecordDocumentEquality
         e1?.contactName == e2?.contactName &&
         e1?.contactPhone == e2?.contactPhone &&
         e1?.contactAddress == e2?.contactAddress &&
-        e1?.adminDetail == e2?.adminDetail;
+        e1?.adminDetail == e2?.adminDetail &&
+        e1?.remarkNotComplete == e2?.remarkNotComplete;
   }
 
   @override
@@ -183,7 +192,8 @@ class IssueProjectListRecordDocumentEquality
         e?.contactName,
         e?.contactPhone,
         e?.contactAddress,
-        e?.adminDetail
+        e?.adminDetail,
+        e?.remarkNotComplete
       ]);
 
   @override
