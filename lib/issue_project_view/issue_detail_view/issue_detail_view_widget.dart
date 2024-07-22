@@ -61,7 +61,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
     _model.textFieldFocusNode ??= FocusNode();
 
     _model.remarkTextController ??=
-        TextEditingController(text: widget!.dataDocument?.remarkNotComplete);
+        TextEditingController(text: widget!.dataDocument?.remark);
     _model.remarkFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -611,7 +611,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                               onChanged: (val) async {
                                                 setState(() =>
                                                     _model.dropDownValue = val);
-                                                if (_model.dropDownValue == 5) {
+                                                if (_model.dropDownValue! > 3) {
                                                   _model.showRemarkNotComplete =
                                                       true;
                                                   setState(() {});
@@ -624,8 +624,8 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                                 setState(() {
                                                   _model.remarkTextController
                                                           ?.text =
-                                                      widget!.dataDocument!
-                                                          .remarkNotComplete;
+                                                      widget!
+                                                          .dataDocument!.remark;
                                                 });
                                               },
                                               width: 300.0,
@@ -690,7 +690,8 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                     },
                                   ),
                                 ),
-                                if (_model.showRemarkNotComplete)
+                                if ((_model.showRemarkNotComplete == true) ||
+                                    (widget!.dataDocument!.status > 3))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8.0, 0.0, 0.0, 8.0),
@@ -901,7 +902,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                               updateBy: currentUserReference,
                                               adminDetail:
                                                   _model.textController1.text,
-                                              remarkNotComplete: _model
+                                              remark: _model
                                                   .remarkTextController.text,
                                             ));
                                             Navigator.pop(context, 'update');

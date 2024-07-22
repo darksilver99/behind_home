@@ -71,10 +71,10 @@ class IssueProjectListRecord extends FirestoreRecord {
   String get adminDetail => _adminDetail ?? '';
   bool hasAdminDetail() => _adminDetail != null;
 
-  // "remark_not_complete" field.
-  String? _remarkNotComplete;
-  String get remarkNotComplete => _remarkNotComplete ?? '';
-  bool hasRemarkNotComplete() => _remarkNotComplete != null;
+  // "remark" field.
+  String? _remark;
+  String get remark => _remark ?? '';
+  bool hasRemark() => _remark != null;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
@@ -88,7 +88,7 @@ class IssueProjectListRecord extends FirestoreRecord {
     _contactPhone = snapshotData['contact_phone'] as String?;
     _contactAddress = snapshotData['contact_address'] as String?;
     _adminDetail = snapshotData['admin_detail'] as String?;
-    _remarkNotComplete = snapshotData['remark_not_complete'] as String?;
+    _remark = snapshotData['remark'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -138,7 +138,7 @@ Map<String, dynamic> createIssueProjectListRecordData({
   String? contactPhone,
   String? contactAddress,
   String? adminDetail,
-  String? remarkNotComplete,
+  String? remark,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -153,7 +153,7 @@ Map<String, dynamic> createIssueProjectListRecordData({
       'contact_phone': contactPhone,
       'contact_address': contactAddress,
       'admin_detail': adminDetail,
-      'remark_not_complete': remarkNotComplete,
+      'remark': remark,
     }.withoutNulls,
   );
 
@@ -177,7 +177,7 @@ class IssueProjectListRecordDocumentEquality
         e1?.contactPhone == e2?.contactPhone &&
         e1?.contactAddress == e2?.contactAddress &&
         e1?.adminDetail == e2?.adminDetail &&
-        e1?.remarkNotComplete == e2?.remarkNotComplete;
+        e1?.remark == e2?.remark;
   }
 
   @override
@@ -193,7 +193,7 @@ class IssueProjectListRecordDocumentEquality
         e?.contactPhone,
         e?.contactAddress,
         e?.adminDetail,
-        e?.remarkNotComplete
+        e?.remark
       ]);
 
   @override
