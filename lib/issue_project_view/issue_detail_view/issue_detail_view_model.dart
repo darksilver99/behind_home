@@ -40,9 +40,6 @@ class IssueDetailViewModel extends FlutterFlowModel<IssueDetailViewWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for DropDown widget.
-  int? dropDownValue;
-  FormFieldController<int>? dropDownValueController;
   // State field(s) for remark widget.
   FocusNode? remarkFocusNode;
   TextEditingController? remarkTextController;
@@ -54,6 +51,10 @@ class IssueDetailViewModel extends FlutterFlowModel<IssueDetailViewWidget> {
 
     return null;
   }
+
+  // State field(s) for DropDown widget.
+  int? dropDownValue;
+  FormFieldController<int>? dropDownValueController;
 
   @override
   void initState(BuildContext context) {

@@ -562,6 +562,125 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                     ],
                                   ),
                                 ),
+                                if ((_model.showRemarkNotComplete == true) ||
+                                    (widget!.dataDocument!.status > 3))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 0.0, 8.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'หมายเหตุ (ลูกบ้านจะเห็นข้อความนี้) : ',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 300.0,
+                                          child: TextFormField(
+                                            controller:
+                                                _model.remarkTextController,
+                                            focusNode: _model.remarkFocusNode,
+                                            autofocus: false,
+                                            readOnly:
+                                                widget!.dataDocument!.status >
+                                                    3,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              filled:
+                                                  widget!.dataDocument!.status >
+                                                      3,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                            maxLines: 5,
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            validator: _model
+                                                .remarkTextControllerValidator
+                                                .asValidator(context),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       8.0, 0.0, 0.0, 8.0),
@@ -669,14 +788,53 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                         return Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
+                                            Text(
+                                              'สถานะ : ',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            ),
                                             Expanded(
                                               child: Text(
-                                                'สถานะ : ${functions.getIssueStatus(widget!.dataDocument!.status, FFAppState().issueStatusList.toList())}',
+                                                functions.getIssueStatus(
+                                                    widget!
+                                                        .dataDocument!.status,
+                                                    FFAppState()
+                                                        .issueStatusList
+                                                        .toList()),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Manrope',
+                                                          color: () {
+                                                            if (widget!
+                                                                    .dataDocument
+                                                                    ?.status ==
+                                                                4) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success;
+                                                            } else if (widget!
+                                                                    .dataDocument
+                                                                    ?.status ==
+                                                                5) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error;
+                                                            } else {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText;
+                                                            }
+                                                          }(),
                                                           fontSize: 20.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -690,116 +848,6 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                     },
                                   ),
                                 ),
-                                if ((_model.showRemarkNotComplete == true) ||
-                                    (widget!.dataDocument!.status > 3))
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 0.0, 8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'หมายเหตุ (ลูกบ้านจะเห็นข้อความนี้) : ',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                        Container(
-                                          width: 300.0,
-                                          child: TextFormField(
-                                            controller:
-                                                _model.remarkTextController,
-                                            focusNode: _model.remarkFocusNode,
-                                            autofocus: false,
-                                            readOnly:
-                                                widget!.dataDocument!.status >
-                                                    3,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              hintText:
-                                                  'เช่น (ไม่มีงบประมาณ, ลูกบ้านต้องจัดการเอง อื่นๆ)',
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              filled:
-                                                  widget!.dataDocument!.status >
-                                                      3,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                            maxLines: 5,
-                                            keyboardType:
-                                                TextInputType.multiline,
-                                            validator: _model
-                                                .remarkTextControllerValidator
-                                                .asValidator(context),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
