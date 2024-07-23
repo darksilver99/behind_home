@@ -865,7 +865,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          ' โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
+                                          'โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
