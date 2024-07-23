@@ -199,3 +199,33 @@ String getDataStatus(
   }
   return '-';
 }
+
+String getNextValue(String current) {
+  if (current == "") {
+    return "A0000";
+  }
+
+  // Extract the letter and number parts from the string
+  String letterPart = current.substring(0, 1);
+  int numberPart = int.parse(current.substring(1));
+
+  // Increment the number part
+  numberPart++;
+
+  // Check if the number overflows
+  if (numberPart > 9999) {
+    numberPart = 0; // Reset number part to 0000
+    // Increment the letter part
+    letterPart = String.fromCharCode(letterPart.codeUnitAt(0) + 1);
+  }
+
+  // Check if the letter overflows
+  if (letterPart.codeUnitAt(0) > 'Z'.codeUnitAt(0)) {
+    letterPart = 'A'; // Reset letter part to A
+  }
+
+  // Combine the letter and number parts into the new value
+  String newValue = '$letterPart${numberPart.toString().padLeft(4, '0')}';
+
+  return newValue;
+}
