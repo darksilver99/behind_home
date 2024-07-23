@@ -56,16 +56,6 @@ class StockListRecord extends FirestoreRecord {
   List<String> get images => _images ?? const [];
   bool hasImages() => _images != null;
 
-  // "resident_ref" field.
-  DocumentReference? _residentRef;
-  DocumentReference? get residentRef => _residentRef;
-  bool hasResidentRef() => _residentRef != null;
-
-  // "receiver" field.
-  DocumentReference? _receiver;
-  DocumentReference? get receiver => _receiver;
-  bool hasReceiver() => _receiver != null;
-
   // "contact_address" field.
   String? _contactAddress;
   String get contactAddress => _contactAddress ?? '';
@@ -86,6 +76,26 @@ class StockListRecord extends FirestoreRecord {
   String get receiveBy => _receiveBy ?? '';
   bool hasReceiveBy() => _receiveBy != null;
 
+  // "resident_ref_list" field.
+  List<DocumentReference>? _residentRefList;
+  List<DocumentReference> get residentRefList => _residentRefList ?? const [];
+  bool hasResidentRefList() => _residentRefList != null;
+
+  // "user_ref_list" field.
+  List<DocumentReference>? _userRefList;
+  List<DocumentReference> get userRefList => _userRefList ?? const [];
+  bool hasUserRefList() => _userRefList != null;
+
+  // "receive_resident_by_ref" field.
+  DocumentReference? _receiveResidentByRef;
+  DocumentReference? get receiveResidentByRef => _receiveResidentByRef;
+  bool hasReceiveResidentByRef() => _receiveResidentByRef != null;
+
+  // "receive_user_by_ref" field.
+  DocumentReference? _receiveUserByRef;
+  DocumentReference? get receiveUserByRef => _receiveUserByRef;
+  bool hasReceiveUserByRef() => _receiveUserByRef != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -95,12 +105,16 @@ class StockListRecord extends FirestoreRecord {
     _stockNumber = snapshotData['stock_number'] as String?;
     _detail = snapshotData['detail'] as String?;
     _images = getDataList(snapshotData['images']);
-    _residentRef = snapshotData['resident_ref'] as DocumentReference?;
-    _receiver = snapshotData['receiver'] as DocumentReference?;
     _contactAddress = snapshotData['contact_address'] as String?;
     _receiveDate = snapshotData['receive_date'] as DateTime?;
     _receiveRemark = snapshotData['receive_remark'] as String?;
     _receiveBy = snapshotData['receive_by'] as String?;
+    _residentRefList = getDataList(snapshotData['resident_ref_list']);
+    _userRefList = getDataList(snapshotData['user_ref_list']);
+    _receiveResidentByRef =
+        snapshotData['receive_resident_by_ref'] as DocumentReference?;
+    _receiveUserByRef =
+        snapshotData['receive_user_by_ref'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -145,12 +159,12 @@ Map<String, dynamic> createStockListRecordData({
   int? status,
   String? stockNumber,
   String? detail,
-  DocumentReference? residentRef,
-  DocumentReference? receiver,
   String? contactAddress,
   DateTime? receiveDate,
   String? receiveRemark,
   String? receiveBy,
+  DocumentReference? receiveResidentByRef,
+  DocumentReference? receiveUserByRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -161,12 +175,12 @@ Map<String, dynamic> createStockListRecordData({
       'status': status,
       'stock_number': stockNumber,
       'detail': detail,
-      'resident_ref': residentRef,
-      'receiver': receiver,
       'contact_address': contactAddress,
       'receive_date': receiveDate,
       'receive_remark': receiveRemark,
       'receive_by': receiveBy,
+      'receive_resident_by_ref': receiveResidentByRef,
+      'receive_user_by_ref': receiveUserByRef,
     }.withoutNulls,
   );
 
@@ -187,12 +201,14 @@ class StockListRecordDocumentEquality implements Equality<StockListRecord> {
         e1?.stockNumber == e2?.stockNumber &&
         e1?.detail == e2?.detail &&
         listEquality.equals(e1?.images, e2?.images) &&
-        e1?.residentRef == e2?.residentRef &&
-        e1?.receiver == e2?.receiver &&
         e1?.contactAddress == e2?.contactAddress &&
         e1?.receiveDate == e2?.receiveDate &&
         e1?.receiveRemark == e2?.receiveRemark &&
-        e1?.receiveBy == e2?.receiveBy;
+        e1?.receiveBy == e2?.receiveBy &&
+        listEquality.equals(e1?.residentRefList, e2?.residentRefList) &&
+        listEquality.equals(e1?.userRefList, e2?.userRefList) &&
+        e1?.receiveResidentByRef == e2?.receiveResidentByRef &&
+        e1?.receiveUserByRef == e2?.receiveUserByRef;
   }
 
   @override
@@ -205,12 +221,14 @@ class StockListRecordDocumentEquality implements Equality<StockListRecord> {
         e?.stockNumber,
         e?.detail,
         e?.images,
-        e?.residentRef,
-        e?.receiver,
         e?.contactAddress,
         e?.receiveDate,
         e?.receiveRemark,
-        e?.receiveBy
+        e?.receiveBy,
+        e?.residentRefList,
+        e?.userRefList,
+        e?.receiveResidentByRef,
+        e?.receiveUserByRef
       ]);
 
   @override

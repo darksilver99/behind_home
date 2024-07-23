@@ -199,9 +199,9 @@ class FFAppState extends ChangeNotifier {
 
   List<StockStatusDataStruct> _stockStatusList = [
     StockStatusDataStruct.fromSerializableMap(
-        jsonDecode('{\"status\":\"0\",\"subject\":\"รอลูกบ้านมารับ\"}')),
+        jsonDecode('{\"status\":\"0\",\"subject\":\"รอลูกบ้านรับพัสดุ\"}')),
     StockStatusDataStruct.fromSerializableMap(
-        jsonDecode('{\"status\":\"1\",\"subject\":\"ลูกบ้านรับพัสดุแล้ว\"}'))
+        jsonDecode('{\"status\":\"1\",\"subject\":\"รับพัสดุแล้ว\"}'))
   ];
   List<StockStatusDataStruct> get stockStatusList => _stockStatusList;
   set stockStatusList(List<StockStatusDataStruct> value) {
