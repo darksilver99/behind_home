@@ -64,7 +64,7 @@ class StockPageModel extends FlutterFlowModel<StockPageWidget> {
   FormFieldController<String>? dropDownValueController2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<StockListRecord>? dataResult2;
-  // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.
+  // Stores action output result for [Bottom Sheet - StockFormView] action in Button widget.
   String? isUpdate2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<StockListRecord>? dataResult5;
