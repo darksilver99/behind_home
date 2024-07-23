@@ -57,7 +57,7 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
   TextEditingController? detailTextController;
   String? Function(BuildContext, String?)? detailTextControllerValidator;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  ResidentListRecord? residentDoc;
+  List<ResidentListRecord>? residentDoc;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   StockListRecord? stockResult;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.

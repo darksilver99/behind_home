@@ -1037,8 +1037,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                     'create_date',
                                                                     descending:
                                                                         true),
-                                                    singleRecord: true,
-                                                  ).then((s) => s.firstOrNull);
+                                                  );
                                                   _shouldSetState = true;
                                                   _model.stockResult =
                                                       await queryStockListRecordOnce(
@@ -1053,7 +1052,9 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   ).then((s) => s.firstOrNull);
                                                   _shouldSetState = true;
                                                   if (_model.residentDoc !=
-                                                      null) {
+                                                          null &&
+                                                      (_model.residentDoc)!
+                                                          .isNotEmpty) {
                                                     await StockListRecord
                                                         .collection
                                                         .doc()
@@ -1079,17 +1080,22 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                         contactAddress: _model
                                                             .contactAddressTextController
                                                             .text,
-                                                        residentRef: _model
-                                                            .residentDoc
-                                                            ?.reference,
-                                                        receiver: _model
-                                                            .residentDoc
-                                                            ?.createBy,
                                                       ),
                                                       ...mapToFirestore(
                                                         {
                                                           'images':
                                                               _model.imageList,
+                                                          'resident_ref_list':
+                                                              _model.residentDoc
+                                                                  ?.map((e) => e
+                                                                      .reference)
+                                                                  .toList(),
+                                                          'user_ref_list':
+                                                              _model.residentDoc
+                                                                  ?.map((e) => e
+                                                                      .createBy)
+                                                                  .withoutNulls
+                                                                  .toList(),
                                                         },
                                                       ),
                                                     });
