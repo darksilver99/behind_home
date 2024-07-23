@@ -982,18 +982,16 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                 queryBuilder:
                                                     (residentListRecord) =>
                                                         residentListRecord
-                                                            .where(Filter.or(
-                                                              Filter(
-                                                                'contact_address',
-                                                                isEqualTo: _model
-                                                                    .contactAddressTextController
-                                                                    .text,
-                                                              ),
-                                                              Filter(
-                                                                'status',
-                                                                isEqualTo: 1,
-                                                              ),
-                                                            ))
+                                                            .where(
+                                                              'contact_address',
+                                                              isEqualTo: _model
+                                                                  .contactAddressTextController
+                                                                  .text,
+                                                            )
+                                                            .where(
+                                                              'status',
+                                                              isEqualTo: 1,
+                                                            )
                                                             .orderBy(
                                                                 'create_date',
                                                                 descending:
@@ -1030,6 +1028,23 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   ),
                                                 });
                                               } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('เลือกกกกกก'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('ตกลง'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
                                                 _model.isEmptyResident = true;
                                                 setState(() {});
                                                 if (_shouldSetState)
