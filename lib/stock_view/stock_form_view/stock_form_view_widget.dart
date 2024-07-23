@@ -1,12 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -76,8 +74,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Container(
@@ -266,19 +262,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               .asValidator(context),
                                         ),
                                       ),
-                                      if (_model.isEmptyResident)
-                                        Text(
-                                          'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
                                     ],
                                   ),
                                 ),
@@ -397,7 +380,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
+                                      0.0, 0.0, 0.0, 16.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -624,100 +607,127 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           if (widget!.dataDocument == null)
                                             FFButtonWidget(
                                               onPressed: () async {
-                                                final selectedMedia =
-                                                    await selectMedia(
-                                                  maxWidth: 600.00,
-                                                  imageQuality: 80,
-                                                  mediaSource:
-                                                      MediaSource.photoGallery,
-                                                  multiImage: false,
-                                                );
-                                                if (selectedMedia != null &&
-                                                    selectedMedia.every((m) =>
-                                                        validateFileFormat(
-                                                            m.storagePath,
-                                                            context))) {
-                                                  setState(() => _model
-                                                      .isDataUploading = true);
-                                                  var selectedUploadedFiles =
-                                                      <FFUploadedFile>[];
+                                                if (_model.imageList.length >=
+                                                    3) {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'กำหนดไม่เกิน 3 รูป'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('ตกลง'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
+                                                  final selectedMedia =
+                                                      await selectMedia(
+                                                    maxWidth: 600.00,
+                                                    imageQuality: 80,
+                                                    mediaSource: MediaSource
+                                                        .photoGallery,
+                                                    multiImage: false,
+                                                  );
+                                                  if (selectedMedia != null &&
+                                                      selectedMedia.every((m) =>
+                                                          validateFileFormat(
+                                                              m.storagePath,
+                                                              context))) {
+                                                    setState(() =>
+                                                        _model.isDataUploading =
+                                                            true);
+                                                    var selectedUploadedFiles =
+                                                        <FFUploadedFile>[];
 
-                                                  var downloadUrls = <String>[];
-                                                  try {
-                                                    selectedUploadedFiles =
-                                                        selectedMedia
-                                                            .map((m) =>
-                                                                FFUploadedFile(
-                                                                  name: m
-                                                                      .storagePath
-                                                                      .split(
-                                                                          '/')
-                                                                      .last,
-                                                                  bytes:
-                                                                      m.bytes,
-                                                                  height: m
-                                                                      .dimensions
-                                                                      ?.height,
-                                                                  width: m
-                                                                      .dimensions
-                                                                      ?.width,
-                                                                  blurHash: m
-                                                                      .blurHash,
-                                                                ))
-                                                            .toList();
+                                                    var downloadUrls =
+                                                        <String>[];
+                                                    try {
+                                                      selectedUploadedFiles =
+                                                          selectedMedia
+                                                              .map((m) =>
+                                                                  FFUploadedFile(
+                                                                    name: m
+                                                                        .storagePath
+                                                                        .split(
+                                                                            '/')
+                                                                        .last,
+                                                                    bytes:
+                                                                        m.bytes,
+                                                                    height: m
+                                                                        .dimensions
+                                                                        ?.height,
+                                                                    width: m
+                                                                        .dimensions
+                                                                        ?.width,
+                                                                    blurHash: m
+                                                                        .blurHash,
+                                                                  ))
+                                                              .toList();
 
-                                                    downloadUrls = (await Future
-                                                            .wait(
-                                                      selectedMedia.map(
-                                                        (m) async =>
-                                                            await uploadData(
-                                                                m.storagePath,
-                                                                m.bytes),
-                                                      ),
-                                                    ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
-                                                  } finally {
-                                                    _model.isDataUploading =
-                                                        false;
+                                                      downloadUrls =
+                                                          (await Future.wait(
+                                                        selectedMedia.map(
+                                                          (m) async =>
+                                                              await uploadData(
+                                                                  m.storagePath,
+                                                                  m.bytes),
+                                                        ),
+                                                      ))
+                                                              .where((u) =>
+                                                                  u != null)
+                                                              .map((u) => u!)
+                                                              .toList();
+                                                    } finally {
+                                                      _model.isDataUploading =
+                                                          false;
+                                                    }
+                                                    if (selectedUploadedFiles
+                                                                .length ==
+                                                            selectedMedia
+                                                                .length &&
+                                                        downloadUrls.length ==
+                                                            selectedMedia
+                                                                .length) {
+                                                      setState(() {
+                                                        _model.uploadedLocalFile =
+                                                            selectedUploadedFiles
+                                                                .first;
+                                                        _model.uploadedFileUrl =
+                                                            downloadUrls.first;
+                                                      });
+                                                    } else {
+                                                      setState(() {});
+                                                      return;
+                                                    }
                                                   }
-                                                  if (selectedUploadedFiles
-                                                              .length ==
-                                                          selectedMedia
-                                                              .length &&
-                                                      downloadUrls.length ==
-                                                          selectedMedia
-                                                              .length) {
-                                                    setState(() {
-                                                      _model.uploadedLocalFile =
-                                                          selectedUploadedFiles
-                                                              .first;
-                                                      _model.uploadedFileUrl =
-                                                          downloadUrls.first;
-                                                    });
-                                                  } else {
+
+                                                  if (_model.uploadedFileUrl !=
+                                                          null &&
+                                                      _model.uploadedFileUrl !=
+                                                          '') {
+                                                    _model.addToImageList(
+                                                        _model.uploadedFileUrl);
                                                     setState(() {});
-                                                    return;
+                                                    setState(() {
+                                                      _model.isDataUploading =
+                                                          false;
+                                                      _model.uploadedLocalFile =
+                                                          FFUploadedFile(
+                                                              bytes: Uint8List
+                                                                  .fromList(
+                                                                      []));
+                                                      _model.uploadedFileUrl =
+                                                          '';
+                                                    });
                                                   }
-                                                }
-
-                                                if (_model.uploadedFileUrl !=
-                                                        null &&
-                                                    _model.uploadedFileUrl !=
-                                                        '') {
-                                                  _model.addToImageList(
-                                                      _model.uploadedFileUrl);
-                                                  setState(() {});
-                                                  setState(() {
-                                                    _model.isDataUploading =
-                                                        false;
-                                                    _model.uploadedLocalFile =
-                                                        FFUploadedFile(
-                                                            bytes: Uint8List
-                                                                .fromList([]));
-                                                    _model.uploadedFileUrl = '';
-                                                  });
                                                 }
                                               },
                                               text: 'อัพโหลดรูป',
@@ -756,99 +766,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                             ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'สถานะพัสดุ : ',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      FlutterFlowDropDown<int>(
-                                        controller:
-                                            _model.dropDownValueController ??=
-                                                FormFieldController<int>(
-                                          _model.dropDownValue ??=
-                                              widget!.dataDocument != null
-                                                  ? widget!.dataDocument?.status
-                                                  : 1,
-                                        ),
-                                        options: List<int>.from(FFAppState()
-                                            .dataStatusList
-                                            .map((e) => e.status)
-                                            .toList()),
-                                        optionLabels: FFAppState()
-                                            .dataStatusList
-                                            .map((e) => e.subject)
-                                            .toList(),
-                                        onChanged: (val) => setState(
-                                            () => _model.dropDownValue = val),
-                                        width: 300.0,
-                                        height: 56.0,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        hintText: 'เลือกสถานะ',
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 2.0,
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        borderWidth: 2.0,
-                                        borderRadius: 8.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
-                                        hidesUnderline: true,
-                                        isOverButton: true,
-                                        isSearchable: false,
-                                        isMultiSelect: false,
-                                      ),
-                                      if (_model.isEmptyDropdown1Value)
-                                        Text(
-                                          'Field is required',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
                                     ],
                                   ),
                                 ),
@@ -963,118 +880,107 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   .validate()) {
                                             return;
                                           }
-                                          if (_model.dropDownValue != null) {
-                                            _model.isEmptyDropdown1Value =
-                                                false;
-                                            setState(() {});
-                                            if (widget!.dataDocument != null) {
-                                              await widget!
-                                                  .dataDocument!.reference
-                                                  .update(
-                                                      createStockListRecordData(
-                                                status: _model.dropDownValue,
-                                                updateDate: getCurrentTimestamp,
-                                                updateBy: currentUserReference,
-                                              ));
-                                            } else {
-                                              _model.residentDoc =
-                                                  await queryResidentListRecordOnce(
+                                          if (widget!.dataDocument != null) {
+                                            await widget!
+                                                .dataDocument!.reference
+                                                .update(
+                                                    createStockListRecordData(
+                                              status: 0,
+                                              updateDate: getCurrentTimestamp,
+                                              updateBy: currentUserReference,
+                                            ));
+                                          } else {
+                                            _model.residentDoc =
+                                                await queryResidentListRecordOnce(
+                                              queryBuilder:
+                                                  (residentListRecord) =>
+                                                      residentListRecord
+                                                          .where(
+                                                            'contact_address',
+                                                            isEqualTo: _model
+                                                                .contactAddressTextController
+                                                                .text,
+                                                          )
+                                                          .where(
+                                                            'status',
+                                                            isEqualTo: 1,
+                                                          )
+                                                          .orderBy(
+                                                              'create_date',
+                                                              descending: true),
+                                              singleRecord: true,
+                                            ).then((s) => s.firstOrNull);
+                                            _shouldSetState = true;
+                                            if (_model.residentDoc != null) {
+                                              _model.stockResult =
+                                                  await queryStockListRecordOnce(
                                                 queryBuilder:
-                                                    (residentListRecord) =>
-                                                        residentListRecord
-                                                            .where(
-                                                              'contact_address',
-                                                              isEqualTo: _model
-                                                                  .contactAddressTextController
-                                                                  .text,
-                                                            )
-                                                            .where(
-                                                              'status',
-                                                              isEqualTo: 1,
-                                                            )
-                                                            .orderBy(
-                                                                'create_date',
-                                                                descending:
-                                                                    true),
+                                                    (stockListRecord) =>
+                                                        stockListRecord.orderBy(
+                                                            'create_date',
+                                                            descending: true),
                                                 singleRecord: true,
                                               ).then((s) => s.firstOrNull);
                                               _shouldSetState = true;
-                                              if (_model.residentDoc != null) {
-                                                await StockListRecord.collection
-                                                    .doc()
-                                                    .set({
-                                                  ...createStockListRecordData(
-                                                    createDate:
-                                                        getCurrentTimestamp,
-                                                    createBy:
-                                                        currentUserReference,
-                                                    status:
-                                                        _model.dropDownValue,
-                                                    detail: _model
-                                                        .detailTextController
-                                                        .text,
-                                                    stockNumber: '0001',
-                                                    contactAddress: '101',
-                                                    residentRef: _model
-                                                        .residentDoc?.reference,
-                                                    receiver: _model
-                                                        .residentDoc?.createBy,
-                                                  ),
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'images':
-                                                          _model.imageList,
-                                                    },
-                                                  ),
-                                                });
-                                              } else {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text('เลือกกกกกก'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('ตกลง'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                                _model.isEmptyResident = true;
-                                                setState(() {});
-                                                if (_shouldSetState)
-                                                  setState(() {});
-                                                return;
-                                              }
-                                            }
 
-                                            Navigator.pop(context, 'update');
-                                          } else {
-                                            _model.isEmptyDropdown1Value = true;
-                                            setState(() {});
-                                            await showDialog(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text('เลือกกกกกก'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext),
-                                                      child: Text('ตกลง'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
+                                              await StockListRecord.collection
+                                                  .doc()
+                                                  .set({
+                                                ...createStockListRecordData(
+                                                  createDate:
+                                                      getCurrentTimestamp,
+                                                  createBy:
+                                                      currentUserReference,
+                                                  status: 0,
+                                                  detail: _model
+                                                      .detailTextController
+                                                      .text,
+                                                  stockNumber: _model
+                                                              .stockResult !=
+                                                          null
+                                                      ? functions.getNextValue(
+                                                          _model.stockResult!
+                                                              .stockNumber)
+                                                      : '',
+                                                  contactAddress: '101',
+                                                  residentRef: _model
+                                                      .residentDoc?.reference,
+                                                  receiver: _model
+                                                      .residentDoc?.createBy,
+                                                ),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'images': _model.imageList,
+                                                  },
+                                                ),
+                                              });
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ'),
+                                                    content: Text(
+                                                        'กรุณาตรวจสอบ บ้าน/ห้องเลขที่ ของลูกบ้าน'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('ตกลง'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
+                                            }
                                           }
 
+                                          Navigator.pop(context, 'update');
                                           if (_shouldSetState) setState(() {});
                                         },
                                         text: 'บันทึกข้อมูล',
