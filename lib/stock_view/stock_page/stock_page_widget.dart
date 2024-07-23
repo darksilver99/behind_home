@@ -879,7 +879,7 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                   Expanded(
                                     child: Text(
                                       functions.dateTimeTh(
-                                          dataListViewItem.recevieDate),
+                                          dataListViewItem.receiveDate),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
