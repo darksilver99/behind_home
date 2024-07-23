@@ -1208,77 +1208,112 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                             ),
                                           ),
                                         ),
-                                      Builder(
-                                        builder: (context) => FFButtonWidget(
-                                          onPressed: () async {
-                                            await showDialog(
-                                              context: context,
-                                              builder: (dialogContext) {
-                                                return Dialog(
-                                                  elevation: 0,
-                                                  insetPadding: EdgeInsets.zero,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  child:
-                                                      RemarkStockViewWidget(),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.remarkText = value));
+                                      if ((widget!.dataDocument != null) &&
+                                          (widget!.dataDocument?.status == 0))
+                                        Builder(
+                                          builder: (context) => FFButtonWidget(
+                                            onPressed: () async {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child:
+                                                        RemarkStockViewWidget(),
+                                                  );
+                                                },
+                                              ).then((value) => safeSetState(
+                                                  () => _model.remarkText =
+                                                      value));
 
-                                            if (_model.remarkText != null &&
-                                                _model.remarkText != '') {
-                                              await widget!
-                                                  .dataDocument!.reference
-                                                  .update(
-                                                      createStockListRecordData(
-                                                receiveBy: 'เจ้าหน้าที่',
-                                                receiveRemark:
-                                                    _model.remarkText,
-                                                receiveDate:
-                                                    getCurrentTimestamp,
-                                                status: 1,
-                                              ));
-                                            }
+                                              if (_model.remarkText != null &&
+                                                  _model.remarkText != '') {
+                                                _model.stockResult2 =
+                                                    await StockListRecord
+                                                        .getDocumentOnce(widget!
+                                                            .dataDocument!
+                                                            .reference);
+                                                if (widget!
+                                                        .dataDocument?.status ==
+                                                    0) {
+                                                  await widget!
+                                                      .dataDocument!.reference
+                                                      .update(
+                                                          createStockListRecordData(
+                                                    receiveBy: 'เจ้าหน้าที่',
+                                                    receiveRemark:
+                                                        _model.remarkText,
+                                                    receiveDate:
+                                                        getCurrentTimestamp,
+                                                    status: 1,
+                                                  ));
+                                                } else {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'รายการนี้มีผู้รับไปแล้ว กรุณาตรวจสอบอีกครั้ง'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('ตกลง'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }
 
-                                            setState(() {});
-                                          },
-                                          text:
-                                              'จ่ายพัสดุให้ลูกบ้าน (ลูกบ้านมารับด้วยตัวเอง)',
-                                          options: FFButtonOptions(
-                                            height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
+                                                Navigator.pop(
+                                                    context, 'update');
+                                              }
+
+                                              setState(() {});
+                                            },
+                                            text:
+                                                'จ่ายพัสดุให้ลูกบ้าน (ลูกบ้านมารับด้วยตัวเอง)',
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ),
