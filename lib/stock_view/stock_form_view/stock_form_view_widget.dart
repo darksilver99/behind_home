@@ -194,6 +194,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           focusNode:
                                               _model.contactAddressFocusNode,
                                           autofocus: false,
+                                          readOnly:
+                                              widget!.dataDocument != null,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
@@ -251,6 +253,11 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                             ),
+                                            filled:
+                                                widget!.dataDocument != null,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium

@@ -84,6 +84,8 @@ class _StockPageWidgetState extends State<StockPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -930,14 +932,24 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      dataListViewItem.status.toString(),
+                                      functions.getStockStatus(
+                                          dataListViewItem.status,
+                                          FFAppState()
+                                              .stockStatusList
+                                              .toList()),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Manrope',
+                                            color: dataListViewItem.status == 0
+                                                ? FlutterFlowTheme.of(context)
+                                                    .warning
+                                                : FlutterFlowTheme.of(context)
+                                                    .success,
                                             letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
