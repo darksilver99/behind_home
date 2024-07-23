@@ -949,6 +949,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               status: 0,
                                               updateDate: getCurrentTimestamp,
                                               updateBy: currentUserReference,
+                                              detail: _model
+                                                  .detailTextController.text,
                                             ));
                                           } else {
                                             _model.residentDoc =
