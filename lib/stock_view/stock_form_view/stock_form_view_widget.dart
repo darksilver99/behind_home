@@ -1103,7 +1103,9 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                 (alertDialogContext) {
                                                               return AlertDialog(
                                                                 title: Text(
-                                                                    'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ ยืนยัน บ้าน/ห้องเลขที่นี้ ?'),
+                                                                    'ยืนยันบ้าน/ห้องเลขที่นี้ ?'),
+                                                                content: Text(
+                                                                    'เนื่องจากไม่พบบ้าน/ห้องเลขที่นี้ในระบบ'),
                                                                 actions: [
                                                                   TextButton(
                                                                     onPressed: () =>
@@ -1119,7 +1121,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                             alertDialogContext,
                                                                             true),
                                                                     child: Text(
-                                                                        'ยืนยัน บ้าน/ห้องเลขที่'),
+                                                                        'ยืนยัน'),
                                                                   ),
                                                                 ],
                                                               );
