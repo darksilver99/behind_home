@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/component_view/remark_stock_view/remark_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -705,6 +706,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               _model.detailTextController,
                                           focusNode: _model.detailFocusNode,
                                           autofocus: false,
+                                          readOnly:
+                                              widget!.dataDocument != null,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
@@ -764,6 +767,11 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                             ),
+                                            filled:
+                                                widget!.dataDocument != null,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -806,7 +814,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                 if (widget!.dataDocument != null)
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
+                                        0.0, 0.0, 0.0, 8.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -849,236 +857,430 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                 ),
                                           ),
                                         ),
+                                        if (widget!.dataDocument?.receiveBy !=
+                                                null &&
+                                            widget!.dataDocument?.receiveBy !=
+                                                '')
+                                          Flexible(
+                                            child: Text(
+                                              ' โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    if (widget!.dataDocument != null)
-                                      Flexible(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 8.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              var confirmDialogResponse =
-                                                  await showDialog<bool>(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                                'ต้องการลบรายการนี้?'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext,
-                                                                        false),
-                                                                child: Text(
-                                                                    'ยกเลิก'),
-                                                              ),
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext,
-                                                                        true),
-                                                                child: Text(
-                                                                    'ยืนยัน'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      ) ??
-                                                      false;
-                                              if (confirmDialogResponse) {
-                                                await widget!
-                                                    .dataDocument!.reference
-                                                    .delete();
-                                                Navigator.pop(
-                                                    context, 'update');
-                                              }
-                                            },
-                                            text: 'ลบข้อมูล',
-                                            options: FFButtonOptions(
-                                              height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
+                                if (widget!.dataDocument?.receiveRemark !=
+                                        null &&
+                                    widget!.dataDocument?.receiveRemark != '')
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'หมายเหตุ  : ${widget!.dataDocument?.receiveRemark}',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      if (widget!.dataDocument != null)
+                                        Flexible(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 8.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'ต้องการลบรายการนี้?'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: Text(
+                                                                      'ยกเลิก'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: Text(
+                                                                      'ยืนยัน'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
+                                                  await widget!
+                                                      .dataDocument!.reference
+                                                      .delete();
+                                                  Navigator.pop(
+                                                      context, 'update');
+                                                }
+                                              },
+                                              text: 'ลบข้อมูล',
+                                              options: FFButtonOptions(
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    Flexible(
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          var _shouldSetState = false;
-                                          if (_model.formKey.currentState ==
-                                                  null ||
-                                              !_model.formKey.currentState!
-                                                  .validate()) {
-                                            return;
-                                          }
-                                          if (widget!.dataDocument != null) {
-                                            await widget!
-                                                .dataDocument!.reference
-                                                .update(
-                                                    createStockListRecordData(
-                                              status: 0,
-                                              updateDate: getCurrentTimestamp,
-                                              updateBy: currentUserReference,
-                                              detail: _model
-                                                  .detailTextController.text,
-                                            ));
-                                          } else {
-                                            _model.residentDoc =
-                                                await queryResidentListRecordOnce(
-                                              queryBuilder:
-                                                  (residentListRecord) =>
-                                                      residentListRecord
-                                                          .where(
-                                                            'contact_address',
-                                                            isEqualTo: _model
-                                                                .contactAddressTextController
-                                                                .text,
-                                                          )
-                                                          .where(
-                                                            'status',
-                                                            isEqualTo: 1,
-                                                          )
-                                                          .orderBy(
-                                                              'create_date',
-                                                              descending: true),
-                                              singleRecord: true,
-                                            ).then((s) => s.firstOrNull);
-                                            _shouldSetState = true;
-                                            if (_model.residentDoc != null) {
-                                              _model.stockResult =
-                                                  await queryStockListRecordOnce(
-                                                queryBuilder:
-                                                    (stockListRecord) =>
-                                                        stockListRecord.orderBy(
-                                                            'create_date',
-                                                            descending: true),
-                                                singleRecord: true,
-                                              ).then((s) => s.firstOrNull);
-                                              _shouldSetState = true;
-
-                                              await StockListRecord.collection
-                                                  .doc()
-                                                  .set({
-                                                ...createStockListRecordData(
-                                                  createDate:
-                                                      getCurrentTimestamp,
-                                                  createBy:
-                                                      currentUserReference,
-                                                  status: 0,
-                                                  detail: _model
-                                                      .detailTextController
-                                                      .text,
-                                                  stockNumber: functions
-                                                      .getNextValue(_model
-                                                                  .stockResult
-                                                                  ?.reference !=
-                                                              null
-                                                          ? _model.stockResult!
-                                                              .stockNumber
-                                                          : ''),
-                                                  contactAddress: _model
-                                                      .contactAddressTextController
-                                                      .text,
-                                                  residentRef: _model
-                                                      .residentDoc?.reference,
-                                                  receiver: _model
-                                                      .residentDoc?.createBy,
-                                                ),
-                                                ...mapToFirestore(
-                                                  {
-                                                    'images': _model.imageList,
-                                                  },
-                                                ),
-                                              });
-                                            } else {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ'),
-                                                    content: Text(
-                                                        'กรุณาตรวจสอบ บ้าน/ห้องเลขที่ ของลูกบ้าน'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: Text('ตกลง'),
+                                      if (widget!.dataDocument == null)
+                                        Flexible(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 8.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                var _shouldSetState = false;
+                                                if (_model.formKey
+                                                            .currentState ==
+                                                        null ||
+                                                    !_model
+                                                        .formKey.currentState!
+                                                        .validate()) {
+                                                  return;
+                                                }
+                                                if (widget!.dataDocument !=
+                                                    null) {
+                                                  await widget!
+                                                      .dataDocument!.reference
+                                                      .update(
+                                                          createStockListRecordData(
+                                                    status: 0,
+                                                    updateDate:
+                                                        getCurrentTimestamp,
+                                                    updateBy:
+                                                        currentUserReference,
+                                                    detail: _model
+                                                        .detailTextController
+                                                        .text,
+                                                  ));
+                                                } else {
+                                                  _model.residentDoc =
+                                                      await queryResidentListRecordOnce(
+                                                    queryBuilder:
+                                                        (residentListRecord) =>
+                                                            residentListRecord
+                                                                .where(
+                                                                  'contact_address',
+                                                                  isEqualTo: _model
+                                                                      .contactAddressTextController
+                                                                      .text,
+                                                                )
+                                                                .where(
+                                                                  'status',
+                                                                  isEqualTo: 1,
+                                                                )
+                                                                .orderBy(
+                                                                    'create_date',
+                                                                    descending:
+                                                                        true),
+                                                    singleRecord: true,
+                                                  ).then((s) => s.firstOrNull);
+                                                  _shouldSetState = true;
+                                                  _model.stockResult =
+                                                      await queryStockListRecordOnce(
+                                                    queryBuilder:
+                                                        (stockListRecord) =>
+                                                            stockListRecord
+                                                                .orderBy(
+                                                                    'create_date',
+                                                                    descending:
+                                                                        true),
+                                                    singleRecord: true,
+                                                  ).then((s) => s.firstOrNull);
+                                                  _shouldSetState = true;
+                                                  if (_model.residentDoc !=
+                                                      null) {
+                                                    await StockListRecord
+                                                        .collection
+                                                        .doc()
+                                                        .set({
+                                                      ...createStockListRecordData(
+                                                        createDate:
+                                                            getCurrentTimestamp,
+                                                        createBy:
+                                                            currentUserReference,
+                                                        status: 0,
+                                                        detail: _model
+                                                            .detailTextController
+                                                            .text,
+                                                        stockNumber: functions
+                                                            .getNextValue(_model
+                                                                        .stockResult
+                                                                        ?.reference !=
+                                                                    null
+                                                                ? _model
+                                                                    .stockResult!
+                                                                    .stockNumber
+                                                                : ''),
+                                                        contactAddress: _model
+                                                            .contactAddressTextController
+                                                            .text,
+                                                        residentRef: _model
+                                                            .residentDoc
+                                                            ?.reference,
+                                                        receiver: _model
+                                                            .residentDoc
+                                                            ?.createBy,
                                                       ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                              if (_shouldSetState)
-                                                setState(() {});
-                                              return;
-                                            }
-                                          }
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'images':
+                                                              _model.imageList,
+                                                        },
+                                                      ),
+                                                    });
+                                                  } else {
+                                                    var confirmDialogResponse =
+                                                        await showDialog<bool>(
+                                                              context: context,
+                                                              builder:
+                                                                  (alertDialogContext) {
+                                                                return AlertDialog(
+                                                                  title: Text(
+                                                                      'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ ยืนยัน บ้าน/ห้องเลขที่นี้ ?'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed: () => Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                      child: Text(
+                                                                          'ตรวจสอบอีกครั้ง'),
+                                                                    ),
+                                                                    TextButton(
+                                                                      onPressed: () => Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                      child: Text(
+                                                                          'ยืนยัน บ้าน/ห้องเลขที่'),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            ) ??
+                                                            false;
+                                                    if (confirmDialogResponse) {
+                                                      await StockListRecord
+                                                          .collection
+                                                          .doc()
+                                                          .set({
+                                                        ...createStockListRecordData(
+                                                          createDate:
+                                                              getCurrentTimestamp,
+                                                          createBy:
+                                                              currentUserReference,
+                                                          status: 0,
+                                                          detail: _model
+                                                              .detailTextController
+                                                              .text,
+                                                          stockNumber: functions
+                                                              .getNextValue(_model
+                                                                          .stockResult
+                                                                          ?.reference !=
+                                                                      null
+                                                                  ? _model
+                                                                      .stockResult!
+                                                                      .stockNumber
+                                                                  : ''),
+                                                          contactAddress: _model
+                                                              .contactAddressTextController
+                                                              .text,
+                                                        ),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'images': _model
+                                                                .imageList,
+                                                          },
+                                                        ),
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        _model.contactAddressTextController
+                                                                ?.text =
+                                                            widget!
+                                                                .dataDocument!
+                                                                .contactAddress;
+                                                      });
+                                                      if (_shouldSetState)
+                                                        setState(() {});
+                                                      return;
+                                                    }
+                                                  }
+                                                }
 
-                                          Navigator.pop(context, 'update');
-                                          if (_shouldSetState) setState(() {});
-                                        },
-                                        text: 'บันทึกข้อมูล',
-                                        options: FFButtonOptions(
-                                          height: 40.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .success,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    color: Colors.white,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          elevation: 3.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
+                                                Navigator.pop(
+                                                    context, 'update');
+                                                if (_shouldSetState)
+                                                  setState(() {});
+                                              },
+                                              text: 'บันทึกข้อมูล',
+                                              options: FFButtonOptions(
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .success,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                        ),
+                                      Builder(
+                                        builder: (context) => FFButtonWidget(
+                                          onPressed: () async {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child:
+                                                      RemarkStockViewWidget(),
+                                                );
+                                              },
+                                            ).then((value) => safeSetState(() =>
+                                                _model.remarkText = value));
+
+                                            if (_model.remarkText != null &&
+                                                _model.remarkText != '') {
+                                              await widget!
+                                                  .dataDocument!.reference
+                                                  .update(
+                                                      createStockListRecordData(
+                                                receiveBy: 'เจ้าหน้าที่',
+                                                receiveRemark:
+                                                    _model.remarkText,
+                                                receiveDate:
+                                                    getCurrentTimestamp,
+                                                status: 1,
+                                              ));
+                                            }
+
+                                            setState(() {});
+                                          },
+                                          text:
+                                              'จ่ายพัสดุให้ลูกบ้าน (ลูกบ้านมารับด้วยตัวเอง)',
+                                          options: FFButtonOptions(
+                                            height: 40.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

@@ -71,10 +71,20 @@ class StockListRecord extends FirestoreRecord {
   String get contactAddress => _contactAddress ?? '';
   bool hasContactAddress() => _contactAddress != null;
 
-  // "recevie_date" field.
-  DateTime? _recevieDate;
-  DateTime? get recevieDate => _recevieDate;
-  bool hasRecevieDate() => _recevieDate != null;
+  // "receive_date" field.
+  DateTime? _receiveDate;
+  DateTime? get receiveDate => _receiveDate;
+  bool hasReceiveDate() => _receiveDate != null;
+
+  // "receive_remark" field.
+  String? _receiveRemark;
+  String get receiveRemark => _receiveRemark ?? '';
+  bool hasReceiveRemark() => _receiveRemark != null;
+
+  // "receive_by" field.
+  String? _receiveBy;
+  String get receiveBy => _receiveBy ?? '';
+  bool hasReceiveBy() => _receiveBy != null;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
@@ -88,7 +98,9 @@ class StockListRecord extends FirestoreRecord {
     _residentRef = snapshotData['resident_ref'] as DocumentReference?;
     _receiver = snapshotData['receiver'] as DocumentReference?;
     _contactAddress = snapshotData['contact_address'] as String?;
-    _recevieDate = snapshotData['recevie_date'] as DateTime?;
+    _receiveDate = snapshotData['receive_date'] as DateTime?;
+    _receiveRemark = snapshotData['receive_remark'] as String?;
+    _receiveBy = snapshotData['receive_by'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -136,7 +148,9 @@ Map<String, dynamic> createStockListRecordData({
   DocumentReference? residentRef,
   DocumentReference? receiver,
   String? contactAddress,
-  DateTime? recevieDate,
+  DateTime? receiveDate,
+  String? receiveRemark,
+  String? receiveBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -150,7 +164,9 @@ Map<String, dynamic> createStockListRecordData({
       'resident_ref': residentRef,
       'receiver': receiver,
       'contact_address': contactAddress,
-      'recevie_date': recevieDate,
+      'receive_date': receiveDate,
+      'receive_remark': receiveRemark,
+      'receive_by': receiveBy,
     }.withoutNulls,
   );
 
@@ -174,7 +190,9 @@ class StockListRecordDocumentEquality implements Equality<StockListRecord> {
         e1?.residentRef == e2?.residentRef &&
         e1?.receiver == e2?.receiver &&
         e1?.contactAddress == e2?.contactAddress &&
-        e1?.recevieDate == e2?.recevieDate;
+        e1?.receiveDate == e2?.receiveDate &&
+        e1?.receiveRemark == e2?.receiveRemark &&
+        e1?.receiveBy == e2?.receiveBy;
   }
 
   @override
@@ -190,7 +208,9 @@ class StockListRecordDocumentEquality implements Equality<StockListRecord> {
         e?.residentRef,
         e?.receiver,
         e?.contactAddress,
-        e?.recevieDate
+        e?.receiveDate,
+        e?.receiveRemark,
+        e?.receiveBy
       ]);
 
   @override

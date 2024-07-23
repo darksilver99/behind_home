@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/component_view/remark_stock_view/remark_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -59,6 +60,8 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
   ResidentListRecord? residentDoc;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   StockListRecord? stockResult;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.
+  String? remarkText;
 
   @override
   void initState(BuildContext context) {
