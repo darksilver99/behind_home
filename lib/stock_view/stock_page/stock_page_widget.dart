@@ -707,7 +707,7 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันที่ลูกบ้านรับพัสดุ',
+                                        'วันที่จ่ายพัสดุ',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge

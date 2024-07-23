@@ -1165,7 +1165,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               setState(() {});
                                             },
                                             text:
-                                                'จ่ายพัสดุให้ลูกบ้าน (ลูกบ้านมารับด้วยตัวเอง)',
+                                                'จ่ายพัสดุ (ลูกบ้านมารับด้วยตัวเอง)',
                                             options: FFButtonOptions(
                                               height: 40.0,
                                               padding: EdgeInsetsDirectional
