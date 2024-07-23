@@ -976,73 +976,141 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           ),
                                         ),
                                       ),
-                                    if (widget!.dataDocument == null)
-                                      Flexible(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 8.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              var _shouldSetState = false;
-                                              if (_model.formKey.currentState ==
-                                                      null ||
-                                                  !_model.formKey.currentState!
-                                                      .validate()) {
-                                                return;
-                                              }
-                                              if (widget!.dataDocument !=
-                                                  null) {
-                                                await widget!
-                                                    .dataDocument!.reference
-                                                    .update(
-                                                        createStockListRecordData(
-                                                  updateDate:
-                                                      getCurrentTimestamp,
-                                                  updateBy:
-                                                      currentUserReference,
-                                                  detail: _model
-                                                      .detailTextController
-                                                      .text,
-                                                ));
+                                    Flexible(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            var _shouldSetState = false;
+                                            if (_model.formKey.currentState ==
+                                                    null ||
+                                                !_model.formKey.currentState!
+                                                    .validate()) {
+                                              return;
+                                            }
+                                            if (widget!.dataDocument != null) {
+                                              await widget!
+                                                  .dataDocument!.reference
+                                                  .update(
+                                                      createStockListRecordData(
+                                                updateDate: getCurrentTimestamp,
+                                                updateBy: currentUserReference,
+                                                detail: _model
+                                                    .detailTextController.text,
+                                              ));
+                                            } else {
+                                              _model.residentDoc =
+                                                  await queryResidentListRecordOnce(
+                                                queryBuilder:
+                                                    (residentListRecord) =>
+                                                        residentListRecord
+                                                            .where(
+                                                              'contact_address',
+                                                              isEqualTo: _model
+                                                                  .contactAddressTextController
+                                                                  .text,
+                                                            )
+                                                            .where(
+                                                              'status',
+                                                              isEqualTo: 1,
+                                                            )
+                                                            .orderBy(
+                                                                'create_date',
+                                                                descending:
+                                                                    true),
+                                              );
+                                              _shouldSetState = true;
+                                              _model.stockResult =
+                                                  await queryStockListRecordOnce(
+                                                queryBuilder:
+                                                    (stockListRecord) =>
+                                                        stockListRecord.orderBy(
+                                                            'create_date',
+                                                            descending: true),
+                                                singleRecord: true,
+                                              ).then((s) => s.firstOrNull);
+                                              _shouldSetState = true;
+                                              if (_model.residentDoc != null &&
+                                                  (_model.residentDoc)!
+                                                      .isNotEmpty) {
+                                                await StockListRecord.collection
+                                                    .doc()
+                                                    .set({
+                                                  ...createStockListRecordData(
+                                                    createDate:
+                                                        getCurrentTimestamp,
+                                                    createBy:
+                                                        currentUserReference,
+                                                    status: 0,
+                                                    detail: _model
+                                                        .detailTextController
+                                                        .text,
+                                                    stockNumber: functions
+                                                        .getNextValue(_model
+                                                                    .stockResult
+                                                                    ?.reference !=
+                                                                null
+                                                            ? _model
+                                                                .stockResult!
+                                                                .stockNumber
+                                                            : ''),
+                                                    contactAddress: _model
+                                                        .contactAddressTextController
+                                                        .text,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'images':
+                                                          _model.imageList,
+                                                      'resident_ref_list':
+                                                          _model.residentDoc
+                                                              ?.map((e) =>
+                                                                  e.reference)
+                                                              .toList(),
+                                                      'user_ref_list': _model
+                                                          .residentDoc
+                                                          ?.map(
+                                                              (e) => e.createBy)
+                                                          .withoutNulls
+                                                          .toList(),
+                                                    },
+                                                  ),
+                                                });
                                               } else {
-                                                _model.residentDoc =
-                                                    await queryResidentListRecordOnce(
-                                                  queryBuilder:
-                                                      (residentListRecord) =>
-                                                          residentListRecord
-                                                              .where(
-                                                                'contact_address',
-                                                                isEqualTo: _model
-                                                                    .contactAddressTextController
-                                                                    .text,
-                                                              )
-                                                              .where(
-                                                                'status',
-                                                                isEqualTo: 1,
-                                                              )
-                                                              .orderBy(
-                                                                  'create_date',
-                                                                  descending:
-                                                                      true),
-                                                );
-                                                _shouldSetState = true;
-                                                _model.stockResult =
-                                                    await queryStockListRecordOnce(
-                                                  queryBuilder:
-                                                      (stockListRecord) =>
-                                                          stockListRecord
-                                                              .orderBy(
-                                                                  'create_date',
-                                                                  descending:
-                                                                      true),
-                                                  singleRecord: true,
-                                                ).then((s) => s.firstOrNull);
-                                                _shouldSetState = true;
-                                                if (_model.residentDoc !=
-                                                        null &&
-                                                    (_model.residentDoc)!
-                                                        .isNotEmpty) {
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'ยืนยันบ้าน/ห้องเลขที่นี้ ?'),
+                                                              content: Text(
+                                                                  'เนื่องจากไม่พบบ้าน/ห้องเลขที่นี้ในระบบ'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: Text(
+                                                                      'ตรวจสอบอีกครั้ง'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: Text(
+                                                                      'ยืนยัน'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
                                                   await StockListRecord
                                                       .collection
                                                       .doc()
@@ -1073,141 +1141,63 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                       {
                                                         'images':
                                                             _model.imageList,
-                                                        'resident_ref_list':
-                                                            _model.residentDoc
-                                                                ?.map((e) =>
-                                                                    e.reference)
-                                                                .toList(),
-                                                        'user_ref_list': _model
-                                                            .residentDoc
-                                                            ?.map((e) =>
-                                                                e.createBy)
-                                                            .withoutNulls
-                                                            .toList(),
                                                       },
                                                     ),
                                                   });
                                                 } else {
-                                                  var confirmDialogResponse =
-                                                      await showDialog<bool>(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title: Text(
-                                                                    'ยืนยันบ้าน/ห้องเลขที่นี้ ?'),
-                                                                content: Text(
-                                                                    'เนื่องจากไม่พบบ้าน/ห้องเลขที่นี้ในระบบ'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            false),
-                                                                    child: Text(
-                                                                        'ตรวจสอบอีกครั้ง'),
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            true),
-                                                                    child: Text(
-                                                                        'ยืนยัน'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ) ??
-                                                          false;
-                                                  if (confirmDialogResponse) {
-                                                    await StockListRecord
-                                                        .collection
-                                                        .doc()
-                                                        .set({
-                                                      ...createStockListRecordData(
-                                                        createDate:
-                                                            getCurrentTimestamp,
-                                                        createBy:
-                                                            currentUserReference,
-                                                        status: 0,
-                                                        detail: _model
-                                                            .detailTextController
-                                                            .text,
-                                                        stockNumber: functions
-                                                            .getNextValue(_model
-                                                                        .stockResult
-                                                                        ?.reference !=
-                                                                    null
-                                                                ? _model
-                                                                    .stockResult!
-                                                                    .stockNumber
-                                                                : ''),
-                                                        contactAddress: _model
-                                                            .contactAddressTextController
-                                                            .text,
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'images':
-                                                              _model.imageList,
-                                                        },
-                                                      ),
-                                                    });
-                                                  } else {
-                                                    setState(() {
-                                                      _model
-                                                          .contactAddressTextController
-                                                          ?.text = '';
-                                                      _model.contactAddressTextController
-                                                              ?.selection =
-                                                          TextSelection.collapsed(
-                                                              offset: _model
-                                                                  .contactAddressTextController!
-                                                                  .text
-                                                                  .length);
-                                                    });
-                                                    if (_shouldSetState)
-                                                      setState(() {});
-                                                    return;
-                                                  }
+                                                  setState(() {
+                                                    _model
+                                                        .contactAddressTextController
+                                                        ?.text = '';
+                                                    _model.contactAddressTextController
+                                                            ?.selection =
+                                                        TextSelection.collapsed(
+                                                            offset: _model
+                                                                .contactAddressTextController!
+                                                                .text
+                                                                .length);
+                                                  });
+                                                  if (_shouldSetState)
+                                                    setState(() {});
+                                                  return;
                                                 }
                                               }
+                                            }
 
-                                              Navigator.pop(context, 'update');
-                                              if (_shouldSetState)
-                                                setState(() {});
-                                            },
-                                            text: 'บันทึกข้อมูล',
-                                            options: FFButtonOptions(
-                                              height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .success,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                            Navigator.pop(context, 'update');
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                          },
+                                          text: 'บันทึกข้อมูล',
+                                          options: FFButtonOptions(
+                                            height: 40.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .success,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
                                       ),
+                                    ),
                                     if ((widget!.dataDocument != null) &&
                                         (widget!.dataDocument?.status == 0))
                                       Builder(
