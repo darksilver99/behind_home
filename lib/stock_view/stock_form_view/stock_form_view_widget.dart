@@ -665,10 +665,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                     ],
                                   ),
                                 ),
-                                Divider(
-                                  thickness: 3.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
@@ -685,7 +681,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'รายละเอียดเพิ่มเติม (สำหรับเจ้าหน้าที่) : ',
+                                                'รายละเอียดเพิ่มเติม : ',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -717,8 +713,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                       fontFamily: 'Manrope',
                                                       letterSpacing: 0.0,
                                                     ),
-                                            hintText:
-                                                'เช่น กล่องใหญ่สีแดง, ซองจดหมายสีเหลือง อื่นๆ',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -792,7 +786,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                 if (widget!.dataDocument != null)
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
+                                        0.0, 0.0, 0.0, 8.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -811,6 +805,10 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                       ],
                                     ),
                                   ),
+                                Divider(
+                                  thickness: 3.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
                                 if (widget!.dataDocument != null)
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -866,17 +864,18 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Flexible(
-                                          child: Text(
-                                            ' โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
+                                        Text(
+                                          ' โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -1104,7 +1103,9 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                 (alertDialogContext) {
                                                               return AlertDialog(
                                                                 title: Text(
-                                                                    'ไม่พบ บ้าน/ห้อง เลขที่นี้ในระบบ ยืนยัน บ้าน/ห้องเลขที่นี้ ?'),
+                                                                    'ยืนยันบ้าน/ห้องเลขที่นี้ ?'),
+                                                                content: Text(
+                                                                    'เนื่องจากไม่พบบ้าน/ห้องเลขที่นี้ในระบบ'),
                                                                 actions: [
                                                                   TextButton(
                                                                     onPressed: () =>
@@ -1120,7 +1121,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                             alertDialogContext,
                                                                             true),
                                                                     child: Text(
-                                                                        'ยืนยัน บ้าน/ห้องเลขที่'),
+                                                                        'ยืนยัน'),
                                                                   ),
                                                                 ],
                                                               );
