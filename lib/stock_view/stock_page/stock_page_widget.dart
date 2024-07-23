@@ -943,11 +943,30 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Manrope',
-                                            color: dataListViewItem.status == 0
-                                                ? FlutterFlowTheme.of(context)
-                                                    .warning
-                                                : FlutterFlowTheme.of(context)
-                                                    .success,
+                                            color: () {
+                                              if (dataListViewItem.status ==
+                                                  0) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .warning;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  1) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .success;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  3) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .error;
+                                              } else {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primaryText;
+                                              }
+                                            }(),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),

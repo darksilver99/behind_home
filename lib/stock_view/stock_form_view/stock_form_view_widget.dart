@@ -830,16 +830,33 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Manrope',
-                                                  color:
-                                                      widget!.dataDocument
-                                                                  ?.status ==
-                                                              0
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .warning
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .success,
+                                                  color: () {
+                                                    if (widget!.dataDocument
+                                                            ?.status ==
+                                                        0) {
+                                                      return FlutterFlowTheme
+                                                              .of(context)
+                                                          .warning;
+                                                    } else if (widget!
+                                                            .dataDocument
+                                                            ?.status ==
+                                                        1) {
+                                                      return FlutterFlowTheme
+                                                              .of(context)
+                                                          .success;
+                                                    } else if (widget!
+                                                            .dataDocument
+                                                            ?.status ==
+                                                        3) {
+                                                      return FlutterFlowTheme
+                                                              .of(context)
+                                                          .error;
+                                                    } else {
+                                                      return FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryText;
+                                                    }
+                                                  }(),
                                                   fontSize: 20.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
