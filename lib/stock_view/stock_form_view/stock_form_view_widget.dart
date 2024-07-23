@@ -943,7 +943,9 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                           ? _model.stockResult!
                                                               .stockNumber
                                                           : ''),
-                                                  contactAddress: '101',
+                                                  contactAddress: _model
+                                                      .contactAddressTextController
+                                                      .text,
                                                   residentRef: _model
                                                       .residentDoc?.reference,
                                                   receiver: _model
