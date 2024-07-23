@@ -46,15 +46,15 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
     return null;
   }
 
-  // State field(s) for detail widget.
-  FocusNode? detailFocusNode;
-  TextEditingController? detailTextController;
-  String? Function(BuildContext, String?)? detailTextControllerValidator;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
+  // State field(s) for detail widget.
+  FocusNode? detailFocusNode;
+  TextEditingController? detailTextController;
+  String? Function(BuildContext, String?)? detailTextControllerValidator;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   ResidentListRecord? residentDoc;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
