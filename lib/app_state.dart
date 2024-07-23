@@ -196,6 +196,40 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInIssueStatusList(int index, IssueStatusDataStruct value) {
     issueStatusList.insert(index, value);
   }
+
+  List<StockStatusDataStruct> _stockStatusList = [
+    StockStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"รอลูกบ้านมารับ\"}')),
+    StockStatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"ลูกบ้านรับพัสดุแล้ว\"}'))
+  ];
+  List<StockStatusDataStruct> get stockStatusList => _stockStatusList;
+  set stockStatusList(List<StockStatusDataStruct> value) {
+    _stockStatusList = value;
+  }
+
+  void addToStockStatusList(StockStatusDataStruct value) {
+    stockStatusList.add(value);
+  }
+
+  void removeFromStockStatusList(StockStatusDataStruct value) {
+    stockStatusList.remove(value);
+  }
+
+  void removeAtIndexFromStockStatusList(int index) {
+    stockStatusList.removeAt(index);
+  }
+
+  void updateStockStatusListAtIndex(
+    int index,
+    StockStatusDataStruct Function(StockStatusDataStruct) updateFn,
+  ) {
+    stockStatusList[index] = updateFn(_stockStatusList[index]);
+  }
+
+  void insertAtIndexInStockStatusList(int index, StockStatusDataStruct value) {
+    stockStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

@@ -927,7 +927,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                   child: NewsFormViewWidget(
                                                     dataDocument:
                                                         dataListViewItem,
-                                                    title: 'แก้ไขข้อมูล',
+                                                    title: 'รายละเอียด',
                                                   ),
                                                 ),
                                               );

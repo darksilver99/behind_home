@@ -154,6 +154,18 @@ String dateTimeTh(DateTime? date) {
   return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
 
+String getStockStatus(
+  int status,
+  List<StockStatusDataStruct> stockStatusList,
+) {
+  for (var dataStatus in stockStatusList) {
+    if (dataStatus.status == status) {
+      return dataStatus.subject;
+    }
+  }
+  return '-';
+}
+
 String strToImage(String str) {
   return str;
 }
