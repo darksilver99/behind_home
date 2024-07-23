@@ -77,6 +77,10 @@ class StockPageModel extends FlutterFlowModel<StockPageWidget> {
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<StockListRecord>();
+  // Stores action output result for [Bottom Sheet - StockFormView] action in Column widget.
+  String? isUpdate;
+  // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
+  List<StockListRecord>? dataResult4;
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for LoadingView component.
