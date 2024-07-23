@@ -62,6 +62,8 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
   StockListRecord? stockResult;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.
   String? remarkText;
+  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  StockListRecord? stockResult2;
 
   @override
   void initState(BuildContext context) {
