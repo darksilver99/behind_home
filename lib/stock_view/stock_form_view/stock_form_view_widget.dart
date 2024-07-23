@@ -702,8 +702,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               _model.detailTextController,
                                           focusNode: _model.detailFocusNode,
                                           autofocus: false,
-                                          readOnly:
-                                              widget!.dataDocument != null,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
@@ -761,11 +759,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                             ),
-                                            filled:
-                                                widget!.dataDocument != null,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -865,7 +858,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          ' โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
+                                          'โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -1004,7 +997,6 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                     .dataDocument!.reference
                                                     .update(
                                                         createStockListRecordData(
-                                                  status: 0,
                                                   updateDate:
                                                       getCurrentTimestamp,
                                                   updateBy:
@@ -1164,10 +1156,16 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                     });
                                                   } else {
                                                     setState(() {
+                                                      _model
+                                                          .contactAddressTextController
+                                                          ?.text = '';
                                                       _model.contactAddressTextController
-                                                              ?.text =
-                                                          widget!.dataDocument!
-                                                              .contactAddress;
+                                                              ?.selection =
+                                                          TextSelection.collapsed(
+                                                              offset: _model
+                                                                  .contactAddressTextController!
+                                                                  .text
+                                                                  .length);
                                                     });
                                                     if (_shouldSetState)
                                                       setState(() {});
@@ -1256,6 +1254,9 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   receiveDate:
                                                       getCurrentTimestamp,
                                                   status: 1,
+                                                  detail: _model
+                                                      .detailTextController
+                                                      .text,
                                                 ));
                                               } else {
                                                 await showDialog(
