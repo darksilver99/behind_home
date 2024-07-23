@@ -989,7 +989,39 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                             ),
                                           );
                                         },
-                                      ).then((value) => safeSetState(() {}));
+                                      ).then((value) => safeSetState(
+                                          () => _model.isUpdate = value));
+
+                                      if ((_model.isUpdate != null &&
+                                              _model.isUpdate != '') &&
+                                          (_model.isUpdate == 'update')) {
+                                        _model.dataResult4 =
+                                            await queryStockListRecordOnce(
+                                          queryBuilder: (stockListRecord) =>
+                                              stockListRecord
+                                                  .where(
+                                                    'create_date',
+                                                    isGreaterThanOrEqualTo:
+                                                        _model.startDate,
+                                                  )
+                                                  .where(
+                                                    'create_date',
+                                                    isLessThanOrEqualTo:
+                                                        _model.endDate,
+                                                  )
+                                                  .orderBy('create_date',
+                                                      descending: true),
+                                        );
+                                        _model.dataList = _model.dataResult4!
+                                            .toList()
+                                            .cast<StockListRecord>();
+                                        _model.tmpDataList = _model.dataResult4!
+                                            .toList()
+                                            .cast<StockListRecord>();
+                                        setState(() {});
+                                      }
+
+                                      setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
