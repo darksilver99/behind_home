@@ -914,96 +914,99 @@ class _IssueProjectPageWidgetState extends State<IssueProjectPageWidget> {
                                       ),
                                     ),
                                   ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      var confirmDialogResponse =
-                                          await showDialog<bool>(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'ต้องการลบข้อมูล?'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('ยกเลิก'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text('ยืนยัน'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ) ??
-                                              false;
-                                      if (confirmDialogResponse) {
-                                        await dataListViewItem.reference
-                                            .delete();
-                                        _model.dataResult6 =
-                                            await queryIssueProjectListRecordOnce(
-                                          queryBuilder:
-                                              (issueProjectListRecord) =>
-                                                  issueProjectListRecord
-                                                      .where(
-                                                        'create_date',
-                                                        isGreaterThanOrEqualTo:
-                                                            _model.startDate,
-                                                      )
-                                                      .where(
-                                                        'create_date',
-                                                        isLessThanOrEqualTo:
-                                                            _model.endDate,
-                                                      )
-                                                      .orderBy('create_date',
-                                                          descending: true),
-                                        );
-                                        _model.dataList = _model.dataResult6!
-                                            .toList()
-                                            .cast<IssueProjectListRecord>();
-                                        _model.tmpDataList = _model.dataResult6!
-                                            .toList()
-                                            .cast<IssueProjectListRecord>();
-                                        _model.isLoading = false;
-                                        setState(() {});
-                                      }
+                                  if (false)
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        var confirmDialogResponse =
+                                            await showDialog<bool>(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'ต้องการลบข้อมูล?'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child: Text('ยกเลิก'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child: Text('ยืนยัน'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ) ??
+                                                false;
+                                        if (confirmDialogResponse) {
+                                          await dataListViewItem.reference
+                                              .delete();
+                                          _model.dataResult6 =
+                                              await queryIssueProjectListRecordOnce(
+                                            queryBuilder:
+                                                (issueProjectListRecord) =>
+                                                    issueProjectListRecord
+                                                        .where(
+                                                          'create_date',
+                                                          isGreaterThanOrEqualTo:
+                                                              _model.startDate,
+                                                        )
+                                                        .where(
+                                                          'create_date',
+                                                          isLessThanOrEqualTo:
+                                                              _model.endDate,
+                                                        )
+                                                        .orderBy('create_date',
+                                                            descending: true),
+                                          );
+                                          _model.dataList = _model.dataResult6!
+                                              .toList()
+                                              .cast<IssueProjectListRecord>();
+                                          _model.tmpDataList = _model
+                                              .dataResult6!
+                                              .toList()
+                                              .cast<IssueProjectListRecord>();
+                                          _model.isLoading = false;
+                                          setState(() {});
+                                        }
 
-                                      setState(() {});
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.delete_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          size: 24.0,
-                                        ),
-                                        Text(
-                                          'ลบข้อมูล',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                fontSize: 8.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ],
+                                        setState(() {});
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.delete_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            size: 24.0,
+                                          ),
+                                          Text(
+                                            'ลบข้อมูล',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  fontSize: 8.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ].map((c) => DataCell(c)).toList(),

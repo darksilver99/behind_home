@@ -56,13 +56,13 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
       }
     });
 
-    _model.textController1 ??=
+    _model.contactAddressTextController ??=
         TextEditingController(text: widget!.dataDocument?.contactAddress);
-    _model.textFieldFocusNode1 ??= FocusNode();
+    _model.contactAddressFocusNode ??= FocusNode();
 
-    _model.textController2 ??=
+    _model.detailTextController ??=
         TextEditingController(text: widget!.dataDocument?.detail);
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.detailFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -191,8 +191,10 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                       Container(
                                         width: 300.0,
                                         child: TextFormField(
-                                          controller: _model.textController1,
-                                          focusNode: _model.textFieldFocusNode1,
+                                          controller: _model
+                                              .contactAddressTextController,
+                                          focusNode:
+                                              _model.contactAddressFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -260,7 +262,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                           validator: _model
-                                              .textController1Validator
+                                              .contactAddressTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -296,7 +298,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'รายละเอียดเพิ่มเติม : ',
+                                                'รายละเอียดเพิ่มเติม (สำหรับเจ้าหน้าที่) : ',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -313,8 +315,9 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                       Container(
                                         width: 300.0,
                                         child: TextFormField(
-                                          controller: _model.textController2,
-                                          focusNode: _model.textFieldFocusNode2,
+                                          controller:
+                                              _model.detailTextController,
+                                          focusNode: _model.detailFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -325,7 +328,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                       fontFamily: 'Manrope',
                                                       letterSpacing: 0.0,
                                                     ),
-                                            hintText: 'รายละเอียดเพิ่มเติม',
+                                            hintText:
+                                                'เช่น กล่องใหญ่สีแดง, ซองจดหมายสีเหลือง อื่นๆ',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -384,7 +388,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           maxLines: 5,
                                           keyboardType: TextInputType.multiline,
                                           validator: _model
-                                              .textController2Validator
+                                              .detailTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -982,7 +986,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                               Filter(
                                                                 'contact_address',
                                                                 isEqualTo: _model
-                                                                    .textController1
+                                                                    .contactAddressTextController
                                                                     .text,
                                                               ),
                                                               Filter(
@@ -1009,7 +1013,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                     status:
                                                         _model.dropDownValue,
                                                     detail: _model
-                                                        .textController2.text,
+                                                        .detailTextController
+                                                        .text,
                                                     stockNumber: '0001',
                                                     contactAddress: '101',
                                                     residentRef: _model
@@ -1037,6 +1042,22 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           } else {
                                             _model.isEmptyDropdown1Value = true;
                                             setState(() {});
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('เลือกกกกกก'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('ตกลง'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
 
                                           if (_shouldSetState) setState(() {});

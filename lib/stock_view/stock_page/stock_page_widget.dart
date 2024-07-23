@@ -327,113 +327,103 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                                 BorderRadius.circular(8.0),
                                           ),
                                         ),
-                                        Builder(
-                                          builder: (context) => FFButtonWidget(
-                                            onPressed: () async {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (dialogContext) {
-                                                  return Dialog(
-                                                    elevation: 0,
-                                                    insetPadding:
-                                                        EdgeInsets.zero,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child:
-                                                          StockFormViewWidget(
-                                                        title: 'เพิ่มพัสดุ',
-                                                      ),
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: StockFormViewWidget(
+                                                      title: 'เพิ่มพัสดุ',
                                                     ),
-                                                  );
-                                                },
-                                              ).then((value) => safeSetState(
-                                                  () => _model.isUpdate2 =
-                                                      value));
-
-                                              if ((_model.isUpdate2 != null &&
-                                                      _model.isUpdate2 != '') &&
-                                                  (_model.isUpdate2 ==
-                                                      'update')) {
-                                                _model.dataResult5 =
-                                                    await queryStockListRecordOnce(
-                                                  queryBuilder:
-                                                      (stockListRecord) =>
-                                                          stockListRecord
-                                                              .where(
-                                                                'create_date',
-                                                                isGreaterThanOrEqualTo:
-                                                                    _model
-                                                                        .startDate,
-                                                              )
-                                                              .where(
-                                                                'create_date',
-                                                                isLessThanOrEqualTo:
-                                                                    _model
-                                                                        .endDate,
-                                                              )
-                                                              .orderBy(
-                                                                  'create_date',
-                                                                  descending:
-                                                                      true),
+                                                  ),
                                                 );
-                                                _model.dataList = _model
-                                                    .dataResult5!
-                                                    .toList()
-                                                    .cast<StockListRecord>();
-                                                _model.tmpDataList = _model
-                                                    .dataResult5!
-                                                    .toList()
-                                                    .cast<StockListRecord>();
-                                                _model.isLoading = false;
-                                                setState(() {});
-                                              }
+                                              },
+                                            ).then((value) => safeSetState(() =>
+                                                _model.isUpdate2 = value));
 
+                                            if ((_model.isUpdate2 != null &&
+                                                    _model.isUpdate2 != '') &&
+                                                (_model.isUpdate2 ==
+                                                    'update')) {
+                                              _model.dataResult5 =
+                                                  await queryStockListRecordOnce(
+                                                queryBuilder:
+                                                    (stockListRecord) =>
+                                                        stockListRecord
+                                                            .where(
+                                                              'create_date',
+                                                              isGreaterThanOrEqualTo:
+                                                                  _model
+                                                                      .startDate,
+                                                            )
+                                                            .where(
+                                                              'create_date',
+                                                              isLessThanOrEqualTo:
+                                                                  _model
+                                                                      .endDate,
+                                                            )
+                                                            .orderBy(
+                                                                'create_date',
+                                                                descending:
+                                                                    true),
+                                              );
+                                              _model.dataList = _model
+                                                  .dataResult5!
+                                                  .toList()
+                                                  .cast<StockListRecord>();
+                                              _model.tmpDataList = _model
+                                                  .dataResult5!
+                                                  .toList()
+                                                  .cast<StockListRecord>();
+                                              _model.isLoading = false;
                                               setState(() {});
-                                            },
-                                            text: 'เพิ่มพัสดุ',
-                                            options: FFButtonOptions(
-                                              height: 56.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                            }
+
+                                            setState(() {});
+                                          },
+                                          text: 'เพิ่มพัสดุ',
+                                          options: FFButtonOptions(
+                                            height: 56.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
                                         FFButtonWidget(
