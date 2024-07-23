@@ -935,13 +935,14 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   detail: _model
                                                       .detailTextController
                                                       .text,
-                                                  stockNumber: _model
-                                                              .stockResult !=
-                                                          null
-                                                      ? functions.getNextValue(
-                                                          _model.stockResult!
-                                                              .stockNumber)
-                                                      : '',
+                                                  stockNumber: functions
+                                                      .getNextValue(_model
+                                                                  .stockResult
+                                                                  ?.reference !=
+                                                              null
+                                                          ? _model.stockResult!
+                                                              .stockNumber
+                                                          : ''),
                                                   contactAddress: '101',
                                                   residentRef: _model
                                                       .residentDoc?.reference,
