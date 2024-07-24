@@ -16,6 +16,7 @@ import 'schema/resident_list_record.dart';
 import 'schema/news_list_record.dart';
 import 'schema/stock_list_record.dart';
 import 'schema/issue_project_list_record.dart';
+import 'schema/banner_project_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -35,6 +36,7 @@ export 'schema/resident_list_record.dart';
 export 'schema/news_list_record.dart';
 export 'schema/stock_list_record.dart';
 export 'schema/issue_project_list_record.dart';
+export 'schema/banner_project_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -441,6 +443,43 @@ Future<List<IssueProjectListRecord>> queryIssueProjectListRecordOnce({
     queryCollectionOnce(
       IssueProjectListRecord.collection,
       IssueProjectListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query BannerProjectListRecords (as a Stream and as a Future).
+Future<int> queryBannerProjectListRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      BannerProjectListRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<BannerProjectListRecord>> queryBannerProjectListRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      BannerProjectListRecord.collection,
+      BannerProjectListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<BannerProjectListRecord>> queryBannerProjectListRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      BannerProjectListRecord.collection,
+      BannerProjectListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

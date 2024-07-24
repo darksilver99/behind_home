@@ -19,3 +19,5 @@ export '/news_view/news_page/news_page_widget.dart' show NewsPageWidget;
 export '/issue_project_view/issue_project_page/issue_project_page_widget.dart'
     show IssueProjectPageWidget;
 export '/stock_view/stock_page/stock_page_widget.dart' show StockPageWidget;
+export '/banner_view/banner_project_page/banner_project_page_widget.dart'
+    show BannerProjectPageWidget;
