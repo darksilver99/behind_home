@@ -74,7 +74,7 @@ class BannerProjectListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('banner_project_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/banner_project_list');
 
   static Stream<BannerProjectListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => BannerProjectListRecord.fromSnapshot(s));
