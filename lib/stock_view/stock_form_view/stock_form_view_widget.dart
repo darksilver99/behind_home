@@ -874,18 +874,20 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Text(
-                                          'โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 18.0,
-                                                letterSpacing: 0.0,
-                                              ),
+                                        Expanded(
+                                          child: Text(
+                                            'โดย ${widget!.dataDocument?.receiveBy} เมื่อ ${functions.dateTimeTh(widget!.dataDocument?.receiveDate)}',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 18.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
                                         ),
                                       ],
                                     ),
