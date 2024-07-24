@@ -203,6 +203,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'BannerProjectPage',
+          path: '/bannerProjectPage',
+          requireAuth: true,
+          builder: (context, params) => BannerProjectPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
