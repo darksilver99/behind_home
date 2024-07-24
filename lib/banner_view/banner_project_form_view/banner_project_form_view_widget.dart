@@ -313,7 +313,7 @@ class _BannerProjectFormViewWidgetState
                                                       fontFamily: 'Manrope',
                                                       letterSpacing: 0.0,
                                                     ),
-                                            hintText: 'หัวข้อ',
+                                            hintText: 'ลิงก์',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
