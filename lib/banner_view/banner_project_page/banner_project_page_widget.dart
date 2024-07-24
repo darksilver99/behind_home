@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/news_view/news_form_view/news_form_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -338,114 +337,106 @@ class _BannerProjectPageWidgetState extends State<BannerProjectPageWidget> {
                                                 BorderRadius.circular(8.0),
                                           ),
                                         ),
-                                        Builder(
-                                          builder: (context) => FFButtonWidget(
-                                            onPressed: () async {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (dialogContext) {
-                                                  return Dialog(
-                                                    elevation: 0,
-                                                    insetPadding:
-                                                        EdgeInsets.zero,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: NewsFormViewWidget(
-                                                        title: 'เพิ่มข้อมูล',
-                                                      ),
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child:
+                                                        BannerProjectFormViewWidget(
+                                                      title: 'เพิ่มข้อมูล',
                                                     ),
-                                                  );
-                                                },
-                                              ).then((value) => safeSetState(
-                                                  () => _model.isUpdate2 =
-                                                      value));
-
-                                              if ((_model.isUpdate2 != null &&
-                                                      _model.isUpdate2 != '') &&
-                                                  (_model.isUpdate2 ==
-                                                      'update')) {
-                                                _model.dataResult5 =
-                                                    await queryBannerProjectListRecordOnce(
-                                                  queryBuilder:
-                                                      (bannerProjectListRecord) =>
-                                                          bannerProjectListRecord
-                                                              .where(
-                                                                'create_date',
-                                                                isGreaterThanOrEqualTo:
-                                                                    _model
-                                                                        .startDate,
-                                                              )
-                                                              .where(
-                                                                'create_date',
-                                                                isLessThanOrEqualTo:
-                                                                    _model
-                                                                        .endDate,
-                                                              )
-                                                              .orderBy(
-                                                                  'create_date',
-                                                                  descending:
-                                                                      true),
+                                                  ),
                                                 );
-                                                _model.dataList = _model
-                                                    .dataResult5!
-                                                    .toList()
-                                                    .cast<
-                                                        BannerProjectListRecord>();
-                                                _model.tmpDataList = _model
-                                                    .dataResult5!
-                                                    .toList()
-                                                    .cast<
-                                                        BannerProjectListRecord>();
-                                                _model.isLoading = false;
-                                                setState(() {});
-                                              }
+                                              },
+                                            ).then((value) => safeSetState(() =>
+                                                _model.isUpdate2 = value));
 
+                                            if ((_model.isUpdate2 != null &&
+                                                    _model.isUpdate2 != '') &&
+                                                (_model.isUpdate2 ==
+                                                    'update')) {
+                                              _model.dataResult5 =
+                                                  await queryBannerProjectListRecordOnce(
+                                                queryBuilder:
+                                                    (bannerProjectListRecord) =>
+                                                        bannerProjectListRecord
+                                                            .where(
+                                                              'create_date',
+                                                              isGreaterThanOrEqualTo:
+                                                                  _model
+                                                                      .startDate,
+                                                            )
+                                                            .where(
+                                                              'create_date',
+                                                              isLessThanOrEqualTo:
+                                                                  _model
+                                                                      .endDate,
+                                                            )
+                                                            .orderBy(
+                                                                'create_date',
+                                                                descending:
+                                                                    true),
+                                              );
+                                              _model.dataList = _model
+                                                  .dataResult5!
+                                                  .toList()
+                                                  .cast<
+                                                      BannerProjectListRecord>();
+                                              _model.tmpDataList = _model
+                                                  .dataResult5!
+                                                  .toList()
+                                                  .cast<
+                                                      BannerProjectListRecord>();
+                                              _model.isLoading = false;
                                               setState(() {});
-                                            },
-                                            text: 'เพิ่มข้อมูล',
-                                            options: FFButtonOptions(
-                                              height: 56.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                            }
+
+                                            setState(() {});
+                                          },
+                                          text: 'เพิ่มข้อมูล',
+                                          options: FFButtonOptions(
+                                            height: 56.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
                                       ],

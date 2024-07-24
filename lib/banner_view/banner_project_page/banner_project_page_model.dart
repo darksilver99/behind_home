@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/news_view/news_form_view/news_form_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -68,7 +67,7 @@ class BannerProjectPageModel extends FlutterFlowModel<BannerProjectPageWidget> {
   FormFieldController<String>? dropDownValueController2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<BannerProjectListRecord>? dataResult2;
-  // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.
+  // Stores action output result for [Bottom Sheet - BannerProjectFormView] action in Button widget.
   String? isUpdate2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<BannerProjectListRecord>? dataResult5;
