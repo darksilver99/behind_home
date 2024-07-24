@@ -57,9 +57,13 @@ class _BannerProjectFormViewWidgetState
       }
     });
 
-    _model.textController ??=
+    _model.textController1 ??=
         TextEditingController(text: widget!.dataDocument?.subject);
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.textFieldFocusNode1 ??= FocusNode();
+
+    _model.textController2 ??=
+        TextEditingController(text: widget!.dataDocument?.url);
+    _model.textFieldFocusNode2 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -188,8 +192,8 @@ class _BannerProjectFormViewWidgetState
                                       Container(
                                         width: 300.0,
                                         child: TextFormField(
-                                          controller: _model.textController,
-                                          focusNode: _model.textFieldFocusNode,
+                                          controller: _model.textController1,
+                                          focusNode: _model.textFieldFocusNode1,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -257,7 +261,116 @@ class _BannerProjectFormViewWidgetState
                                                 letterSpacing: 0.0,
                                               ),
                                           validator: _model
-                                              .textControllerValidator
+                                              .textController1Validator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'ลิงก์ : ',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 300.0,
+                                        child: TextFormField(
+                                          controller: _model.textController2,
+                                          focusNode: _model.textFieldFocusNode2,
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            hintText: 'หัวข้อ',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                letterSpacing: 0.0,
+                                              ),
+                                          validator: _model
+                                              .textController2Validator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -844,7 +957,9 @@ class _BannerProjectFormViewWidgetState
                                                   updateBy:
                                                       currentUserReference,
                                                   subject: _model
-                                                      .textController.text,
+                                                      .textController1.text,
+                                                  url: _model
+                                                      .textController2.text,
                                                 ),
                                                 ...mapToFirestore(
                                                   {
@@ -864,8 +979,10 @@ class _BannerProjectFormViewWidgetState
                                                       currentUserReference,
                                                   status: _model.dropDownValue,
                                                   subject: _model
-                                                      .textController.text,
+                                                      .textController1.text,
                                                   seq: 1,
+                                                  url: _model
+                                                      .textController2.text,
                                                 ),
                                                 ...mapToFirestore(
                                                   {
