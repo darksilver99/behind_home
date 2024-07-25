@@ -19,6 +19,8 @@ class CountAlertViewModel extends FlutterFlowModel<CountAlertViewWidget> {
 
   // Stores action output result for [Firestore Query - Query a collection] action in CountAlertView widget.
   int? total;
+  // Stores action output result for [Firestore Query - Query a collection] action in CountAlertView widget.
+  int? total2;
 
   @override
   void initState(BuildContext context) {}

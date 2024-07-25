@@ -49,6 +49,16 @@ class _CountAlertViewWidgetState extends State<CountAlertViewWidget> {
         );
         _model.totalAlert = _model.total!;
         setState(() {});
+      } else if (widget!.pathName == 'WaterPaymentPage') {
+        _model.total2 = await queryWaterPaymentListRecordCount(
+          queryBuilder: (waterPaymentListRecord) =>
+              waterPaymentListRecord.where(
+            'status',
+            isEqualTo: 0,
+          ),
+        );
+        _model.totalAlert = _model.total2!;
+        setState(() {});
       }
     });
 
