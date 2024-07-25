@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -13,6 +14,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'water_payment_setting_page_model.dart';
 export 'water_payment_setting_page_model.dart';
@@ -134,6 +136,24 @@ class _WaterPaymentSettingPageWidgetState
                                               fontWeight: FontWeight.bold,
                                             ),
                                       ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Text(
+                                          'จะแสดงข้อมูลให้ลูกบ้านเห็นเมื่อต้องการแจ้งโอนเงินชำระค่าน้ำ',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
                                       if (_model
                                           .imageWaterPaymentList.isNotEmpty)
                                         Padding(
@@ -145,12 +165,54 @@ class _WaterPaymentSettingPageWidgetState
                                             height: 80.0,
                                             child: Stack(
                                               children: [
-                                                Image.network(
-                                                  _model.imageWaterPaymentList
-                                                      .first,
-                                                  width: 80.0,
-                                                  height: 80.0,
-                                                  fit: BoxFit.cover,
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .fade,
+                                                        child:
+                                                            FlutterFlowExpandedImageView(
+                                                          image: Image.network(
+                                                            _model
+                                                                .imageWaterPaymentList
+                                                                .first,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                          allowRotation: false,
+                                                          tag: _model
+                                                              .imageWaterPaymentList
+                                                              .first,
+                                                          useHeroAnimation:
+                                                              true,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Hero(
+                                                    tag: _model
+                                                        .imageWaterPaymentList
+                                                        .first,
+                                                    transitionOnUserGestures:
+                                                        true,
+                                                    child: Image.network(
+                                                      _model
+                                                          .imageWaterPaymentList
+                                                          .first,
+                                                      width: 80.0,
+                                                      height: 80.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
                                                 ),
                                                 Align(
                                                   alignment:
@@ -408,7 +470,7 @@ class _WaterPaymentSettingPageWidgetState
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                              .success,
                                           textStyle:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall

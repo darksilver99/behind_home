@@ -1836,7 +1836,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                              .success,
                                           textStyle:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
