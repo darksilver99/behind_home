@@ -126,6 +126,11 @@ class ProjectListRecord extends FirestoreRecord {
   List<String> get paymentAlertText => _paymentAlertText ?? const [];
   bool hasPaymentAlertText() => _paymentAlertText != null;
 
+  // "image_water_payment" field.
+  List<String>? _imageWaterPayment;
+  List<String> get imageWaterPayment => _imageWaterPayment ?? const [];
+  bool hasImageWaterPayment() => _imageWaterPayment != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -149,6 +154,7 @@ class ProjectListRecord extends FirestoreRecord {
     _promotionImage = snapshotData['promotion_image'] as String?;
     _paymentDetailImage = snapshotData['payment_detail_image'] as String?;
     _paymentAlertText = getDataList(snapshotData['payment_alert_text']);
+    _imageWaterPayment = getDataList(snapshotData['image_water_payment']);
   }
 
   static CollectionReference get collection =>
@@ -258,7 +264,8 @@ class ProjectListRecordDocumentEquality implements Equality<ProjectListRecord> {
         e1?.moreImageField == e2?.moreImageField &&
         e1?.promotionImage == e2?.promotionImage &&
         e1?.paymentDetailImage == e2?.paymentDetailImage &&
-        listEquality.equals(e1?.paymentAlertText, e2?.paymentAlertText);
+        listEquality.equals(e1?.paymentAlertText, e2?.paymentAlertText) &&
+        listEquality.equals(e1?.imageWaterPayment, e2?.imageWaterPayment);
   }
 
   @override
@@ -284,7 +291,8 @@ class ProjectListRecordDocumentEquality implements Equality<ProjectListRecord> {
         e?.moreImageField,
         e?.promotionImage,
         e?.paymentDetailImage,
-        e?.paymentAlertText
+        e?.paymentAlertText,
+        e?.imageWaterPayment
       ]);
 
   @override
