@@ -98,7 +98,7 @@ class WaterPaymentListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('water_payment_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/water_payment_list');
 
   static Stream<WaterPaymentListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => WaterPaymentListRecord.fromSnapshot(s));
