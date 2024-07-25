@@ -214,6 +214,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'WaterPaymentPage',
+          path: '/waterPaymentPage',
+          requireAuth: true,
+          builder: (context, params) => WaterPaymentPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

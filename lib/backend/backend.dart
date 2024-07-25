@@ -17,6 +17,7 @@ import 'schema/news_list_record.dart';
 import 'schema/stock_list_record.dart';
 import 'schema/issue_project_list_record.dart';
 import 'schema/banner_project_list_record.dart';
+import 'schema/water_payment_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -37,6 +38,7 @@ export 'schema/news_list_record.dart';
 export 'schema/stock_list_record.dart';
 export 'schema/issue_project_list_record.dart';
 export 'schema/banner_project_list_record.dart';
+export 'schema/water_payment_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -480,6 +482,43 @@ Future<List<BannerProjectListRecord>> queryBannerProjectListRecordOnce({
     queryCollectionOnce(
       BannerProjectListRecord.collection,
       BannerProjectListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query WaterPaymentListRecords (as a Stream and as a Future).
+Future<int> queryWaterPaymentListRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      WaterPaymentListRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<WaterPaymentListRecord>> queryWaterPaymentListRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      WaterPaymentListRecord.collection,
+      WaterPaymentListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<WaterPaymentListRecord>> queryWaterPaymentListRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      WaterPaymentListRecord.collection,
+      WaterPaymentListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

@@ -232,6 +232,45 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInStockStatusList(int index, StockStatusDataStruct value) {
     stockStatusList.insert(index, value);
   }
+
+  List<DataStatusStruct> _waterPaymentStatusList = [
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"ยังไม่อ่าน\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"อ่านแล้ว\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"3\",\"subject\":\"ชำระเงินเรียบร้อยแล้ว\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"4\",\"subject\":\"ไม่สามารถตรวจสอบได้\"}'))
+  ];
+  List<DataStatusStruct> get waterPaymentStatusList => _waterPaymentStatusList;
+  set waterPaymentStatusList(List<DataStatusStruct> value) {
+    _waterPaymentStatusList = value;
+  }
+
+  void addToWaterPaymentStatusList(DataStatusStruct value) {
+    waterPaymentStatusList.add(value);
+  }
+
+  void removeFromWaterPaymentStatusList(DataStatusStruct value) {
+    waterPaymentStatusList.remove(value);
+  }
+
+  void removeAtIndexFromWaterPaymentStatusList(int index) {
+    waterPaymentStatusList.removeAt(index);
+  }
+
+  void updateWaterPaymentStatusListAtIndex(
+    int index,
+    DataStatusStruct Function(DataStatusStruct) updateFn,
+  ) {
+    waterPaymentStatusList[index] = updateFn(_waterPaymentStatusList[index]);
+  }
+
+  void insertAtIndexInWaterPaymentStatusList(
+      int index, DataStatusStruct value) {
+    waterPaymentStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
