@@ -118,7 +118,11 @@ class _WaterPaymentDetailViewWidgetState
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      Navigator.pop(context);
+                      if (widget!.dataDocument?.status == 0) {
+                        Navigator.pop(context, 'update');
+                      } else {
+                        Navigator.pop(context);
+                      }
                     },
                     child: Icon(
                       Icons.close_rounded,
@@ -527,8 +531,6 @@ class _WaterPaymentDetailViewWidgetState
                                                       fontFamily: 'Manrope',
                                                       letterSpacing: 0.0,
                                                     ),
-                                            hintText:
-                                                'เช่น กำลังดำเนินการ, รอแจ้งช่าง, ติดต่อลูกบ้านแล้วแต่ติดต่อไม่ได้ อื่นๆ',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -731,7 +733,7 @@ class _WaterPaymentDetailViewWidgetState
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Text(
-                                                    'สถานะปัญหา :',
+                                                    'สถานะ :',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -762,8 +764,7 @@ class _WaterPaymentDetailViewWidgetState
                                               onChanged: (val) async {
                                                 setState(() =>
                                                     _model.dropDownValue = val);
-                                                if (_model.dropDownValue! >=
-                                                    3) {
+                                                if (_model.dropDownValue! > 3) {
                                                   _model.showRemarkNotComplete =
                                                       true;
                                                   setState(() {});
@@ -854,11 +855,18 @@ class _WaterPaymentDetailViewWidgetState
                                                                 3) {
                                                               return FlutterFlowTheme
                                                                       .of(context)
-                                                                  .success;
+                                                                  .warning;
                                                             } else if (widget!
                                                                     .dataDocument
                                                                     ?.status ==
                                                                 4) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success;
+                                                            } else if (widget!
+                                                                    .dataDocument
+                                                                    ?.status ==
+                                                                5) {
                                                               return FlutterFlowTheme
                                                                       .of(context)
                                                                   .error;
@@ -968,7 +976,7 @@ class _WaterPaymentDetailViewWidgetState
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (_model.dropDownValue == 4) {
+                                            if (_model.dropDownValue == 5) {
                                               if (_model.formKey.currentState ==
                                                       null ||
                                                   !_model.formKey.currentState!

@@ -239,9 +239,11 @@ class FFAppState extends ChangeNotifier {
     DataStatusStruct.fromSerializableMap(
         jsonDecode('{\"status\":\"1\",\"subject\":\"อ่านแล้ว\"}')),
     DataStatusStruct.fromSerializableMap(
-        jsonDecode('{\"status\":\"3\",\"subject\":\"ชำระเงินเรียบร้อยแล้ว\"}')),
+        jsonDecode('{\"status\":\"3\",\"subject\":\"กำลังตรวจสอบ\"}')),
     DataStatusStruct.fromSerializableMap(
-        jsonDecode('{\"status\":\"4\",\"subject\":\"ไม่สามารถตรวจสอบได้\"}'))
+        jsonDecode('{\"status\":\"4\",\"subject\":\"ชำระเงินเรียบร้อยแล้ว\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"5\",\"subject\":\"ไม่สามารถตรวจสอบได้\"}'))
   ];
   List<DataStatusStruct> get waterPaymentStatusList => _waterPaymentStatusList;
   set waterPaymentStatusList(List<DataStatusStruct> value) {

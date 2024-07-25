@@ -750,10 +750,10 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      functions.getIssueStatus(
+                                      functions.getDataStatus(
                                           dataListViewItem.status,
                                           FFAppState()
-                                              .issueStatusList
+                                              .waterPaymentStatusList
                                               .toList()),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,

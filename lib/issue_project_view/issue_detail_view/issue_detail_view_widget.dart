@@ -114,7 +114,11 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      Navigator.pop(context, 'update');
+                      if (widget!.dataDocument?.status == 0) {
+                        Navigator.pop(context, 'update');
+                      } else {
+                        Navigator.pop(context);
+                      }
                     },
                     child: Icon(
                       Icons.close_rounded,
