@@ -21,3 +21,5 @@ export '/issue_project_view/issue_project_page/issue_project_page_widget.dart'
 export '/stock_view/stock_page/stock_page_widget.dart' show StockPageWidget;
 export '/banner_view/banner_project_page/banner_project_page_widget.dart'
     show BannerProjectPageWidget;
+export '/water_payment_view/water_payment_page/water_payment_page_widget.dart'
+    show WaterPaymentPageWidget;
