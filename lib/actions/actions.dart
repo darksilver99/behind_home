@@ -33,6 +33,7 @@ Future createProjectData(
     promotionImage: projectResult?.promotionImage,
     paymentDetailImage: projectResult?.paymentDetailImage,
     paymentAlertText: projectResult?.paymentAlertText,
+    imageWaterPayment: projectResult?.imageWaterPayment,
   );
 }
 

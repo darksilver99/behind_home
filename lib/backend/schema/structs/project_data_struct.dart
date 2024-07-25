@@ -30,6 +30,7 @@ class ProjectDataStruct extends FFFirebaseStruct {
     String? promotionImage,
     String? paymentDetailImage,
     List<String>? paymentAlertText,
+    List<String>? imageWaterPayment,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _projectDocID = projectDocID,
         _projectName = projectName,
@@ -51,6 +52,7 @@ class ProjectDataStruct extends FFFirebaseStruct {
         _promotionImage = promotionImage,
         _paymentDetailImage = paymentDetailImage,
         _paymentAlertText = paymentAlertText,
+        _imageWaterPayment = imageWaterPayment,
         super(firestoreUtilData);
 
   // "projectDocID" field.
@@ -212,6 +214,17 @@ class ProjectDataStruct extends FFFirebaseStruct {
 
   bool hasPaymentAlertText() => _paymentAlertText != null;
 
+  // "image_water_payment" field.
+  List<String>? _imageWaterPayment;
+  List<String> get imageWaterPayment => _imageWaterPayment ?? const [];
+  set imageWaterPayment(List<String>? val) => _imageWaterPayment = val;
+
+  void updateImageWaterPayment(Function(List<String>) updateFn) {
+    updateFn(_imageWaterPayment ??= []);
+  }
+
+  bool hasImageWaterPayment() => _imageWaterPayment != null;
+
   static ProjectDataStruct fromMap(Map<String, dynamic> data) =>
       ProjectDataStruct(
         projectDocID: data['projectDocID'] as String?,
@@ -234,6 +247,7 @@ class ProjectDataStruct extends FFFirebaseStruct {
         promotionImage: data['promotion_image'] as String?,
         paymentDetailImage: data['payment_detail_image'] as String?,
         paymentAlertText: getDataList(data['payment_alert_text']),
+        imageWaterPayment: getDataList(data['image_water_payment']),
       );
 
   static ProjectDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -261,6 +275,7 @@ class ProjectDataStruct extends FFFirebaseStruct {
         'promotion_image': _promotionImage,
         'payment_detail_image': _paymentDetailImage,
         'payment_alert_text': _paymentAlertText,
+        'image_water_payment': _imageWaterPayment,
       }.withoutNulls;
 
   @override
@@ -346,6 +361,11 @@ class ProjectDataStruct extends FFFirebaseStruct {
         ),
         'payment_alert_text': serializeParam(
           _paymentAlertText,
+          ParamType.String,
+          isList: true,
+        ),
+        'image_water_payment': serializeParam(
+          _imageWaterPayment,
           ParamType.String,
           isList: true,
         ),
@@ -454,6 +474,11 @@ class ProjectDataStruct extends FFFirebaseStruct {
           ParamType.String,
           true,
         ),
+        imageWaterPayment: deserializeParam<String>(
+          data['image_water_payment'],
+          ParamType.String,
+          true,
+        ),
       );
 
   @override
@@ -482,7 +507,8 @@ class ProjectDataStruct extends FFFirebaseStruct {
         textInLastSlip == other.textInLastSlip &&
         promotionImage == other.promotionImage &&
         paymentDetailImage == other.paymentDetailImage &&
-        listEquality.equals(paymentAlertText, other.paymentAlertText);
+        listEquality.equals(paymentAlertText, other.paymentAlertText) &&
+        listEquality.equals(imageWaterPayment, other.imageWaterPayment);
   }
 
   @override
@@ -506,7 +532,8 @@ class ProjectDataStruct extends FFFirebaseStruct {
         textInLastSlip,
         promotionImage,
         paymentDetailImage,
-        paymentAlertText
+        paymentAlertText,
+        imageWaterPayment
       ]);
 }
 

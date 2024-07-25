@@ -23,3 +23,5 @@ export '/banner_view/banner_project_page/banner_project_page_widget.dart'
     show BannerProjectPageWidget;
 export '/water_payment_view/water_payment_page/water_payment_page_widget.dart'
     show WaterPaymentPageWidget;
+export '/water_payment_view/water_payment_setting_page/water_payment_setting_page_widget.dart'
+    show WaterPaymentSettingPageWidget;

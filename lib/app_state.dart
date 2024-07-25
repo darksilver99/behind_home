@@ -241,7 +241,7 @@ class FFAppState extends ChangeNotifier {
     DataStatusStruct.fromSerializableMap(
         jsonDecode('{\"status\":\"3\",\"subject\":\"กำลังตรวจสอบ\"}')),
     DataStatusStruct.fromSerializableMap(
-        jsonDecode('{\"status\":\"4\",\"subject\":\"ชำระเงินเรียบร้อยแล้ว\"}')),
+        jsonDecode('{\"status\":\"4\",\"subject\":\"ชำระเรียบร้อยแล้ว\"}')),
     DataStatusStruct.fromSerializableMap(
         jsonDecode('{\"status\":\"5\",\"subject\":\"ไม่สามารถตรวจสอบได้\"}'))
   ];
