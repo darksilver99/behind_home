@@ -140,7 +140,7 @@ class _WaterPaymentSettingPageWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: Text(
-                                          'จะแสดงข้อมูลให้ลูกบ้านเห็นเมื่อต้องการแจ้งโอนเงินชำระค่าน้ำ',
+                                          'จะแสดงข้อมูลให้ลูกบ้านเห็นในบริการ \"แจ้งชำระค่าน้ำ\"',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -150,7 +150,7 @@ class _WaterPaymentSettingPageWidgetState
                                                         .secondaryText,
                                                 fontSize: 18.0,
                                                 letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.normal,
                                               ),
                                         ),
                                       ),
