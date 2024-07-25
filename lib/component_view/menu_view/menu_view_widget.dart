@@ -309,9 +309,12 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                                             ),
                                             Builder(
                                               builder: (context) {
-                                                if (columnBehindMenuListRecord
-                                                        .pathName ==
-                                                    'IssueProjectPage') {
+                                                if ((columnBehindMenuListRecord
+                                                            .pathName ==
+                                                        'IssueProjectPage') ||
+                                                    (columnBehindMenuListRecord
+                                                            .pathName ==
+                                                        'WaterPaymentPage')) {
                                                   return CountAlertViewWidget(
                                                     key: Key(
                                                         'Keyz4r_${columnIndex}_of_${columnBehindMenuListRecordList.length}'),
