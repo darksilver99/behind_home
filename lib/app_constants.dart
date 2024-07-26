@@ -17,4 +17,5 @@ abstract class FFAppConstants {
     'พฤศจิกายน',
     'ธันวาคม'
   ];
+  static const double buttonHeigth = 48.0;
 }

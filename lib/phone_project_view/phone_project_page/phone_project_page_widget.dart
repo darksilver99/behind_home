@@ -211,7 +211,7 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                           },
                                           text: 'เพิ่มข้อมูล',
                                           options: FFButtonOptions(
-                                            height: 56.0,
+                                            height: FFAppConstants.buttonHeigth,
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
@@ -234,7 +234,7 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                               width: 1.0,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(8.0),
+                                                BorderRadius.circular(24.0),
                                           ),
                                         ),
                                         Container(
