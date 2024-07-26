@@ -10,7 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/news_view/news_form_view/news_form_view_widget.dart';
+import '/phone_project_view/phone_project_form_view/phone_project_form_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -21,11 +21,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'news_page_model.dart';
-export 'news_page_model.dart';
+import 'phone_project_page_model.dart';
+export 'phone_project_page_model.dart';
 
-class NewsPageWidget extends StatefulWidget {
-  const NewsPageWidget({
+class PhoneProjectPageWidget extends StatefulWidget {
+  const PhoneProjectPageWidget({
     super.key,
     required this.menuName,
   });
@@ -33,26 +33,26 @@ class NewsPageWidget extends StatefulWidget {
   final String? menuName;
 
   @override
-  State<NewsPageWidget> createState() => _NewsPageWidgetState();
+  State<PhoneProjectPageWidget> createState() => _PhoneProjectPageWidgetState();
 }
 
-class _NewsPageWidgetState extends State<NewsPageWidget> {
-  late NewsPageModel _model;
+class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
+  late PhoneProjectPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NewsPageModel());
+    _model = createModel(context, () => PhoneProjectPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await action_blocks.checkExpireDate(context);
       _model.startDate = functions.getStartDateOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
-      _model.dataResult = await queryNewsListRecordOnce(
-        queryBuilder: (newsListRecord) => newsListRecord
+      _model.dataResult = await queryPhoneProjectListRecordOnce(
+        queryBuilder: (phoneProjectListRecord) => phoneProjectListRecord
             .where(
               'create_date',
               isGreaterThanOrEqualTo: _model.startDate,
@@ -63,8 +63,10 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
             )
             .orderBy('create_date', descending: true),
       );
-      _model.dataList = _model.dataResult!.toList().cast<NewsListRecord>();
-      _model.tmpDataList = _model.dataResult!.toList().cast<NewsListRecord>();
+      _model.dataList =
+          _model.dataResult!.toList().cast<PhoneProjectListRecord>();
+      _model.tmpDataList =
+          _model.dataResult!.toList().cast<PhoneProjectListRecord>();
       _model.isLoading = false;
       setState(() {});
     });
@@ -273,30 +275,33 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                             .thaiMonthList
                                                             .toList()));
                                             _model.dataResult2 =
-                                                await queryNewsListRecordOnce(
-                                              queryBuilder: (newsListRecord) =>
-                                                  newsListRecord
-                                                      .where(
-                                                        'create_date',
-                                                        isGreaterThanOrEqualTo:
-                                                            _model.startDate,
-                                                      )
-                                                      .where(
-                                                        'create_date',
-                                                        isLessThanOrEqualTo:
-                                                            _model.endDate,
-                                                      )
-                                                      .orderBy('create_date',
-                                                          descending: true),
+                                                await queryPhoneProjectListRecordOnce(
+                                              queryBuilder:
+                                                  (phoneProjectListRecord) =>
+                                                      phoneProjectListRecord
+                                                          .where(
+                                                            'create_date',
+                                                            isGreaterThanOrEqualTo:
+                                                                _model
+                                                                    .startDate,
+                                                          )
+                                                          .where(
+                                                            'create_date',
+                                                            isLessThanOrEqualTo:
+                                                                _model.endDate,
+                                                          )
+                                                          .orderBy(
+                                                              'create_date',
+                                                              descending: true),
                                             );
                                             _model.dataList = _model
                                                 .dataResult2!
                                                 .toList()
-                                                .cast<NewsListRecord>();
+                                                .cast<PhoneProjectListRecord>();
                                             _model.tmpDataList = _model
                                                 .dataResult2!
                                                 .toList()
-                                                .cast<NewsListRecord>();
+                                                .cast<PhoneProjectListRecord>();
                                             setState(() {});
 
                                             setState(() {});
@@ -351,7 +356,8 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                     padding:
                                                         MediaQuery.viewInsetsOf(
                                                             context),
-                                                    child: NewsFormViewWidget(
+                                                    child:
+                                                        PhoneProjectFormViewWidget(
                                                       title: 'เพิ่มข้อมูล',
                                                     ),
                                                   ),
@@ -365,10 +371,10 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                 (_model.isUpdate2 ==
                                                     'update')) {
                                               _model.dataResult5 =
-                                                  await queryNewsListRecordOnce(
+                                                  await queryPhoneProjectListRecordOnce(
                                                 queryBuilder:
-                                                    (newsListRecord) =>
-                                                        newsListRecord
+                                                    (phoneProjectListRecord) =>
+                                                        phoneProjectListRecord
                                                             .where(
                                                               'create_date',
                                                               isGreaterThanOrEqualTo:
@@ -389,11 +395,13 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                               _model.dataList = _model
                                                   .dataResult5!
                                                   .toList()
-                                                  .cast<NewsListRecord>();
+                                                  .cast<
+                                                      PhoneProjectListRecord>();
                                               _model.tmpDataList = _model
                                                   .dataResult5!
                                                   .toList()
-                                                  .cast<NewsListRecord>();
+                                                  .cast<
+                                                      PhoneProjectListRecord>();
                                               _model.isLoading = false;
                                               setState(() {});
                                             }
@@ -454,19 +462,19 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                         if (_model.textController.text !=
                                                 null &&
                                             _model.textController.text != '') {
-                                          _model.dataResult3 =
-                                              await actions.filterNewsList(
+                                          _model.dataResult3 = await actions
+                                              .filterPhoneProjecetList(
                                             _model.textController.text,
                                             _model.tmpDataList.toList(),
                                           );
                                           _model.dataList = _model.dataResult3!
                                               .toList()
-                                              .cast<NewsListRecord>();
+                                              .cast<PhoneProjectListRecord>();
                                           setState(() {});
                                         } else {
                                           _model.dataList = _model.tmpDataList
                                               .toList()
-                                              .cast<NewsListRecord>();
+                                              .cast<PhoneProjectListRecord>();
                                           setState(() {});
                                         }
 
@@ -477,7 +485,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText:
-                                          'ระบุคำค้นหา หัวข้อ, รายละเอียด',
+                                          'ระบุคำค้นหา ชื่อหน่วยงาน, เบอร์โทร',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -546,20 +554,22 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                         '') {
                                                   _model.dataResult3 =
                                                       await actions
-                                                          .filterNewsList(
+                                                          .filterPhoneProjecetList(
                                                     _model.textController.text,
                                                     _model.tmpDataList.toList(),
                                                   );
                                                   _model.dataList = _model
                                                       .dataResult3!
                                                       .toList()
-                                                      .cast<NewsListRecord>();
+                                                      .cast<
+                                                          PhoneProjectListRecord>();
                                                   setState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
-                                                      .cast<NewsListRecord>();
+                                                      .cast<
+                                                          PhoneProjectListRecord>();
                                                   setState(() {});
                                                 }
 
@@ -598,7 +608,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                           return NoDataViewWidget();
                         }
 
-                        return FlutterFlowDataTable<NewsListRecord>(
+                        return FlutterFlowDataTable<PhoneProjectListRecord>(
                           controller: _model.paginatedDataTableController,
                           data: dataListView,
                           columnsBuilder: (onSortChanged) => [
@@ -611,7 +621,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'หัวข้อ',
+                                        'ชื่อหน่วยงาน',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -636,7 +646,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'รายละเอียด',
+                                        'เบอร์โทรศัพท์',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -788,7 +798,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      dataListViewItem.detail,
+                                      dataListViewItem.phone,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -911,7 +921,8 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                 padding:
                                                     MediaQuery.viewInsetsOf(
                                                         context),
-                                                child: NewsFormViewWidget(
+                                                child:
+                                                    PhoneProjectFormViewWidget(
                                                   dataDocument:
                                                       dataListViewItem,
                                                   title: 'รายละเอียด',
@@ -926,29 +937,30 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                 _model.isUpdate != '') &&
                                             (_model.isUpdate == 'update')) {
                                           _model.dataResult4 =
-                                              await queryNewsListRecordOnce(
-                                            queryBuilder: (newsListRecord) =>
-                                                newsListRecord
-                                                    .where(
-                                                      'create_date',
-                                                      isGreaterThanOrEqualTo:
-                                                          _model.startDate,
-                                                    )
-                                                    .where(
-                                                      'create_date',
-                                                      isLessThanOrEqualTo:
-                                                          _model.endDate,
-                                                    )
-                                                    .orderBy('create_date',
-                                                        descending: true),
+                                              await queryPhoneProjectListRecordOnce(
+                                            queryBuilder:
+                                                (phoneProjectListRecord) =>
+                                                    phoneProjectListRecord
+                                                        .where(
+                                                          'create_date',
+                                                          isGreaterThanOrEqualTo:
+                                                              _model.startDate,
+                                                        )
+                                                        .where(
+                                                          'create_date',
+                                                          isLessThanOrEqualTo:
+                                                              _model.endDate,
+                                                        )
+                                                        .orderBy('create_date',
+                                                            descending: true),
                                           );
                                           _model.dataList = _model.dataResult4!
                                               .toList()
-                                              .cast<NewsListRecord>();
+                                              .cast<PhoneProjectListRecord>();
                                           _model.tmpDataList = _model
                                               .dataResult4!
                                               .toList()
-                                              .cast<NewsListRecord>();
+                                              .cast<PhoneProjectListRecord>();
                                           _model.isLoading = false;
                                           setState(() {});
                                         }
@@ -1017,28 +1029,29 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                         await dataListViewItem.reference
                                             .delete();
                                         _model.dataResult6 =
-                                            await queryNewsListRecordOnce(
-                                          queryBuilder: (newsListRecord) =>
-                                              newsListRecord
-                                                  .where(
-                                                    'create_date',
-                                                    isGreaterThanOrEqualTo:
-                                                        _model.startDate,
-                                                  )
-                                                  .where(
-                                                    'create_date',
-                                                    isLessThanOrEqualTo:
-                                                        _model.endDate,
-                                                  )
-                                                  .orderBy('create_date',
-                                                      descending: true),
+                                            await queryPhoneProjectListRecordOnce(
+                                          queryBuilder:
+                                              (phoneProjectListRecord) =>
+                                                  phoneProjectListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
                                         );
                                         _model.dataList = _model.dataResult6!
                                             .toList()
-                                            .cast<NewsListRecord>();
+                                            .cast<PhoneProjectListRecord>();
                                         _model.tmpDataList = _model.dataResult6!
                                             .toList()
-                                            .cast<NewsListRecord>();
+                                            .cast<PhoneProjectListRecord>();
                                         _model.isLoading = false;
                                         setState(() {});
                                       }

@@ -236,6 +236,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'PhoneProjectPage',
+          path: '/phoneProjectPage',
+          requireAuth: true,
+          builder: (context, params) => PhoneProjectPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
