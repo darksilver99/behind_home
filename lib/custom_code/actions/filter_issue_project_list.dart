@@ -16,7 +16,9 @@ Future<List<IssueProjectListRecord>> filterIssueProjectList(
 ) async {
   // Add your function code here!
   List<IssueProjectListRecord> issueSearchedList = dataList.where((doc) {
-    return doc.subject.contains(keyword) || doc.detail.contains(keyword);
+    return doc.subject.contains(keyword) ||
+        doc.detail.contains(keyword) ||
+        doc.contactAddress.contains(keyword);
   }).toList();
   return issueSearchedList;
 }
