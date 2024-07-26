@@ -976,28 +976,50 @@ class _WaterPaymentDetailViewWidgetState
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (_model.dropDownValue == 5) {
-                                              if (_model.formKey.currentState ==
-                                                      null ||
-                                                  !_model.formKey.currentState!
-                                                      .validate()) {
-                                                return;
+                                            if (_model.dropDownValue != null) {
+                                              if (_model.dropDownValue == 5) {
+                                                if (_model.formKey
+                                                            .currentState ==
+                                                        null ||
+                                                    !_model
+                                                        .formKey.currentState!
+                                                        .validate()) {
+                                                  return;
+                                                }
                                               }
-                                            }
 
-                                            await widget!
-                                                .dataDocument!.reference
-                                                .update(
-                                                    createWaterPaymentListRecordData(
-                                              status: _model.dropDownValue,
-                                              updateDate: getCurrentTimestamp,
-                                              updateBy: currentUserReference,
-                                              adminDetail:
-                                                  _model.textController1.text,
-                                              remark: _model
-                                                  .remarkTextController.text,
-                                            ));
-                                            Navigator.pop(context, 'update');
+                                              await widget!
+                                                  .dataDocument!.reference
+                                                  .update(
+                                                      createWaterPaymentListRecordData(
+                                                status: _model.dropDownValue,
+                                                updateDate: getCurrentTimestamp,
+                                                updateBy: currentUserReference,
+                                                adminDetail:
+                                                    _model.textController1.text,
+                                                remark: _model
+                                                    .remarkTextController.text,
+                                              ));
+                                              Navigator.pop(context, 'update');
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        Text('กรุณาเลือกสถานะ'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('ตกลง'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
                                           },
                                           text: 'บันทึกข้อมูล',
                                           options: FFButtonOptions(
