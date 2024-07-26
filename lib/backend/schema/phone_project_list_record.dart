@@ -62,7 +62,7 @@ class PhoneProjectListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('phone_project_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/phone_project_list');
 
   static Stream<PhoneProjectListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => PhoneProjectListRecord.fromSnapshot(s));
