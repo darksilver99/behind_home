@@ -329,105 +329,6 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                 BorderRadius.circular(8.0),
                                           ),
                                         ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: NewsFormViewWidget(
-                                                      title: 'เพิ่มข้อมูล',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.isUpdate2 = value));
-
-                                            if ((_model.isUpdate2 != null &&
-                                                    _model.isUpdate2 != '') &&
-                                                (_model.isUpdate2 ==
-                                                    'update')) {
-                                              _model.dataResult5 =
-                                                  await queryNewsListRecordOnce(
-                                                queryBuilder:
-                                                    (newsListRecord) =>
-                                                        newsListRecord
-                                                            .where(
-                                                              'create_date',
-                                                              isGreaterThanOrEqualTo:
-                                                                  _model
-                                                                      .startDate,
-                                                            )
-                                                            .where(
-                                                              'create_date',
-                                                              isLessThanOrEqualTo:
-                                                                  _model
-                                                                      .endDate,
-                                                            )
-                                                            .orderBy(
-                                                                'create_date',
-                                                                descending:
-                                                                    true),
-                                              );
-                                              _model.dataList = _model
-                                                  .dataResult5!
-                                                  .toList()
-                                                  .cast<NewsListRecord>();
-                                              _model.tmpDataList = _model
-                                                  .dataResult5!
-                                                  .toList()
-                                                  .cast<NewsListRecord>();
-                                              _model.isLoading = false;
-                                              setState(() {});
-                                            }
-
-                                            setState(() {});
-                                          },
-                                          text: 'เพิ่มข้อมูล',
-                                          options: FFButtonOptions(
-                                            height: 56.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -442,145 +343,270 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Container(
-                                  width: 300.0,
-                                  child: TextFormField(
-                                    controller: _model.textController,
-                                    focusNode: _model.textFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.textController',
-                                      Duration(milliseconds: 300),
-                                      () async {
-                                        if (_model.textController.text !=
-                                                null &&
-                                            _model.textController.text != '') {
-                                          _model.dataResult3 =
-                                              await actions.filterNewsList(
-                                            _model.textController.text,
-                                            _model.tmpDataList.toList(),
-                                          );
-                                          _model.dataList = _model.dataResult3!
-                                              .toList()
-                                              .cast<NewsListRecord>();
-                                          setState(() {});
-                                        } else {
-                                          _model.dataList = _model.tmpDataList
-                                              .toList()
-                                              .cast<NewsListRecord>();
-                                          setState(() {});
-                                        }
+                                Expanded(
+                                  child: Wrap(
+                                    spacing: 8.0,
+                                    runSpacing: 8.0,
+                                    alignment: WrapAlignment.end,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    direction: Axis.horizontal,
+                                    runAlignment: WrapAlignment.start,
+                                    verticalDirection: VerticalDirection.down,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: NewsFormViewWidget(
+                                                    title: 'เพิ่มข้อมูล',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => safeSetState(
+                                              () => _model.isUpdate2 = value));
 
-                                        setState(() {});
-                                      },
-                                    ),
-                                    autofocus: false,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText:
-                                          'ระบุคำค้นหา หัวข้อ, รายละเอียด',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).info,
-                                      prefixIcon: Icon(
-                                        Icons.search_rounded,
-                                        size: 24.0,
-                                      ),
-                                      suffixIcon: _model
-                                              .textController!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                _model.textController?.clear();
-                                                if (_model.textController
-                                                            .text !=
-                                                        null &&
-                                                    _model.textController
-                                                            .text !=
-                                                        '') {
-                                                  _model.dataResult3 =
-                                                      await actions
-                                                          .filterNewsList(
-                                                    _model.textController.text,
-                                                    _model.tmpDataList.toList(),
-                                                  );
-                                                  _model.dataList = _model
-                                                      .dataResult3!
-                                                      .toList()
-                                                      .cast<NewsListRecord>();
-                                                  setState(() {});
-                                                } else {
-                                                  _model.dataList = _model
-                                                      .tmpDataList
-                                                      .toList()
-                                                      .cast<NewsListRecord>();
-                                                  setState(() {});
-                                                }
+                                          if ((_model.isUpdate2 != null &&
+                                                  _model.isUpdate2 != '') &&
+                                              (_model.isUpdate2 == 'update')) {
+                                            _model.dataResult5 =
+                                                await queryNewsListRecordOnce(
+                                              queryBuilder: (newsListRecord) =>
+                                                  newsListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
+                                            );
+                                            _model.dataList = _model
+                                                .dataResult5!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult5!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.isLoading = false;
+                                            setState(() {});
+                                          }
 
+                                          setState(() {});
+                                        },
+                                        text: 'เพิ่มข้อมูล',
+                                        options: FFButtonOptions(
+                                          height: FFAppConstants.buttonHeigth,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          elevation: 3.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 300.0,
+                                        child: TextFormField(
+                                          controller: _model.textController,
+                                          focusNode: _model.textFieldFocusNode,
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            '_model.textController',
+                                            Duration(milliseconds: 300),
+                                            () async {
+                                              if (_model.textController.text !=
+                                                      null &&
+                                                  _model.textController.text !=
+                                                      '') {
+                                                _model.dataResult3 =
+                                                    await actions
+                                                        .filterNewsList(
+                                                  _model.textController.text,
+                                                  _model.tmpDataList.toList(),
+                                                );
+                                                _model.dataList = _model
+                                                    .dataResult3!
+                                                    .toList()
+                                                    .cast<NewsListRecord>();
                                                 setState(() {});
+                                              } else {
+                                                _model.dataList = _model
+                                                    .tmpDataList
+                                                    .toList()
+                                                    .cast<NewsListRecord>();
                                                 setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                size: 24.0,
+                                              }
+
+                                              setState(() {});
+                                            },
+                                          ),
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText:
+                                                'ระบุคำค้นหา หัวข้อ, รายละเอียด',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
                                               ),
-                                            )
-                                          : null,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          letterSpacing: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                            prefixIcon: Icon(
+                                              Icons.search_rounded,
+                                              size: 24.0,
+                                            ),
+                                            suffixIcon: _model.textController!
+                                                    .text.isNotEmpty
+                                                ? InkWell(
+                                                    onTap: () async {
+                                                      _model.textController
+                                                          ?.clear();
+                                                      if (_model.textController
+                                                                  .text !=
+                                                              null &&
+                                                          _model.textController
+                                                                  .text !=
+                                                              '') {
+                                                        _model.dataResult3 =
+                                                            await actions
+                                                                .filterNewsList(
+                                                          _model.textController
+                                                              .text,
+                                                          _model.tmpDataList
+                                                              .toList(),
+                                                        );
+                                                        _model.dataList = _model
+                                                            .dataResult3!
+                                                            .toList()
+                                                            .cast<
+                                                                NewsListRecord>();
+                                                        setState(() {});
+                                                      } else {
+                                                        _model.dataList = _model
+                                                            .tmpDataList
+                                                            .toList()
+                                                            .cast<
+                                                                NewsListRecord>();
+                                                        setState(() {});
+                                                      }
+
+                                                      setState(() {});
+                                                      setState(() {});
+                                                    },
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      size: 24.0,
+                                                    ),
+                                                  )
+                                                : null,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                letterSpacing: 0.0,
+                                              ),
+                                          validator: _model
+                                              .textControllerValidator
+                                              .asValidator(context),
                                         ),
-                                    validator: _model.textControllerValidator
-                                        .asValidator(context),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
