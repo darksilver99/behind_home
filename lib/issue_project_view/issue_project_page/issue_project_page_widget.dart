@@ -383,7 +383,7 @@ class _IssueProjectPageWidgetState extends State<IssueProjectPageWidget> {
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText:
-                                          'ระบุคำค้นหา หัวข้อ, รายละเอียด',
+                                          'ระบุคำค้นหา หัวข้อ, รายละเอียด, บ้าน/ห้อง เลขที่',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
