@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -976,7 +977,7 @@ class _WaterPaymentDetailViewWidgetState
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (_model.dropDownValue != null) {
+                                            if (_model.dropDownValue! >= 3) {
                                               if (_model.dropDownValue == 5) {
                                                 if (_model.formKey
                                                             .currentState ==
@@ -1002,23 +1003,9 @@ class _WaterPaymentDetailViewWidgetState
                                               ));
                                               Navigator.pop(context, 'update');
                                             } else {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title:
-                                                        Text('กรุณาเลือกสถานะ'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: Text('ตกลง'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
+                                              await action_blocks
+                                                  .selectStatusViewBlock(
+                                                      context);
                                             }
                                           },
                                           text: 'บันทึกข้อมูล',

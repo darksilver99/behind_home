@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -939,28 +940,36 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (_model.dropDownValue == 5) {
-                                              if (_model.formKey.currentState ==
-                                                      null ||
-                                                  !_model.formKey.currentState!
-                                                      .validate()) {
-                                                return;
+                                            if (_model.dropDownValue! >= 3) {
+                                              if (_model.dropDownValue == 5) {
+                                                if (_model.formKey
+                                                            .currentState ==
+                                                        null ||
+                                                    !_model
+                                                        .formKey.currentState!
+                                                        .validate()) {
+                                                  return;
+                                                }
                                               }
-                                            }
 
-                                            await widget!
-                                                .dataDocument!.reference
-                                                .update(
-                                                    createIssueProjectListRecordData(
-                                              status: _model.dropDownValue,
-                                              updateDate: getCurrentTimestamp,
-                                              updateBy: currentUserReference,
-                                              adminDetail:
-                                                  _model.textController1.text,
-                                              remark: _model
-                                                  .remarkTextController.text,
-                                            ));
-                                            Navigator.pop(context, 'update');
+                                              await widget!
+                                                  .dataDocument!.reference
+                                                  .update(
+                                                      createIssueProjectListRecordData(
+                                                status: _model.dropDownValue,
+                                                updateDate: getCurrentTimestamp,
+                                                updateBy: currentUserReference,
+                                                adminDetail:
+                                                    _model.textController1.text,
+                                                remark: _model
+                                                    .remarkTextController.text,
+                                              ));
+                                              Navigator.pop(context, 'update');
+                                            } else {
+                                              await action_blocks
+                                                  .selectStatusViewBlock(
+                                                      context);
+                                            }
                                           },
                                           text: 'บันทึกข้อมูล',
                                           options: FFButtonOptions(

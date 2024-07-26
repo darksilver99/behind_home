@@ -87,3 +87,20 @@ Future checkExpireDate(BuildContext context) async {
     }
   }
 }
+
+Future selectStatusViewBlock(BuildContext context) async {
+  await showDialog(
+    context: context,
+    builder: (alertDialogContext) {
+      return AlertDialog(
+        title: Text('กรุณาเลือกสถานะ'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(alertDialogContext),
+            child: Text('ตกลง'),
+          ),
+        ],
+      );
+    },
+  );
+}
