@@ -10,6 +10,16 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:html' as html;
+import 'dart:typed_data';
+
 Future downloadImage(dynamic widget) async {
   // Add your function code here!
+  final bytes = await widget.capture();
+  final blob = html.Blob([bytes]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  final anchor = html.AnchorElement(href: url)
+    ..setAttribute("download", "qrcode.png")
+    ..click();
+  html.Url.revokeObjectUrl(url);
 }
