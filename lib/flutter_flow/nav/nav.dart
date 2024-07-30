@@ -247,6 +247,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'QRCodeProjectPage',
+          path: '/qRCodeProjectPage',
+          requireAuth: true,
+          builder: (context, params) => QRCodeProjectPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+            image: params.getParam(
+              'image',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

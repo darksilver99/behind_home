@@ -27,3 +27,5 @@ export '/water_payment_view/water_payment_setting_page/water_payment_setting_pag
     show WaterPaymentSettingPageWidget;
 export '/phone_project_view/phone_project_page/phone_project_page_widget.dart'
     show PhoneProjectPageWidget;
+export '/general_view/q_r_code_project_page/q_r_code_project_page_widget.dart'
+    show QRCodeProjectPageWidget;
