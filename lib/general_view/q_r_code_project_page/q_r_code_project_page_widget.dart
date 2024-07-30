@@ -135,20 +135,35 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
-                                  child: BarcodeWidget(
-                                    data: FFAppState().projectData.projectDocID,
-                                    barcode: Barcode.qrCode(),
-                                    width: 250.0,
-                                    height: 250.0,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    backgroundColor: Colors.transparent,
-                                    errorBuilder: (_context, _error) =>
-                                        SizedBox(
-                                      width: 250.0,
-                                      height: 250.0,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context).info,
                                     ),
-                                    drawText: false,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          BarcodeWidget(
+                                            data: FFAppState()
+                                                .projectData
+                                                .projectDocID,
+                                            barcode: Barcode.qrCode(),
+                                            width: 250.0,
+                                            height: 250.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            backgroundColor: Colors.transparent,
+                                            errorBuilder: (_context, _error) =>
+                                                SizedBox(
+                                              width: 250.0,
+                                              height: 250.0,
+                                            ),
+                                            drawText: false,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 Row(
