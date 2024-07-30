@@ -284,6 +284,15 @@ class _WaterPaymentSettingPageWidgetState
                                             ),
                                           ),
                                         ),
+                                      Text(
+                                        FFAppConstants.imageUploadSuggestText,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
                                       FFButtonWidget(
                                         onPressed: () async {
                                           final selectedMedia =

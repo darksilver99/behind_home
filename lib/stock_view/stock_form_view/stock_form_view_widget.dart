@@ -279,6 +279,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                       0.0, 0.0, 0.0, 16.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -497,10 +499,23 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                           ],
                                         ),
                                       ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          if (widget!.dataDocument == null)
+                                      if (widget!.dataDocument == null)
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              FFAppConstants
+                                                  .imageUploadSuggestText,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
                                             FFButtonWidget(
                                               onPressed: () async {
                                                 if (_model.imageList.length >=
@@ -660,8 +675,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
                                     ],
                                   ),
                                 ),
