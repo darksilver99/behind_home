@@ -18,4 +18,6 @@ abstract class FFAppConstants {
     'ธันวาคม'
   ];
   static const double buttonHeigth = 48.0;
+  static const String imageUploadSuggestText =
+      '*รองรับไฟล์สกุล jpg, jpeg, png ขนาดไม่เกิน 10MB';
 }
