@@ -110,6 +110,7 @@ dependencies:
 
   #custom
   excel: ^4.0.3
+  widgets_to_image: ^1.0.0
 
 dependency_overrides:
   http: 1.2.1

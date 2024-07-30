@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'q_r_code_project_page_model.dart';
 export 'q_r_code_project_page_model.dart';
 
+import 'package:widgets_to_image/widgets_to_image.dart';
+
 class QRCodeProjectPageWidget extends StatefulWidget {
   const QRCodeProjectPageWidget({
     super.key,
@@ -32,6 +34,8 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
   late QRCodeProjectPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  WidgetsToImageController controller = WidgetsToImageController();
 
   @override
   void initState() {
@@ -132,36 +136,39 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context).info,
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(16.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          BarcodeWidget(
-                                            data: FFAppState()
-                                                .projectData
-                                                .projectDocID,
-                                            barcode: Barcode.qrCode(),
-                                            width: 250.0,
-                                            height: 250.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            backgroundColor: Colors.transparent,
-                                            errorBuilder: (_context, _error) =>
-                                                SizedBox(
+                                WidgetsToImage(
+                                  controller: controller,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 16.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).info,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            BarcodeWidget(
+                                              data: FFAppState()
+                                                  .projectData
+                                                  .projectDocID,
+                                              barcode: Barcode.qrCode(),
                                               width: 250.0,
                                               height: 250.0,
+                                              color: FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                              backgroundColor: Colors.transparent,
+                                              errorBuilder: (_context, _error) =>
+                                                  SizedBox(
+                                                width: 250.0,
+                                                height: 250.0,
+                                              ),
+                                              drawText: false,
                                             ),
-                                            drawText: false,
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -173,7 +180,7 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
                                     FFButtonWidget(
                                       onPressed: () async {
                                         await actions.downloadImage(
-                                          null!,
+                                          controller,
                                         );
                                       },
                                       text: 'ดาวน์โหลด QR Code',
