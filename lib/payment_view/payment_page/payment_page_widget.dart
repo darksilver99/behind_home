@@ -96,6 +96,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                             padding: EdgeInsets.all(64.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -132,7 +133,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment.start,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
@@ -502,7 +503,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                              .success,
                                           textStyle:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
