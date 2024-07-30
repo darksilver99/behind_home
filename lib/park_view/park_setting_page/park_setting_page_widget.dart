@@ -290,6 +290,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         ),
                                         Column(
                                           mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
                                           children: [
                                             Text(
                                               FFAppConstants
