@@ -498,6 +498,8 @@ class _BannerProjectFormViewWidgetState
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -710,6 +712,15 @@ class _BannerProjectFormViewWidgetState
                                             ),
                                           ],
                                         ),
+                                      ),
+                                      Text(
+                                        FFAppConstants.imageUploadSuggestText,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
