@@ -36,4 +36,5 @@ abstract class FFAppConstants {
   ];
   static const List<String> imageExtAllowList = ['jpg', 'jpeg', 'png'];
   static const int imageSizeLimit = 5242880;
+  static const int imageLimit = 3;
 }

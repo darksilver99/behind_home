@@ -150,3 +150,30 @@ Future<bool?> validateFileSizeAndExt(
     return false;
   }
 }
+
+Future<bool?> checkImageLimit(
+  BuildContext context, {
+  required int? imageLimit,
+  required List<String>? imageList,
+}) async {
+  if (imageList!.length >= imageLimit!) {
+    await showDialog(
+      context: context,
+      builder: (alertDialogContext) {
+        return AlertDialog(
+          title: Text(
+              'ขออภัยกำหนดจำนวนไม่เกิน ${FFAppConstants.imageLimit.toString()} รูป'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(alertDialogContext),
+              child: Text('ตกลง'),
+            ),
+          ],
+        );
+      },
+    );
+    return false;
+  } else {
+    return true;
+  }
+}

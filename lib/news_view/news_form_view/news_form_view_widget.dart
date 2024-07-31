@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -8,6 +7,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -732,7 +733,6 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 var selectedUploadedFiles =
                                                     <FFUploadedFile>[];
 
-                                                var downloadUrls = <String>[];
                                                 try {
                                                   selectedUploadedFiles =
                                                       selectedMedia
@@ -753,35 +753,17 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                     m.blurHash,
                                                               ))
                                                           .toList();
-
-                                                  downloadUrls =
-                                                      (await Future.wait(
-                                                    selectedMedia.map(
-                                                      (m) async =>
-                                                          await uploadData(
-                                                              m.storagePath,
-                                                              m.bytes),
-                                                    ),
-                                                  ))
-                                                          .where(
-                                                              (u) => u != null)
-                                                          .map((u) => u!)
-                                                          .toList();
                                                 } finally {
                                                   _model.isDataUploading =
                                                       false;
                                                 }
                                                 if (selectedUploadedFiles
-                                                            .length ==
-                                                        selectedMedia.length &&
-                                                    downloadUrls.length ==
-                                                        selectedMedia.length) {
+                                                        .length ==
+                                                    selectedMedia.length) {
                                                   setState(() {
                                                     _model.uploadedLocalFile =
                                                         selectedUploadedFiles
                                                             .first;
-                                                    _model.uploadedFileUrl =
-                                                        downloadUrls.first;
                                                   });
                                                 } else {
                                                   setState(() {});
@@ -789,13 +771,47 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 }
                                               }
 
-                                              if (_model.uploadedFileUrl !=
+                                              if (_model.uploadedLocalFile !=
                                                       null &&
-                                                  _model.uploadedFileUrl !=
-                                                      '') {
-                                                _model.addToImageList(
-                                                    _model.uploadedFileUrl);
-                                                setState(() {});
+                                                  (_model.uploadedLocalFile
+                                                          .bytes?.isNotEmpty ??
+                                                      false)) {
+                                                _model.isNotlimit =
+                                                    await action_blocks
+                                                        .checkImageLimit(
+                                                  context,
+                                                  imageLimit:
+                                                      FFAppConstants.imageLimit,
+                                                  imageList: _model.imageList,
+                                                );
+                                                if (_model.isNotlimit!) {
+                                                  _model.isValid =
+                                                      await action_blocks
+                                                          .validateFileSizeAndExt(
+                                                    context,
+                                                    file: _model
+                                                        .uploadedLocalFile,
+                                                    size: FFAppConstants
+                                                        .imageSizeLimit,
+                                                    allowList: FFAppConstants
+                                                        .imageExtAllowList,
+                                                  );
+                                                  if (_model.isValid!) {
+                                                    _model.tmpImageList = [];
+                                                    _model.addToTmpImageList(
+                                                        _model
+                                                            .uploadedLocalFile);
+                                                    _model.urlList = await actions
+                                                        .uploadImageToFirebase(
+                                                      _model.tmpImageList
+                                                          .toList(),
+                                                      'news/${FFAppState().projectData.projectDocID}',
+                                                    );
+                                                    _model.addToImageList(
+                                                        _model.urlList!.first);
+                                                    setState(() {});
+                                                  }
+                                                }
                                                 setState(() {
                                                   _model.isDataUploading =
                                                       false;
@@ -803,9 +819,10 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                       FFUploadedFile(
                                                           bytes: Uint8List
                                                               .fromList([]));
-                                                  _model.uploadedFileUrl = '';
                                                 });
                                               }
+
+                                              setState(() {});
                                             },
                                             text: 'อัพโหลดรูป',
                                             icon: Icon(
