@@ -121,16 +121,17 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 8.0),
-                                        child: Container(
-                                          width: 80.0,
-                                          height: 80.0,
-                                          child: Stack(
-                                            children: [
-                                              if (_model.urlList != null &&
-                                                  (_model.urlList)!.isNotEmpty)
+                                      if (_model.urlList != null &&
+                                          (_model.urlList)!.isNotEmpty)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Container(
+                                            width: 80.0,
+                                            height: 80.0,
+                                            child: Stack(
+                                              children: [
                                                 InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -196,73 +197,75 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    1.0, -1.0),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 4.0, 4.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      var confirmDialogResponse =
-                                                          await showDialog<
-                                                                  bool>(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (alertDialogContext) {
-                                                                  return AlertDialog(
-                                                                    title: Text(
-                                                                        'ต้องการลบ ?'),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            false),
-                                                                        child: Text(
-                                                                            'ยกเลิก'),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            true),
-                                                                        child: Text(
-                                                                            'ยืนยัน'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              ) ??
-                                                              false;
-                                                      if (confirmDialogResponse) {
-                                                        _model.slipImage = [];
-                                                        setState(() {});
-                                                      }
-                                                    },
-                                                    child: Icon(
-                                                      Icons.cancel_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      size: 24.0,
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          1.0, -1.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                4.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        var confirmDialogResponse =
+                                                            await showDialog<
+                                                                    bool>(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (alertDialogContext) {
+                                                                    return AlertDialog(
+                                                                      title: Text(
+                                                                          'ต้องการลบ ?'),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              alertDialogContext,
+                                                                              false),
+                                                                          child:
+                                                                              Text('ยกเลิก'),
+                                                                        ),
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              alertDialogContext,
+                                                                              true),
+                                                                          child:
+                                                                              Text('ยืนยัน'),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                ) ??
+                                                                false;
+                                                        if (confirmDialogResponse) {
+                                                          _model.slipImage = [];
+                                                          setState(() {});
+                                                        }
+                                                      },
+                                                      child: Icon(
+                                                        Icons.cancel_rounded,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        size: 24.0,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
                                       Text(
                                         FFAppConstants.imageUploadSuggestText,
                                         style: FlutterFlowTheme.of(context)
