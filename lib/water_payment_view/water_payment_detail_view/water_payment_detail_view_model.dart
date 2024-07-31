@@ -70,6 +70,8 @@ class WaterPaymentDetailViewModel
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Action Block - validateFileSizeAndExt] action in Button widget.
+  bool? isValid;
   // Stores action output result for [Custom Action - uploadFileToFirebase] action in Button widget.
   List<String>? urlListResult;
   // State field(s) for remark widget.
