@@ -48,6 +48,8 @@ class WaterPaymentDetailViewModel
   void updateTmpFileListAtIndex(int index, Function(FFUploadedFile) updateFn) =>
       tmpFileList[index] = updateFn(tmpFileList[index]);
 
+  int dropDownValue = 1;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
