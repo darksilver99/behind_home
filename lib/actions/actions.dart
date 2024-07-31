@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 Future createProjectData(
@@ -175,5 +176,36 @@ Future<bool?> checkImageLimit(
     return false;
   } else {
     return true;
+  }
+}
+
+Future<bool?> deleteImageBlock(
+  BuildContext context, {
+  required String? imagePath,
+}) async {
+  var confirmDialogResponse = await showDialog<bool>(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            title: Text('ต้องการลบรูปนี้?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext, false),
+                child: Text('ยกเลิก'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext, true),
+                child: Text('ยืนยัน'),
+              ),
+            ],
+          );
+        },
+      ) ??
+      false;
+  if (confirmDialogResponse) {
+    await FirebaseStorage.instance.refFromURL(imagePath!).delete();
+    return true;
+  } else {
+    return false;
   }
 }
