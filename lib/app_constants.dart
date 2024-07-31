@@ -20,4 +20,5 @@ abstract class FFAppConstants {
   static const double buttonHeigth = 48.0;
   static const String imageUploadSuggestText =
       '*รองรับไฟล์สกุล jpg, jpeg, png ขนาดไม่เกิน 10MB';
+  static const int fileSizeLimit = 10485760;
 }
