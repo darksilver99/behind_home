@@ -12,7 +12,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'news_form_view_widget.dart' show NewsFormViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,6 +71,8 @@ class NewsFormViewModel extends FlutterFlowModel<NewsFormViewWidget> {
     return null;
   }
 
+  // Stores action output result for [Action Block - deleteImageBlock] action in Icon widget.
+  bool? isDelete;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));

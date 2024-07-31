@@ -11,7 +11,6 @@ import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -561,27 +560,15 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                           .transparent,
                                                                   onTap:
                                                                       () async {
-                                                                    var confirmDialogResponse =
-                                                                        await showDialog<bool>(
-                                                                              context: context,
-                                                                              builder: (alertDialogContext) {
-                                                                                return AlertDialog(
-                                                                                  title: Text('ต้องการลบรูปนี้?'),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                      child: Text('ยกเลิก'),
-                                                                                    ),
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                      child: Text('ยืนยัน'),
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              },
-                                                                            ) ??
-                                                                            false;
-                                                                    if (confirmDialogResponse) {
+                                                                    _model.isDelete =
+                                                                        await action_blocks
+                                                                            .deleteImageBlock(
+                                                                      context,
+                                                                      imagePath:
+                                                                          imageListViewItem,
+                                                                    );
+                                                                    if (_model
+                                                                        .isDelete!) {
                                                                       _model.removeFromImageList(
                                                                           imageListViewItem);
                                                                       setState(
@@ -612,12 +599,10 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                           ),
                                                                         });
                                                                       }
-                                                                      await FirebaseStorage
-                                                                          .instance
-                                                                          .refFromURL(
-                                                                              imageListViewItem)
-                                                                          .delete();
                                                                     }
+
+                                                                    setState(
+                                                                        () {});
                                                                   },
                                                                   child: Icon(
                                                                     Icons
