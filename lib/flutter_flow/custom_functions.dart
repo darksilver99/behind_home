@@ -245,3 +245,15 @@ String getNextValue(String current) {
 int getFileSize(FFUploadedFile file) {
   return file.bytes!.length;
 }
+
+bool checkFileAllow(
+  FFUploadedFile file,
+  List<String> allowList,
+) {
+  String? extension = file.name!.split('.').last.toLowerCase();
+  return allowList.contains(extension);
+}
+
+double bytesToMB(int bytes) {
+  return bytes / (1024 * 1024);
+}

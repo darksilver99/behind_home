@@ -21,4 +21,18 @@ abstract class FFAppConstants {
   static const String imageUploadSuggestText =
       '*รองรับไฟล์สกุล jpg, jpeg, png ขนาดไม่เกิน 10MB';
   static const int fileSizeLimit = 10485760;
+  static const String fileUploadSuggestText =
+      '*รองรับไฟล์สกุล txt, pdf, doc, docx, xlsx, xls, jpg, jpeg, png ขนาดไม่เกิน 10MB';
+  static const List<String> fileExtAllowList = [
+    'txt',
+    'pdf',
+    'doc',
+    'docx',
+    'xlsx',
+    'xls',
+    'jpg',
+    'jpeg',
+    'png'
+  ];
+  static const List<String> imageExtAllowList = ['jpg', 'jpeg', 'png'];
 }
