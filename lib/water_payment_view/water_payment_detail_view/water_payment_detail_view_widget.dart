@@ -12,6 +12,7 @@ import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,7 +63,7 @@ class _WaterPaymentDetailViewWidgetState
         ));
       } else {
         _model.tmpDropDownValue = widget!.dataDocument!.status;
-        _model.currentFileList =
+        _model.urlFileList =
             widget!.dataDocument!.receiptFile.toList().cast<String>();
         setState(() {});
       }
@@ -700,436 +701,351 @@ class _WaterPaymentDetailViewWidgetState
                                             ],
                                           ),
                                         ),
-                                        Builder(
-                                          builder: (context) {
-                                            if (widget!.dataDocument
-                                                        ?.receiptFile !=
-                                                    null &&
-                                                (widget!.dataDocument
-                                                        ?.receiptFile)!
-                                                    .isNotEmpty) {
-                                              return Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 8.0),
-                                                child: Builder(
-                                                  builder: (context) {
-                                                    final fileList2 = widget!
-                                                            .dataDocument
-                                                            ?.receiptFile
-                                                            ?.toList() ??
-                                                        [];
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Builder(
+                                            builder: (context) {
+                                              final fileList =
+                                                  _model.urlFileList.toList();
 
-                                                    return Wrap(
-                                                      spacing: 8.0,
-                                                      runSpacing: 8.0,
-                                                      alignment:
-                                                          WrapAlignment.start,
-                                                      crossAxisAlignment:
-                                                          WrapCrossAlignment
-                                                              .start,
-                                                      direction:
-                                                          Axis.horizontal,
-                                                      runAlignment:
-                                                          WrapAlignment.start,
-                                                      verticalDirection:
-                                                          VerticalDirection
-                                                              .down,
-                                                      clipBehavior: Clip.none,
-                                                      children: List.generate(
-                                                          fileList2.length,
-                                                          (fileList2Index) {
-                                                        final fileList2Item =
-                                                            fileList2[
-                                                                fileList2Index];
-                                                        return InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            await launchURL(
-                                                                fileList2Item);
-                                                          },
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
+                                              return Wrap(
+                                                spacing: 8.0,
+                                                runSpacing: 8.0,
+                                                alignment: WrapAlignment.start,
+                                                crossAxisAlignment:
+                                                    WrapCrossAlignment.start,
+                                                direction: Axis.horizontal,
+                                                runAlignment:
+                                                    WrapAlignment.start,
+                                                verticalDirection:
+                                                    VerticalDirection.down,
+                                                clipBehavior: Clip.none,
+                                                children: List.generate(
+                                                    fileList.length,
+                                                    (fileListIndex) {
+                                                  final fileListItem =
+                                                      fileList[fileListIndex];
+                                                  return InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await launchURL(
+                                                          fileListItem);
+                                                    },
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Container(
+                                                          width: 80.0,
+                                                          height: 80.0,
+                                                          child: Stack(
                                                             children: [
                                                               Container(
-                                                                width: 80.0,
-                                                                height: 80.0,
-                                                                child: Stack(
-                                                                  children: [
-                                                                    Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height: double
-                                                                          .infinity,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).alternate,
-                                                                          width:
-                                                                              1.0,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .insert_drive_file_rounded,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                        size:
-                                                                            36.0,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                width: 80.0,
+                                                                width: double
+                                                                    .infinity,
+                                                                height: double
+                                                                    .infinity,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryBackground,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    width: 1.0,
+                                                                  ),
                                                                 ),
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .insert_drive_file_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  size: 36.0,
+                                                                ),
+                                                              ),
+                                                              Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        1.0,
+                                                                        -1.0),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          4.0,
                                                                           0.0,
                                                                           4.0,
+                                                                          4.0,
                                                                           0.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        child:
-                                                                            Text(
-                                                                          'ดูรายละเอียด',
-                                                                          maxLines:
-                                                                              2,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Manrope',
-                                                                                color: FlutterFlowTheme.of(context).link,
-                                                                                letterSpacing: 0.0,
-                                                                                decoration: TextDecoration.underline,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      var confirmDialogResponse = await showDialog<
+                                                                              bool>(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return AlertDialog(
+                                                                                title: Text('ต้องการลบไฟล์นี้?'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                    child: Text('ยกเลิก'),
+                                                                                  ),
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                    child: Text('ยืนยัน'),
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          ) ??
+                                                                          false;
+                                                                      if (confirmDialogResponse) {
+                                                                        _model.removeFromUrlFileList(
+                                                                            fileListItem);
+                                                                        setState(
+                                                                            () {});
+                                                                        await FirebaseStorage
+                                                                            .instance
+                                                                            .refFromURL(fileListItem)
+                                                                            .delete();
+
+                                                                        await widget!
+                                                                            .dataDocument!
+                                                                            .reference
+                                                                            .update({
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'receipt_file': FieldValue.delete(),
+                                                                            },
+                                                                          ),
+                                                                        });
+                                                                      }
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .cancel_rounded,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      size:
+                                                                          24.0,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
-                                                        );
-                                                      }),
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                            } else {
-                                              return Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  if (_model
-                                                      .tmpFileList.isNotEmpty)
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
+                                                        ),
+                                                        Container(
+                                                          width: 80.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
+                                                          ),
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
+                                                                        4.0,
                                                                         0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        8.0),
-                                                            child: Builder(
-                                                              builder:
-                                                                  (context) {
-                                                                final fileList =
-                                                                    _model
-                                                                        .tmpFileList
-                                                                        .toList();
-
-                                                                return Wrap(
-                                                                  spacing: 8.0,
-                                                                  runSpacing:
-                                                                      8.0,
-                                                                  alignment:
-                                                                      WrapAlignment
-                                                                          .start,
-                                                                  crossAxisAlignment:
-                                                                      WrapCrossAlignment
-                                                                          .start,
-                                                                  direction: Axis
-                                                                      .horizontal,
-                                                                  runAlignment:
-                                                                      WrapAlignment
-                                                                          .start,
-                                                                  verticalDirection:
-                                                                      VerticalDirection
-                                                                          .down,
-                                                                  clipBehavior:
-                                                                      Clip.none,
-                                                                  children: List.generate(
-                                                                      fileList
-                                                                          .length,
-                                                                      (fileListIndex) {
-                                                                    final fileListItem =
-                                                                        fileList[
-                                                                            fileListIndex];
-                                                                    return Container(
-                                                                      width:
-                                                                          80.0,
-                                                                      height:
-                                                                          80.0,
-                                                                      child:
-                                                                          Stack(
-                                                                        children: [
-                                                                          Container(
-                                                                            width:
-                                                                                double.infinity,
-                                                                            height:
-                                                                                double.infinity,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                              borderRadius: BorderRadius.circular(8.0),
-                                                                              border: Border.all(
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                width: 1.0,
-                                                                              ),
-                                                                            ),
-                                                                            child:
-                                                                                Icon(
-                                                                              Icons.insert_drive_file_rounded,
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                                                              size: 36.0,
-                                                                            ),
-                                                                          ),
-                                                                          Align(
-                                                                            alignment:
-                                                                                AlignmentDirectional(1.0, -1.0),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 4.0, 0.0),
-                                                                              child: InkWell(
-                                                                                splashColor: Colors.transparent,
-                                                                                focusColor: Colors.transparent,
-                                                                                hoverColor: Colors.transparent,
-                                                                                highlightColor: Colors.transparent,
-                                                                                onTap: () async {
-                                                                                  var confirmDialogResponse = await showDialog<bool>(
-                                                                                        context: context,
-                                                                                        builder: (alertDialogContext) {
-                                                                                          return AlertDialog(
-                                                                                            title: Text('ยืนยันการลบไฟล์นี้?'),
-                                                                                            actions: [
-                                                                                              TextButton(
-                                                                                                onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                                child: Text('ยกเลิก'),
-                                                                                              ),
-                                                                                              TextButton(
-                                                                                                onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                                child: Text('ยืนยัน'),
-                                                                                              ),
-                                                                                            ],
-                                                                                          );
-                                                                                        },
-                                                                                      ) ??
-                                                                                      false;
-                                                                                  if (confirmDialogResponse) {
-                                                                                    _model.removeFromTmpFileList(fileListItem);
-                                                                                    setState(() {});
-                                                                                  }
-                                                                                },
-                                                                                child: Icon(
-                                                                                  Icons.cancel_rounded,
-                                                                                  color: FlutterFlowTheme.of(context).error,
-                                                                                  size: 24.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  }),
-                                                                );
-                                                              },
+                                                                        4.0,
+                                                                        0.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    'ดูรายละเอียด',
+                                                                    maxLines: 2,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).link,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          decoration:
+                                                                              TextDecoration.underline,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      final selectedFiles =
-                                                          await selectFiles(
-                                                        multiFile: false,
-                                                      );
-                                                      if (selectedFiles !=
-                                                          null) {
-                                                        setState(() => _model
-                                                                .isDataUploading =
-                                                            true);
-                                                        var selectedUploadedFiles =
-                                                            <FFUploadedFile>[];
-
-                                                        try {
-                                                          selectedUploadedFiles =
-                                                              selectedFiles
-                                                                  .map((m) =>
-                                                                      FFUploadedFile(
-                                                                        name: m
-                                                                            .storagePath
-                                                                            .split('/')
-                                                                            .last,
-                                                                        bytes: m
-                                                                            .bytes,
-                                                                      ))
-                                                                  .toList();
-                                                        } finally {
-                                                          _model.isDataUploading =
-                                                              false;
-                                                        }
-                                                        if (selectedUploadedFiles
-                                                                .length ==
-                                                            selectedFiles
-                                                                .length) {
-                                                          setState(() {
-                                                            _model.uploadedLocalFile =
-                                                                selectedUploadedFiles
-                                                                    .first;
-                                                          });
-                                                        } else {
-                                                          setState(() {});
-                                                          return;
-                                                        }
-                                                      }
-
-                                                      if (_model.uploadedLocalFile !=
-                                                              null &&
-                                                          (_model
-                                                                  .uploadedLocalFile
-                                                                  .bytes
-                                                                  ?.isNotEmpty ??
-                                                              false)) {
-                                                        if (functions.getFileSize(
-                                                                _model
-                                                                    .uploadedLocalFile) >
-                                                            FFAppConstants
-                                                                .fileSizeLimit) {
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title: Text(
-                                                                    'ขออภัยรองรับขนาดไฟล์ไม่เกิน 10 MB'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'ตกลง'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          );
-                                                          setState(() {
-                                                            _model.isDataUploading =
-                                                                false;
-                                                            _model.uploadedLocalFile =
-                                                                FFUploadedFile(
-                                                                    bytes: Uint8List
-                                                                        .fromList(
-                                                                            []));
-                                                          });
-                                                        } else {
-                                                          _model.tmpFileList =
-                                                              [];
-                                                          _model.addToTmpFileList(
-                                                              _model
-                                                                  .uploadedLocalFile);
-                                                          setState(() {});
-                                                        }
-                                                      }
-                                                    },
-                                                    text: 'แนบใบเสร็จ',
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                color: Colors
-                                                                    .white,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                      elevation: 3.0,
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                  ),
-                                                ],
+                                                  );
+                                                }),
                                               );
-                                            }
-                                          },
+                                            },
+                                          ),
                                         ),
+                                        if (!(widget!.dataDocument!.receiptFile
+                                            .isNotEmpty))
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              final selectedFiles =
+                                                  await selectFiles(
+                                                multiFile: false,
+                                              );
+                                              if (selectedFiles != null) {
+                                                setState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
+
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedFiles
+                                                          .map((m) =>
+                                                              FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                              ))
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                        .length ==
+                                                    selectedFiles.length) {
+                                                  setState(() {
+                                                    _model.uploadedLocalFile =
+                                                        selectedUploadedFiles
+                                                            .first;
+                                                  });
+                                                } else {
+                                                  setState(() {});
+                                                  return;
+                                                }
+                                              }
+
+                                              if (_model.uploadedLocalFile !=
+                                                      null &&
+                                                  (_model.uploadedLocalFile
+                                                          .bytes?.isNotEmpty ??
+                                                      false)) {
+                                                if (functions.getFileSize(_model
+                                                        .uploadedLocalFile) >
+                                                    FFAppConstants
+                                                        .fileSizeLimit) {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'ขออภัยรองรับขนาดไฟล์ไม่เกิน 10 MB'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('ตกลง'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                  setState(() {
+                                                    _model.isDataUploading =
+                                                        false;
+                                                    _model.uploadedLocalFile =
+                                                        FFUploadedFile(
+                                                            bytes: Uint8List
+                                                                .fromList([]));
+                                                  });
+                                                } else {
+                                                  _model.tmpFileList = [];
+                                                  _model.addToTmpFileList(
+                                                      _model.uploadedLocalFile);
+                                                  _model.urlListResult =
+                                                      await actions
+                                                          .uploadFileToFirebase(
+                                                    _model.tmpFileList.toList(),
+                                                    'water_receipt/${FFAppState().projectData.projectDocID}',
+                                                  );
+                                                  _model.urlFileList = _model
+                                                      .urlListResult!
+                                                      .toList()
+                                                      .cast<String>();
+                                                  setState(() {});
+                                                }
+                                              }
+
+                                              setState(() {});
+                                            },
+                                            text: 'แนบใบเสร็จ',
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -1483,7 +1399,6 @@ class _WaterPaymentDetailViewWidgetState
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            var _shouldSetState = false;
                                             if (_model.tmpDropDownValue >= 3) {
                                               if (_model.tmpDropDownValue ==
                                                   5) {
@@ -1495,20 +1410,6 @@ class _WaterPaymentDetailViewWidgetState
                                                         .validate()) {
                                                   return;
                                                 }
-                                              }
-                                              _model.urlList = await actions
-                                                  .uploadFileToFirebase(
-                                                _model.tmpFileList.toList(),
-                                                'water_receipt/${FFAppState().projectData.projectDocID}',
-                                              );
-                                              _shouldSetState = true;
-                                              if (_model.urlList != null &&
-                                                  (_model.urlList)!
-                                                      .isNotEmpty) {
-                                                _model.currentFileList = _model
-                                                    .urlList!
-                                                    .toList()
-                                                    .cast<String>();
                                               }
 
                                               await widget!
@@ -1530,7 +1431,7 @@ class _WaterPaymentDetailViewWidgetState
                                                 ...mapToFirestore(
                                                   {
                                                     'receipt_file':
-                                                        _model.currentFileList,
+                                                        _model.urlFileList,
                                                   },
                                                 ),
                                               });
@@ -1539,13 +1440,8 @@ class _WaterPaymentDetailViewWidgetState
                                               await action_blocks
                                                   .selectStatusViewBlock(
                                                       context);
-                                              if (_shouldSetState)
-                                                setState(() {});
                                               return;
                                             }
-
-                                            if (_shouldSetState)
-                                              setState(() {});
                                           },
                                           text: 'บันทึกข้อมูล',
                                           options: FFButtonOptions(
