@@ -305,15 +305,14 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                                           ) ??
                                                                           false;
                                                                       if (confirmDialogResponse) {
-                                                                        _model.tmpSlipImage =
-                                                                            [];
+                                                                        _model.removeFromUrlImageList(
+                                                                            imageListItem);
+                                                                        setState(
+                                                                            () {});
                                                                         await FirebaseStorage
                                                                             .instance
                                                                             .refFromURL(imageListItem)
                                                                             .delete();
-
-                                                                        setState(
-                                                                            () {});
                                                                       }
                                                                     },
                                                                     child: Icon(
