@@ -985,148 +985,146 @@ class _WaterPaymentDetailViewWidgetState
                                                         ),
                                                       ],
                                                     ),
-                                                  if (!(widget!.dataDocument!
-                                                      .receiptFile.isNotEmpty))
-                                                    FFButtonWidget(
-                                                      onPressed: () async {
-                                                        final selectedFiles =
-                                                            await selectFiles(
-                                                          multiFile: false,
-                                                        );
-                                                        if (selectedFiles !=
-                                                            null) {
-                                                          setState(() => _model
-                                                                  .isDataUploading =
-                                                              true);
-                                                          var selectedUploadedFiles =
-                                                              <FFUploadedFile>[];
+                                                  FFButtonWidget(
+                                                    onPressed: () async {
+                                                      final selectedFiles =
+                                                          await selectFiles(
+                                                        multiFile: false,
+                                                      );
+                                                      if (selectedFiles !=
+                                                          null) {
+                                                        setState(() => _model
+                                                                .isDataUploading =
+                                                            true);
+                                                        var selectedUploadedFiles =
+                                                            <FFUploadedFile>[];
 
-                                                          try {
-                                                            selectedUploadedFiles =
-                                                                selectedFiles
-                                                                    .map((m) =>
-                                                                        FFUploadedFile(
-                                                                          name: m
-                                                                              .storagePath
-                                                                              .split('/')
-                                                                              .last,
-                                                                          bytes:
-                                                                              m.bytes,
-                                                                        ))
-                                                                    .toList();
-                                                          } finally {
+                                                        try {
+                                                          selectedUploadedFiles =
+                                                              selectedFiles
+                                                                  .map((m) =>
+                                                                      FFUploadedFile(
+                                                                        name: m
+                                                                            .storagePath
+                                                                            .split('/')
+                                                                            .last,
+                                                                        bytes: m
+                                                                            .bytes,
+                                                                      ))
+                                                                  .toList();
+                                                        } finally {
+                                                          _model.isDataUploading =
+                                                              false;
+                                                        }
+                                                        if (selectedUploadedFiles
+                                                                .length ==
+                                                            selectedFiles
+                                                                .length) {
+                                                          setState(() {
+                                                            _model.uploadedLocalFile =
+                                                                selectedUploadedFiles
+                                                                    .first;
+                                                          });
+                                                        } else {
+                                                          setState(() {});
+                                                          return;
+                                                        }
+                                                      }
+
+                                                      if (_model.uploadedLocalFile !=
+                                                              null &&
+                                                          (_model
+                                                                  .uploadedLocalFile
+                                                                  .bytes
+                                                                  ?.isNotEmpty ??
+                                                              false)) {
+                                                        if (functions.getFileSize(
+                                                                _model
+                                                                    .uploadedLocalFile) >
+                                                            FFAppConstants
+                                                                .fileSizeLimit) {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (alertDialogContext) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                    'ขออภัยรองรับขนาดไฟล์ไม่เกิน 10 MB'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext),
+                                                                    child: Text(
+                                                                        'ตกลง'),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                          setState(() {
                                                             _model.isDataUploading =
                                                                 false;
-                                                          }
-                                                          if (selectedUploadedFiles
-                                                                  .length ==
-                                                              selectedFiles
-                                                                  .length) {
-                                                            setState(() {
-                                                              _model.uploadedLocalFile =
-                                                                  selectedUploadedFiles
-                                                                      .first;
-                                                            });
-                                                          } else {
-                                                            setState(() {});
-                                                            return;
-                                                          }
+                                                            _model.uploadedLocalFile =
+                                                                FFUploadedFile(
+                                                                    bytes: Uint8List
+                                                                        .fromList(
+                                                                            []));
+                                                          });
+                                                        } else {
+                                                          _model.tmpFileList =
+                                                              [];
+                                                          _model.addToTmpFileList(
+                                                              _model
+                                                                  .uploadedLocalFile);
+                                                          setState(() {});
                                                         }
-
-                                                        if (_model.uploadedLocalFile !=
-                                                                null &&
-                                                            (_model
-                                                                    .uploadedLocalFile
-                                                                    .bytes
-                                                                    ?.isNotEmpty ??
-                                                                false)) {
-                                                          if (functions.getFileSize(
-                                                                  _model
-                                                                      .uploadedLocalFile) >
-                                                              FFAppConstants
-                                                                  .fileSizeLimit) {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'ขออภัยรองรับขนาดไฟล์ไม่เกิน 10 MB'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'ตกลง'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
-                                                            setState(() {
-                                                              _model.isDataUploading =
-                                                                  false;
-                                                              _model.uploadedLocalFile =
-                                                                  FFUploadedFile(
-                                                                      bytes: Uint8List
-                                                                          .fromList(
-                                                                              []));
-                                                            });
-                                                          } else {
-                                                            _model.tmpFileList =
-                                                                [];
-                                                            _model.addToTmpFileList(
-                                                                _model
-                                                                    .uploadedLocalFile);
-                                                            setState(() {});
-                                                          }
-                                                        }
-                                                      },
-                                                      text: 'แนบใบเสร็จ',
-                                                      options: FFButtonOptions(
-                                                        height: 40.0,
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    24.0,
+                                                      }
+                                                    },
+                                                    text: 'แนบใบเสร็จ',
+                                                    options: FFButtonOptions(
+                                                      height: 40.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  24.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Manrope',
+                                                                color: Colors
+                                                                    .white,
+                                                                letterSpacing:
                                                                     0.0,
-                                                                    24.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                              ),
+                                                      elevation: 3.0,
+                                                      borderSide: BorderSide(
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  color: Colors
-                                                                      .white,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                        elevation: 3.0,
-                                                        borderSide: BorderSide(
-                                                          color: Colors
-                                                              .transparent,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
+                                                            Colors.transparent,
+                                                        width: 1.0,
                                                       ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
                                                     ),
+                                                  ),
                                                 ],
                                               );
                                             }
