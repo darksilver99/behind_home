@@ -62,6 +62,8 @@ class _WaterPaymentDetailViewWidgetState
         ));
       } else {
         _model.tmpDropDownValue = widget!.dataDocument!.status;
+        _model.currentFileList =
+            widget!.dataDocument!.receiptFile.toList().cast<String>();
         setState(() {});
       }
     });
@@ -983,146 +985,148 @@ class _WaterPaymentDetailViewWidgetState
                                                         ),
                                                       ],
                                                     ),
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      final selectedFiles =
-                                                          await selectFiles(
-                                                        multiFile: false,
-                                                      );
-                                                      if (selectedFiles !=
-                                                          null) {
-                                                        setState(() => _model
-                                                                .isDataUploading =
-                                                            true);
-                                                        var selectedUploadedFiles =
-                                                            <FFUploadedFile>[];
+                                                  if (!(widget!.dataDocument!
+                                                      .receiptFile.isNotEmpty))
+                                                    FFButtonWidget(
+                                                      onPressed: () async {
+                                                        final selectedFiles =
+                                                            await selectFiles(
+                                                          multiFile: false,
+                                                        );
+                                                        if (selectedFiles !=
+                                                            null) {
+                                                          setState(() => _model
+                                                                  .isDataUploading =
+                                                              true);
+                                                          var selectedUploadedFiles =
+                                                              <FFUploadedFile>[];
 
-                                                        try {
-                                                          selectedUploadedFiles =
-                                                              selectedFiles
-                                                                  .map((m) =>
-                                                                      FFUploadedFile(
-                                                                        name: m
-                                                                            .storagePath
-                                                                            .split('/')
-                                                                            .last,
-                                                                        bytes: m
-                                                                            .bytes,
-                                                                      ))
-                                                                  .toList();
-                                                        } finally {
-                                                          _model.isDataUploading =
-                                                              false;
-                                                        }
-                                                        if (selectedUploadedFiles
-                                                                .length ==
-                                                            selectedFiles
-                                                                .length) {
-                                                          setState(() {
-                                                            _model.uploadedLocalFile =
-                                                                selectedUploadedFiles
-                                                                    .first;
-                                                          });
-                                                        } else {
-                                                          setState(() {});
-                                                          return;
-                                                        }
-                                                      }
-
-                                                      if (_model.uploadedLocalFile !=
-                                                              null &&
-                                                          (_model
-                                                                  .uploadedLocalFile
-                                                                  .bytes
-                                                                  ?.isNotEmpty ??
-                                                              false)) {
-                                                        if (functions.getFileSize(
-                                                                _model
-                                                                    .uploadedLocalFile) >
-                                                            FFAppConstants
-                                                                .fileSizeLimit) {
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title: Text(
-                                                                    'ขออภัยรองรับขนาดไฟล์ไม่เกิน 10 MB'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'ตกลง'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          );
-                                                          setState(() {
+                                                          try {
+                                                            selectedUploadedFiles =
+                                                                selectedFiles
+                                                                    .map((m) =>
+                                                                        FFUploadedFile(
+                                                                          name: m
+                                                                              .storagePath
+                                                                              .split('/')
+                                                                              .last,
+                                                                          bytes:
+                                                                              m.bytes,
+                                                                        ))
+                                                                    .toList();
+                                                          } finally {
                                                             _model.isDataUploading =
                                                                 false;
-                                                            _model.uploadedLocalFile =
-                                                                FFUploadedFile(
-                                                                    bytes: Uint8List
-                                                                        .fromList(
-                                                                            []));
-                                                          });
-                                                        } else {
-                                                          _model.tmpFileList =
-                                                              [];
-                                                          _model.addToTmpFileList(
-                                                              _model
-                                                                  .uploadedLocalFile);
-                                                          setState(() {});
+                                                          }
+                                                          if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedFiles
+                                                                  .length) {
+                                                            setState(() {
+                                                              _model.uploadedLocalFile =
+                                                                  selectedUploadedFiles
+                                                                      .first;
+                                                            });
+                                                          } else {
+                                                            setState(() {});
+                                                            return;
+                                                          }
                                                         }
-                                                      }
-                                                    },
-                                                    text: 'แนบใบเสร็จ',
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                color: Colors
-                                                                    .white,
-                                                                letterSpacing:
+
+                                                        if (_model.uploadedLocalFile !=
+                                                                null &&
+                                                            (_model
+                                                                    .uploadedLocalFile
+                                                                    .bytes
+                                                                    ?.isNotEmpty ??
+                                                                false)) {
+                                                          if (functions.getFileSize(
+                                                                  _model
+                                                                      .uploadedLocalFile) >
+                                                              FFAppConstants
+                                                                  .fileSizeLimit) {
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (alertDialogContext) {
+                                                                return AlertDialog(
+                                                                  title: Text(
+                                                                      'ขออภัยรองรับขนาดไฟล์ไม่เกิน 10 MB'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                      child: Text(
+                                                                          'ตกลง'),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            );
+                                                            setState(() {
+                                                              _model.isDataUploading =
+                                                                  false;
+                                                              _model.uploadedLocalFile =
+                                                                  FFUploadedFile(
+                                                                      bytes: Uint8List
+                                                                          .fromList(
+                                                                              []));
+                                                            });
+                                                          } else {
+                                                            _model.tmpFileList =
+                                                                [];
+                                                            _model.addToTmpFileList(
+                                                                _model
+                                                                    .uploadedLocalFile);
+                                                            setState(() {});
+                                                          }
+                                                        }
+                                                      },
+                                                      text: 'แนบใบเสร็จ',
+                                                      options: FFButtonOptions(
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
                                                                     0.0,
-                                                              ),
-                                                      elevation: 3.0,
-                                                      borderSide: BorderSide(
+                                                                    24.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
                                                     ),
-                                                  ),
                                                 ],
                                               );
                                             }
@@ -1169,9 +1173,11 @@ class _WaterPaymentDetailViewWidgetState
                                                 _model.remarkTextController,
                                             focusNode: _model.remarkFocusNode,
                                             autofocus: false,
-                                            readOnly:
-                                                widget!.dataDocument!.status >
-                                                    3,
+                                            readOnly: widget!
+                                                        .dataDocument?.remark !=
+                                                    null &&
+                                                widget!.dataDocument?.remark !=
+                                                    '',
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelStyle:
@@ -1229,9 +1235,12 @@ class _WaterPaymentDetailViewWidgetState
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
-                                              filled:
-                                                  widget!.dataDocument!.status >
-                                                      3,
+                                              filled: widget!.dataDocument
+                                                          ?.remark !=
+                                                      null &&
+                                                  widget!.dataDocument
+                                                          ?.remark !=
+                                                      '',
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -1477,74 +1486,66 @@ class _WaterPaymentDetailViewWidgetState
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             var _shouldSetState = false;
-                                            if ((widget!.dataDocument?.status ==
-                                                    4) ||
-                                                (widget!.dataDocument?.status ==
-                                                    5)) {
+                                            if (_model.tmpDropDownValue >= 3) {
+                                              if (_model.tmpDropDownValue ==
+                                                  5) {
+                                                if (_model.formKey
+                                                            .currentState ==
+                                                        null ||
+                                                    !_model
+                                                        .formKey.currentState!
+                                                        .validate()) {
+                                                  return;
+                                                }
+                                              }
+                                              _model.urlList = await actions
+                                                  .uploadFileToFirebase(
+                                                _model.tmpFileList.toList(),
+                                                'water_receipt/${FFAppState().projectData.projectDocID}',
+                                              );
+                                              _shouldSetState = true;
+                                              if (_model.urlList != null &&
+                                                  (_model.urlList)!
+                                                      .isNotEmpty) {
+                                                _model.currentFileList = _model
+                                                    .urlList!
+                                                    .toList()
+                                                    .cast<String>();
+                                              }
+
                                               await widget!
                                                   .dataDocument!.reference
-                                                  .update(
-                                                      createWaterPaymentListRecordData(
-                                                updateDate: getCurrentTimestamp,
-                                                updateBy: currentUserReference,
-                                                adminDetail:
-                                                    _model.textController2.text,
-                                              ));
+                                                  .update({
+                                                ...createWaterPaymentListRecordData(
+                                                  status:
+                                                      _model.tmpDropDownValue,
+                                                  updateDate:
+                                                      getCurrentTimestamp,
+                                                  updateBy:
+                                                      currentUserReference,
+                                                  adminDetail: _model
+                                                      .textController2.text,
+                                                  remark: _model
+                                                      .remarkTextController
+                                                      .text,
+                                                ),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'receipt_file':
+                                                        _model.currentFileList,
+                                                  },
+                                                ),
+                                              });
+                                              Navigator.pop(context, 'update');
                                             } else {
-                                              if (_model.tmpDropDownValue >=
-                                                  3) {
-                                                if (_model.tmpDropDownValue ==
-                                                    5) {
-                                                  if (_model.formKey
-                                                              .currentState ==
-                                                          null ||
-                                                      !_model
-                                                          .formKey.currentState!
-                                                          .validate()) {
-                                                    return;
-                                                  }
-                                                }
-                                                _model.urlList = await actions
-                                                    .uploadFileToFirebase(
-                                                  _model.tmpFileList.toList(),
-                                                  'water_receipt/${FFAppState().projectData.projectDocID}',
-                                                );
-                                                _shouldSetState = true;
-
-                                                await widget!
-                                                    .dataDocument!.reference
-                                                    .update({
-                                                  ...createWaterPaymentListRecordData(
-                                                    status:
-                                                        _model.tmpDropDownValue,
-                                                    updateDate:
-                                                        getCurrentTimestamp,
-                                                    updateBy:
-                                                        currentUserReference,
-                                                    adminDetail: _model
-                                                        .textController2.text,
-                                                    remark: _model
-                                                        .remarkTextController
-                                                        .text,
-                                                  ),
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'receipt_file':
-                                                          _model.urlList,
-                                                    },
-                                                  ),
-                                                });
-                                              } else {
-                                                await action_blocks
-                                                    .selectStatusViewBlock(
-                                                        context);
-                                                if (_shouldSetState)
-                                                  setState(() {});
-                                                return;
-                                              }
+                                              await action_blocks
+                                                  .selectStatusViewBlock(
+                                                      context);
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
                                             }
 
-                                            Navigator.pop(context, 'update');
                                             if (_shouldSetState)
                                               setState(() {});
                                           },
