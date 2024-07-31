@@ -241,3 +241,7 @@ String getNextValue(String current) {
 
   return newValue;
 }
+
+int getFileSize(FFUploadedFile file) {
+  return file.bytes!.length;
+}

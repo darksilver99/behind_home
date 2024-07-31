@@ -81,6 +81,11 @@ class WaterPaymentListRecord extends FirestoreRecord {
   String get contactAddress => _contactAddress ?? '';
   bool hasContactAddress() => _contactAddress != null;
 
+  // "receipt_file" field.
+  List<String>? _receiptFile;
+  List<String> get receiptFile => _receiptFile ?? const [];
+  bool hasReceiptFile() => _receiptFile != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -95,6 +100,7 @@ class WaterPaymentListRecord extends FirestoreRecord {
     _contactName = snapshotData['contact_name'] as String?;
     _contactPhone = snapshotData['contact_phone'] as String?;
     _contactAddress = snapshotData['contact_address'] as String?;
+    _receiptFile = getDataList(snapshotData['receipt_file']);
   }
 
   static CollectionReference get collection =>
@@ -183,7 +189,8 @@ class WaterPaymentListRecordDocumentEquality
         e1?.remark == e2?.remark &&
         e1?.contactName == e2?.contactName &&
         e1?.contactPhone == e2?.contactPhone &&
-        e1?.contactAddress == e2?.contactAddress;
+        e1?.contactAddress == e2?.contactAddress &&
+        listEquality.equals(e1?.receiptFile, e2?.receiptFile);
   }
 
   @override
@@ -200,7 +207,8 @@ class WaterPaymentListRecordDocumentEquality
         e?.remark,
         e?.contactName,
         e?.contactPhone,
-        e?.contactAddress
+        e?.contactAddress,
+        e?.receiptFile
       ]);
 
   @override

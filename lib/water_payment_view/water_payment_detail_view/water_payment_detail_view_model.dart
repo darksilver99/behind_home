@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'water_payment_detail_view_widget.dart'
     show WaterPaymentDetailViewWidget;
@@ -37,7 +38,14 @@ class WaterPaymentDetailViewModel
       tmpWaterPaymentStatusList[index] =
           updateFn(tmpWaterPaymentStatusList[index]);
 
-  bool showRemarkNotComplete = false;
+  List<FFUploadedFile> tmpFileList = [];
+  void addToTmpFileList(FFUploadedFile item) => tmpFileList.add(item);
+  void removeFromTmpFileList(FFUploadedFile item) => tmpFileList.remove(item);
+  void removeAtIndexFromTmpFileList(int index) => tmpFileList.removeAt(index);
+  void insertAtIndexInTmpFileList(int index, FFUploadedFile item) =>
+      tmpFileList.insert(index, item);
+  void updateTmpFileListAtIndex(int index, Function(FFUploadedFile) updateFn) =>
+      tmpFileList[index] = updateFn(tmpFileList[index]);
 
   ///  State fields for stateful widgets in this component.
 
@@ -46,6 +54,10 @@ class WaterPaymentDetailViewModel
   FocusNode? textFieldFocusNode;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+
   // State field(s) for remark widget.
   FocusNode? remarkFocusNode;
   TextEditingController? remarkTextController;
@@ -61,6 +73,8 @@ class WaterPaymentDetailViewModel
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
+  // Stores action output result for [Custom Action - uploadFileToFirebase] action in Button widget.
+  List<String>? urlList;
 
   @override
   void initState(BuildContext context) {
