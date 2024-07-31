@@ -492,6 +492,176 @@ class _WaterPaymentDetailViewWidgetState
                                     ],
                                   ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 0.0, 8.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      if (widget!.dataDocument!.status < 4) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'สถานะ :',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            FlutterFlowDropDown<int>(
+                                              controller: _model
+                                                      .dropDownValueController ??=
+                                                  FormFieldController<int>(
+                                                _model.dropDownValue ??= widget!
+                                                    .dataDocument?.status,
+                                              ),
+                                              options: List<int>.from(_model
+                                                  .tmpWaterPaymentStatusList
+                                                  .map((e) => e.status)
+                                                  .toList()),
+                                              optionLabels: _model
+                                                  .tmpWaterPaymentStatusList
+                                                  .map((e) => e.subject)
+                                                  .toList(),
+                                              onChanged: (val) async {
+                                                setState(() =>
+                                                    _model.dropDownValue = val);
+                                                if (_model.dropDownValue! <=
+                                                    3) {
+                                                  setState(() {
+                                                    _model.remarkTextController
+                                                            ?.text =
+                                                        widget!.dataDocument!
+                                                            .remark;
+                                                  });
+                                                }
+                                                _model.tmpDropDownValue =
+                                                    _model.dropDownValue!;
+                                                setState(() {});
+                                              },
+                                              width: 300.0,
+                                              height: 56.0,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              hintText: 'เลือกสถานะ',
+                                              icon: Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 2.0,
+                                              borderColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              borderWidth: 2.0,
+                                              borderRadius: 8.0,
+                                              margin: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 4.0, 16.0, 4.0),
+                                              hidesUnderline: true,
+                                              isOverButton: true,
+                                              isSearchable: false,
+                                              isMultiSelect: false,
+                                            ),
+                                          ],
+                                        );
+                                      } else {
+                                        return Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              'สถานะ : ',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                functions.getDataStatus(
+                                                    widget!
+                                                        .dataDocument!.status,
+                                                    FFAppState()
+                                                        .waterPaymentStatusList
+                                                        .toList()),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          color: () {
+                                                            if (widget!
+                                                                    .dataDocument
+                                                                    ?.status ==
+                                                                3) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .warning;
+                                                            } else if (widget!
+                                                                    .dataDocument
+                                                                    ?.status ==
+                                                                4) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success;
+                                                            } else if (widget!
+                                                                    .dataDocument
+                                                                    ?.status ==
+                                                                5) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error;
+                                                            } else {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText;
+                                                            }
+                                                          }(),
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
                                 if ((_model.tmpDropDownValue == 4) ||
                                     (widget!.dataDocument?.status == 4))
                                   Padding(
@@ -1081,176 +1251,6 @@ class _WaterPaymentDetailViewWidgetState
                                       ],
                                     ),
                                   ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 8.0),
-                                  child: Builder(
-                                    builder: (context) {
-                                      if (widget!.dataDocument!.status < 4) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    'สถานะ :',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            FlutterFlowDropDown<int>(
-                                              controller: _model
-                                                      .dropDownValueController ??=
-                                                  FormFieldController<int>(
-                                                _model.dropDownValue ??= widget!
-                                                    .dataDocument?.status,
-                                              ),
-                                              options: List<int>.from(_model
-                                                  .tmpWaterPaymentStatusList
-                                                  .map((e) => e.status)
-                                                  .toList()),
-                                              optionLabels: _model
-                                                  .tmpWaterPaymentStatusList
-                                                  .map((e) => e.subject)
-                                                  .toList(),
-                                              onChanged: (val) async {
-                                                setState(() =>
-                                                    _model.dropDownValue = val);
-                                                if (_model.dropDownValue! <=
-                                                    3) {
-                                                  setState(() {
-                                                    _model.remarkTextController
-                                                            ?.text =
-                                                        widget!.dataDocument!
-                                                            .remark;
-                                                  });
-                                                }
-                                                _model.tmpDropDownValue =
-                                                    _model.dropDownValue!;
-                                                setState(() {});
-                                              },
-                                              width: 300.0,
-                                              height: 56.0,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              hintText: 'เลือกสถานะ',
-                                              icon: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 2.0,
-                                              borderColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              borderWidth: 2.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 4.0, 16.0, 4.0),
-                                              hidesUnderline: true,
-                                              isOverButton: true,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
-                                            ),
-                                          ],
-                                        );
-                                      } else {
-                                        return Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'สถานะ : ',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                functions.getDataStatus(
-                                                    widget!
-                                                        .dataDocument!.status,
-                                                    FFAppState()
-                                                        .waterPaymentStatusList
-                                                        .toList()),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          color: () {
-                                                            if (widget!
-                                                                    .dataDocument
-                                                                    ?.status ==
-                                                                3) {
-                                                              return FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .warning;
-                                                            } else if (widget!
-                                                                    .dataDocument
-                                                                    ?.status ==
-                                                                4) {
-                                                              return FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .success;
-                                                            } else if (widget!
-                                                                    .dataDocument
-                                                                    ?.status ==
-                                                                5) {
-                                                              return FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error;
-                                                            } else {
-                                                              return FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText;
-                                                            }
-                                                          }(),
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ),
                                 Divider(
                                   height: 32.0,
                                   thickness: 3.0,
