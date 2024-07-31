@@ -20,14 +20,24 @@ import 'package:provider/provider.dart';
 class PaymentPageModel extends FlutterFlowModel<PaymentPageWidget> {
   ///  Local state fields for this page.
 
-  List<FFUploadedFile> slipImage = [];
-  void addToSlipImage(FFUploadedFile item) => slipImage.add(item);
-  void removeFromSlipImage(FFUploadedFile item) => slipImage.remove(item);
-  void removeAtIndexFromSlipImage(int index) => slipImage.removeAt(index);
-  void insertAtIndexInSlipImage(int index, FFUploadedFile item) =>
-      slipImage.insert(index, item);
-  void updateSlipImageAtIndex(int index, Function(FFUploadedFile) updateFn) =>
-      slipImage[index] = updateFn(slipImage[index]);
+  List<FFUploadedFile> tmpSlipImage = [];
+  void addToTmpSlipImage(FFUploadedFile item) => tmpSlipImage.add(item);
+  void removeFromTmpSlipImage(FFUploadedFile item) => tmpSlipImage.remove(item);
+  void removeAtIndexFromTmpSlipImage(int index) => tmpSlipImage.removeAt(index);
+  void insertAtIndexInTmpSlipImage(int index, FFUploadedFile item) =>
+      tmpSlipImage.insert(index, item);
+  void updateTmpSlipImageAtIndex(
+          int index, Function(FFUploadedFile) updateFn) =>
+      tmpSlipImage[index] = updateFn(tmpSlipImage[index]);
+
+  List<String> urlImageList = [];
+  void addToUrlImageList(String item) => urlImageList.add(item);
+  void removeFromUrlImageList(String item) => urlImageList.remove(item);
+  void removeAtIndexFromUrlImageList(int index) => urlImageList.removeAt(index);
+  void insertAtIndexInUrlImageList(int index, String item) =>
+      urlImageList.insert(index, item);
+  void updateUrlImageListAtIndex(int index, Function(String) updateFn) =>
+      urlImageList[index] = updateFn(urlImageList[index]);
 
   ///  State fields for stateful widgets in this page.
 

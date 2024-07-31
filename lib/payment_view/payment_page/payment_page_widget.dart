@@ -139,8 +139,9 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                             Expanded(
                                               child: Builder(
                                                 builder: (context) {
-                                                  final imageList =
-                                                      _model.urlList!.toList();
+                                                  final imageList = _model
+                                                      .urlImageList
+                                                      .toList();
 
                                                   return Wrap(
                                                     spacing: 8.0,
@@ -304,7 +305,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                                           ) ??
                                                                           false;
                                                                       if (confirmDialogResponse) {
-                                                                        _model.slipImage =
+                                                                        _model.tmpSlipImage =
                                                                             [];
                                                                         await FirebaseStorage
                                                                             .instance
@@ -408,14 +409,19 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                   .imageExtAllowList,
                                             );
                                             if (_model.isValide!) {
-                                              _model.slipImage = [];
-                                              _model.addToSlipImage(
+                                              _model.tmpSlipImage = [];
+                                              _model.addToTmpSlipImage(
                                                   _model.uploadedLocalFile);
                                               _model.urlList = await actions
                                                   .uploadImageToFirebase(
-                                                _model.slipImage.toList(),
+                                                _model.tmpSlipImage.toList(),
                                                 'payment_slip/${FFAppState().projectData.projectDocID}',
                                               );
+                                              _model.urlImageList = _model
+                                                  .urlList!
+                                                  .toList()
+                                                  .cast<String>();
+                                              setState(() {});
                                             } else {
                                               setState(() {
                                                 _model.isDataUploading = false;
@@ -494,7 +500,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                       .projectReference,
                                                   status: 0,
                                                   slipImage:
-                                                      _model.urlList?.first,
+                                                      _model.urlImageList.first,
                                                   payFrom: 'behind',
                                                 ));
                                             await showDialog(
