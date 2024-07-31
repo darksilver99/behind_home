@@ -60,6 +60,13 @@ class _WaterPaymentDetailViewWidgetState
             .update(createWaterPaymentListRecordData(
           status: 1,
         ));
+        setState(() {
+          _model.dropDownValueController?.value = 1;
+        });
+      } else {
+        setState(() {
+          _model.dropDownValueController?.value = widget!.dataDocument!.status;
+        });
       }
     });
 
