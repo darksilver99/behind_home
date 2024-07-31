@@ -53,10 +53,6 @@ class WaterPaymentDetailViewModel
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -76,6 +72,10 @@ class WaterPaymentDetailViewModel
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController2;
+  String? Function(BuildContext, String?)? textController2Validator;
   // Stores action output result for [Custom Action - uploadFileToFirebase] action in Button widget.
   List<String>? urlList;
 
@@ -86,10 +86,10 @@ class WaterPaymentDetailViewModel
 
   @override
   void dispose() {
-    textFieldFocusNode?.dispose();
-    textController1?.dispose();
-
     remarkFocusNode?.dispose();
     remarkTextController?.dispose();
+
+    textFieldFocusNode?.dispose();
+    textController2?.dispose();
   }
 }
