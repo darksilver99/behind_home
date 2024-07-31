@@ -13,3 +13,4 @@ export 'get_park_chart_data_list.dart' show getParkChartDataList;
 export 'get_park_chart_value_list.dart' show getParkChartValueList;
 export 'download_image.dart' show downloadImage;
 export 'upload_file_to_firebase.dart' show uploadFileToFirebase;
+export 'upload_image_to_firebase.dart' show uploadImageToFirebase;

@@ -108,8 +108,10 @@ Future selectStatusViewBlock(BuildContext context) async {
 Future<bool?> validateFileSizeAndExt(
   BuildContext context, {
   required FFUploadedFile? file,
+  required int? size,
+  required List<String>? allowList,
 }) async {
-  if (functions.getFileSize(file!) > FFAppConstants.fileSizeLimit) {
+  if (functions.getFileSize(file!) > size!) {
     await showDialog(
       context: context,
       builder: (alertDialogContext) {
@@ -127,8 +129,7 @@ Future<bool?> validateFileSizeAndExt(
     );
     return false;
   } else {
-    if (functions.checkFileAllow(
-        file!, FFAppConstants.fileExtAllowList.toList())) {
+    if (functions.checkFileAllow(file!, allowList!.toList())) {
       return true;
     }
 
