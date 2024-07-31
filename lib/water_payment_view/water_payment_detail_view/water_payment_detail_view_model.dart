@@ -50,6 +50,16 @@ class WaterPaymentDetailViewModel
 
   int tmpDropDownValue = 1;
 
+  List<String> currentFileList = [];
+  void addToCurrentFileList(String item) => currentFileList.add(item);
+  void removeFromCurrentFileList(String item) => currentFileList.remove(item);
+  void removeAtIndexFromCurrentFileList(int index) =>
+      currentFileList.removeAt(index);
+  void insertAtIndexInCurrentFileList(int index, String item) =>
+      currentFileList.insert(index, item);
+  void updateCurrentFileListAtIndex(int index, Function(String) updateFn) =>
+      currentFileList[index] = updateFn(currentFileList[index]);
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
