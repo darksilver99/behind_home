@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -8,9 +7,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -666,30 +666,38 @@ class _BannerProjectFormViewWidgetState
                                                                           .transparent,
                                                                   onTap:
                                                                       () async {
-                                                                    _model.removeFromImageList(
-                                                                        imageListViewItem);
+                                                                    _model.isDelete =
+                                                                        await action_blocks
+                                                                            .deleteImageBlock(
+                                                                      context,
+                                                                      imagePath:
+                                                                          imageListViewItem,
+                                                                    );
+                                                                    if (_model
+                                                                        .isDelete!) {
+                                                                      _model.removeFromImageList(
+                                                                          imageListViewItem);
+                                                                      if (widget!
+                                                                              .dataDocument !=
+                                                                          null) {
+                                                                        await widget!
+                                                                            .dataDocument!
+                                                                            .reference
+                                                                            .update({
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'images': _model.imageList,
+                                                                            },
+                                                                          ),
+                                                                        });
+                                                                      }
+
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+
                                                                     setState(
                                                                         () {});
-                                                                    if (widget!
-                                                                            .dataDocument !=
-                                                                        null) {
-                                                                      await widget!
-                                                                          .dataDocument!
-                                                                          .reference
-                                                                          .update({
-                                                                        ...mapToFirestore(
-                                                                          {
-                                                                            'images':
-                                                                                _model.imageList,
-                                                                          },
-                                                                        ),
-                                                                      });
-                                                                      await FirebaseStorage
-                                                                          .instance
-                                                                          .refFromURL(
-                                                                              imageListViewItem)
-                                                                          .delete();
-                                                                    }
                                                                   },
                                                                   child: Icon(
                                                                     Icons
@@ -727,123 +735,113 @@ class _BannerProjectFormViewWidgetState
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              if (_model.imageList.length >=
-                                                  1) {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title:
-                                                          Text('กำหนด 1 รูป'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('ตกลง'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              } else {
-                                                final selectedMedia =
-                                                    await selectMedia(
-                                                  maxWidth: 600.00,
-                                                  imageQuality: 80,
-                                                  mediaSource:
-                                                      MediaSource.photoGallery,
-                                                  multiImage: false,
-                                                );
-                                                if (selectedMedia != null &&
-                                                    selectedMedia.every((m) =>
-                                                        validateFileFormat(
-                                                            m.storagePath,
-                                                            context))) {
-                                                  setState(() => _model
-                                                      .isDataUploading = true);
-                                                  var selectedUploadedFiles =
-                                                      <FFUploadedFile>[];
+                                              final selectedMedia =
+                                                  await selectMedia(
+                                                maxWidth: 600.00,
+                                                imageQuality: 80,
+                                                mediaSource:
+                                                    MediaSource.photoGallery,
+                                                multiImage: false,
+                                              );
+                                              if (selectedMedia != null &&
+                                                  selectedMedia.every((m) =>
+                                                      validateFileFormat(
+                                                          m.storagePath,
+                                                          context))) {
+                                                setState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
 
-                                                  var downloadUrls = <String>[];
-                                                  try {
-                                                    selectedUploadedFiles =
-                                                        selectedMedia
-                                                            .map((m) =>
-                                                                FFUploadedFile(
-                                                                  name: m
-                                                                      .storagePath
-                                                                      .split(
-                                                                          '/')
-                                                                      .last,
-                                                                  bytes:
-                                                                      m.bytes,
-                                                                  height: m
-                                                                      .dimensions
-                                                                      ?.height,
-                                                                  width: m
-                                                                      .dimensions
-                                                                      ?.width,
-                                                                  blurHash: m
-                                                                      .blurHash,
-                                                                ))
-                                                            .toList();
-
-                                                    downloadUrls = (await Future
-                                                            .wait(
-                                                      selectedMedia.map(
-                                                        (m) async =>
-                                                            await uploadData(
-                                                                m.storagePath,
-                                                                m.bytes),
-                                                      ),
-                                                    ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
-                                                  } finally {
-                                                    _model.isDataUploading =
-                                                        false;
-                                                  }
-                                                  if (selectedUploadedFiles
-                                                              .length ==
-                                                          selectedMedia
-                                                              .length &&
-                                                      downloadUrls.length ==
-                                                          selectedMedia
-                                                              .length) {
-                                                    setState(() {
-                                                      _model.uploadedLocalFile =
-                                                          selectedUploadedFiles
-                                                              .first;
-                                                      _model.uploadedFileUrl =
-                                                          downloadUrls.first;
-                                                    });
-                                                  } else {
-                                                    setState(() {});
-                                                    return;
-                                                  }
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedMedia
+                                                          .map((m) =>
+                                                              FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
                                                 }
-
-                                                if (_model.uploadedFileUrl !=
-                                                        null &&
-                                                    _model.uploadedFileUrl !=
-                                                        '') {
-                                                  _model.addToImageList(
-                                                      _model.uploadedFileUrl);
-                                                  setState(() {});
+                                                if (selectedUploadedFiles
+                                                        .length ==
+                                                    selectedMedia.length) {
                                                   setState(() {
-                                                    _model.isDataUploading =
-                                                        false;
                                                     _model.uploadedLocalFile =
-                                                        FFUploadedFile(
-                                                            bytes: Uint8List
-                                                                .fromList([]));
-                                                    _model.uploadedFileUrl = '';
+                                                        selectedUploadedFiles
+                                                            .first;
                                                   });
+                                                } else {
+                                                  setState(() {});
+                                                  return;
                                                 }
                                               }
+
+                                              if (_model.uploadedLocalFile !=
+                                                      null &&
+                                                  (_model.uploadedLocalFile
+                                                          .bytes?.isNotEmpty ??
+                                                      false)) {
+                                                _model.isNotlimit =
+                                                    await action_blocks
+                                                        .checkImageLimit(
+                                                  context,
+                                                  imageLimit: 1,
+                                                  imageList: _model.imageList,
+                                                );
+                                                if (_model.isNotlimit!) {
+                                                  _model.isValid =
+                                                      await action_blocks
+                                                          .validateFileSizeAndExt(
+                                                    context,
+                                                    file: _model
+                                                        .uploadedLocalFile,
+                                                    size: FFAppConstants
+                                                        .imageSizeLimit,
+                                                    allowList: FFAppConstants
+                                                        .imageExtAllowList,
+                                                  );
+                                                  if (_model.isValid!) {
+                                                    _model.tmpImageList = [];
+                                                    _model.addToTmpImageList(
+                                                        _model
+                                                            .uploadedLocalFile);
+                                                    _model.urlList = await actions
+                                                        .uploadImageToFirebase(
+                                                      _model.tmpImageList
+                                                          .toList(),
+                                                      'banner/${FFAppState().projectData.projectDocID}',
+                                                    );
+                                                    _model.addToImageList(
+                                                        _model.urlList!.first);
+                                                    setState(() {});
+                                                  }
+                                                }
+                                                setState(() {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                  _model.uploadedLocalFile =
+                                                      FFUploadedFile(
+                                                          bytes: Uint8List
+                                                              .fromList([]));
+                                                });
+                                              }
+
+                                              setState(() {});
                                             },
                                             text: 'อัพโหลดรูป',
                                             icon: Icon(
