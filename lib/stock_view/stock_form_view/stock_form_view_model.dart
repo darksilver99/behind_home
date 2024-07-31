@@ -1,17 +1,17 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/component_view/remark_stock_view/remark_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'stock_form_view_widget.dart' show StockFormViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +30,16 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
   void updateImageListAtIndex(int index, Function(String) updateFn) =>
       imageList[index] = updateFn(imageList[index]);
 
+  List<FFUploadedFile> tmpImageList = [];
+  void addToTmpImageList(FFUploadedFile item) => tmpImageList.add(item);
+  void removeFromTmpImageList(FFUploadedFile item) => tmpImageList.remove(item);
+  void removeAtIndexFromTmpImageList(int index) => tmpImageList.removeAt(index);
+  void insertAtIndexInTmpImageList(int index, FFUploadedFile item) =>
+      tmpImageList.insert(index, item);
+  void updateTmpImageListAtIndex(
+          int index, Function(FFUploadedFile) updateFn) =>
+      tmpImageList[index] = updateFn(tmpImageList[index]);
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
@@ -47,11 +57,18 @@ class StockFormViewModel extends FlutterFlowModel<StockFormViewWidget> {
     return null;
   }
 
+  // Stores action output result for [Action Block - deleteImageBlock] action in Icon widget.
+  bool? isDelete;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
 
+  // Stores action output result for [Action Block - checkImageLimit] action in Button widget.
+  bool? isNotlimit;
+  // Stores action output result for [Action Block - validateFileSizeAndExt] action in Button widget.
+  bool? isValid;
+  // Stores action output result for [Custom Action - uploadImageToFirebase] action in Button widget.
+  List<String>? urlList;
   // State field(s) for detail widget.
   FocusNode? detailFocusNode;
   TextEditingController? detailTextController;
