@@ -927,7 +927,8 @@ class _WaterPaymentDetailViewWidgetState
                                       ],
                                     ),
                                   ),
-                                if ((_model.dropDownValue! > 3) ||
+                                if (((_model.dropDownValue != null) &&
+                                        (_model.dropDownValue! > 3)) ||
                                     (widget!.dataDocument!.status > 3))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
