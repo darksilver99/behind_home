@@ -561,43 +561,63 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                           .transparent,
                                                                   onTap:
                                                                       () async {
-                                                                    _model.removeFromImageList(
-                                                                        imageListViewItem);
-                                                                    setState(
-                                                                        () {});
-                                                                    if (widget!
-                                                                            .dataDocument !=
-                                                                        null) {
-                                                                      if (imageListViewItem ==
-                                                                          _model
-                                                                              .displayImage) {
-                                                                        _model.displayImage =
-                                                                            '';
-                                                                        setState(
-                                                                            () {});
-                                                                      }
+                                                                    var confirmDialogResponse =
+                                                                        await showDialog<bool>(
+                                                                              context: context,
+                                                                              builder: (alertDialogContext) {
+                                                                                return AlertDialog(
+                                                                                  title: Text('ต้องการลบรูปนี้?'),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                      child: Text('ยกเลิก'),
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                      child: Text('ยืนยัน'),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            ) ??
+                                                                            false;
+                                                                    if (confirmDialogResponse) {
+                                                                      _model.removeFromImageList(
+                                                                          imageListViewItem);
+                                                                      setState(
+                                                                          () {});
+                                                                      if (widget!
+                                                                              .dataDocument !=
+                                                                          null) {
+                                                                        if (imageListViewItem ==
+                                                                            _model.displayImage) {
+                                                                          _model.displayImage =
+                                                                              '';
+                                                                          setState(
+                                                                              () {});
+                                                                        }
 
-                                                                      await widget!
-                                                                          .dataDocument!
-                                                                          .reference
-                                                                          .update({
-                                                                        ...createNewsListRecordData(
-                                                                          displayImage:
-                                                                              _model.displayImage,
-                                                                        ),
-                                                                        ...mapToFirestore(
-                                                                          {
-                                                                            'images':
-                                                                                _model.imageList,
-                                                                          },
-                                                                        ),
-                                                                      });
+                                                                        await widget!
+                                                                            .dataDocument!
+                                                                            .reference
+                                                                            .update({
+                                                                          ...createNewsListRecordData(
+                                                                            displayImage:
+                                                                                _model.displayImage,
+                                                                          ),
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'images': _model.imageList,
+                                                                            },
+                                                                          ),
+                                                                        });
+                                                                      }
+                                                                      await FirebaseStorage
+                                                                          .instance
+                                                                          .refFromURL(
+                                                                              imageListViewItem)
+                                                                          .delete();
                                                                     }
-                                                                    await FirebaseStorage
-                                                                        .instance
-                                                                        .refFromURL(
-                                                                            imageListViewItem)
-                                                                        .delete();
                                                                   },
                                                                   child: Icon(
                                                                     Icons
