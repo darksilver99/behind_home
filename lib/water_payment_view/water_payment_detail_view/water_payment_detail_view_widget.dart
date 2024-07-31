@@ -974,28 +974,28 @@ class _WaterPaymentDetailViewWidgetState
                                                 (_model.uploadedLocalFile.bytes
                                                         ?.isNotEmpty ??
                                                     false)) {
-                                              if (functions.getFileSize(_model
-                                                      .uploadedLocalFile) >
-                                                  FFAppConstants
-                                                      .fileSizeLimit) {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                          'ขออภัยรองรับขนาดไฟล์ไม่เกิน ${functions.bytesToMB(FFAppConstants.fileSizeLimit).toString()} MB'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('ตกลง'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
+                                              _model.isValid =
+                                                  await action_blocks
+                                                      .validateFileSizeAndExt(
+                                                context,
+                                                file: _model.uploadedLocalFile,
+                                              );
+                                              if (_model.isValid!) {
+                                                _model.tmpFileList = [];
+                                                _model.addToTmpFileList(
+                                                    _model.uploadedLocalFile);
+                                                _model.urlListResult =
+                                                    await actions
+                                                        .uploadFileToFirebase(
+                                                  _model.tmpFileList.toList(),
+                                                  'water_receipt/${FFAppState().projectData.projectDocID}',
                                                 );
+                                                _model.urlFileList = _model
+                                                    .urlListResult!
+                                                    .toList()
+                                                    .cast<String>();
+                                                setState(() {});
+                                              } else {
                                                 setState(() {
                                                   _model.isDataUploading =
                                                       false;
@@ -1004,54 +1004,6 @@ class _WaterPaymentDetailViewWidgetState
                                                           bytes: Uint8List
                                                               .fromList([]));
                                                 });
-                                              } else {
-                                                if (functions.checkFileAllow(
-                                                    _model.uploadedLocalFile,
-                                                    FFAppConstants
-                                                        .fileExtAllowList
-                                                        .toList())) {
-                                                  _model.tmpFileList = [];
-                                                  _model.addToTmpFileList(
-                                                      _model.uploadedLocalFile);
-                                                  _model.urlListResult =
-                                                      await actions
-                                                          .uploadFileToFirebase(
-                                                    _model.tmpFileList.toList(),
-                                                    'water_receipt/${FFAppState().projectData.projectDocID}',
-                                                  );
-                                                  _model.urlFileList = _model
-                                                      .urlListResult!
-                                                      .toList()
-                                                      .cast<String>();
-                                                  setState(() {});
-                                                } else {
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: Text(
-                                                            'ขออภัยไม่รองรับไฟล์สกุลนี้'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext),
-                                                            child: Text('ตกลง'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                  setState(() {
-                                                    _model.isDataUploading =
-                                                        false;
-                                                    _model.uploadedLocalFile =
-                                                        FFUploadedFile(
-                                                            bytes: Uint8List
-                                                                .fromList([]));
-                                                  });
-                                                }
                                               }
                                             }
 

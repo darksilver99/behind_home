@@ -104,3 +104,48 @@ Future selectStatusViewBlock(BuildContext context) async {
     },
   );
 }
+
+Future<bool?> validateFileSizeAndExt(
+  BuildContext context, {
+  required FFUploadedFile? file,
+}) async {
+  if (functions.getFileSize(file!) > FFAppConstants.fileSizeLimit) {
+    await showDialog(
+      context: context,
+      builder: (alertDialogContext) {
+        return AlertDialog(
+          title: Text(
+              'ขออภัยรองรับขนาดไฟล์ไม่เกิน ${functions.bytesToMB(FFAppConstants.fileSizeLimit).toString()} MB'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(alertDialogContext),
+              child: Text('ตกลง'),
+            ),
+          ],
+        );
+      },
+    );
+    return false;
+  } else {
+    if (functions.checkFileAllow(
+        file!, FFAppConstants.fileExtAllowList.toList())) {
+      return true;
+    }
+
+    await showDialog(
+      context: context,
+      builder: (alertDialogContext) {
+        return AlertDialog(
+          title: Text('ขออภัยไม่รองรับไฟล์สกุลนี้'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(alertDialogContext),
+              child: Text('ตกลง'),
+            ),
+          ],
+        );
+      },
+    );
+    return false;
+  }
+}
