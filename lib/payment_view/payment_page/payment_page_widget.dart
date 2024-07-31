@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -8,8 +7,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -129,8 +129,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                           height: 80.0,
                                           child: Stack(
                                             children: [
-                                              if (_model.slipImage != null &&
-                                                  _model.slipImage != '')
+                                              if (_model.urlList != null &&
+                                                  (_model.urlList)!.isNotEmpty)
                                                 InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -149,7 +149,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                         child:
                                                             FlutterFlowExpandedImageView(
                                                           image: Image.network(
-                                                            _model.slipImage!,
+                                                            _model
+                                                                .urlList!.first,
                                                             fit: BoxFit.contain,
                                                             errorBuilder: (context,
                                                                     error,
@@ -161,8 +162,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                             ),
                                                           ),
                                                           allowRotation: false,
-                                                          tag:
-                                                              _model.slipImage!,
+                                                          tag: _model
+                                                              .urlList!.first,
                                                           useHeroAnimation:
                                                               true,
                                                         ),
@@ -170,7 +171,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                     );
                                                   },
                                                   child: Hero(
-                                                    tag: _model.slipImage!,
+                                                    tag: _model.urlList!.first,
                                                     transitionOnUserGestures:
                                                         true,
                                                     child: ClipRRect(
@@ -178,7 +179,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                           BorderRadius.circular(
                                                               8.0),
                                                       child: Image.network(
-                                                        _model.slipImage!,
+                                                        _model.urlList!.first,
                                                         width: 80.0,
                                                         height: 80.0,
                                                         fit: BoxFit.cover,
@@ -195,79 +196,69 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                              if (_model.slipImage != null &&
-                                                  _model.slipImage != '')
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          1.0, -1.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 4.0,
-                                                                4.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        var confirmDialogResponse =
-                                                            await showDialog<
-                                                                    bool>(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (alertDialogContext) {
-                                                                    return AlertDialog(
-                                                                      title: Text(
-                                                                          'ต้องการลบ ?'),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              false),
-                                                                          child:
-                                                                              Text('ยกเลิก'),
-                                                                        ),
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              true),
-                                                                          child:
-                                                                              Text('ยืนยัน'),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  },
-                                                                ) ??
-                                                                false;
-                                                        if (confirmDialogResponse) {
-                                                          await FirebaseStorage
-                                                              .instance
-                                                              .refFromURL(_model
-                                                                  .slipImage!)
-                                                              .delete();
-                                                          _model.slipImage =
-                                                              null;
-                                                          setState(() {});
-                                                        }
-                                                      },
-                                                      child: Icon(
-                                                        Icons.cancel_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        size: 24.0,
-                                                      ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.0, -1.0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 4.0, 4.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      var confirmDialogResponse =
+                                                          await showDialog<
+                                                                  bool>(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'ต้องการลบ ?'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed: () => Navigator.pop(
+                                                                            alertDialogContext,
+                                                                            false),
+                                                                        child: Text(
+                                                                            'ยกเลิก'),
+                                                                      ),
+                                                                      TextButton(
+                                                                        onPressed: () => Navigator.pop(
+                                                                            alertDialogContext,
+                                                                            true),
+                                                                        child: Text(
+                                                                            'ยืนยัน'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              ) ??
+                                                              false;
+                                                      if (confirmDialogResponse) {
+                                                        _model.slipImage = [];
+                                                        setState(() {});
+                                                      }
+                                                    },
+                                                    child: Icon(
+                                                      Icons.cancel_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      size: 24.0,
                                                     ),
                                                   ),
                                                 ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -300,7 +291,6 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                             var selectedUploadedFiles =
                                                 <FFUploadedFile>[];
 
-                                            var downloadUrls = <String>[];
                                             try {
                                               selectedUploadedFiles =
                                                   selectedMedia
@@ -321,28 +311,14 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                                     m.blurHash,
                                                               ))
                                                       .toList();
-
-                                              downloadUrls = (await Future.wait(
-                                                selectedMedia.map(
-                                                  (m) async => await uploadData(
-                                                      m.storagePath, m.bytes),
-                                                ),
-                                              ))
-                                                  .where((u) => u != null)
-                                                  .map((u) => u!)
-                                                  .toList();
                                             } finally {
                                               _model.isDataUploading = false;
                                             }
                                             if (selectedUploadedFiles.length ==
-                                                    selectedMedia.length &&
-                                                downloadUrls.length ==
-                                                    selectedMedia.length) {
+                                                selectedMedia.length) {
                                               setState(() {
                                                 _model.uploadedLocalFile =
                                                     selectedUploadedFiles.first;
-                                                _model.uploadedFileUrl =
-                                                    downloadUrls.first;
                                               });
                                             } else {
                                               setState(() {});
@@ -350,12 +326,43 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                             }
                                           }
 
-                                          if (_model.uploadedFileUrl != null &&
-                                              _model.uploadedFileUrl != '') {
-                                            _model.slipImage =
-                                                _model.uploadedFileUrl;
-                                            setState(() {});
+                                          if (_model.uploadedLocalFile !=
+                                                  null &&
+                                              (_model.uploadedLocalFile.bytes
+                                                      ?.isNotEmpty ??
+                                                  false)) {
+                                            _model.isValide =
+                                                await action_blocks
+                                                    .validateFileSizeAndExt(
+                                              context,
+                                              file: _model.uploadedLocalFile,
+                                              size:
+                                                  FFAppConstants.fileSizeLimit,
+                                              allowList: FFAppConstants
+                                                  .imageExtAllowList,
+                                            );
+                                            if (_model.isValide!) {
+                                              _model.slipImage = [];
+                                              _model.addToSlipImage(
+                                                  _model.uploadedLocalFile);
+                                              _model.urlList = await actions
+                                                  .uploadImageToFirebase(
+                                                _model.slipImage.toList(),
+                                                'payment_slip/${FFAppState().projectData.projectDocID}',
+                                              );
+                                            } else {
+                                              setState(() {
+                                                _model.isDataUploading = false;
+                                                _model.uploadedLocalFile =
+                                                    FFUploadedFile(
+                                                        bytes:
+                                                            Uint8List.fromList(
+                                                                []));
+                                              });
+                                            }
                                           }
+
+                                          setState(() {});
                                         },
                                         text: 'แนบสลิป',
                                         icon: Icon(
@@ -403,8 +410,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                     Flexible(
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          if (_model.slipImage != null &&
-                                              _model.slipImage != '') {
+                                          if (_model.urlList != null &&
+                                              (_model.urlList)!.isNotEmpty) {
                                             await PaymentListRecord.collection
                                                 .doc()
                                                 .set(
@@ -420,7 +427,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                       .projectData
                                                       .projectReference,
                                                   status: 0,
-                                                  slipImage: _model.slipImage,
+                                                  slipImage:
+                                                      _model.urlList?.first,
                                                   payFrom: 'behind',
                                                 ));
                                             await showDialog(

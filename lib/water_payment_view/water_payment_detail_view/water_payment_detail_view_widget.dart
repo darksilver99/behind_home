@@ -979,6 +979,10 @@ class _WaterPaymentDetailViewWidgetState
                                                       .validateFileSizeAndExt(
                                                 context,
                                                 file: _model.uploadedLocalFile,
+                                                size: FFAppConstants
+                                                    .fileSizeLimit,
+                                                allowList: FFAppConstants
+                                                    .fileExtAllowList,
                                               );
                                               if (_model.isValid!) {
                                                 _model.tmpFileList = [];
