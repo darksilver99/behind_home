@@ -61,7 +61,7 @@ class _WaterPaymentDetailViewWidgetState
           status: 1,
         ));
       } else {
-        _model.dropDownValue = widget!.dataDocument!.status;
+        _model.tmpDropDownValue = widget!.dataDocument!.status;
         setState(() {});
       }
     });
@@ -602,7 +602,7 @@ class _WaterPaymentDetailViewWidgetState
                                     ],
                                   ),
                                 ),
-                                if ((_model.dropDownValue == 4) ||
+                                if ((_model.tmpDropDownValue == 4) ||
                                     (widget!.dataDocument?.status == 4))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1072,7 +1072,7 @@ class _WaterPaymentDetailViewWidgetState
                                       ],
                                     ),
                                   ),
-                                if ((_model.dropDownValue > 3) ||
+                                if ((_model.tmpDropDownValue > 3) ||
                                     (widget!.dataDocument!.status > 3))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1249,7 +1249,7 @@ class _WaterPaymentDetailViewWidgetState
                                                             .remark;
                                                   });
                                                 }
-                                                _model.dropDownValue =
+                                                _model.tmpDropDownValue =
                                                     _model.dropDownValue!;
                                                 setState(() {});
                                               },
@@ -1448,8 +1448,9 @@ class _WaterPaymentDetailViewWidgetState
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (_model.dropDownValue >= 3) {
-                                              if (_model.dropDownValue == 5) {
+                                            if (_model.tmpDropDownValue >= 3) {
+                                              if (_model.tmpDropDownValue ==
+                                                  5) {
                                                 if (_model.formKey
                                                             .currentState ==
                                                         null ||
@@ -1469,7 +1470,8 @@ class _WaterPaymentDetailViewWidgetState
                                                   .dataDocument!.reference
                                                   .update({
                                                 ...createWaterPaymentListRecordData(
-                                                  status: _model.dropDownValue,
+                                                  status:
+                                                      _model.tmpDropDownValue,
                                                   updateDate:
                                                       getCurrentTimestamp,
                                                   updateBy:
