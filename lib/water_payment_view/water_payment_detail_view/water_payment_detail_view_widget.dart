@@ -60,13 +60,9 @@ class _WaterPaymentDetailViewWidgetState
             .update(createWaterPaymentListRecordData(
           status: 1,
         ));
-        setState(() {
-          _model.dropDownValueController?.value = 1;
-        });
       } else {
-        setState(() {
-          _model.dropDownValueController?.value = widget!.dataDocument!.status;
-        });
+        _model.dropDownValue = widget!.dataDocument!.status;
+        setState(() {});
       }
     });
 
@@ -606,8 +602,7 @@ class _WaterPaymentDetailViewWidgetState
                                     ],
                                   ),
                                 ),
-                                if (((_model.dropDownValue != null) &&
-                                        (_model.dropDownValue == 4)) ||
+                                if ((_model.dropDownValue == 4) ||
                                     (widget!.dataDocument?.status == 4))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1077,8 +1072,7 @@ class _WaterPaymentDetailViewWidgetState
                                       ],
                                     ),
                                   ),
-                                if (((_model.dropDownValue != null) &&
-                                        (_model.dropDownValue! > 3)) ||
+                                if ((_model.dropDownValue > 3) ||
                                     (widget!.dataDocument!.status > 3))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1246,12 +1240,18 @@ class _WaterPaymentDetailViewWidgetState
                                               onChanged: (val) async {
                                                 setState(() =>
                                                     _model.dropDownValue = val);
-                                                setState(() {
-                                                  _model.remarkTextController
-                                                          ?.text =
-                                                      widget!
-                                                          .dataDocument!.remark;
-                                                });
+                                                if (_model.dropDownValue! <=
+                                                    3) {
+                                                  setState(() {
+                                                    _model.remarkTextController
+                                                            ?.text =
+                                                        widget!.dataDocument!
+                                                            .remark;
+                                                  });
+                                                }
+                                                _model.dropDownValue =
+                                                    _model.dropDownValue!;
+                                                setState(() {});
                                               },
                                               width: 300.0,
                                               height: 56.0,
@@ -1448,7 +1448,7 @@ class _WaterPaymentDetailViewWidgetState
                                       Flexible(
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (_model.dropDownValue! >= 3) {
+                                            if (_model.dropDownValue >= 3) {
                                               if (_model.dropDownValue == 5) {
                                                 if (_model.formKey
                                                             .currentState ==
