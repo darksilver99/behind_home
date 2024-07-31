@@ -162,8 +162,7 @@ Future<bool?> checkImageLimit(
       context: context,
       builder: (alertDialogContext) {
         return AlertDialog(
-          title: Text(
-              'ขออภัยกำหนดจำนวนไม่เกิน ${FFAppConstants.imageLimit.toString()} รูป'),
+          title: Text('ขออภัยกำหนดจำนวนไม่เกิน ${imageLimit?.toString()} รูป'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(alertDialogContext),
