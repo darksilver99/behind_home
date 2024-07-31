@@ -481,8 +481,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                     Flexible(
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          if (_model.urlList != null &&
-                                              (_model.urlList)!.isNotEmpty) {
+                                          if (_model.urlImageList.isNotEmpty) {
                                             await PaymentListRecord.collection
                                                 .doc()
                                                 .set(
