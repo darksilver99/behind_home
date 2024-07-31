@@ -14,6 +14,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'water_payment_detail_view_widget.dart'
     show WaterPaymentDetailViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,15 +51,14 @@ class WaterPaymentDetailViewModel
 
   int tmpDropDownValue = 1;
 
-  List<String> currentFileList = [];
-  void addToCurrentFileList(String item) => currentFileList.add(item);
-  void removeFromCurrentFileList(String item) => currentFileList.remove(item);
-  void removeAtIndexFromCurrentFileList(int index) =>
-      currentFileList.removeAt(index);
-  void insertAtIndexInCurrentFileList(int index, String item) =>
-      currentFileList.insert(index, item);
-  void updateCurrentFileListAtIndex(int index, Function(String) updateFn) =>
-      currentFileList[index] = updateFn(currentFileList[index]);
+  List<String> urlFileList = [];
+  void addToUrlFileList(String item) => urlFileList.add(item);
+  void removeFromUrlFileList(String item) => urlFileList.remove(item);
+  void removeAtIndexFromUrlFileList(int index) => urlFileList.removeAt(index);
+  void insertAtIndexInUrlFileList(int index, String item) =>
+      urlFileList.insert(index, item);
+  void updateUrlFileListAtIndex(int index, Function(String) updateFn) =>
+      urlFileList[index] = updateFn(urlFileList[index]);
 
   ///  State fields for stateful widgets in this component.
 
@@ -70,6 +70,8 @@ class WaterPaymentDetailViewModel
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Custom Action - uploadFileToFirebase] action in Button widget.
+  List<String>? urlListResult;
   // State field(s) for remark widget.
   FocusNode? remarkFocusNode;
   TextEditingController? remarkTextController;
@@ -86,8 +88,6 @@ class WaterPaymentDetailViewModel
   FocusNode? textFieldFocusNode;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // Stores action output result for [Custom Action - uploadFileToFirebase] action in Button widget.
-  List<String>? urlList;
 
   @override
   void initState(BuildContext context) {
