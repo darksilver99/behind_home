@@ -1199,11 +1199,11 @@ class _WaterPaymentDetailViewWidgetState
                                             ),
                                             Expanded(
                                               child: Text(
-                                                functions.getIssueStatus(
+                                                functions.getDataStatus(
                                                     widget!
                                                         .dataDocument!.status,
                                                     FFAppState()
-                                                        .issueStatusList
+                                                        .waterPaymentStatusList
                                                         .toList()),
                                                 style:
                                                     FlutterFlowTheme.of(context)
