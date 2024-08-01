@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -9,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'water_payment_setting_page_widget.dart'
     show WaterPaymentSettingPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,14 +36,34 @@ class WaterPaymentSettingPageModel
           int index, Function(String) updateFn) =>
       imageWaterPaymentList[index] = updateFn(imageWaterPaymentList[index]);
 
+  List<FFUploadedFile> tmpImageWaterPaymentList = [];
+  void addToTmpImageWaterPaymentList(FFUploadedFile item) =>
+      tmpImageWaterPaymentList.add(item);
+  void removeFromTmpImageWaterPaymentList(FFUploadedFile item) =>
+      tmpImageWaterPaymentList.remove(item);
+  void removeAtIndexFromTmpImageWaterPaymentList(int index) =>
+      tmpImageWaterPaymentList.removeAt(index);
+  void insertAtIndexInTmpImageWaterPaymentList(
+          int index, FFUploadedFile item) =>
+      tmpImageWaterPaymentList.insert(index, item);
+  void updateTmpImageWaterPaymentListAtIndex(
+          int index, Function(FFUploadedFile) updateFn) =>
+      tmpImageWaterPaymentList[index] =
+          updateFn(tmpImageWaterPaymentList[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Action Block - deleteImageBlock] action in Icon widget.
+  bool? isDelete;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
 
+  // Stores action output result for [Action Block - validateFileSizeAndExt] action in Button widget.
+  bool? isValide;
+  // Stores action output result for [Custom Action - uploadImageToFirebase] action in Button widget.
+  List<String>? urlList;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   ProjectListRecord? projectResult;
   // Model for MenuToggleView component.
