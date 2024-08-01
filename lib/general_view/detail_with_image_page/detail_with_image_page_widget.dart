@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,7 +101,11 @@ class _DetailWithImagePageWidgetState extends State<DetailWithImagePageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(64.0),
+                            padding: EdgeInsets.all(valueOrDefault<double>(
+                              functions
+                                  .getPadding(MediaQuery.sizeOf(context).width),
+                              0.0,
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
