@@ -1104,6 +1104,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                           selectable: false,
                           hidePaginator: false,
                           showFirstLastButtons: false,
+                          height: 1000.0,
                           minWidth: 800.0,
                           headingRowHeight: 56.0,
                           dataRowHeight: 48.0,

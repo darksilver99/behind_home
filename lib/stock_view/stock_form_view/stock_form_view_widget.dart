@@ -458,6 +458,8 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                         context,
                                                                         imagePath:
                                                                             imageListViewItem,
+                                                                        removeIsStorage:
+                                                                            true,
                                                                       );
                                                                       if (_model
                                                                           .isDelete!) {

@@ -356,6 +356,8 @@ class _WaterPaymentSettingPageWidgetState
                                                                         context,
                                                                         imagePath:
                                                                             imageListItem,
+                                                                        removeIsStorage:
+                                                                            false,
                                                                       );
                                                                       if (_model
                                                                           .isDelete!) {

@@ -672,6 +672,8 @@ class _BannerProjectFormViewWidgetState
                                                                       context,
                                                                       imagePath:
                                                                           imageListViewItem,
+                                                                      removeIsStorage:
+                                                                          true,
                                                                     );
                                                                     if (_model
                                                                         .isDelete!) {

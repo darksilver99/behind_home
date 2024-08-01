@@ -566,6 +566,8 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                       context,
                                                                       imagePath:
                                                                           imageListViewItem,
+                                                                      removeIsStorage:
+                                                                          true,
                                                                     );
                                                                     if (_model
                                                                         .isDelete!) {

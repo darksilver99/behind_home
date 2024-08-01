@@ -181,6 +181,7 @@ Future<bool?> checkImageLimit(
 Future<bool?> deleteImageBlock(
   BuildContext context, {
   required String? imagePath,
+  required bool? removeIsStorage,
 }) async {
   var confirmDialogResponse = await showDialog<bool>(
         context: context,
@@ -202,7 +203,9 @@ Future<bool?> deleteImageBlock(
       ) ??
       false;
   if (confirmDialogResponse) {
-    await FirebaseStorage.instance.refFromURL(imagePath!).delete();
+    if (removeIsStorage!) {
+      await FirebaseStorage.instance.refFromURL(imagePath!).delete();
+    }
     return true;
   } else {
     return false;
