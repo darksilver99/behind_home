@@ -567,7 +567,10 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                         final dataListView = _model.dataList.toList();
                         if (dataListView.isEmpty) {
                           return Center(
-                            child: NoDataViewWidget(),
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.8,
+                              child: NoDataViewWidget(),
+                            ),
                           );
                         }
 
@@ -1054,7 +1057,10 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                             ].map((c) => DataCell(c)).toList(),
                           ),
                           emptyBuilder: () => Center(
-                            child: NoDataViewWidget(),
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.8,
+                              child: NoDataViewWidget(),
+                            ),
                           ),
                           paginated: true,
                           selectable: false,
