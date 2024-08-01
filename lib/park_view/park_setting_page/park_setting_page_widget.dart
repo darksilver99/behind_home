@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -136,20 +137,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                         children: [
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              () {
-                                if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointSmall) {
-                                  return 16.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointMedium) {
-                                  return 16.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointLarge) {
-                                  return 64.0;
-                                } else {
-                                  return 64.0;
-                                }
-                              }(),
+                              functions
+                                  .getPadding(MediaQuery.sizeOf(context).width),
                               0.0,
                             )),
                             child: Column(
