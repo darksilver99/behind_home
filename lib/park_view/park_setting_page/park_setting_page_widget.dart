@@ -135,7 +135,23 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(64.0),
+                            padding: EdgeInsets.all(valueOrDefault<double>(
+                              () {
+                                if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointSmall) {
+                                  return 16.0;
+                                } else if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointMedium) {
+                                  return 16.0;
+                                } else if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointLarge) {
+                                  return 64.0;
+                                } else {
+                                  return 64.0;
+                                }
+                              }(),
+                              0.0,
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
