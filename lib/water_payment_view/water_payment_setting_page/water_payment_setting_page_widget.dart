@@ -188,15 +188,51 @@ class _WaterPaymentSettingPageWidgetState
                                                         ),
                                                   ),
                                                 ),
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.asset(
-                                                    'assets/images/payment_example.jpg',
-                                                    width: 300.0,
-                                                    height: 200.0,
-                                                    fit: BoxFit.contain,
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .fade,
+                                                        child:
+                                                            FlutterFlowExpandedImageView(
+                                                          image: Image.asset(
+                                                            'assets/images/payment_example.jpg',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                          allowRotation: false,
+                                                          tag:
+                                                              'payment_example',
+                                                          useHeroAnimation:
+                                                              true,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Hero(
+                                                    tag: 'payment_example',
+                                                    transitionOnUserGestures:
+                                                        true,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.asset(
+                                                        'assets/images/payment_example.jpg',
+                                                        width: 300.0,
+                                                        height: 200.0,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
