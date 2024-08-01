@@ -362,152 +362,185 @@ class _IssueProjectPageWidgetState extends State<IssueProjectPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Container(
-                                    width: 300.0,
-                                    child: TextFormField(
-                                      controller: _model.textController,
-                                      focusNode: _model.textFieldFocusNode,
-                                      onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.textController',
-                                        Duration(milliseconds: 300),
-                                        () async {
-                                          if (_model.textController.text !=
-                                                  null &&
-                                              _model.textController.text !=
-                                                  '') {
-                                            _model.dataResult3 = await actions
-                                                .filterIssueProjectList(
-                                              _model.textController.text,
-                                              _model.tmpDataList.toList(),
-                                            );
-                                            _model.dataList = _model
-                                                .dataResult3!
-                                                .toList()
-                                                .cast<IssueProjectListRecord>();
-                                            setState(() {});
-                                          } else {
-                                            _model.dataList = _model.tmpDataList
-                                                .toList()
-                                                .cast<IssueProjectListRecord>();
-                                            setState(() {});
-                                          }
-
-                                          setState(() {});
-                                        },
-                                      ),
-                                      autofocus: false,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText:
-                                            'ระบุคำค้นหา หัวข้อ, รายละเอียด, บ้าน/ห้อง เลขที่',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(24.0),
-                                        ),
-                                        filled: true,
-                                        fillColor:
-                                            FlutterFlowTheme.of(context).info,
-                                        prefixIcon: Icon(
-                                          Icons.search_rounded,
-                                          size: 24.0,
-                                        ),
-                                        suffixIcon: _model
-                                                .textController!.text.isNotEmpty
-                                            ? InkWell(
-                                                onTap: () async {
-                                                  _model.textController
-                                                      ?.clear();
-                                                  if (_model.textController
-                                                              .text !=
-                                                          null &&
-                                                      _model.textController
-                                                              .text !=
-                                                          '') {
-                                                    _model.dataResult3 =
-                                                        await actions
-                                                            .filterIssueProjectList(
-                                                      _model
-                                                          .textController.text,
-                                                      _model.tmpDataList
-                                                          .toList(),
-                                                    );
-                                                    _model.dataList = _model
-                                                        .dataResult3!
-                                                        .toList()
-                                                        .cast<
-                                                            IssueProjectListRecord>();
-                                                    setState(() {});
-                                                  } else {
-                                                    _model.dataList = _model
-                                                        .tmpDataList
-                                                        .toList()
-                                                        .cast<
-                                                            IssueProjectListRecord>();
-                                                    setState(() {});
-                                                  }
-
+                                  Expanded(
+                                    child: Wrap(
+                                      spacing: 0.0,
+                                      runSpacing: 0.0,
+                                      alignment: WrapAlignment.end,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.start,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Container(
+                                          width: 300.0,
+                                          child: TextFormField(
+                                            controller: _model.textController,
+                                            focusNode:
+                                                _model.textFieldFocusNode,
+                                            onChanged: (_) =>
+                                                EasyDebounce.debounce(
+                                              '_model.textController',
+                                              Duration(milliseconds: 300),
+                                              () async {
+                                                if (_model.textController
+                                                            .text !=
+                                                        null &&
+                                                    _model.textController
+                                                            .text !=
+                                                        '') {
+                                                  _model.dataResult3 =
+                                                      await actions
+                                                          .filterIssueProjectList(
+                                                    _model.textController.text,
+                                                    _model.tmpDataList.toList(),
+                                                  );
+                                                  _model.dataList = _model
+                                                      .dataResult3!
+                                                      .toList()
+                                                      .cast<
+                                                          IssueProjectListRecord>();
                                                   setState(() {});
+                                                } else {
+                                                  _model.dataList = _model
+                                                      .tmpDataList
+                                                      .toList()
+                                                      .cast<
+                                                          IssueProjectListRecord>();
                                                   setState(() {});
-                                                },
-                                                child: Icon(
-                                                  Icons.clear,
-                                                  size: 24.0,
+                                                }
+
+                                                setState(() {});
+                                              },
+                                            ),
+                                            autofocus: false,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText:
+                                                  'ระบุคำค้นหา หัวข้อ, รายละเอียด, บ้าน/ห้อง เลขที่',
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 1.0,
                                                 ),
-                                              )
-                                            : null,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              filled: true,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              prefixIcon: Icon(
+                                                Icons.search_rounded,
+                                                size: 24.0,
+                                              ),
+                                              suffixIcon: _model.textController!
+                                                      .text.isNotEmpty
+                                                  ? InkWell(
+                                                      onTap: () async {
+                                                        _model.textController
+                                                            ?.clear();
+                                                        if (_model.textController
+                                                                    .text !=
+                                                                null &&
+                                                            _model.textController
+                                                                    .text !=
+                                                                '') {
+                                                          _model.dataResult3 =
+                                                              await actions
+                                                                  .filterIssueProjectList(
+                                                            _model
+                                                                .textController
+                                                                .text,
+                                                            _model.tmpDataList
+                                                                .toList(),
+                                                          );
+                                                          _model.dataList = _model
+                                                              .dataResult3!
+                                                              .toList()
+                                                              .cast<
+                                                                  IssueProjectListRecord>();
+                                                          setState(() {});
+                                                        } else {
+                                                          _model.dataList = _model
+                                                              .tmpDataList
+                                                              .toList()
+                                                              .cast<
+                                                                  IssueProjectListRecord>();
+                                                          setState(() {});
+                                                        }
+
+                                                        setState(() {});
+                                                        setState(() {});
+                                                      },
+                                                      child: Icon(
+                                                        Icons.clear,
+                                                        size: 24.0,
+                                                      ),
+                                                    )
+                                                  : null,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                            validator: _model
+                                                .textControllerValidator
+                                                .asValidator(context),
                                           ),
-                                      validator: _model.textControllerValidator
-                                          .asValidator(context),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],

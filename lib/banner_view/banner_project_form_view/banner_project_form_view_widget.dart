@@ -98,7 +98,7 @@ class _BannerProjectFormViewWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 8.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -129,6 +129,27 @@ class _BannerProjectFormViewWidgetState
                       Icons.close_rounded,
                       color: FlutterFlowTheme.of(context).secondaryText,
                       size: 36.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'ในแอปจะแสดง 6 รายการเรียงจากลำดับการแสดงผล',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Manrope',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            fontSize: 14.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.normal,
+                          ),
                     ),
                   ),
                 ],

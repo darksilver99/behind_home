@@ -19,6 +19,9 @@ Future<List<TransactionListRecord>> filterDataList(
     return doc.carRegistration.contains(keyword) ||
         doc.carRegistrationProvince.contains(keyword) ||
         doc.carType.contains(keyword) ||
+        doc.objective.contains(keyword) ||
+        doc.stamp.contains(keyword) ||
+        doc.transactionNumber.contains(keyword) ||
         doc.firstName.contains(keyword) ||
         doc.lastName.contains(keyword);
   }).toList();

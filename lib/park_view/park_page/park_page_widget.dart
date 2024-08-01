@@ -464,7 +464,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText:
-                                                  'ระบุคำค้นหา ชื่อ, ทะเบียนรถ',
+                                                  'ระบุคำค้นหา ชื่อ, ทะเบียนรถ, หมายเลขขาเข้า',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
