@@ -124,334 +124,194 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
           top: true,
           child: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                      child: Container(
-                        decoration: BoxDecoration(),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          32.0, 0.0, 32.0, 8.0),
-                                      child: Wrap(
-                                        spacing: 8.0,
-                                        runSpacing: 8.0,
-                                        alignment: WrapAlignment.start,
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.start,
-                                        direction: Axis.horizontal,
-                                        runAlignment: WrapAlignment.start,
-                                        verticalDirection:
-                                            VerticalDirection.down,
-                                        clipBehavior: Clip.none,
-                                        children: [
-                                          FlutterFlowDropDown<String>(
-                                            controller: _model
-                                                    .dropDownValueController1 ??=
-                                                FormFieldController<String>(
-                                              _model.dropDownValue1 ??=
-                                                  functions.getCurrentMonth(
-                                                      getCurrentTimestamp,
-                                                      FFAppConstants
-                                                          .thaiMonthList
-                                                          .toList()),
-                                            ),
-                                            options:
-                                                FFAppConstants.thaiMonthList,
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue1 = val),
-                                            width: 300.0,
-                                            height: 56.0,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            hintText: 'เลือกเดือน',
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            elevation: 2.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            borderWidth: 2.0,
-                                            borderRadius: 8.0,
-                                            margin:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 4.0, 16.0, 4.0),
-                                            hidesUnderline: true,
-                                            isOverButton: true,
-                                            isSearchable: false,
-                                            isMultiSelect: false,
-                                          ),
-                                          FlutterFlowDropDown<String>(
-                                            controller: _model
-                                                    .dropDownValueController2 ??=
-                                                FormFieldController<String>(
-                                              _model.dropDownValue2 ??=
-                                                  functions.getCurrentYear(
-                                                      getCurrentTimestamp),
-                                            ),
-                                            options: functions.getYearList(
-                                                getCurrentTimestamp),
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue2 = val),
-                                            width: 300.0,
-                                            height: 56.0,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            hintText: 'เลือกปี',
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            elevation: 2.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            borderWidth: 2.0,
-                                            borderRadius: 8.0,
-                                            margin:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 4.0, 16.0, 4.0),
-                                            hidesUnderline: true,
-                                            isOverButton: true,
-                                            isSearchable: false,
-                                            isMultiSelect: false,
-                                          ),
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              if (_model.dataList.isNotEmpty) {
-                                                _model
-                                                    .paginatedDataTableController
-                                                    .paginatorController
-                                                    .goToFirstPage();
-                                              }
-                                              _model.startDate = functions
-                                                  .getStartDateOfMonth(functions
-                                                      .getDateTimeFormat(
-                                                          _model
-                                                              .dropDownValue1!,
-                                                          _model
-                                                              .dropDownValue2!,
-                                                          FFAppConstants
-                                                              .thaiMonthList
-                                                              .toList()));
-                                              _model.endDate = functions
-                                                  .getEndDateOfMonth(functions
-                                                      .getDateTimeFormat(
-                                                          _model
-                                                              .dropDownValue1!,
-                                                          _model
-                                                              .dropDownValue2!,
-                                                          FFAppConstants
-                                                              .thaiMonthList
-                                                              .toList()));
-                                              _model.dataResult2 =
-                                                  await queryNewsListRecordOnce(
-                                                queryBuilder:
-                                                    (newsListRecord) =>
-                                                        newsListRecord
-                                                            .where(
-                                                              'create_date',
-                                                              isGreaterThanOrEqualTo:
-                                                                  _model
-                                                                      .startDate,
-                                                            )
-                                                            .where(
-                                                              'create_date',
-                                                              isLessThanOrEqualTo:
-                                                                  _model
-                                                                      .endDate,
-                                                            )
-                                                            .orderBy(
-                                                                'create_date',
-                                                                descending:
-                                                                    true),
-                                              );
-                                              _model.dataList = _model
-                                                  .dataResult2!
-                                                  .toList()
-                                                  .cast<NewsListRecord>();
-                                              _model.tmpDataList = _model
-                                                  .dataResult2!
-                                                  .toList()
-                                                  .cast<NewsListRecord>();
-                                              setState(() {});
-
-                                              setState(() {});
-                                            },
-                                            text: 'ค้นหา',
-                                            options: FFButtonOptions(
-                                              height: 56.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      32.0, 0.0, 32.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 0.0, 32.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Expanded(
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 32.0, 8.0),
                                     child: Wrap(
                                       spacing: 8.0,
                                       runSpacing: 8.0,
-                                      alignment: WrapAlignment.end,
+                                      alignment: WrapAlignment.start,
                                       crossAxisAlignment:
-                                          WrapCrossAlignment.center,
+                                          WrapCrossAlignment.start,
                                       direction: Axis.horizontal,
                                       runAlignment: WrapAlignment.start,
                                       verticalDirection: VerticalDirection.down,
                                       clipBehavior: Clip.none,
                                       children: [
+                                        FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .dropDownValueController1 ??=
+                                              FormFieldController<String>(
+                                            _model.dropDownValue1 ??=
+                                                functions.getCurrentMonth(
+                                                    getCurrentTimestamp,
+                                                    FFAppConstants.thaiMonthList
+                                                        .toList()),
+                                          ),
+                                          options: FFAppConstants.thaiMonthList,
+                                          onChanged: (val) => setState(() =>
+                                              _model.dropDownValue1 = val),
+                                          width: 300.0,
+                                          height: 56.0,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: 'เลือกเดือน',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          borderWidth: 2.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 4.0, 16.0, 4.0),
+                                          hidesUnderline: true,
+                                          isOverButton: true,
+                                          isSearchable: false,
+                                          isMultiSelect: false,
+                                        ),
+                                        FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .dropDownValueController2 ??=
+                                              FormFieldController<String>(
+                                            _model.dropDownValue2 ??=
+                                                functions.getCurrentYear(
+                                                    getCurrentTimestamp),
+                                          ),
+                                          options: functions
+                                              .getYearList(getCurrentTimestamp),
+                                          onChanged: (val) => setState(() =>
+                                              _model.dropDownValue2 = val),
+                                          width: 300.0,
+                                          height: 56.0,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: 'เลือกปี',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          borderWidth: 2.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 4.0, 16.0, 4.0),
+                                          hidesUnderline: true,
+                                          isOverButton: true,
+                                          isSearchable: false,
+                                          isMultiSelect: false,
+                                        ),
                                         FFButtonWidget(
                                           onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: NewsFormViewWidget(
-                                                      title: 'เพิ่มข้อมูล',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.isUpdate2 = value));
-
-                                            if ((_model.isUpdate2 != null &&
-                                                    _model.isUpdate2 != '') &&
-                                                (_model.isUpdate2 ==
-                                                    'update')) {
-                                              _model.dataResult5 =
-                                                  await queryNewsListRecordOnce(
-                                                queryBuilder:
-                                                    (newsListRecord) =>
-                                                        newsListRecord
-                                                            .where(
-                                                              'create_date',
-                                                              isGreaterThanOrEqualTo:
-                                                                  _model
-                                                                      .startDate,
-                                                            )
-                                                            .where(
-                                                              'create_date',
-                                                              isLessThanOrEqualTo:
-                                                                  _model
-                                                                      .endDate,
-                                                            )
-                                                            .orderBy(
-                                                                'create_date',
-                                                                descending:
-                                                                    true),
-                                              );
-                                              _model.dataList = _model
-                                                  .dataResult5!
-                                                  .toList()
-                                                  .cast<NewsListRecord>();
-                                              _model.tmpDataList = _model
-                                                  .dataResult5!
-                                                  .toList()
-                                                  .cast<NewsListRecord>();
-                                              _model.isLoading = false;
-                                              setState(() {});
+                                            if (_model.dataList.isNotEmpty) {
+                                              _model
+                                                  .paginatedDataTableController
+                                                  .paginatorController
+                                                  .goToFirstPage();
                                             }
+                                            _model.startDate =
+                                                functions.getStartDateOfMonth(
+                                                    functions.getDateTimeFormat(
+                                                        _model.dropDownValue1!,
+                                                        _model.dropDownValue2!,
+                                                        FFAppConstants
+                                                            .thaiMonthList
+                                                            .toList()));
+                                            _model.endDate =
+                                                functions.getEndDateOfMonth(
+                                                    functions.getDateTimeFormat(
+                                                        _model.dropDownValue1!,
+                                                        _model.dropDownValue2!,
+                                                        FFAppConstants
+                                                            .thaiMonthList
+                                                            .toList()));
+                                            _model.dataResult2 =
+                                                await queryNewsListRecordOnce(
+                                              queryBuilder: (newsListRecord) =>
+                                                  newsListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
+                                            );
+                                            _model.dataList = _model
+                                                .dataResult2!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult2!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            setState(() {});
 
                                             setState(() {});
                                           },
-                                          text: 'เพิ่มข้อมูล',
+                                          text: 'ค้นหา',
                                           options: FFButtonOptions(
-                                            height: FFAppConstants.buttonHeigth,
+                                            height: 56.0,
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
+                                                    32.0, 0.0, 32.0, 0.0),
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
-                                                .secondary,
+                                                .primary,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -466,184 +326,298 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                               width: 1.0,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 300.0,
-                                          child: TextFormField(
-                                            controller: _model.textController,
-                                            focusNode:
-                                                _model.textFieldFocusNode,
-                                            onChanged: (_) =>
-                                                EasyDebounce.debounce(
-                                              '_model.textController',
-                                              Duration(milliseconds: 300),
-                                              () async {
-                                                if (_model.textController
-                                                            .text !=
-                                                        null &&
-                                                    _model.textController
-                                                            .text !=
-                                                        '') {
-                                                  _model.dataResult3 =
-                                                      await actions
-                                                          .filterNewsList(
-                                                    _model.textController.text,
-                                                    _model.tmpDataList.toList(),
-                                                  );
-                                                  _model.dataList = _model
-                                                      .dataResult3!
-                                                      .toList()
-                                                      .cast<NewsListRecord>();
-                                                  setState(() {});
-                                                } else {
-                                                  _model.dataList = _model
-                                                      .tmpDataList
-                                                      .toList()
-                                                      .cast<NewsListRecord>();
-                                                  setState(() {});
-                                                }
-
-                                                setState(() {});
-                                              },
-                                            ),
-                                            autofocus: false,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelText:
-                                                  'ระบุคำค้นหา หัวข้อ, รายละเอียด',
-                                              labelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              filled: true,
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              prefixIcon: Icon(
-                                                Icons.search_rounded,
-                                                size: 24.0,
-                                              ),
-                                              suffixIcon: _model.textController!
-                                                      .text.isNotEmpty
-                                                  ? InkWell(
-                                                      onTap: () async {
-                                                        _model.textController
-                                                            ?.clear();
-                                                        if (_model.textController
-                                                                    .text !=
-                                                                null &&
-                                                            _model.textController
-                                                                    .text !=
-                                                                '') {
-                                                          _model.dataResult3 =
-                                                              await actions
-                                                                  .filterNewsList(
-                                                            _model
-                                                                .textController
-                                                                .text,
-                                                            _model.tmpDataList
-                                                                .toList(),
-                                                          );
-                                                          _model.dataList = _model
-                                                              .dataResult3!
-                                                              .toList()
-                                                              .cast<
-                                                                  NewsListRecord>();
-                                                          setState(() {});
-                                                        } else {
-                                                          _model.dataList = _model
-                                                              .tmpDataList
-                                                              .toList()
-                                                              .cast<
-                                                                  NewsListRecord>();
-                                                          setState(() {});
-                                                        }
-
-                                                        setState(() {});
-                                                        setState(() {});
-                                                      },
-                                                      child: Icon(
-                                                        Icons.clear,
-                                                        size: 24.0,
-                                                      ),
-                                                    )
-                                                  : null,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                            validator: _model
-                                                .textControllerValidator
-                                                .asValidator(context),
+                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 0.0, 32.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Wrap(
+                                    spacing: 8.0,
+                                    runSpacing: 8.0,
+                                    alignment: WrapAlignment.end,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    direction: Axis.horizontal,
+                                    runAlignment: WrapAlignment.start,
+                                    verticalDirection: VerticalDirection.down,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: NewsFormViewWidget(
+                                                    title: 'เพิ่มข้อมูล',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => safeSetState(
+                                              () => _model.isUpdate2 = value));
+
+                                          if ((_model.isUpdate2 != null &&
+                                                  _model.isUpdate2 != '') &&
+                                              (_model.isUpdate2 == 'update')) {
+                                            _model.dataResult5 =
+                                                await queryNewsListRecordOnce(
+                                              queryBuilder: (newsListRecord) =>
+                                                  newsListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
+                                            );
+                                            _model.dataList = _model
+                                                .dataResult5!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult5!
+                                                .toList()
+                                                .cast<NewsListRecord>();
+                                            _model.isLoading = false;
+                                            setState(() {});
+                                          }
+
+                                          setState(() {});
+                                        },
+                                        text: 'เพิ่มข้อมูล',
+                                        options: FFButtonOptions(
+                                          height: FFAppConstants.buttonHeigth,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          elevation: 3.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 300.0,
+                                        child: TextFormField(
+                                          controller: _model.textController,
+                                          focusNode: _model.textFieldFocusNode,
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            '_model.textController',
+                                            Duration(milliseconds: 300),
+                                            () async {
+                                              if (_model.textController.text !=
+                                                      null &&
+                                                  _model.textController.text !=
+                                                      '') {
+                                                _model.dataResult3 =
+                                                    await actions
+                                                        .filterNewsList(
+                                                  _model.textController.text,
+                                                  _model.tmpDataList.toList(),
+                                                );
+                                                _model.dataList = _model
+                                                    .dataResult3!
+                                                    .toList()
+                                                    .cast<NewsListRecord>();
+                                                setState(() {});
+                                              } else {
+                                                _model.dataList = _model
+                                                    .tmpDataList
+                                                    .toList()
+                                                    .cast<NewsListRecord>();
+                                                setState(() {});
+                                              }
+
+                                              setState(() {});
+                                            },
+                                          ),
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText:
+                                                'ระบุคำค้นหา หัวข้อ, รายละเอียด',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                            prefixIcon: Icon(
+                                              Icons.search_rounded,
+                                              size: 24.0,
+                                            ),
+                                            suffixIcon: _model.textController!
+                                                    .text.isNotEmpty
+                                                ? InkWell(
+                                                    onTap: () async {
+                                                      _model.textController
+                                                          ?.clear();
+                                                      if (_model.textController
+                                                                  .text !=
+                                                              null &&
+                                                          _model.textController
+                                                                  .text !=
+                                                              '') {
+                                                        _model.dataResult3 =
+                                                            await actions
+                                                                .filterNewsList(
+                                                          _model.textController
+                                                              .text,
+                                                          _model.tmpDataList
+                                                              .toList(),
+                                                        );
+                                                        _model.dataList = _model
+                                                            .dataResult3!
+                                                            .toList()
+                                                            .cast<
+                                                                NewsListRecord>();
+                                                        setState(() {});
+                                                      } else {
+                                                        _model.dataList = _model
+                                                            .tmpDataList
+                                                            .toList()
+                                                            .cast<
+                                                                NewsListRecord>();
+                                                        setState(() {});
+                                                      }
+
+                                                      setState(() {});
+                                                      setState(() {});
+                                                    },
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      size: 24.0,
+                                                    ),
+                                                  )
+                                                : null,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                letterSpacing: 0.0,
+                                              ),
+                                          validator: _model
+                                              .textControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Builder(
+                  ),
+                  Expanded(
+                    child: Builder(
                       builder: (context) {
                         final dataListView = _model.dataList.toList();
                         if (dataListView.isEmpty) {
@@ -1130,7 +1104,6 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                           selectable: false,
                           hidePaginator: false,
                           showFirstLastButtons: false,
-                          height: 800.0,
                           minWidth: 800.0,
                           headingRowHeight: 56.0,
                           dataRowHeight: 48.0,
@@ -1147,8 +1120,8 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                         );
                       },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,

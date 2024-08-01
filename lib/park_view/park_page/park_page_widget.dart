@@ -124,425 +124,445 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           top: true,
           child: Stack(
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                    child: Container(
-                      decoration: BoxDecoration(),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 8.0),
-                                    child: Wrap(
-                                      spacing: 8.0,
-                                      runSpacing: 8.0,
-                                      alignment: WrapAlignment.start,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.start,
-                                      direction: Axis.horizontal,
-                                      runAlignment: WrapAlignment.start,
-                                      verticalDirection: VerticalDirection.down,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        FlutterFlowDropDown<String>(
-                                          controller: _model
-                                                  .dropDownValueController1 ??=
-                                              FormFieldController<String>(
-                                            _model.dropDownValue1 ??=
-                                                functions.getCurrentMonth(
-                                                    getCurrentTimestamp,
-                                                    FFAppConstants.thaiMonthList
-                                                        .toList()),
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                      child: Container(
+                        decoration: BoxDecoration(),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          32.0, 0.0, 32.0, 8.0),
+                                      child: Wrap(
+                                        spacing: 8.0,
+                                        runSpacing: 8.0,
+                                        alignment: WrapAlignment.start,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.start,
+                                        direction: Axis.horizontal,
+                                        runAlignment: WrapAlignment.start,
+                                        verticalDirection:
+                                            VerticalDirection.down,
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController1 ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue1 ??=
+                                                  functions.getCurrentMonth(
+                                                      getCurrentTimestamp,
+                                                      FFAppConstants
+                                                          .thaiMonthList
+                                                          .toList()),
+                                            ),
+                                            options:
+                                                FFAppConstants.thaiMonthList,
+                                            onChanged: (val) => setState(() =>
+                                                _model.dropDownValue1 = val),
+                                            width: 300.0,
+                                            height: 56.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            hintText: 'เลือกเดือน',
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isOverButton: true,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
                                           ),
-                                          options: FFAppConstants.thaiMonthList,
-                                          onChanged: (val) => setState(() =>
-                                              _model.dropDownValue1 = val),
-                                          width: 300.0,
-                                          height: 56.0,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          hintText: 'เลือกเดือน',
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
+                                          FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController2 ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue2 ??=
+                                                  functions.getCurrentYear(
+                                                      getCurrentTimestamp),
+                                            ),
+                                            options: functions.getYearList(
+                                                getCurrentTimestamp),
+                                            onChanged: (val) => setState(() =>
+                                                _model.dropDownValue2 = val),
+                                            width: 300.0,
+                                            height: 56.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            hintText: 'เลือกปี',
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isOverButton: true,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
                                           ),
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          elevation: 2.0,
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .alternate,
-                                          borderWidth: 2.0,
-                                          borderRadius: 8.0,
-                                          margin:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 4.0, 16.0, 4.0),
-                                          hidesUnderline: true,
-                                          isOverButton: true,
-                                          isSearchable: false,
-                                          isMultiSelect: false,
-                                        ),
-                                        FlutterFlowDropDown<String>(
-                                          controller: _model
-                                                  .dropDownValueController2 ??=
-                                              FormFieldController<String>(
-                                            _model.dropDownValue2 ??=
-                                                functions.getCurrentYear(
-                                                    getCurrentTimestamp),
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              if (_model.dataList.isNotEmpty) {
+                                                _model
+                                                    .paginatedDataTableController
+                                                    .paginatorController
+                                                    .goToFirstPage();
+                                              }
+                                              _model.startDate = functions
+                                                  .getStartDateOfMonth(functions
+                                                      .getDateTimeFormat(
+                                                          _model
+                                                              .dropDownValue1!,
+                                                          _model
+                                                              .dropDownValue2!,
+                                                          FFAppConstants
+                                                              .thaiMonthList
+                                                              .toList()));
+                                              _model.endDate = functions
+                                                  .getEndDateOfMonth(functions
+                                                      .getDateTimeFormat(
+                                                          _model
+                                                              .dropDownValue1!,
+                                                          _model
+                                                              .dropDownValue2!,
+                                                          FFAppConstants
+                                                              .thaiMonthList
+                                                              .toList()));
+                                              _model.dataResult2 =
+                                                  await queryTransactionListRecordOnce(
+                                                queryBuilder:
+                                                    (transactionListRecord) =>
+                                                        transactionListRecord
+                                                            .where(
+                                                              'date_in',
+                                                              isGreaterThanOrEqualTo:
+                                                                  _model
+                                                                      .startDate,
+                                                            )
+                                                            .where(
+                                                              'date_in',
+                                                              isLessThanOrEqualTo:
+                                                                  _model
+                                                                      .endDate,
+                                                            )
+                                                            .orderBy('date_in',
+                                                                descending:
+                                                                    true),
+                                              );
+                                              _model.dataList = _model
+                                                  .dataResult2!
+                                                  .toList()
+                                                  .cast<
+                                                      TransactionListRecord>();
+                                              _model.tmpDataList = _model
+                                                  .dataResult2!
+                                                  .toList()
+                                                  .cast<
+                                                      TransactionListRecord>();
+                                              setState(() {});
+
+                                              setState(() {});
+                                            },
+                                            text: 'ค้นหา',
+                                            options: FFButtonOptions(
+                                              height: 56.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      32.0, 0.0, 32.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
                                           ),
-                                          options: functions
-                                              .getYearList(getCurrentTimestamp),
-                                          onChanged: (val) => setState(() =>
-                                              _model.dropDownValue2 = val),
-                                          width: 300.0,
-                                          height: 56.0,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          hintText: 'เลือกปี',
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              if (_model.dataList.isNotEmpty) {
+                                                _model.isLoading = true;
+                                                setState(() {});
+                                                await actions
+                                                    .exportTransactionPark(
+                                                  _model.dataList.toList(),
+                                                  functions.getCurrentMonth(
+                                                      _model.startDate!,
+                                                      FFAppConstants
+                                                          .thaiMonthList
+                                                          .toList()),
+                                                  functions.getCurrentYear(
+                                                      _model.startDate!),
+                                                );
+                                                _model.isLoading = false;
+                                                setState(() {});
+                                              }
+                                            },
+                                            text: 'Export Excel',
+                                            options: FFButtonOptions(
+                                              height: 56.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      32.0, 0.0, 32.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .success,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
                                           ),
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          elevation: 2.0,
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .alternate,
-                                          borderWidth: 2.0,
-                                          borderRadius: 8.0,
-                                          margin:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 4.0, 16.0, 4.0),
-                                          hidesUnderline: true,
-                                          isOverButton: true,
-                                          isSearchable: false,
-                                          isMultiSelect: false,
-                                        ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            if (_model.dataList.isNotEmpty) {
-                                              _model
-                                                  .paginatedDataTableController
-                                                  .paginatorController
-                                                  .goToFirstPage();
-                                            }
-                                            _model.startDate =
-                                                functions.getStartDateOfMonth(
-                                                    functions.getDateTimeFormat(
-                                                        _model.dropDownValue1!,
-                                                        _model.dropDownValue2!,
-                                                        FFAppConstants
-                                                            .thaiMonthList
-                                                            .toList()));
-                                            _model.endDate =
-                                                functions.getEndDateOfMonth(
-                                                    functions.getDateTimeFormat(
-                                                        _model.dropDownValue1!,
-                                                        _model.dropDownValue2!,
-                                                        FFAppConstants
-                                                            .thaiMonthList
-                                                            .toList()));
-                                            _model.dataResult2 =
-                                                await queryTransactionListRecordOnce(
-                                              queryBuilder:
-                                                  (transactionListRecord) =>
-                                                      transactionListRecord
-                                                          .where(
-                                                            'date_in',
-                                                            isGreaterThanOrEqualTo:
-                                                                _model
-                                                                    .startDate,
-                                                          )
-                                                          .where(
-                                                            'date_in',
-                                                            isLessThanOrEqualTo:
-                                                                _model.endDate,
-                                                          )
-                                                          .orderBy('date_in',
-                                                              descending: true),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    width: 300.0,
+                                    child: TextFormField(
+                                      controller: _model.textController,
+                                      focusNode: _model.textFieldFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController',
+                                        Duration(milliseconds: 300),
+                                        () async {
+                                          if (_model.textController.text !=
+                                                  null &&
+                                              _model.textController.text !=
+                                                  '') {
+                                            _model.dataResult3 =
+                                                await actions.filterDataList(
+                                              _model.textController.text,
+                                              _model.tmpDataList.toList(),
                                             );
                                             _model.dataList = _model
-                                                .dataResult2!
-                                                .toList()
-                                                .cast<TransactionListRecord>();
-                                            _model.tmpDataList = _model
-                                                .dataResult2!
+                                                .dataResult3!
                                                 .toList()
                                                 .cast<TransactionListRecord>();
                                             setState(() {});
-
+                                          } else {
+                                            _model.dataList = _model.tmpDataList
+                                                .toList()
+                                                .cast<TransactionListRecord>();
                                             setState(() {});
-                                          },
-                                          text: 'ค้นหา',
-                                          options: FFButtonOptions(
-                                            height: 56.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    32.0, 0.0, 32.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            if (_model.dataList.isNotEmpty) {
-                                              _model.isLoading = true;
-                                              setState(() {});
-                                              await actions
-                                                  .exportTransactionPark(
-                                                _model.dataList.toList(),
-                                                functions.getCurrentMonth(
-                                                    _model.startDate!,
-                                                    FFAppConstants.thaiMonthList
-                                                        .toList()),
-                                                functions.getCurrentYear(
-                                                    _model.startDate!),
-                                              );
-                                              _model.isLoading = false;
-                                              setState(() {});
-                                            }
-                                          },
-                                          text: 'Export Excel',
-                                          options: FFButtonOptions(
-                                            height: 56.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    32.0, 0.0, 32.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .success,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 0.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: 300.0,
-                                  child: TextFormField(
-                                    controller: _model.textController,
-                                    focusNode: _model.textFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.textController',
-                                      Duration(milliseconds: 300),
-                                      () async {
-                                        if (_model.textController.text !=
-                                                null &&
-                                            _model.textController.text != '') {
-                                          _model.dataResult3 =
-                                              await actions.filterDataList(
-                                            _model.textController.text,
-                                            _model.tmpDataList.toList(),
-                                          );
-                                          _model.dataList = _model.dataResult3!
-                                              .toList()
-                                              .cast<TransactionListRecord>();
-                                          setState(() {});
-                                        } else {
-                                          _model.dataList = _model.tmpDataList
-                                              .toList()
-                                              .cast<TransactionListRecord>();
-                                          setState(() {});
-                                        }
+                                          }
 
-                                        setState(() {});
-                                      },
-                                    ),
-                                    autofocus: false,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'ระบุคำค้นหา ชื่อ, ทะเบียนรถ',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
+                                          setState(() {});
+                                        },
+                                      ),
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            'ระบุคำค้นหา ชื่อ, ทะเบียนรถ',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        filled: true,
+                                        fillColor:
+                                            FlutterFlowTheme.of(context).info,
+                                        prefixIcon: Icon(
+                                          Icons.search_rounded,
+                                          size: 24.0,
+                                        ),
+                                        suffixIcon: _model
+                                                .textController!.text.isNotEmpty
+                                            ? InkWell(
+                                                onTap: () async {
+                                                  _model.textController
+                                                      ?.clear();
+                                                  if (_model.textController
+                                                              .text !=
+                                                          null &&
+                                                      _model.textController
+                                                              .text !=
+                                                          '') {
+                                                    _model.dataResult3 =
+                                                        await actions
+                                                            .filterDataList(
+                                                      _model
+                                                          .textController.text,
+                                                      _model.tmpDataList
+                                                          .toList(),
+                                                    );
+                                                    _model.dataList = _model
+                                                        .dataResult3!
+                                                        .toList()
+                                                        .cast<
+                                                            TransactionListRecord>();
+                                                    setState(() {});
+                                                  } else {
+                                                    _model.dataList = _model
+                                                        .tmpDataList
+                                                        .toList()
+                                                        .cast<
+                                                            TransactionListRecord>();
+                                                    setState(() {});
+                                                  }
+
+                                                  setState(() {});
+                                                  setState(() {});
+                                                },
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  size: 24.0,
+                                                ),
+                                              )
+                                            : null,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Manrope',
                                             letterSpacing: 0.0,
                                           ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).info,
-                                      prefixIcon: Icon(
-                                        Icons.search_rounded,
-                                        size: 24.0,
-                                      ),
-                                      suffixIcon: _model
-                                              .textController!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                _model.textController?.clear();
-                                                if (_model.textController
-                                                            .text !=
-                                                        null &&
-                                                    _model.textController
-                                                            .text !=
-                                                        '') {
-                                                  _model.dataResult3 =
-                                                      await actions
-                                                          .filterDataList(
-                                                    _model.textController.text,
-                                                    _model.tmpDataList.toList(),
-                                                  );
-                                                  _model.dataList = _model
-                                                      .dataResult3!
-                                                      .toList()
-                                                      .cast<
-                                                          TransactionListRecord>();
-                                                  setState(() {});
-                                                } else {
-                                                  _model.dataList = _model
-                                                      .tmpDataList
-                                                      .toList()
-                                                      .cast<
-                                                          TransactionListRecord>();
-                                                  setState(() {});
-                                                }
-
-                                                setState(() {});
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                size: 24.0,
-                                              ),
-                                            )
-                                          : null,
+                                      validator: _model.textControllerValidator
+                                          .asValidator(context),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    validator: _model.textControllerValidator
-                                        .asValidator(context),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Builder(
+                    Builder(
                       builder: (context) {
                         final dataListView = _model.dataList.toList();
                         if (dataListView.isEmpty) {
@@ -1036,6 +1056,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                           selectable: false,
                           hidePaginator: false,
                           showFirstLastButtons: false,
+                          height: 600.0,
                           minWidth: 800.0,
                           headingRowHeight: 56.0,
                           dataRowHeight: 48.0,
@@ -1052,8 +1073,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                         );
                       },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
