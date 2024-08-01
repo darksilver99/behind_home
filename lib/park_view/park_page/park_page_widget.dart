@@ -566,7 +566,9 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                       builder: (context) {
                         final dataListView = _model.dataList.toList();
                         if (dataListView.isEmpty) {
-                          return NoDataViewWidget();
+                          return Center(
+                            child: NoDataViewWidget(),
+                          );
                         }
 
                         return FlutterFlowDataTable<TransactionListRecord>(
@@ -1051,7 +1053,9 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                               ),
                             ].map((c) => DataCell(c)).toList(),
                           ),
-                          emptyBuilder: () => NoDataViewWidget(),
+                          emptyBuilder: () => Center(
+                            child: NoDataViewWidget(),
+                          ),
                           paginated: true,
                           selectable: false,
                           hidePaginator: false,
