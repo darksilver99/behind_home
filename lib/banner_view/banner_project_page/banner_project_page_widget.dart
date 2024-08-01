@@ -115,311 +115,330 @@ class _BannerProjectPageWidgetState extends State<BannerProjectPageWidget> {
           top: true,
           child: Stack(
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                    child: Container(
-                      decoration: BoxDecoration(),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 0.0),
-                                    child: Wrap(
-                                      spacing: 8.0,
-                                      runSpacing: 8.0,
-                                      alignment: WrapAlignment.end,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      direction: Axis.horizontal,
-                                      runAlignment: WrapAlignment.start,
-                                      verticalDirection: VerticalDirection.down,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        BannerProjectFormViewWidget(
-                                                      title: 'เพิ่มข้อมูล',
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                      child: Container(
+                        decoration: BoxDecoration(),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          32.0, 0.0, 32.0, 0.0),
+                                      child: Wrap(
+                                        spacing: 8.0,
+                                        runSpacing: 8.0,
+                                        alignment: WrapAlignment.end,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.center,
+                                        direction: Axis.horizontal,
+                                        runAlignment: WrapAlignment.start,
+                                        verticalDirection:
+                                            VerticalDirection.down,
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child:
+                                                          BannerProjectFormViewWidget(
+                                                        title: 'เพิ่มข้อมูล',
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.isUpdate2 = value));
-
-                                            if ((_model.isUpdate2 != null &&
-                                                    _model.isUpdate2 != '') &&
-                                                (_model.isUpdate2 ==
-                                                    'update')) {
-                                              _model.dataResult5 =
-                                                  await queryBannerProjectListRecordOnce(
-                                                queryBuilder:
-                                                    (bannerProjectListRecord) =>
-                                                        bannerProjectListRecord
-                                                            .orderBy(
-                                                                'create_date',
-                                                                descending:
-                                                                    true),
-                                              );
-                                              _model.dataList = _model
-                                                  .dataResult5!
-                                                  .toList()
-                                                  .cast<
-                                                      BannerProjectListRecord>();
-                                              _model.tmpDataList = _model
-                                                  .dataResult5!
-                                                  .toList()
-                                                  .cast<
-                                                      BannerProjectListRecord>();
-                                              _model.isLoading = false;
-                                              setState(() {});
-                                            }
-
-                                            setState(() {});
-                                          },
-                                          text: 'เพิ่มข้อมูล',
-                                          options: FFButtonOptions(
-                                            height: FFAppConstants.buttonHeigth,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 300.0,
-                                          child: TextFormField(
-                                            controller: _model.textController,
-                                            focusNode:
-                                                _model.textFieldFocusNode,
-                                            onChanged: (_) =>
-                                                EasyDebounce.debounce(
-                                              '_model.textController',
-                                              Duration(milliseconds: 300),
-                                              () async {
-                                                if (_model.textController
-                                                            .text !=
-                                                        null &&
-                                                    _model.textController
-                                                            .text !=
-                                                        '') {
-                                                  _model.dataResult3 =
-                                                      await actions
-                                                          .filterBannerProjectList(
-                                                    _model.textController.text,
-                                                    _model.tmpDataList.toList(),
                                                   );
-                                                  _model.dataList = _model
-                                                      .dataResult3!
-                                                      .toList()
-                                                      .cast<
-                                                          BannerProjectListRecord>();
-                                                  setState(() {});
-                                                } else {
-                                                  _model.dataList = _model
-                                                      .tmpDataList
-                                                      .toList()
-                                                      .cast<
-                                                          BannerProjectListRecord>();
-                                                  setState(() {});
-                                                }
+                                                },
+                                              ).then((value) => safeSetState(
+                                                  () => _model.isUpdate2 =
+                                                      value));
 
+                                              if ((_model.isUpdate2 != null &&
+                                                      _model.isUpdate2 != '') &&
+                                                  (_model.isUpdate2 ==
+                                                      'update')) {
+                                                _model.dataResult5 =
+                                                    await queryBannerProjectListRecordOnce(
+                                                  queryBuilder:
+                                                      (bannerProjectListRecord) =>
+                                                          bannerProjectListRecord
+                                                              .orderBy(
+                                                                  'create_date',
+                                                                  descending:
+                                                                      true),
+                                                );
+                                                _model.dataList = _model
+                                                    .dataResult5!
+                                                    .toList()
+                                                    .cast<
+                                                        BannerProjectListRecord>();
+                                                _model.tmpDataList = _model
+                                                    .dataResult5!
+                                                    .toList()
+                                                    .cast<
+                                                        BannerProjectListRecord>();
+                                                _model.isLoading = false;
                                                 setState(() {});
-                                              },
-                                            ),
-                                            autofocus: false,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelText: 'ระบุคำค้นหา หัวข้อ',
-                                              labelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              filled: true,
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              prefixIcon: Icon(
-                                                Icons.search_rounded,
-                                                size: 24.0,
-                                              ),
-                                              suffixIcon: _model.textController!
-                                                      .text.isNotEmpty
-                                                  ? InkWell(
-                                                      onTap: () async {
-                                                        _model.textController
-                                                            ?.clear();
-                                                        if (_model.textController
-                                                                    .text !=
-                                                                null &&
-                                                            _model.textController
-                                                                    .text !=
-                                                                '') {
-                                                          _model.dataResult3 =
-                                                              await actions
-                                                                  .filterBannerProjectList(
-                                                            _model
-                                                                .textController
-                                                                .text,
-                                                            _model.tmpDataList
-                                                                .toList(),
-                                                          );
-                                                          _model.dataList = _model
-                                                              .dataResult3!
-                                                              .toList()
-                                                              .cast<
-                                                                  BannerProjectListRecord>();
-                                                          setState(() {});
-                                                        } else {
-                                                          _model.dataList = _model
-                                                              .tmpDataList
-                                                              .toList()
-                                                              .cast<
-                                                                  BannerProjectListRecord>();
-                                                          setState(() {});
-                                                        }
+                                              }
 
-                                                        setState(() {});
-                                                        setState(() {});
-                                                      },
-                                                      child: Icon(
-                                                        Icons.clear,
-                                                        size: 24.0,
+                                              setState(() {});
+                                            },
+                                            text: 'เพิ่มข้อมูล',
+                                            options: FFButtonOptions(
+                                              height:
+                                                  FFAppConstants.buttonHeigth,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
                                                       ),
-                                                    )
-                                                  : null,
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                            validator: _model
-                                                .textControllerValidator
-                                                .asValidator(context),
                                           ),
-                                        ),
-                                      ],
+                                          Container(
+                                            width: 300.0,
+                                            child: TextFormField(
+                                              controller: _model.textController,
+                                              focusNode:
+                                                  _model.textFieldFocusNode,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.textController',
+                                                Duration(milliseconds: 300),
+                                                () async {
+                                                  if (_model.textController
+                                                              .text !=
+                                                          null &&
+                                                      _model.textController
+                                                              .text !=
+                                                          '') {
+                                                    _model.dataResult3 =
+                                                        await actions
+                                                            .filterBannerProjectList(
+                                                      _model
+                                                          .textController.text,
+                                                      _model.tmpDataList
+                                                          .toList(),
+                                                    );
+                                                    _model.dataList = _model
+                                                        .dataResult3!
+                                                        .toList()
+                                                        .cast<
+                                                            BannerProjectListRecord>();
+                                                    setState(() {});
+                                                  } else {
+                                                    _model.dataList = _model
+                                                        .tmpDataList
+                                                        .toList()
+                                                        .cast<
+                                                            BannerProjectListRecord>();
+                                                    setState(() {});
+                                                  }
+
+                                                  setState(() {});
+                                                },
+                                              ),
+                                              autofocus: false,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelText: 'ระบุคำค้นหา หัวข้อ',
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
+                                                prefixIcon: Icon(
+                                                  Icons.search_rounded,
+                                                  size: 24.0,
+                                                ),
+                                                suffixIcon: _model
+                                                        .textController!
+                                                        .text
+                                                        .isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          _model.textController
+                                                              ?.clear();
+                                                          if (_model.textController
+                                                                      .text !=
+                                                                  null &&
+                                                              _model.textController
+                                                                      .text !=
+                                                                  '') {
+                                                            _model.dataResult3 =
+                                                                await actions
+                                                                    .filterBannerProjectList(
+                                                              _model
+                                                                  .textController
+                                                                  .text,
+                                                              _model.tmpDataList
+                                                                  .toList(),
+                                                            );
+                                                            _model.dataList = _model
+                                                                .dataResult3!
+                                                                .toList()
+                                                                .cast<
+                                                                    BannerProjectListRecord>();
+                                                            setState(() {});
+                                                          } else {
+                                                            _model.dataList = _model
+                                                                .tmpDataList
+                                                                .toList()
+                                                                .cast<
+                                                                    BannerProjectListRecord>();
+                                                            setState(() {});
+                                                          }
+
+                                                          setState(() {});
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          size: 24.0,
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              validator: _model
+                                                  .textControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Builder(
+                    Builder(
                       builder: (context) {
                         final dataListView = _model.dataList.toList();
                         if (dataListView.isEmpty) {
-                          return NoDataViewWidget();
+                          return Center(
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.8,
+                              child: NoDataViewWidget(),
+                            ),
+                          );
                         }
 
                         return FlutterFlowDataTable<BannerProjectListRecord>(
@@ -800,11 +819,17 @@ class _BannerProjectPageWidgetState extends State<BannerProjectPageWidget> {
                               ),
                             ].map((c) => DataCell(c)).toList(),
                           ),
-                          emptyBuilder: () => NoDataViewWidget(),
+                          emptyBuilder: () => Center(
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.8,
+                              child: NoDataViewWidget(),
+                            ),
+                          ),
                           paginated: true,
                           selectable: false,
                           hidePaginator: false,
                           showFirstLastButtons: false,
+                          height: 600.0,
                           minWidth: 800.0,
                           headingRowHeight: 56.0,
                           dataRowHeight: 48.0,
@@ -821,8 +846,8 @@ class _BannerProjectPageWidgetState extends State<BannerProjectPageWidget> {
                         );
                       },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
