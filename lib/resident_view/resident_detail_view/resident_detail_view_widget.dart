@@ -282,7 +282,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                           ),
                                         ),
                                         Container(
-                                          width: 300.0,
+                                          width: double.infinity,
                                           child: TextFormField(
                                             controller: _model.textController,
                                             focusNode:

@@ -1076,7 +1076,7 @@ class _WaterPaymentDetailViewWidgetState
                                           ),
                                         ),
                                         Container(
-                                          width: 300.0,
+                                          width: double.infinity,
                                           child: TextFormField(
                                             controller:
                                                 _model.remarkTextController,
@@ -1228,7 +1228,7 @@ class _WaterPaymentDetailViewWidgetState
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.textController2,
                                           focusNode: _model.textFieldFocusNode,
