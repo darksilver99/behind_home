@@ -216,7 +216,7 @@ class _BannerProjectFormViewWidgetState
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.textController1,
                                           focusNode: _model.textFieldFocusNode1,
@@ -324,7 +324,7 @@ class _BannerProjectFormViewWidgetState
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.textController2,
                                           focusNode: _model.textFieldFocusNode2,

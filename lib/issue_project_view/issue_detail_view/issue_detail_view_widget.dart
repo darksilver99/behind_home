@@ -486,7 +486,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.textController1,
                                           focusNode: _model.textFieldFocusNode,
@@ -599,7 +599,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                           ),
                                         ),
                                         Container(
-                                          width: 300.0,
+                                          width: double.infinity,
                                           child: TextFormField(
                                             controller:
                                                 _model.remarkTextController,

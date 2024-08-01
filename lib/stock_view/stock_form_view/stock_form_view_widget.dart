@@ -188,7 +188,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model
                                               .contactAddressTextController,
@@ -711,7 +711,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller:
                                               _model.detailTextController,
