@@ -198,7 +198,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.textController1,
                                           focusNode: _model.textFieldFocusNode1,
@@ -307,7 +307,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                         ),
                                       ),
                                       Container(
-                                        width: 300.0,
+                                        width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.textController2,
                                           focusNode: _model.textFieldFocusNode2,
@@ -377,7 +377,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 fontFamily: 'Manrope',
                                                 letterSpacing: 0.0,
                                               ),
-                                          maxLines: 5,
+                                          maxLines: 10,
                                           keyboardType: TextInputType.multiline,
                                           validator: _model
                                               .textController2Validator
