@@ -257,3 +257,15 @@ bool checkFileAllow(
 double bytesToMB(int bytes) {
   return bytes / (1024 * 1024);
 }
+
+double getPadding(double screenSize) {
+  if (screenSize < 479.0) {
+    return 16.0;
+  } else if (screenSize < 767.0) {
+    return 16.0;
+  } else if (screenSize < 991.0) {
+    return 32.0;
+  } else {
+    return 64.0;
+  }
+}
