@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -9,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +140,7 @@ class _WaterPaymentSettingPageWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: Text(
-                                          'จะแสดงข้อมูลให้ลูกบ้านเห็นในบริการ \"แจ้งชำระค่าน้ำ\"',
+                                          'จะแสดงข้อมูลให้ลูกบ้านเห็นด้านบนฟอร์มกรอกรายละเอียดการโอนเงินในบริการ \"แจ้งชำระค่าน้ำ\" ',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -154,135 +154,242 @@ class _WaterPaymentSettingPageWidgetState
                                               ),
                                         ),
                                       ),
-                                      if (_model
-                                          .imageWaterPaymentList.isNotEmpty)
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 8.0),
-                                          child: Container(
-                                            width: 80.0,
-                                            height: 80.0,
-                                            child: Stack(
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(16.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .fade,
-                                                        child:
-                                                            FlutterFlowExpandedImageView(
-                                                          image: Image.network(
-                                                            _model
-                                                                .imageWaterPaymentList
-                                                                .first,
-                                                            fit: BoxFit.contain,
-                                                          ),
-                                                          allowRotation: false,
-                                                          tag: _model
-                                                              .imageWaterPaymentList
-                                                              .first,
-                                                          useHeroAnimation:
-                                                              true,
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 8.0),
+                                                  child: Text(
+                                                    'ตัวอย่างการแสดงผลในแอปให้ลูกบ้านเห็น',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Hero(
-                                                    tag: _model
-                                                        .imageWaterPaymentList
-                                                        .first,
-                                                    transitionOnUserGestures:
-                                                        true,
-                                                    child: Image.network(
-                                                      _model
-                                                          .imageWaterPaymentList
-                                                          .first,
-                                                      width: 80.0,
-                                                      height: 80.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
                                                   ),
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          1.0, -1.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 2.0,
-                                                                2.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        var confirmDialogResponse =
-                                                            await showDialog<
-                                                                    bool>(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (alertDialogContext) {
-                                                                    return AlertDialog(
-                                                                      title: Text(
-                                                                          'ต้องการลบ ?'),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              false),
-                                                                          child:
-                                                                              Text('ยกเลิก'),
-                                                                        ),
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              true),
-                                                                          child:
-                                                                              Text('ตกลง'),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  },
-                                                                ) ??
-                                                                false;
-                                                        if (confirmDialogResponse) {
-                                                          _model.imageWaterPaymentList =
-                                                              [];
-                                                          setState(() {});
-                                                        }
-                                                      },
-                                                      child: Icon(
-                                                        Icons.cancel_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        size: 24.0,
-                                                      ),
-                                                    ),
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/payment_example.jpg',
+                                                    width: 300.0,
+                                                    height: 200.0,
+                                                    fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
+                                        ),
+                                      ),
+                                      if (_model
+                                          .imageWaterPaymentList.isNotEmpty)
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final imageList = _model
+                                                      .imageWaterPaymentList
+                                                      .toList();
+
+                                                  return Wrap(
+                                                    spacing: 8.0,
+                                                    runSpacing: 8.0,
+                                                    alignment:
+                                                        WrapAlignment.start,
+                                                    crossAxisAlignment:
+                                                        WrapCrossAlignment
+                                                            .start,
+                                                    direction: Axis.horizontal,
+                                                    runAlignment:
+                                                        WrapAlignment.start,
+                                                    verticalDirection:
+                                                        VerticalDirection.down,
+                                                    clipBehavior: Clip.none,
+                                                    children: List.generate(
+                                                        imageList.length,
+                                                        (imageListIndex) {
+                                                      final imageListItem =
+                                                          imageList[
+                                                              imageListIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0),
+                                                        child: Container(
+                                                          width: 80.0,
+                                                          height: 80.0,
+                                                          child: Stack(
+                                                            children: [
+                                                              InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await Navigator
+                                                                      .push(
+                                                                    context,
+                                                                    PageTransition(
+                                                                      type: PageTransitionType
+                                                                          .fade,
+                                                                      child:
+                                                                          FlutterFlowExpandedImageView(
+                                                                        image: Image
+                                                                            .network(
+                                                                          imageListItem,
+                                                                          fit: BoxFit
+                                                                              .contain,
+                                                                          errorBuilder: (context, error, stackTrace) =>
+                                                                              Image.asset(
+                                                                            'assets/images/error_image.jpg',
+                                                                            fit:
+                                                                                BoxFit.contain,
+                                                                          ),
+                                                                        ),
+                                                                        allowRotation:
+                                                                            false,
+                                                                        tag:
+                                                                            imageListItem,
+                                                                        useHeroAnimation:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                child: Hero(
+                                                                  tag:
+                                                                      imageListItem,
+                                                                  transitionOnUserGestures:
+                                                                      true,
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .network(
+                                                                      imageListItem,
+                                                                      width:
+                                                                          80.0,
+                                                                      height:
+                                                                          80.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      errorBuilder: (context,
+                                                                              error,
+                                                                              stackTrace) =>
+                                                                          Image
+                                                                              .asset(
+                                                                        'assets/images/error_image.jpg',
+                                                                        width:
+                                                                            80.0,
+                                                                        height:
+                                                                            80.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        1.0,
+                                                                        -1.0),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          4.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      _model.isDelete =
+                                                                          await action_blocks
+                                                                              .deleteImageBlock(
+                                                                        context,
+                                                                        imagePath:
+                                                                            imageListItem,
+                                                                      );
+                                                                      if (_model
+                                                                          .isDelete!) {
+                                                                        _model.removeFromImageWaterPaymentList(
+                                                                            imageListItem);
+                                                                        setState(
+                                                                            () {});
+                                                                      }
+
+                                                                      setState(
+                                                                          () {});
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .cancel_rounded,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      size:
+                                                                          24.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       Text(
                                         FFAppConstants.imageUploadSuggestText,
@@ -298,7 +405,7 @@ class _WaterPaymentSettingPageWidgetState
                                           final selectedMedia =
                                               await selectMediaWithSourceBottomSheet(
                                             context: context,
-                                            maxWidth: 600.00,
+                                            maxWidth: 800.00,
                                             imageQuality: 100,
                                             allowPhoto: true,
                                           );
@@ -312,7 +419,6 @@ class _WaterPaymentSettingPageWidgetState
                                             var selectedUploadedFiles =
                                                 <FFUploadedFile>[];
 
-                                            var downloadUrls = <String>[];
                                             try {
                                               selectedUploadedFiles =
                                                   selectedMedia
@@ -333,28 +439,14 @@ class _WaterPaymentSettingPageWidgetState
                                                                     m.blurHash,
                                                               ))
                                                       .toList();
-
-                                              downloadUrls = (await Future.wait(
-                                                selectedMedia.map(
-                                                  (m) async => await uploadData(
-                                                      m.storagePath, m.bytes),
-                                                ),
-                                              ))
-                                                  .where((u) => u != null)
-                                                  .map((u) => u!)
-                                                  .toList();
                                             } finally {
                                               _model.isDataUploading = false;
                                             }
                                             if (selectedUploadedFiles.length ==
-                                                    selectedMedia.length &&
-                                                downloadUrls.length ==
-                                                    selectedMedia.length) {
+                                                selectedMedia.length) {
                                               setState(() {
                                                 _model.uploadedLocalFile =
                                                     selectedUploadedFiles.first;
-                                                _model.uploadedFileUrl =
-                                                    downloadUrls.first;
                                               });
                                             } else {
                                               setState(() {});
@@ -362,16 +454,53 @@ class _WaterPaymentSettingPageWidgetState
                                             }
                                           }
 
-                                          if (_model.uploadedFileUrl != null &&
-                                              _model.uploadedFileUrl != '') {
-                                            _model.imageWaterPaymentList = [];
-                                            setState(() {});
-                                            _model.addToImageWaterPaymentList(
-                                                _model.uploadedFileUrl);
-                                            setState(() {});
+                                          if (_model.uploadedLocalFile !=
+                                                  null &&
+                                              (_model.uploadedLocalFile.bytes
+                                                      ?.isNotEmpty ??
+                                                  false)) {
+                                            _model.isValide =
+                                                await action_blocks
+                                                    .validateFileSizeAndExt(
+                                              context,
+                                              file: _model.uploadedLocalFile,
+                                              size:
+                                                  FFAppConstants.imageSizeLimit,
+                                              allowList: FFAppConstants
+                                                  .imageExtAllowList,
+                                            );
+                                            if (_model.isValide!) {
+                                              _model.tmpImageWaterPaymentList =
+                                                  [];
+                                              _model
+                                                  .addToTmpImageWaterPaymentList(
+                                                      _model.uploadedLocalFile);
+                                              _model.urlList = await actions
+                                                  .uploadImageToFirebase(
+                                                _model.tmpImageWaterPaymentList
+                                                    .toList(),
+                                                'water_payment_detail/${FFAppState().projectData.projectDocID}',
+                                              );
+                                              _model.imageWaterPaymentList =
+                                                  _model.urlList!
+                                                      .toList()
+                                                      .cast<String>();
+                                              setState(() {});
+                                            } else {
+                                              setState(() {
+                                                _model.isDataUploading = false;
+                                                _model.uploadedLocalFile =
+                                                    FFUploadedFile(
+                                                        bytes:
+                                                            Uint8List.fromList(
+                                                                []));
+                                              });
+                                            }
                                           }
+
+                                          setState(() {});
                                         },
-                                        text: 'อัพโหลดรูปภาพ',
+                                        text: 'รูปภาพข้อมูลการโอนเงิน',
                                         icon: Icon(
                                           Icons.upload_rounded,
                                           size: 15.0,
