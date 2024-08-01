@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -104,7 +105,11 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(64.0),
+                            padding: EdgeInsets.all(valueOrDefault<double>(
+                              functions
+                                  .getPadding(MediaQuery.sizeOf(context).width),
+                              0.0,
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -143,6 +148,8 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
                                       padding: EdgeInsets.all(16.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           BarcodeWidget(
                                             data: FFAppState()
