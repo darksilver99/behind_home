@@ -336,7 +336,6 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                           () => _model.isUpdate = value));
 
                                       if (_model.isUpdate != null) {
-                                        _model.paymentList = [];
                                         _model.isLoading = true;
                                         setState(() {});
 
@@ -376,6 +375,8 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                                   .orderBy('create_date',
                                                       descending: true),
                                         );
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000));
                                         _model.paymentList = _model
                                             .paymetListResult2!
                                             .toList()
