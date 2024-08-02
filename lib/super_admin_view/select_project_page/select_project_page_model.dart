@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/super_admin_view/project_detail_view/project_detail_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'select_project_page_widget.dart' show SelectProjectPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,6 +43,10 @@ class SelectProjectPageModel extends FlutterFlowModel<SelectProjectPageWidget> {
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<ProjectListRecord>();
+  // Stores action output result for [Bottom Sheet - ProjectDetailView] action in Column widget.
+  String? isUpdate;
+  // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
+  List<ProjectListRecord>? projectListResult2;
 
   @override
   void initState(BuildContext context) {}
