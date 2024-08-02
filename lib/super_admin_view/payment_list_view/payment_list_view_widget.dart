@@ -360,7 +360,7 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                             .toList()
                                             .cast<PaymentListRecord>();
                                         _model.isLoading = false;
-                                        setState(() {});
+                                        _model.updatePage(() {});
                                       }
 
                                       setState(() {});
