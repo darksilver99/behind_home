@@ -603,7 +603,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                           context)
                                                                       .unfocus(),
                                                               child:
-                                                                  EditTextViewWidget(),
+                                                                  EditTextViewWidget(
+                                                                title: '',
+                                                                hint: 'แก้ไขคำ',
+                                                              ),
                                                             ),
                                                           );
                                                         },
@@ -747,7 +750,9 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                           context)
                                                                       .unfocus(),
                                                               child:
-                                                                  EditTextViewWidget(),
+                                                                  EditTextViewWidget(
+                                                                hint: 'แก้ไขคำ',
+                                                              ),
                                                             ),
                                                           );
                                                         },

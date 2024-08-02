@@ -269,3 +269,25 @@ double getPadding(double screenSize) {
     return 64.0;
   }
 }
+
+DateTime getNextDay(
+  int nextDay,
+  DateTime date,
+) {
+  DateTime nextDate = date.add(Duration(days: nextDay));
+  return nextDate;
+}
+
+int? convertToIntIfNumeric(String value) {
+  if (value.isNotEmpty &&
+      value.runes.every((int rune) {
+        var character = String.fromCharCode(rune);
+        return character.contains(RegExp(r'[0-9]'));
+      })) {
+    // Convert to int
+    return int.parse(value);
+  } else {
+    // Return null if the string is not numeric
+    return null;
+  }
+}

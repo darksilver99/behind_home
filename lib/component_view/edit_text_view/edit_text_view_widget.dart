@@ -8,7 +8,14 @@ import 'edit_text_view_model.dart';
 export 'edit_text_view_model.dart';
 
 class EditTextViewWidget extends StatefulWidget {
-  const EditTextViewWidget({super.key});
+  const EditTextViewWidget({
+    super.key,
+    this.title,
+    required this.hint,
+  });
+
+  final String? title;
+  final String? hint;
 
   @override
   State<EditTextViewWidget> createState() => _EditTextViewWidgetState();
@@ -91,7 +98,7 @@ class _EditTextViewWidgetState extends State<EditTextViewWidget> {
                       autofocus: false,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'แก้ไขคำ',
+                        labelText: widget!.hint,
                         labelStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Manrope',

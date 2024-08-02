@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/component_view/edit_text_view/edit_text_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -9,6 +10,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProjectDetailViewModel extends FlutterFlowModel<ProjectDetailViewWidget> {
+  ///  Local state fields for this component.
+
+  DateTime? nextDate;
+
+  int? nextDay;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
@@ -23,6 +30,9 @@ class ProjectDetailViewModel extends FlutterFlowModel<ProjectDetailViewWidget> {
 
     return null;
   }
+
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.
+  String? textValue;
 
   @override
   void initState(BuildContext context) {
