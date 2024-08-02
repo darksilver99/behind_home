@@ -37,51 +37,50 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      Function() _navigate = () {};
-      _model.projectResult = await queryProjectListRecordOnce(
-        queryBuilder: (projectListRecord) => projectListRecord.where(
-          'create_by',
-          isEqualTo: currentUserReference,
-        ),
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
-      if (_model.projectResult?.reference != null) {
-        await action_blocks.createProjectData(
-          context,
-          projectResult: _model.projectResult,
-        );
-        await action_blocks.checkExpireDate(context);
-        await action_blocks.getConfigData(context);
-        _model.parkChartDataList = await actions.getParkChartDataList();
-        _model.parkChartValueList = await actions.getParkChartValueList();
-        _model.isLoading = false;
-        _model.dateList = _model.parkChartDataList!.toList().cast<String>();
-        _model.valueList = _model.parkChartValueList!.toList().cast<int>();
-        setState(() {});
+      if (valueOrDefault(currentUserDocument?.type, '') == 'superadmin') {
+        context.goNamedAuth('SelectProjectPage', context.mounted);
       } else {
-        await showDialog(
-          context: context,
-          builder: (alertDialogContext) {
-            return AlertDialog(
-              title: Text('ขออภัย ยังไม่มีโครงการ'),
-              content: Text('กรุณาสร้างโครงการผ่านแอปก่อน'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('ตกลง'),
-                ),
-              ],
-            );
-          },
-        );
-        GoRouter.of(context).prepareAuthEvent();
-        await authManager.signOut();
-        GoRouter.of(context).clearRedirectLocation();
-
-        _navigate = () => context.goNamedAuth('LoginPage', context.mounted);
+        _model.projectResult = await queryProjectListRecordOnce(
+          queryBuilder: (projectListRecord) => projectListRecord.where(
+            'create_by',
+            isEqualTo: currentUserReference,
+          ),
+          singleRecord: true,
+        ).then((s) => s.firstOrNull);
+        if (_model.projectResult?.reference != null) {
+          await action_blocks.createProjectData(
+            context,
+            projectResult: _model.projectResult,
+          );
+          await action_blocks.checkExpireDate(context);
+          await action_blocks.getConfigData(context);
+          _model.parkChartDataList = await actions.getParkChartDataList();
+          _model.parkChartValueList = await actions.getParkChartValueList();
+          _model.isLoading = false;
+          _model.dateList = _model.parkChartDataList!.toList().cast<String>();
+          _model.valueList = _model.parkChartValueList!.toList().cast<int>();
+          setState(() {});
+        } else {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text('ขออภัย ยังไม่มีโครงการ'),
+                content: Text('กรุณาสร้างโครงการผ่านแอปก่อน'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: Text('ตกลง'),
+                  ),
+                ],
+              );
+            },
+          );
+          GoRouter.of(context).prepareAuthEvent();
+          await authManager.signOut();
+          GoRouter.of(context).clearRedirectLocation();
+        }
       }
-
-      _navigate();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

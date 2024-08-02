@@ -29,3 +29,7 @@ export '/phone_project_view/phone_project_page/phone_project_page_widget.dart'
     show PhoneProjectPageWidget;
 export '/general_view/q_r_code_project_page/q_r_code_project_page_widget.dart'
     show QRCodeProjectPageWidget;
+export '/super_admin_view/resident_service_view/resident_service_page/resident_service_page_widget.dart'
+    show ResidentServicePageWidget;
+export '/super_admin_view/select_project_page/select_project_page_widget.dart'
+    show SelectProjectPageWidget;
