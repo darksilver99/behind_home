@@ -336,32 +336,12 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                           () => _model.isUpdate = value));
 
                                       if (_model.isUpdate != null) {
-                                        _model.isLoading = true;
-                                        setState(() {});
-
                                         await paymentListViewItem.reference
                                             .update(createPaymentListRecordData(
                                           status: _model.isUpdate,
                                           updateDate: getCurrentTimestamp,
                                           updateBy: currentUserReference,
                                         ));
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                  'เปลี่ยนสถานะเรียบร้อยแล้ว'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('ตกลง'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
                                         _model.paymetListResult2 =
                                             await queryPaymentListRecordOnce(
                                           queryBuilder: (paymentListRecord) =>
@@ -375,8 +355,6 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                                   .orderBy('create_date',
                                                       descending: true),
                                         );
-                                        await Future.delayed(
-                                            const Duration(milliseconds: 1000));
                                         _model.paymentList = _model
                                             .paymetListResult2!
                                             .toList()
