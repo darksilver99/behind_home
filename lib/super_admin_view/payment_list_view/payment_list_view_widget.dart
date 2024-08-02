@@ -345,6 +345,23 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                           updateDate: getCurrentTimestamp,
                                           updateBy: currentUserReference,
                                         ));
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  'อัพเดทสถานะเรียบร้อยแล้ว'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('ตกลง'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                         Navigator.pop(context);
                                       }
 
