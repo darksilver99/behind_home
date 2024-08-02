@@ -1,9 +1,11 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component_view/edit_text_view/edit_text_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -303,7 +305,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'วันหมดอายุ : ${functions.dateTh(widget!.dataDocument!.expireDate!)} เหลืออีก ${functions.getTimeDuration(getCurrentTimestamp, widget!.dataDocument!.expireDate!)}',
+                                                'วันหมดอายุ : ${functions.dateTh(widget!.dataDocument!.expireDate!)} เหลืออีก ${functions.getTimeDurationOnlyDay(getCurrentTimestamp, widget!.dataDocument!.expireDate!)}',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -461,6 +463,33 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                               !_model.formKey.currentState!
                                                   .validate()) {
                                             return;
+                                          }
+                                          if (_model.nextDate != null) {
+                                            await widget!
+                                                .dataDocument!.reference
+                                                .update(
+                                                    createProjectListRecordData(
+                                              expireDate: _model.nextDate,
+                                            ));
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'ต่ออายุให้โครงการ ${widget!.dataDocument?.name} เรียบร้อยแล้ว'),
+                                                  content: Text(
+                                                      'จำนวน ${_model.nextDay?.toString()} วัน'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('ตกลง'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
                                           Navigator.pop(context, 'update');
                                         },

@@ -254,6 +254,28 @@ bool checkFileAllow(
   return allowList.contains(extension);
 }
 
+String getTimeDurationOnlyDay(
+  DateTime dateIn,
+  DateTime dateOut,
+) {
+  // Calculate the duration between the two dates
+  Duration duration = dateOut.difference(dateIn);
+
+  // Calculate the days, hours, minutes, and seconds
+  int days = duration.inDays;
+  int hours = duration.inHours.remainder(24);
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+
+  // Construct the formatted string based on the duration
+  StringBuffer result = StringBuffer();
+
+  if (days > 0) {
+    result.write('$days วัน ');
+  }
+  return result.toString().trim(); // Trim any trailing spaces
+}
+
 double bytesToMB(int bytes) {
   return bytes / (1024 * 1024);
 }
