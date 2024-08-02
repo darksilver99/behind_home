@@ -7,9 +7,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/super_admin_view/payment_list_view/payment_list_view_widget.dart';
 import '/super_admin_view/project_detail_view/project_detail_view_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,6 +46,8 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
       _model.projectList =
           _model.projectListResult!.toList().cast<ProjectListRecord>();
       _model.isLoading = false;
+      _model.tmpProjectList =
+          _model.projectListResult!.toList().cast<ProjectListRecord>();
       setState(() {});
     });
 
@@ -155,72 +159,135 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                           verticalDirection: VerticalDirection.down,
                           clipBehavior: Clip.none,
                           children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 8.0, 0.0),
-                              child: Container(
-                                width: 300.0,
-                                child: TextFormField(
-                                  controller: _model.textController,
-                                  focusNode: _model.textFieldFocusNode,
-                                  autofocus: true,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    hintText: 'พิมพ์ค้นหา เช่น ชื่อโครงการ',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                            Container(
+                              width: 300.0,
+                              child: TextFormField(
+                                controller: _model.textController,
+                                focusNode: _model.textFieldFocusNode,
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  '_model.textController',
+                                  Duration(milliseconds: 300),
+                                  () async {
+                                    if (_model.textController.text != null &&
+                                        _model.textController.text != '') {
+                                      _model.projectListResult3 =
+                                          await actions.filterProjectList(
+                                        _model.textController.text,
+                                        _model.projectList.toList(),
+                                      );
+                                      _model.projectList = _model
+                                          .projectListResult3!
+                                          .toList()
+                                          .cast<ProjectListRecord>();
+                                      setState(() {});
+                                    } else {
+                                      _model.projectList = _model.tmpProjectList
+                                          .toList()
+                                          .cast<ProjectListRecord>();
+                                      setState(() {});
+                                    }
+
+                                    setState(() {});
+                                  },
+                                ),
+                                autofocus: false,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'ระบุคำค้นหา ชื่อโครงการ',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
                                       .override(
                                         fontFamily: 'Manrope',
                                         letterSpacing: 0.0,
                                       ),
-                                  validator: _model.textControllerValidator
-                                      .asValidator(context),
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Manrope',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(24.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(24.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(24.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(24.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context).info,
+                                  prefixIcon: Icon(
+                                    Icons.search_rounded,
+                                    size: 24.0,
+                                  ),
+                                  suffixIcon: _model
+                                          .textController!.text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () async {
+                                            _model.textController?.clear();
+                                            if (_model.textController.text !=
+                                                    null &&
+                                                _model.textController.text !=
+                                                    '') {
+                                              _model.projectListResult3 =
+                                                  await actions
+                                                      .filterProjectList(
+                                                _model.textController.text,
+                                                _model.projectList.toList(),
+                                              );
+                                              _model.projectList = _model
+                                                  .projectListResult3!
+                                                  .toList()
+                                                  .cast<ProjectListRecord>();
+                                              setState(() {});
+                                            } else {
+                                              _model.projectList = _model
+                                                  .tmpProjectList
+                                                  .toList()
+                                                  .cast<ProjectListRecord>();
+                                              setState(() {});
+                                            }
+
+                                            setState(() {});
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.clear,
+                                            size: 24.0,
+                                          ),
+                                        )
+                                      : null,
                                 ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      letterSpacing: 0.0,
+                                    ),
+                                validator: _model.textControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ],
@@ -459,6 +526,10 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                             .toList()
                                             .cast<ProjectListRecord>();
                                         _model.isLoading = false;
+                                        _model.tmpProjectList = _model
+                                            .projectListResult2!
+                                            .toList()
+                                            .cast<ProjectListRecord>();
                                         setState(() {});
                                       }
 
@@ -476,7 +547,7 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                           size: 24.0,
                                         ),
                                         Text(
-                                          'ดูข้อมูล',
+                                          'ดูข้อมูล/ต่ออายุ',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -488,28 +559,6 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                       ],
                                     ),
                                   ),
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.login_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                    Text(
-                                      'เข้าสู่ระบบ',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            fontSize: 8.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),
