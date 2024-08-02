@@ -410,6 +410,7 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                         selectable: false,
                         hidePaginator: false,
                         showFirstLastButtons: false,
+                        minWidth: 800.0,
                         headingRowHeight: 56.0,
                         dataRowHeight: 48.0,
                         columnSpacing: 20.0,
