@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/super_admin_view/project_detail_view/project_detail_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -78,7 +80,54 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: [
+            FlutterFlowIconButton(
+              borderWidth: 1.0,
+              buttonSize: 40.0,
+              fillColor: Color(0x00FFFFFF),
+              icon: Icon(
+                Icons.logout_rounded,
+                color: FlutterFlowTheme.of(context).info,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                Function() _navigate = () {};
+                var confirmDialogResponse = await showDialog<bool>(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: Text('ออกจากระบบ?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, false),
+                              child: Text('ยกเลิก'),
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, true),
+                              child: Text('ยืนยัน'),
+                            ),
+                          ],
+                        );
+                      },
+                    ) ??
+                    false;
+                if (confirmDialogResponse) {
+                  GoRouter.of(context).prepareAuthEvent();
+                  await authManager.signOut();
+                  GoRouter.of(context).clearRedirectLocation();
+
+                  _navigate =
+                      () => context.goNamedAuth('LoginPage', context.mounted);
+                } else {
+                  setState(() {});
+                }
+
+                _navigate();
+              },
+            ),
+          ],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -301,27 +350,83 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 8.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.remove_red_eye_sharp,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                      Text(
-                                        'จัดการข้อมูล',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              fontSize: 8.0,
-                                              letterSpacing: 0.0,
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: ProjectDetailViewWidget(
+                                                dataDocument:
+                                                    projectListViewItem,
+                                                title: 'รายละเอียด',
+                                              ),
                                             ),
-                                      ),
-                                    ],
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(
+                                          () => _model.isUpdate = value));
+
+                                      if ((_model.isUpdate != null &&
+                                              _model.isUpdate != '') &&
+                                          (_model.isUpdate == 'update')) {
+                                        _model.projectListResult2 =
+                                            await queryProjectListRecordOnce(
+                                          queryBuilder: (projectListRecord) =>
+                                              projectListRecord.orderBy(
+                                                  'create_date',
+                                                  descending: true),
+                                        );
+                                        _model.projectList = _model
+                                            .projectListResult2!
+                                            .toList()
+                                            .cast<ProjectListRecord>();
+                                        _model.isLoading = false;
+                                        setState(() {});
+                                      }
+
+                                      setState(() {});
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.remove_red_eye_sharp,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                        Text(
+                                          'จัดการข้อมูล',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 8.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Column(
