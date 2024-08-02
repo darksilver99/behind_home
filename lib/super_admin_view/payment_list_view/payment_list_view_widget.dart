@@ -329,7 +329,10 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                                 .resolve(
                                                     Directionality.of(context)),
                                             child:
-                                                DropDownPaymentStatusViewWidget(),
+                                                DropDownPaymentStatusViewWidget(
+                                              currentStatus:
+                                                  paymentListViewItem.status,
+                                            ),
                                           );
                                         },
                                       ).then((value) => safeSetState(
@@ -342,25 +345,7 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                           updateDate: getCurrentTimestamp,
                                           updateBy: currentUserReference,
                                         ));
-                                        _model.paymetListResult2 =
-                                            await queryPaymentListRecordOnce(
-                                          queryBuilder: (paymentListRecord) =>
-                                              paymentListRecord
-                                                  .where(
-                                                    'create_project_ref',
-                                                    isEqualTo: widget!
-                                                        .dataDocument
-                                                        ?.reference,
-                                                  )
-                                                  .orderBy('create_date',
-                                                      descending: true),
-                                        );
-                                        _model.paymentList = _model
-                                            .paymetListResult2!
-                                            .toList()
-                                            .cast<PaymentListRecord>();
-                                        _model.isLoading = false;
-                                        _model.updatePage(() {});
+                                        Navigator.pop(context);
                                       }
 
                                       setState(() {});

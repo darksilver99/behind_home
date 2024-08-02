@@ -10,7 +10,12 @@ import 'drop_down_payment_status_view_model.dart';
 export 'drop_down_payment_status_view_model.dart';
 
 class DropDownPaymentStatusViewWidget extends StatefulWidget {
-  const DropDownPaymentStatusViewWidget({super.key});
+  const DropDownPaymentStatusViewWidget({
+    super.key,
+    required this.currentStatus,
+  });
+
+  final int? currentStatus;
 
   @override
   State<DropDownPaymentStatusViewWidget> createState() =>
@@ -91,7 +96,7 @@ class _DropDownPaymentStatusViewWidgetState
                     child: FlutterFlowDropDown<int>(
                       controller: _model.dropDownValueController ??=
                           FormFieldController<int>(
-                        _model.dropDownValue ??= 0,
+                        _model.dropDownValue ??= widget!.currentStatus,
                       ),
                       options: List<int>.from(FFAppState()
                           .paymentStatusList

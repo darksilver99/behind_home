@@ -39,8 +39,6 @@ class PaymentListViewModel extends FlutterFlowModel<PaymentListViewWidget> {
       FlutterFlowDataTableController<PaymentListRecord>();
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Text widget.
   int? isUpdate;
-  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
-  List<PaymentListRecord>? paymetListResult2;
 
   @override
   void initState(BuildContext context) {}
