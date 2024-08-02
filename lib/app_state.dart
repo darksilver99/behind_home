@@ -273,6 +273,46 @@ class FFAppState extends ChangeNotifier {
       int index, DataStatusStruct value) {
     waterPaymentStatusList.insert(index, value);
   }
+
+  List<DataStatusStruct> _paymentStatusList = [
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"รอตรวจสอบ\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"ชำระเงินเรียบร้อยแล้ว\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"3\",\"subject\":\"ตรวจสอบไม่ได้\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"4\",\"subject\":\"คืนเงินแล้ว\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"5\",\"subject\":\"ยังโอนไม่ครบ\"}'))
+  ];
+  List<DataStatusStruct> get paymentStatusList => _paymentStatusList;
+  set paymentStatusList(List<DataStatusStruct> value) {
+    _paymentStatusList = value;
+  }
+
+  void addToPaymentStatusList(DataStatusStruct value) {
+    paymentStatusList.add(value);
+  }
+
+  void removeFromPaymentStatusList(DataStatusStruct value) {
+    paymentStatusList.remove(value);
+  }
+
+  void removeAtIndexFromPaymentStatusList(int index) {
+    paymentStatusList.removeAt(index);
+  }
+
+  void updatePaymentStatusListAtIndex(
+    int index,
+    DataStatusStruct Function(DataStatusStruct) updateFn,
+  ) {
+    paymentStatusList[index] = updateFn(_paymentStatusList[index]);
+  }
+
+  void insertAtIndexInPaymentStatusList(int index, DataStatusStruct value) {
+    paymentStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

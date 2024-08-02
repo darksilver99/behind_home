@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/super_admin_view/payment_list_view/payment_list_view_widget.dart';
 import '/super_admin_view/project_detail_view/project_detail_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -289,6 +290,22 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
+                                'ตรวจสอบรายการโอนเงิน',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      color: FlutterFlowTheme.of(context).info,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          DataColumn2(
+                            label: DefaultTextStyle.merge(
+                              softWrap: true,
+                              child: Text(
                                 'จัดการข้อมูล',
                                 style: FlutterFlowTheme.of(context)
                                     .labelLarge
@@ -343,6 +360,49 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                     fontFamily: 'Manrope',
                                     letterSpacing: 0.0,
                                   ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () => _model
+                                              .unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: PaymentListViewWidget(
+                                          dataDocument: projectListViewItem,
+                                          title:
+                                              'รายการโอนเงินของ ${projectListViewItem.name}',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
+                              },
+                              child: Text(
+                                'ตรวจสอบ',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      color: FlutterFlowTheme.of(context).link,
+                                      letterSpacing: 0.0,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                              ),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -416,7 +476,7 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                           size: 24.0,
                                         ),
                                         Text(
-                                          'จัดการข้อมูล',
+                                          'ดูข้อมูล',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

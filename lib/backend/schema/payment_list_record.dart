@@ -56,6 +56,16 @@ class PaymentListRecord extends FirestoreRecord {
   String get payFrom => _payFrom ?? '';
   bool hasPayFrom() => _payFrom != null;
 
+  // "update_date" field.
+  DateTime? _updateDate;
+  DateTime? get updateDate => _updateDate;
+  bool hasUpdateDate() => _updateDate != null;
+
+  // "update_by" field.
+  DocumentReference? _updateBy;
+  DocumentReference? get updateBy => _updateBy;
+  bool hasUpdateBy() => _updateBy != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -66,6 +76,8 @@ class PaymentListRecord extends FirestoreRecord {
     _price = castToType<double>(snapshotData['price']);
     _slipImage = snapshotData['slip_image'] as String?;
     _payFrom = snapshotData['pay_from'] as String?;
+    _updateDate = snapshotData['update_date'] as DateTime?;
+    _updateBy = snapshotData['update_by'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -111,6 +123,8 @@ Map<String, dynamic> createPaymentListRecordData({
   double? price,
   String? slipImage,
   String? payFrom,
+  DateTime? updateDate,
+  DocumentReference? updateBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -122,6 +136,8 @@ Map<String, dynamic> createPaymentListRecordData({
       'price': price,
       'slip_image': slipImage,
       'pay_from': payFrom,
+      'update_date': updateDate,
+      'update_by': updateBy,
     }.withoutNulls,
   );
 
@@ -140,7 +156,9 @@ class PaymentListRecordDocumentEquality implements Equality<PaymentListRecord> {
         e1?.status == e2?.status &&
         e1?.price == e2?.price &&
         e1?.slipImage == e2?.slipImage &&
-        e1?.payFrom == e2?.payFrom;
+        e1?.payFrom == e2?.payFrom &&
+        e1?.updateDate == e2?.updateDate &&
+        e1?.updateBy == e2?.updateBy;
   }
 
   @override
@@ -152,7 +170,9 @@ class PaymentListRecordDocumentEquality implements Equality<PaymentListRecord> {
         e?.status,
         e?.price,
         e?.slipImage,
-        e?.payFrom
+        e?.payFrom,
+        e?.updateDate,
+        e?.updateBy
       ]);
 
   @override

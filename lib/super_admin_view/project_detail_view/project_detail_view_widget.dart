@@ -248,7 +248,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
+                                      0.0, 0.0, 0.0, 8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -267,14 +267,14 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                     ],
                                   ),
                                 ),
-                                Builder(
-                                  builder: (context) {
-                                    if (getCurrentTimestamp >=
-                                        widget!.dataDocument!.expireDate!) {
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 4.0),
-                                        child: Row(
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      if (getCurrentTimestamp >=
+                                          widget!.dataDocument!.expireDate!) {
+                                        return Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
@@ -294,13 +294,9 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                               ),
                                             ),
                                           ],
-                                        ),
-                                      );
-                                    } else {
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 4.0),
-                                        child: Row(
+                                        );
+                                      } else {
+                                        return Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
@@ -317,21 +313,21 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                               ),
                                             ),
                                           ],
-                                        ),
-                                      );
-                                    }
-                                  },
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ),
                                 if (_model.nextDate != null)
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 4.0),
+                                        0.0, 0.0, 0.0, 8.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'วันหมดครั้งต่อไป : ${functions.dateTimeTh(_model.nextDate)}',
+                                            'วันหมดครั้งต่อไป : ${functions.dateTh(_model.nextDate!)}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -430,7 +426,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .tertiary,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
