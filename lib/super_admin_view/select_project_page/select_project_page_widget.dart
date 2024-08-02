@@ -173,7 +173,7 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                       _model.projectListResult3 =
                                           await actions.filterProjectList(
                                         _model.textController.text,
-                                        _model.projectList.toList(),
+                                        _model.tmpProjectList.toList(),
                                       );
                                       _model.projectList = _model
                                           .projectListResult3!
@@ -255,7 +255,7 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                                   await actions
                                                       .filterProjectList(
                                                 _model.textController.text,
-                                                _model.projectList.toList(),
+                                                _model.tmpProjectList.toList(),
                                               );
                                               _model.projectList = _model
                                                   .projectListResult3!
