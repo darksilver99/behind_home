@@ -1,11 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'select_project_page_widget.dart' show SelectProjectPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,15 +16,17 @@ import 'package:provider/provider.dart';
 class SelectProjectPageModel extends FlutterFlowModel<SelectProjectPageWidget> {
   ///  Local state fields for this page.
 
-  List<ProjectListDataStruct> projectList = [];
-  void addToProjectList(ProjectListDataStruct item) => projectList.add(item);
-  void removeFromProjectList(ProjectListDataStruct item) =>
+  bool isLoading = true;
+
+  List<ProjectListRecord> projectList = [];
+  void addToProjectList(ProjectListRecord item) => projectList.add(item);
+  void removeFromProjectList(ProjectListRecord item) =>
       projectList.remove(item);
   void removeAtIndexFromProjectList(int index) => projectList.removeAt(index);
-  void insertAtIndexInProjectList(int index, ProjectListDataStruct item) =>
+  void insertAtIndexInProjectList(int index, ProjectListRecord item) =>
       projectList.insert(index, item);
   void updateProjectListAtIndex(
-          int index, Function(ProjectListDataStruct) updateFn) =>
+          int index, Function(ProjectListRecord) updateFn) =>
       projectList[index] = updateFn(projectList[index]);
 
   ///  State fields for stateful widgets in this page.
@@ -34,9 +34,13 @@ class SelectProjectPageModel extends FlutterFlowModel<SelectProjectPageWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in SelectProjectPage widget.
   List<ProjectListRecord>? projectListResult;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for PaginatedDataTable widget.
+  final paginatedDataTableController =
+      FlutterFlowDataTableController<ProjectListRecord>();
 
   @override
   void initState(BuildContext context) {}
@@ -44,5 +48,7 @@ class SelectProjectPageModel extends FlutterFlowModel<SelectProjectPageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
   }
 }
