@@ -262,6 +262,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'ResidentServicePage',
+          path: '/residentServicePage',
+          requireAuth: true,
+          builder: (context, params) => ResidentServicePageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'SelectProjectPage',
+          path: '/selectProjectPage',
+          requireAuth: true,
+          builder: (context, params) => SelectProjectPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

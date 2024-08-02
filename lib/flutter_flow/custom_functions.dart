@@ -269,3 +269,8 @@ double getPadding(double screenSize) {
     return 64.0;
   }
 }
+
+List<ProjectListDataStruct> covertToProjectListData(
+    List<ProjectListRecord> projectList) {
+  return [];
+}
