@@ -381,16 +381,19 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                                     widget!.dataDocument!
                                                         .expireDate!) {
                                                   _model.nextDate =
-                                                      functions.getNextDay(
-                                                          _model.nextDay!,
-                                                          getCurrentTimestamp);
+                                                      functions.getEndDayTime(
+                                                          functions.getNextDay(
+                                                              _model.nextDay!,
+                                                              getCurrentTimestamp));
                                                   setState(() {});
                                                 } else {
                                                   _model.nextDate =
-                                                      functions.getNextDay(
-                                                          _model.nextDay!,
-                                                          widget!.dataDocument!
-                                                              .expireDate!);
+                                                      functions.getEndDayTime(
+                                                          functions.getNextDay(
+                                                              _model.nextDay!,
+                                                              widget!
+                                                                  .dataDocument!
+                                                                  .expireDate!));
                                                   setState(() {});
                                                 }
                                               } else {
