@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/component_view/edit_text_view/edit_text_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -173,6 +172,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                           controller: _model.textController,
                                           focusNode: _model.textFieldFocusNode,
                                           autofocus: false,
+                                          readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
@@ -231,6 +231,10 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                             ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -300,16 +304,21 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
-                                              child: Text(
-                                                'วันหมดอายุ : ${functions.dateTh(widget!.dataDocument!.expireDate!)} เหลืออีก ${functions.getTimeDurationOnlyDay(getCurrentTimestamp, widget!.dataDocument!.expireDate!)}',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: Text(
+                                                  'วันหมดอายุ : ${functions.dateTh(widget!.dataDocument!.expireDate!)} เหลืออีก ${functions.getTimeDurationOnlyDay(getCurrentTimestamp, widget!.dataDocument!.expireDate!)}',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -346,106 +355,36 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Builder(
-                                        builder: (context) => FFButtonWidget(
-                                          onPressed: () async {
-                                            await showDialog(
-                                              context: context,
-                                              builder: (dialogContext) {
-                                                return Dialog(
-                                                  elevation: 0,
-                                                  insetPadding: EdgeInsets.zero,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  child: EditTextViewWidget(
-                                                    hint: 'จำนวนวัน',
+                                      FFButtonWidget(
+                                        onPressed: () {
+                                          print('Button pressed ...');
+                                        },
+                                        text: 'เพิ่มวัน',
+                                        options: FFButtonOptions(
+                                          height: 25.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color:
+                                              FlutterFlowTheme.of(context).link,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
                                                   ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.textValue = value));
-
-                                            if (_model.textValue != null &&
-                                                _model.textValue != '') {
-                                              _model.nextDay = functions
-                                                  .convertToIntIfNumeric(
-                                                      _model.textValue!);
-                                              if (_model.nextDay != null) {
-                                                if (getCurrentTimestamp >=
-                                                    widget!.dataDocument!
-                                                        .expireDate!) {
-                                                  _model.nextDate =
-                                                      functions.getEndDayTime(
-                                                          functions.getNextDay(
-                                                              _model.nextDay!,
-                                                              getCurrentTimestamp));
-                                                  setState(() {});
-                                                } else {
-                                                  _model.nextDate =
-                                                      functions.getEndDayTime(
-                                                          functions.getNextDay(
-                                                              _model.nextDay!,
-                                                              widget!
-                                                                  .dataDocument!
-                                                                  .expireDate!));
-                                                  setState(() {});
-                                                }
-                                              } else {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text('กรอกตัวเลข'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('ตกลง'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              }
-                                            }
-
-                                            setState(() {});
-                                          },
-                                          text: 'เพิ่มวัน',
-                                          options: FFButtonOptions(
-                                            height: 25.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
+                                          elevation: 3.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
                                           ),
+                                          borderRadius:
+                                              BorderRadius.circular(0.0),
                                         ),
                                       ),
                                     ],
