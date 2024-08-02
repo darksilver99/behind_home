@@ -128,7 +128,7 @@ DateTime getStartDayTime(DateTime date) {
 }
 
 DateTime getEndDayTime(DateTime date) {
-  DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 0, 0);
+  DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59);
   return endOfDay;
 }
 
