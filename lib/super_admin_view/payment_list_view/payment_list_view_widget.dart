@@ -336,6 +336,10 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                           () => _model.isUpdate = value));
 
                                       if (_model.isUpdate != null) {
+                                        _model.paymentList = [];
+                                        _model.isLoading = true;
+                                        setState(() {});
+
                                         await paymentListViewItem.reference
                                             .update(createPaymentListRecordData(
                                           status: _model.isUpdate,
