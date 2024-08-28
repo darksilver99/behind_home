@@ -62,7 +62,6 @@ class DashboardPageModel extends FlutterFlowModel<DashboardPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     menuToggleViewModel.dispose();
     menuViewModel.dispose();
   }

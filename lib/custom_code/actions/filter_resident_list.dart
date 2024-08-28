@@ -15,9 +15,10 @@ Future<List<ResidentListRecord>> filterResidentList(
   List<ResidentListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<ResidentListRecord> residentSearchedList = dataList.where((doc) {
-    return doc.contactAddress.contains(keyword) ||
-        doc.residentName.contains(keyword);
+    return doc.contactAddress.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.residentName.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return residentSearchedList;
 }

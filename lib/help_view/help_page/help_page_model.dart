@@ -10,11 +10,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/water_payment_view/water_payment_detail_view/water_payment_detail_view_widget.dart';
+import '/help_view/help_detail_view/help_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'water_payment_page_widget.dart' show WaterPaymentPageWidget;
+import 'help_page_widget.dart' show HelpPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -23,32 +23,29 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class WaterPaymentPageModel extends FlutterFlowModel<WaterPaymentPageWidget> {
+class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
   ///  Local state fields for this page.
 
-  List<WaterPaymentListRecord> dataList = [];
-  void addToDataList(WaterPaymentListRecord item) => dataList.add(item);
-  void removeFromDataList(WaterPaymentListRecord item) => dataList.remove(item);
+  List<HelpListRecord> dataList = [];
+  void addToDataList(HelpListRecord item) => dataList.add(item);
+  void removeFromDataList(HelpListRecord item) => dataList.remove(item);
   void removeAtIndexFromDataList(int index) => dataList.removeAt(index);
-  void insertAtIndexInDataList(int index, WaterPaymentListRecord item) =>
+  void insertAtIndexInDataList(int index, HelpListRecord item) =>
       dataList.insert(index, item);
-  void updateDataListAtIndex(
-          int index, Function(WaterPaymentListRecord) updateFn) =>
+  void updateDataListAtIndex(int index, Function(HelpListRecord) updateFn) =>
       dataList[index] = updateFn(dataList[index]);
 
   DateTime? startDate;
 
   DateTime? endDate;
 
-  List<WaterPaymentListRecord> tmpDataList = [];
-  void addToTmpDataList(WaterPaymentListRecord item) => tmpDataList.add(item);
-  void removeFromTmpDataList(WaterPaymentListRecord item) =>
-      tmpDataList.remove(item);
+  List<HelpListRecord> tmpDataList = [];
+  void addToTmpDataList(HelpListRecord item) => tmpDataList.add(item);
+  void removeFromTmpDataList(HelpListRecord item) => tmpDataList.remove(item);
   void removeAtIndexFromTmpDataList(int index) => tmpDataList.removeAt(index);
-  void insertAtIndexInTmpDataList(int index, WaterPaymentListRecord item) =>
+  void insertAtIndexInTmpDataList(int index, HelpListRecord item) =>
       tmpDataList.insert(index, item);
-  void updateTmpDataListAtIndex(
-          int index, Function(WaterPaymentListRecord) updateFn) =>
+  void updateTmpDataListAtIndex(int index, Function(HelpListRecord) updateFn) =>
       tmpDataList[index] = updateFn(tmpDataList[index]);
 
   bool isLoading = true;
@@ -56,8 +53,8 @@ class WaterPaymentPageModel extends FlutterFlowModel<WaterPaymentPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Firestore Query - Query a collection] action in WaterPaymentPage widget.
-  List<WaterPaymentListRecord>? dataResult;
+  // Stores action output result for [Firestore Query - Query a collection] action in HelpPage widget.
+  List<HelpListRecord>? dataResult;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
@@ -65,22 +62,22 @@ class WaterPaymentPageModel extends FlutterFlowModel<WaterPaymentPageWidget> {
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  List<WaterPaymentListRecord>? dataResult2;
+  List<HelpListRecord>? dataResult2;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Custom Action - filterWaterPaymentList] action in TextField widget.
-  List<WaterPaymentListRecord>? dataResult3;
+  // Stores action output result for [Custom Action - filterHelpList] action in TextField widget.
+  List<HelpListRecord>? dataResult3;
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
-      FlutterFlowDataTableController<WaterPaymentListRecord>();
-  // Stores action output result for [Bottom Sheet - WaterPaymentDetailView] action in Column widget.
+      FlutterFlowDataTableController<HelpListRecord>();
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Column widget.
   String? isUpdate;
   // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
-  List<WaterPaymentListRecord>? dataResult4;
+  List<HelpListRecord>? dataResult4;
   // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
-  List<WaterPaymentListRecord>? dataResult6;
+  List<HelpListRecord>? dataResult6;
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for LoadingView component.

@@ -10,15 +10,16 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<StockListRecord>> filterStockList(
+Future<List<HelpListRecord>> filterHelpList(
   String keyword,
-  List<StockListRecord> dataList,
+  List<HelpListRecord> dataList,
 ) async {
   // Add your function code here!
   String lowerCaseKeyword = keyword.toLowerCase();
-  List<StockListRecord> stockSearchedList = dataList.where((doc) {
-    return doc.contactAddress.toLowerCase().contains(lowerCaseKeyword) ||
-        doc.stockNumber.toLowerCase().contains(lowerCaseKeyword);
+  List<HelpListRecord> helpSearchedList = dataList.where((doc) {
+    return doc.subject.contains(lowerCaseKeyword) ||
+        doc.detail.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.contactAddress.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
-  return stockSearchedList;
+  return helpSearchedList;
 }

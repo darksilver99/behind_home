@@ -15,10 +15,11 @@ Future<List<WaterPaymentListRecord>> filterWaterPaymentList(
   List<WaterPaymentListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<WaterPaymentListRecord> waterPaymentSearchedList = dataList.where((doc) {
-    return doc.contactAddress.contains(keyword) ||
-        doc.contactPhone.contains(keyword) ||
-        doc.contactName.contains(keyword);
+    return doc.contactAddress.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.contactPhone.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.contactName.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return waterPaymentSearchedList;
 }

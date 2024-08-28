@@ -31,3 +31,4 @@ export '/general_view/q_r_code_project_page/q_r_code_project_page_widget.dart'
     show QRCodeProjectPageWidget;
 export '/super_admin_view/select_project_page/select_project_page_widget.dart'
     show SelectProjectPageWidget;
+export '/help_view/help_page/help_page_widget.dart' show HelpPageWidget;

@@ -33,7 +33,6 @@ class OtpPageModel extends FlutterFlowModel<OtpPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     pinCodeController?.dispose();
   }
 }

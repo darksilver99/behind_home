@@ -90,9 +90,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -591,16 +589,9 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                         context)),
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
+                                                              onTap: () =>
+                                                                  FocusScope.of(
+                                                                          dialogContext)
                                                                       .unfocus(),
                                                               child:
                                                                   EditTextViewWidget(
@@ -738,16 +729,9 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                         context)),
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
+                                                              onTap: () =>
+                                                                  FocusScope.of(
+                                                                          dialogContext)
                                                                       .unfocus(),
                                                               child:
                                                                   EditTextViewWidget(

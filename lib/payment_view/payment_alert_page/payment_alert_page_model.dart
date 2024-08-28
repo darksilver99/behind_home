@@ -34,7 +34,6 @@ class PaymentAlertPageModel extends FlutterFlowModel<PaymentAlertPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     menuToggleViewModel.dispose();
     menuViewModel.dispose();
   }

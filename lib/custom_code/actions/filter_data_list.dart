@@ -15,15 +15,16 @@ Future<List<TransactionListRecord>> filterDataList(
   List<TransactionListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<TransactionListRecord> transactionSearchedList = dataList.where((doc) {
-    return doc.carRegistration.contains(keyword) ||
-        doc.carRegistrationProvince.contains(keyword) ||
-        doc.carType.contains(keyword) ||
-        doc.objective.contains(keyword) ||
-        doc.stamp.contains(keyword) ||
-        doc.transactionNumber.contains(keyword) ||
-        doc.firstName.contains(keyword) ||
-        doc.lastName.contains(keyword);
+    return doc.carRegistration.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.carRegistrationProvince.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.carType.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.objective.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.stamp.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.transactionNumber.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.firstName.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.lastName.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return transactionSearchedList;
 }

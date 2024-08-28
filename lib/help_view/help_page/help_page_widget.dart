@@ -10,7 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/park_view/park_detail_view/park_detail_view_widget.dart';
+import '/help_view/help_detail_view/help_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -21,11 +21,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'park_page_model.dart';
-export 'park_page_model.dart';
+import 'help_page_model.dart';
+export 'help_page_model.dart';
 
-class ParkPageWidget extends StatefulWidget {
-  const ParkPageWidget({
+class HelpPageWidget extends StatefulWidget {
+  const HelpPageWidget({
     super.key,
     required this.menuName,
   });
@@ -33,40 +33,38 @@ class ParkPageWidget extends StatefulWidget {
   final String? menuName;
 
   @override
-  State<ParkPageWidget> createState() => _ParkPageWidgetState();
+  State<HelpPageWidget> createState() => _HelpPageWidgetState();
 }
 
-class _ParkPageWidgetState extends State<ParkPageWidget> {
-  late ParkPageModel _model;
+class _HelpPageWidgetState extends State<HelpPageWidget> {
+  late HelpPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ParkPageModel());
+    _model = createModel(context, () => HelpPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await action_blocks.checkExpireDate(context);
       _model.startDate = functions.getStartDateOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getEndDateOfMonth(getCurrentTimestamp);
-      _model.dataResult = await queryTransactionListRecordOnce(
-        queryBuilder: (transactionListRecord) => transactionListRecord
+      _model.dataResult = await queryHelpListRecordOnce(
+        queryBuilder: (helpListRecord) => helpListRecord
             .where(
-              'date_in',
+              'create_date',
               isGreaterThanOrEqualTo: _model.startDate,
             )
             .where(
-              'date_in',
+              'create_date',
               isLessThanOrEqualTo: _model.endDate,
             )
-            .orderBy('date_in', descending: true),
+            .orderBy('create_date', descending: true),
       );
-      _model.dataList =
-          _model.dataResult!.toList().cast<TransactionListRecord>();
-      _model.tmpDataList =
-          _model.dataResult!.toList().cast<TransactionListRecord>();
+      _model.dataList = _model.dataResult!.toList().cast<HelpListRecord>();
+      _model.tmpDataList = _model.dataResult!.toList().cast<HelpListRecord>();
       _model.isLoading = false;
       setState(() {});
     });
@@ -86,6 +84,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -281,36 +281,35 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                               .thaiMonthList
                                                               .toList()));
                                               _model.dataResult2 =
-                                                  await queryTransactionListRecordOnce(
+                                                  await queryHelpListRecordOnce(
                                                 queryBuilder:
-                                                    (transactionListRecord) =>
-                                                        transactionListRecord
+                                                    (helpListRecord) =>
+                                                        helpListRecord
                                                             .where(
-                                                              'date_in',
+                                                              'create_date',
                                                               isGreaterThanOrEqualTo:
                                                                   _model
                                                                       .startDate,
                                                             )
                                                             .where(
-                                                              'date_in',
+                                                              'create_date',
                                                               isLessThanOrEqualTo:
                                                                   _model
                                                                       .endDate,
                                                             )
-                                                            .orderBy('date_in',
+                                                            .orderBy(
+                                                                'create_date',
                                                                 descending:
                                                                     true),
                                               );
                                               _model.dataList = _model
                                                   .dataResult2!
                                                   .toList()
-                                                  .cast<
-                                                      TransactionListRecord>();
+                                                  .cast<HelpListRecord>();
                                               _model.tmpDataList = _model
                                                   .dataResult2!
                                                   .toList()
-                                                  .cast<
-                                                      TransactionListRecord>();
+                                                  .cast<HelpListRecord>();
                                               setState(() {});
 
                                               setState(() {});
@@ -326,54 +325,6 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                          ),
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              if (_model.dataList.isNotEmpty) {
-                                                _model.isLoading = true;
-                                                setState(() {});
-                                                await actions
-                                                    .exportTransactionPark(
-                                                  _model.dataList.toList(),
-                                                  functions.getCurrentMonth(
-                                                      _model.startDate!,
-                                                      FFAppConstants
-                                                          .thaiMonthList
-                                                          .toList()),
-                                                  functions.getCurrentYear(
-                                                      _model.startDate!),
-                                                );
-                                                _model.isLoading = false;
-                                                setState(() {});
-                                              }
-                                            },
-                                            text: 'Export Excel',
-                                            options: FFButtonOptions(
-                                              height: 56.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      32.0, 0.0, 32.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .success,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -436,22 +387,20 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                         '') {
                                                   _model.dataResult3 =
                                                       await actions
-                                                          .filterDataList(
+                                                          .filterHelpList(
                                                     _model.textController.text,
                                                     _model.tmpDataList.toList(),
                                                   );
                                                   _model.dataList = _model
                                                       .dataResult3!
                                                       .toList()
-                                                      .cast<
-                                                          TransactionListRecord>();
+                                                      .cast<HelpListRecord>();
                                                   setState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
-                                                      .cast<
-                                                          TransactionListRecord>();
+                                                      .cast<HelpListRecord>();
                                                   setState(() {});
                                                 }
 
@@ -462,7 +411,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText:
-                                                  'ระบุคำค้นหา ชื่อ, ทะเบียนรถ, หมายเลขขาเข้า',
+                                                  'ระบุคำค้นหา หัวข้อ, รายละเอียด, บ้าน/ห้อง เลขที่',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -540,7 +489,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                                 '') {
                                                           _model.dataResult3 =
                                                               await actions
-                                                                  .filterDataList(
+                                                                  .filterHelpList(
                                                             _model
                                                                 .textController
                                                                 .text,
@@ -551,14 +500,14 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                               .dataResult3!
                                                               .toList()
                                                               .cast<
-                                                                  TransactionListRecord>();
+                                                                  HelpListRecord>();
                                                           setState(() {});
                                                         } else {
                                                           _model.dataList = _model
                                                               .tmpDataList
                                                               .toList()
                                                               .cast<
-                                                                  TransactionListRecord>();
+                                                                  HelpListRecord>();
                                                           setState(() {});
                                                         }
 
@@ -605,26 +554,10 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                           );
                         }
 
-                        return FlutterFlowDataTable<TransactionListRecord>(
+                        return FlutterFlowDataTable<HelpListRecord>(
                           controller: _model.paginatedDataTableController,
                           data: dataListView,
                           columnsBuilder: (onSortChanged) => [
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Text(
-                                  'หมายเลขขาเข้า',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: 'Manrope',
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ),
                             DataColumn2(
                               label: DefaultTextStyle.merge(
                                 softWrap: true,
@@ -634,7 +567,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันเวลาเข้า',
+                                        'หัวข้อ',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -659,7 +592,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันเวลาออก',
+                                        'รายละเอียด',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -684,7 +617,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'ระยะเวลา',
+                                        'บ้าน/ห้อง เลขที่',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -709,7 +642,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'ชื่อ-สกุลผู้มาติดต่อ',
+                                        'วันที่แจ้ง',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -734,57 +667,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'ทะเบียนรถ',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'วัตถุประสงค์',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'ประเภทรถ',
+                                        'สถานะ',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -838,117 +721,12 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       .primaryBackground,
                             ),
                             cells: [
-                              Text(
-                                dataListViewItem.transactionNumber,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Manrope',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      functions
-                                          .dateTimeTh(dataListViewItem.dateIn),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Builder(
-                                      builder: (context) {
-                                        if (dataListViewItem.dateOut != null) {
-                                          return Text(
-                                            functions.dateTimeTh(
-                                                dataListViewItem.dateOut),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          );
-                                        } else {
-                                          return Text(
-                                            '-',
-                                            textAlign: TextAlign.center,
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Builder(
-                                      builder: (context) {
-                                        if (dataListViewItem.dateOut != null) {
-                                          return Text(
-                                            functions.getTimeDuration(
-                                                dataListViewItem.dateIn!,
-                                                dataListViewItem.dateOut!),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          );
-                                        } else {
-                                          return Text(
-                                            functions.getTimeDuration(
-                                                dataListViewItem.dateIn!,
-                                                getCurrentTimestamp),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      '${dataListViewItem.preName}${dataListViewItem.firstName} ${dataListViewItem.lastName}',
+                                      dataListViewItem.subject,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -966,7 +744,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      '${dataListViewItem.carRegistration} ${dataListViewItem.carRegistrationProvince}',
+                                      dataListViewItem.detail,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -984,7 +762,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      dataListViewItem.objective,
+                                      dataListViewItem.contactAddress,
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -1001,7 +779,8 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      dataListViewItem.carType,
+                                      functions.dateTimeTh(
+                                          dataListViewItem.createDate),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -1018,8 +797,70 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Builder(
-                                      builder: (context) => InkWell(
+                                    child: Text(
+                                      functions.getIssueStatus(
+                                          dataListViewItem.status,
+                                          FFAppState()
+                                              .issueStatusList
+                                              .toList()),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            color: () {
+                                              if (dataListViewItem.status ==
+                                                  1) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primaryText;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  0) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .warning;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  3) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primary;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  4) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .success;
+                                              } else if (dataListViewItem
+                                                      .status ==
+                                                  5) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .error;
+                                              } else {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primaryText;
+                                              }
+                                            }(),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Builder(
+                                    builder: (context) => Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
                                         hoverColor: Colors.transparent,
@@ -1041,14 +882,49 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                   onTap: () => FocusScope.of(
                                                           dialogContext)
                                                       .unfocus(),
-                                                  child: ParkDetailViewWidget(
-                                                    transactionDocument:
+                                                  child: HelpDetailViewWidget(
+                                                    dataDocument:
                                                         dataListViewItem,
                                                   ),
                                                 ),
                                               );
                                             },
-                                          );
+                                          ).then((value) => safeSetState(
+                                              () => _model.isUpdate = value));
+
+                                          if ((_model.isUpdate != null &&
+                                                  _model.isUpdate != '') &&
+                                              (_model.isUpdate == 'update')) {
+                                            _model.dataResult4 =
+                                                await queryHelpListRecordOnce(
+                                              queryBuilder: (helpListRecord) =>
+                                                  helpListRecord
+                                                      .where(
+                                                        'create_date',
+                                                        isGreaterThanOrEqualTo:
+                                                            _model.startDate,
+                                                      )
+                                                      .where(
+                                                        'create_date',
+                                                        isLessThanOrEqualTo:
+                                                            _model.endDate,
+                                                      )
+                                                      .orderBy('create_date',
+                                                          descending: true),
+                                            );
+                                            _model.dataList = _model
+                                                .dataResult4!
+                                                .toList()
+                                                .cast<HelpListRecord>();
+                                            _model.tmpDataList = _model
+                                                .dataResult4!
+                                                .toList()
+                                                .cast<HelpListRecord>();
+                                            _model.isLoading = false;
+                                            setState(() {});
+                                          }
+
+                                          setState(() {});
                                         },
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1078,6 +954,98 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                       ),
                                     ),
                                   ),
+                                  if (false)
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        var confirmDialogResponse =
+                                            await showDialog<bool>(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'ต้องการลบข้อมูล?'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child: Text('ยกเลิก'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child: Text('ยืนยัน'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ) ??
+                                                false;
+                                        if (confirmDialogResponse) {
+                                          await dataListViewItem.reference
+                                              .delete();
+                                          _model.dataResult6 =
+                                              await queryHelpListRecordOnce(
+                                            queryBuilder: (helpListRecord) =>
+                                                helpListRecord
+                                                    .where(
+                                                      'create_date',
+                                                      isGreaterThanOrEqualTo:
+                                                          _model.startDate,
+                                                    )
+                                                    .where(
+                                                      'create_date',
+                                                      isLessThanOrEqualTo:
+                                                          _model.endDate,
+                                                    )
+                                                    .orderBy('create_date',
+                                                        descending: true),
+                                          );
+                                          _model.dataList = _model.dataResult6!
+                                              .toList()
+                                              .cast<HelpListRecord>();
+                                          _model.tmpDataList = _model
+                                              .dataResult6!
+                                              .toList()
+                                              .cast<HelpListRecord>();
+                                          _model.isLoading = false;
+                                          setState(() {});
+                                        }
+
+                                        setState(() {});
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.delete_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            size: 24.0,
+                                          ),
+                                          Text(
+                                            'ลบข้อมูล',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Manrope',
+                                                  fontSize: 8.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                 ],
                               ),
                             ].map((c) => DataCell(c)).toList(),
