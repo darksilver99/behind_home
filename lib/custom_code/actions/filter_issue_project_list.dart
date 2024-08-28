@@ -15,10 +15,11 @@ Future<List<IssueProjectListRecord>> filterIssueProjectList(
   List<IssueProjectListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<IssueProjectListRecord> issueSearchedList = dataList.where((doc) {
-    return doc.subject.contains(keyword) ||
-        doc.detail.contains(keyword) ||
-        doc.contactAddress.contains(keyword);
+    return doc.subject.contains(lowerCaseKeyword) ||
+        doc.detail.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.contactAddress.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return issueSearchedList;
 }

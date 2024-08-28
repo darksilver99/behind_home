@@ -97,10 +97,10 @@ class StockPageModel extends FlutterFlowModel<StockPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
+    paginatedDataTableController.dispose();
     menuToggleViewModel.dispose();
     loadingViewModel.dispose();
     menuViewModel.dispose();

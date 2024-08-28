@@ -44,5 +44,7 @@ class PaymentListViewModel extends FlutterFlowModel<PaymentListViewWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {}
+  void dispose() {
+    paginatedDataTableController.dispose();
+  }
 }

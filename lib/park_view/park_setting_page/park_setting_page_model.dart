@@ -125,7 +125,6 @@ class ParkSettingPageModel extends FlutterFlowModel<ParkSettingPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController1?.dispose();
 

@@ -38,9 +38,7 @@ class _OtpPageWidgetState extends State<OtpPageWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -175,18 +173,6 @@ class _OtpPageWidgetState extends State<OtpPageWidget> {
                                                               context)
                                                           .alternate,
                                                   selectedColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  activeFillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  inactiveFillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .alternate,
-                                                  selectedFillColor:
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .primary,

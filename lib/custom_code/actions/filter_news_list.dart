@@ -15,8 +15,10 @@ Future<List<NewsListRecord>> filterNewsList(
   List<NewsListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<NewsListRecord> newsSearchedList = dataList.where((doc) {
-    return doc.subject.contains(keyword) || doc.detail.contains(keyword);
+    return doc.subject.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.detail.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return newsSearchedList;
 }

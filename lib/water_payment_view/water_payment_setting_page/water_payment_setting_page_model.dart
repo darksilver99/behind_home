@@ -80,7 +80,6 @@ class WaterPaymentSettingPageModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     menuToggleViewModel.dispose();
     menuViewModel.dispose();
   }

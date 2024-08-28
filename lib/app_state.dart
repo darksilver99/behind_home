@@ -313,6 +313,42 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInPaymentStatusList(int index, DataStatusStruct value) {
     paymentStatusList.insert(index, value);
   }
+
+  List<DataStatusStruct> _helpStatusList = [
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"รอตรวจสอบ\"}')),
+    DataStatusStruct.fromSerializableMap(jsonDecode(
+        '{\"status\":\"1\",\"subject\":\"ดำเนินการเรียบร้อยแล้ว\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"3\",\"subject\":\"ไม่สามารถดำเนินการได้\"}'))
+  ];
+  List<DataStatusStruct> get helpStatusList => _helpStatusList;
+  set helpStatusList(List<DataStatusStruct> value) {
+    _helpStatusList = value;
+  }
+
+  void addToHelpStatusList(DataStatusStruct value) {
+    helpStatusList.add(value);
+  }
+
+  void removeFromHelpStatusList(DataStatusStruct value) {
+    helpStatusList.remove(value);
+  }
+
+  void removeAtIndexFromHelpStatusList(int index) {
+    helpStatusList.removeAt(index);
+  }
+
+  void updateHelpStatusListAtIndex(
+    int index,
+    DataStatusStruct Function(DataStatusStruct) updateFn,
+  ) {
+    helpStatusList[index] = updateFn(_helpStatusList[index]);
+  }
+
+  void insertAtIndexInHelpStatusList(int index, DataStatusStruct value) {
+    helpStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

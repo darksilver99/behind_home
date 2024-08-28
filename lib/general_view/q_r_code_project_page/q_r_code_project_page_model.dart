@@ -30,7 +30,6 @@ class QRCodeProjectPageModel extends FlutterFlowModel<QRCodeProjectPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     menuToggleViewModel.dispose();
     menuViewModel.dispose();
   }

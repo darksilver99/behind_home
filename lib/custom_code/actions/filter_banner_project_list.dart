@@ -15,8 +15,9 @@ Future<List<BannerProjectListRecord>> filterBannerProjectList(
   List<BannerProjectListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<BannerProjectListRecord> bannerSearchedList = dataList.where((doc) {
-    return doc.subject.contains(keyword);
+    return doc.subject.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return bannerSearchedList;
 }

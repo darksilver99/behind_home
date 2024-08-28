@@ -70,8 +70,9 @@ class SelectProjectPageModel extends FlutterFlowModel<SelectProjectPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    paginatedDataTableController.dispose();
   }
 }

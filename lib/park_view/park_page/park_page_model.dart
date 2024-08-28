@@ -91,10 +91,10 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
+    paginatedDataTableController.dispose();
     menuToggleViewModel.dispose();
     loadingViewModel.dispose();
     menuViewModel.dispose();

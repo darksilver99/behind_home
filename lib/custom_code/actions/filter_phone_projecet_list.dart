@@ -15,8 +15,10 @@ Future<List<PhoneProjectListRecord>> filterPhoneProjecetList(
   List<PhoneProjectListRecord> dataList,
 ) async {
   // Add your function code here!
+  String lowerCaseKeyword = keyword.toLowerCase();
   List<PhoneProjectListRecord> phoneSearchedList = dataList.where((doc) {
-    return doc.subject.contains(keyword) || doc.phone.contains(keyword);
+    return doc.subject.toLowerCase().contains(lowerCaseKeyword) ||
+        doc.phone.toLowerCase().contains(lowerCaseKeyword);
   }).toList();
   return phoneSearchedList;
 }

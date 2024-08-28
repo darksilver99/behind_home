@@ -268,6 +268,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/selectProjectPage',
           requireAuth: true,
           builder: (context, params) => SelectProjectPageWidget(),
+        ),
+        FFRoute(
+          name: 'HelpPage',
+          path: '/helpPage',
+          requireAuth: true,
+          builder: (context, params) => HelpPageWidget(
+            menuName: params.getParam(
+              'menuName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
