@@ -86,7 +86,7 @@ class HelpListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('help_list');
+      FirebaseFirestore.instance.collection('project_list/${FFAppState().projectData.projectDocID}/help_list');
 
   static Stream<HelpListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => HelpListRecord.fromSnapshot(s));
