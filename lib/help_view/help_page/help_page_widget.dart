@@ -798,11 +798,9 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      functions.getIssueStatus(
+                                      functions.getDataStatus(
                                           dataListViewItem.status,
-                                          FFAppState()
-                                              .issueStatusList
-                                              .toList()),
+                                          FFAppState().helpStatusList.toList()),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
@@ -814,7 +812,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                                   1) {
                                                 return FlutterFlowTheme.of(
                                                         context)
-                                                    .primaryText;
+                                                    .success;
                                               } else if (dataListViewItem
                                                       .status ==
                                                   0) {
@@ -824,18 +822,6 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                               } else if (dataListViewItem
                                                       .status ==
                                                   3) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .primary;
-                                              } else if (dataListViewItem
-                                                      .status ==
-                                                  4) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .success;
-                                              } else if (dataListViewItem
-                                                      .status ==
-                                                  5) {
                                                 return FlutterFlowTheme.of(
                                                         context)
                                                     .error;
