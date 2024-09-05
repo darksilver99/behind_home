@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
@@ -96,6 +97,8 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -145,569 +148,614 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Row(
+                                  if (FFAppState()
+                                      .menuDataList
+                                      .contains(MenuDataStruct(
+                                        pathName: 'ParkPage',
+                                        status: 1,
+                                      )))
+                                    Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Text(
-                                          'ข้อมูลรถเข้า-ออก',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Manrope',
-                                                fontSize: 22.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Wrap(
-                                            spacing: 32.0,
-                                            runSpacing: 32.0,
-                                            alignment: WrapAlignment.center,
-                                            crossAxisAlignment:
-                                                WrapCrossAlignment.start,
-                                            direction: Axis.horizontal,
-                                            runAlignment: WrapAlignment.start,
-                                            verticalDirection:
-                                                VerticalDirection.down,
-                                            clipBehavior: Clip.none,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Material(
-                                                color: Colors.transparent,
-                                                elevation: 3.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Container(
-                                                  width: 300.0,
-                                                  height: 300.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      ClipRRect(
+                                              Text(
+                                                'ข้อมูลรถเข้า-ออก',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          fontSize: 22.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Wrap(
+                                                  spacing: 32.0,
+                                                  runSpacing: 32.0,
+                                                  alignment:
+                                                      WrapAlignment.center,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.start,
+                                                  direction: Axis.horizontal,
+                                                  runAlignment:
+                                                      WrapAlignment.start,
+                                                  verticalDirection:
+                                                      VerticalDirection.down,
+                                                  clipBehavior: Clip.none,
+                                                  children: [
+                                                    Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 3.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(0.0),
-                                                        child: Image.asset(
-                                                          'assets/images/car_12568782.png',
-                                                          width: 64.0,
-                                                          height: 64.0,
-                                                          fit: BoxFit.cover,
-                                                        ),
+                                                                .circular(24.0),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: Text(
-                                                          'จำนวนรถเข้าวันนี้',
-                                                          style: FlutterFlowTheme
+                                                      child: Container(
+                                                        width: 300.0,
+                                                        height: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                fontSize: 22.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                              .secondaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      24.0),
                                                         ),
-                                                      ),
-                                                      FutureBuilder<int>(
-                                                        future:
-                                                            queryTransactionListRecordCount(
-                                                          queryBuilder:
-                                                              (transactionListRecord) =>
-                                                                  transactionListRecord
-                                                                      .where(
-                                                                        'date_in',
-                                                                        isGreaterThanOrEqualTo:
-                                                                            functions.getStartDayTime(getCurrentTimestamp),
-                                                                      )
-                                                                      .where(
-                                                                        'date_in',
-                                                                        isLessThanOrEqualTo:
-                                                                            functions.getEndDayTime(getCurrentTimestamp),
-                                                                      ),
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          int textCount =
-                                                              snapshot.data!;
-
-                                                          return Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              formatNumber(
-                                                                textCount,
-                                                                formatType:
-                                                                    FormatType
-                                                                        .decimal,
-                                                                decimalType:
-                                                                    DecimalType
-                                                                        .automatic,
-                                                              ),
-                                                              '0',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  fontSize:
-                                                                      48.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Material(
-                                                color: Colors.transparent,
-                                                elevation: 3.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Container(
-                                                  width: 300.0,
-                                                  height: 300.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
-                                                        child: Image.asset(
-                                                          'assets/images/car_12568818.png',
-                                                          width: 64.0,
-                                                          height: 64.0,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: Text(
-                                                          'จำนวนรถค้างทั้งหมด',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                fontSize: 22.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      FutureBuilder<int>(
-                                                        future:
-                                                            queryTransactionListRecordCount(
-                                                          queryBuilder:
-                                                              (transactionListRecord) =>
-                                                                  transactionListRecord
-                                                                      .where(
-                                                            'is_out',
-                                                            isEqualTo: false,
-                                                          ),
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          int textCount =
-                                                              snapshot.data!;
-
-                                                          return Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              formatNumber(
-                                                                textCount,
-                                                                formatType:
-                                                                    FormatType
-                                                                        .decimal,
-                                                                decimalType:
-                                                                    DecimalType
-                                                                        .automatic,
-                                                              ),
-                                                              '0',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  fontSize:
-                                                                      48.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Material(
-                                                color: Colors.transparent,
-                                                elevation: 3.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Container(
-                                                  width: 300.0,
-                                                  height: 300.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
-                                                        child: Image.asset(
-                                                          'assets/images/car_12568782.png',
-                                                          width: 64.0,
-                                                          height: 64.0,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: Text(
-                                                          'จำนวนรถเข้าทั้งหมด',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                fontSize: 22.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      FutureBuilder<int>(
-                                                        future:
-                                                            queryTransactionListRecordCount(),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          int textCount =
-                                                              snapshot.data!;
-
-                                                          return Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              formatNumber(
-                                                                textCount,
-                                                                formatType:
-                                                                    FormatType
-                                                                        .decimal,
-                                                                decimalType:
-                                                                    DecimalType
-                                                                        .automatic,
-                                                              ),
-                                                              '0',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  fontSize:
-                                                                      48.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Material(
-                                                color: Colors.transparent,
-                                                elevation: 3.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Container(
-                                                  width: 970.0,
-                                                  height: 300.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      48.0),
-                                                          child: Text(
-                                                            'จำนวนรถเข้าย้อนหลัง 7 วัน',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  fontSize:
-                                                                      22.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        if (!_model.isLoading)
-                                                          Expanded(
-                                                            child: Container(
-                                                              width: double
-                                                                  .infinity,
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
                                                               child:
-                                                                  FlutterFlowBarChart(
-                                                                barData: [
-                                                                  FFBarChartData(
-                                                                    yData: _model
-                                                                        .valueList,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  )
-                                                                ],
-                                                                xLabels: _model
-                                                                    .dateList,
-                                                                barWidth: 32.0,
-                                                                barBorderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
-                                                                groupSpace: 8.0,
-                                                                alignment:
-                                                                    BarChartAlignment
-                                                                        .spaceAround,
-                                                                chartStylingInfo:
-                                                                    ChartStylingInfo(
-                                                                  enableTooltip:
-                                                                      true,
-                                                                  tooltipBackgroundColor:
-                                                                      Color(
-                                                                          0x7F000000),
-                                                                  backgroundColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                  showBorder:
+                                                                  Image.asset(
+                                                                'assets/images/car_12568782.png',
+                                                                width: 64.0,
+                                                                height: 64.0,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0),
+                                                              child: Text(
+                                                                'จำนวนรถเข้าวันนี้',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Manrope',
+                                                                      fontSize:
+                                                                          22.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                            FutureBuilder<int>(
+                                                              future:
+                                                                  queryTransactionListRecordCount(
+                                                                queryBuilder:
+                                                                    (transactionListRecord) =>
+                                                                        transactionListRecord
+                                                                            .where(
+                                                                              'date_in',
+                                                                              isGreaterThanOrEqualTo: functions.getStartDayTime(getCurrentTimestamp),
+                                                                            )
+                                                                            .where(
+                                                                              'date_in',
+                                                                              isLessThanOrEqualTo: functions.getEndDayTime(getCurrentTimestamp),
+                                                                            ),
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        valueColor:
+                                                                            AlwaysStoppedAnimation<Color>(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                int textCount =
+                                                                    snapshot
+                                                                        .data!;
+
+                                                                return Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    formatNumber(
+                                                                      textCount,
+                                                                      formatType:
+                                                                          FormatType
+                                                                              .decimal,
+                                                                      decimalType:
+                                                                          DecimalType
+                                                                              .automatic,
+                                                                    ),
+                                                                    '0',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Manrope',
+                                                                        fontSize:
+                                                                            48.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 3.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                      child: Container(
+                                                        width: 300.0,
+                                                        height: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      24.0),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/car_12568818.png',
+                                                                width: 64.0,
+                                                                height: 64.0,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0),
+                                                              child: Text(
+                                                                'จำนวนรถค้างทั้งหมด',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Manrope',
+                                                                      fontSize:
+                                                                          22.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                            FutureBuilder<int>(
+                                                              future:
+                                                                  queryTransactionListRecordCount(
+                                                                queryBuilder:
+                                                                    (transactionListRecord) =>
+                                                                        transactionListRecord
+                                                                            .where(
+                                                                  'is_out',
+                                                                  isEqualTo:
                                                                       false,
                                                                 ),
-                                                                axisBounds:
-                                                                    AxisBounds(),
-                                                                xAxisLabelInfo:
-                                                                    AxisLabelInfo(
-                                                                  showLabels:
-                                                                      true,
-                                                                  labelInterval:
-                                                                      10.0,
-                                                                  reservedSize:
-                                                                      28.0,
-                                                                ),
-                                                                yAxisLabelInfo:
-                                                                    AxisLabelInfo(
-                                                                  title:
-                                                                      'จำนวนรถเข้า',
-                                                                  titleTextStyle:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        14.0,
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        valueColor:
+                                                                            AlwaysStoppedAnimation<Color>(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                int textCount =
+                                                                    snapshot
+                                                                        .data!;
+
+                                                                return Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    formatNumber(
+                                                                      textCount,
+                                                                      formatType:
+                                                                          FormatType
+                                                                              .decimal,
+                                                                      decimalType:
+                                                                          DecimalType
+                                                                              .automatic,
+                                                                    ),
+                                                                    '0',
                                                                   ),
-                                                                  reservedSize:
-                                                                      42.0,
-                                                                ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Manrope',
+                                                                        fontSize:
+                                                                            48.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 3.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                      child: Container(
+                                                        width: 300.0,
+                                                        height: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      24.0),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/car_12568782.png',
+                                                                width: 64.0,
+                                                                height: 64.0,
+                                                                fit: BoxFit
+                                                                    .cover,
                                                               ),
                                                             ),
-                                                          ),
-                                                      ],
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0),
+                                                              child: Text(
+                                                                'จำนวนรถเข้าทั้งหมด',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Manrope',
+                                                                      fontSize:
+                                                                          22.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                            FutureBuilder<int>(
+                                                              future:
+                                                                  queryTransactionListRecordCount(),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        valueColor:
+                                                                            AlwaysStoppedAnimation<Color>(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                int textCount =
+                                                                    snapshot
+                                                                        .data!;
+
+                                                                return Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    formatNumber(
+                                                                      textCount,
+                                                                      formatType:
+                                                                          FormatType
+                                                                              .decimal,
+                                                                      decimalType:
+                                                                          DecimalType
+                                                                              .automatic,
+                                                                    ),
+                                                                    '0',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Manrope',
+                                                                        fontSize:
+                                                                            48.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                    Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 3.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                      child: Container(
+                                                        width: 970.0,
+                                                        height: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      24.0),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  8.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            48.0),
+                                                                child: Text(
+                                                                  'จำนวนรถเข้าย้อนหลัง 7 วัน',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Manrope',
+                                                                        fontSize:
+                                                                            22.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                              if (!_model
+                                                                  .isLoading)
+                                                                Expanded(
+                                                                  child:
+                                                                      Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    child:
+                                                                        FlutterFlowBarChart(
+                                                                      barData: [
+                                                                        FFBarChartData(
+                                                                          yData:
+                                                                              _model.valueList,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                        )
+                                                                      ],
+                                                                      xLabels:
+                                                                          _model
+                                                                              .dateList,
+                                                                      barWidth:
+                                                                          32.0,
+                                                                      barBorderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                      groupSpace:
+                                                                          8.0,
+                                                                      alignment:
+                                                                          BarChartAlignment
+                                                                              .spaceAround,
+                                                                      chartStylingInfo:
+                                                                          ChartStylingInfo(
+                                                                        enableTooltip:
+                                                                            true,
+                                                                        tooltipBackgroundColor:
+                                                                            Color(0x7F000000),
+                                                                        backgroundColor:
+                                                                            FlutterFlowTheme.of(context).secondaryBackground,
+                                                                        showBorder:
+                                                                            false,
+                                                                      ),
+                                                                      axisBounds:
+                                                                          AxisBounds(),
+                                                                      xAxisLabelInfo:
+                                                                          AxisLabelInfo(
+                                                                        showLabels:
+                                                                            true,
+                                                                        labelInterval:
+                                                                            10.0,
+                                                                        reservedSize:
+                                                                            28.0,
+                                                                      ),
+                                                                      yAxisLabelInfo:
+                                                                          AxisLabelInfo(
+                                                                        title:
+                                                                            'จำนวนรถเข้า',
+                                                                        titleTextStyle:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              14.0,
+                                                                        ),
+                                                                        reservedSize:
+                                                                            42.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
@@ -715,7 +763,6 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                         ),
                                       ],
                                     ),
-                                  ),
                                 ],
                               ),
                             ),

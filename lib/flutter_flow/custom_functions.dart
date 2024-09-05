@@ -315,6 +315,12 @@ int? convertToIntIfNumeric(String value) {
 }
 
 List<MenuDataStruct> getMenuDataList(List<BehindMenuListRecord> menuDocList) {
-  List<MenuDataStruct> menu = [];
+  List<MenuDataStruct> menu = menuDocList.map((menuDoc) {
+    return MenuDataStruct(
+      subject: menuDoc.subject,
+      pathName: menuDoc.pathName,
+      status: menuDoc.status,
+    );
+  }).toList();
   return menu;
 }

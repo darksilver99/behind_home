@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/component_view/menu_toggle_view/menu_toggle_view_widget.dart';
 import '/component_view/menu_view/menu_view_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
