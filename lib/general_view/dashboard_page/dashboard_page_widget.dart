@@ -805,6 +805,10 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                   'status',
                                                                   isEqualTo: 1,
                                                                 ),
+                                                                Filter(
+                                                                  'status',
+                                                                  isEqualTo: 3,
+                                                                ),
                                                               )),
                                                             ),
                                                             builder: (context,
