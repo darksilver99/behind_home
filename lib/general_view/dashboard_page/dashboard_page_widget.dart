@@ -164,61 +164,64 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                 ],
                               ),
                             ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'ระบบจัดการโครงการ',
-                                        textAlign: TextAlign.center,
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              fontSize: 24.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                          if (FFAppState().projectData.projectName != null &&
+                              FFAppState().projectData.projectName != '')
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'ระบบจัดการโครงการ',
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 24.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        FFAppState().projectData.projectName,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Manrope',
-                                              fontSize: 28.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w800,
-                                            ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          FFAppState().projectData.projectName,
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 28.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(
-                                  height: 32.0,
-                                  thickness: 3.0,
-                                  endIndent: 32.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 32.0,
+                                    thickness: 3.0,
+                                    endIndent: 32.0,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
                           if (!_model.isLoading)
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
