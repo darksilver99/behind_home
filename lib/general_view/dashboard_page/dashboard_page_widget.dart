@@ -550,7 +550,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                   if (FFAppState()
                                       .menuDataList
                                       .contains(MenuDataStruct(
-                                        pathName: 'ResidentPage',
+                                        pathName: ' IssueProjectPage',
                                         status: 1,
                                       )))
                                     Column(
