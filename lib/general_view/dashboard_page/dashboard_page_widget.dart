@@ -142,6 +142,29 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                         children: [
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'ใช้งานได้ถึงวันที่ : ${functions.dateTh(FFAppState().projectData.expireDate!)}',
+                                    textAlign: TextAlign.end,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 8.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -160,7 +183,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                               fontFamily: 'Manrope',
                                               fontSize: 24.0,
                                               letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                       ),
                                     ),
@@ -178,9 +201,9 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Manrope',
-                                              fontSize: 24.0,
+                                              fontSize: 28.0,
                                               letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.w800,
                                             ),
                                       ),
                                     ),
