@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:behind_home/custom_toon/solo.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -124,11 +125,16 @@ Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
                 'Gallery',
                 MediaSource.videoGallery,
               ),
-            //if (!kIsWeb) ...[
+            if (!kIsWeb) ...[
               const Divider(),
               createUploadMediaListTile('Camera', MediaSource.camera),
               const Divider(),
-            //],
+            ],
+            if (isMobileWeb()) ...[
+              const Divider(),
+              createUploadMediaListTile('Camera', MediaSource.camera),
+              const Divider(),
+            ],
             const SizedBox(height: 10),
           ],
         );
