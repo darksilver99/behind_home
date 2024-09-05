@@ -52,7 +52,6 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in HelpPage widget.
   List<HelpListRecord>? dataResult;
   // State field(s) for DropDown widget.

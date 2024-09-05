@@ -68,13 +68,13 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
       _model.tmpDataList =
           _model.dataResult!.toList().cast<TransactionListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -95,7 +95,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -170,8 +170,9 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             ),
                                             options:
                                                 FFAppConstants.thaiMonthList,
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue1 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue1 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -216,8 +217,9 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             ),
                                             options: functions.getYearList(
                                                 getCurrentTimestamp),
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue2 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue2 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -311,9 +313,9 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                   .toList()
                                                   .cast<
                                                       TransactionListRecord>();
-                                              setState(() {});
+                                              safeSetState(() {});
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'ค้นหา',
                                             options: FFButtonOptions(
@@ -347,7 +349,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                             onPressed: () async {
                                               if (_model.dataList.isNotEmpty) {
                                                 _model.isLoading = true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 await actions
                                                     .exportTransactionPark(
                                                   _model.dataList.toList(),
@@ -360,7 +362,7 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                       _model.startDate!),
                                                 );
                                                 _model.isLoading = false;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             },
                                             text: 'Export Excel',
@@ -445,17 +447,17 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                       .toList()
                                                       .cast<
                                                           TransactionListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
                                                       .cast<
                                                           TransactionListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                             ),
                                             autofocus: false,
@@ -552,18 +554,18 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
                                                               .toList()
                                                               .cast<
                                                                   TransactionListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.dataList = _model
                                                               .tmpDataList
                                                               .toList()
                                                               .cast<
                                                                   TransactionListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
 
-                                                        setState(() {});
-                                                        setState(() {});
+                                                        safeSetState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Icon(
                                                         Icons.clear,
@@ -1114,13 +1116,13 @@ class _ParkPageWidgetState extends State<ParkPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],

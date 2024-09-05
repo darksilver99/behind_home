@@ -44,7 +44,7 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
       await action_blocks.checkExpireDate(context);
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -67,7 +67,7 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -220,7 +220,7 @@ class _QRCodeProjectPageWidgetState extends State<QRCodeProjectPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

@@ -53,7 +53,6 @@ class StockPageModel extends FlutterFlowModel<StockPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in StockPage widget.
   List<StockListRecord>? dataResult;
   // State field(s) for DropDown widget.

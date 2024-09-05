@@ -34,7 +34,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
     super.initState();
     _model = createModel(context, () => MenuViewModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -164,7 +164,7 @@ class _MenuViewWidgetState extends State<MenuViewWidget> {
                               _navigate = () => context.goNamedAuth(
                                   'LoginPage', context.mounted);
                             } else {
-                              setState(() {});
+                              safeSetState(() {});
                             }
 
                             _navigate();

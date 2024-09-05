@@ -56,13 +56,13 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
       _model.tmpDataList =
           _model.dataResult!.toList().cast<PhoneProjectListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -85,7 +85,7 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -200,10 +200,10 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                                     .cast<
                                                         PhoneProjectListRecord>();
                                                 _model.isLoading = false;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'เพิ่มข้อมูล',
                                             options: FFButtonOptions(
@@ -264,17 +264,17 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                                         .toList()
                                                         .cast<
                                                             PhoneProjectListRecord>();
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   } else {
                                                     _model.dataList = _model
                                                         .tmpDataList
                                                         .toList()
                                                         .cast<
                                                             PhoneProjectListRecord>();
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
 
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 },
                                               ),
                                               autofocus: false,
@@ -379,18 +379,18 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                                                 .toList()
                                                                 .cast<
                                                                     PhoneProjectListRecord>();
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           } else {
                                                             _model.dataList = _model
                                                                 .tmpDataList
                                                                 .toList()
                                                                 .cast<
                                                                     PhoneProjectListRecord>();
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           }
 
-                                                          setState(() {});
-                                                          setState(() {});
+                                                          safeSetState(() {});
+                                                          safeSetState(() {});
                                                         },
                                                         child: Icon(
                                                           Icons.clear,
@@ -774,10 +774,10 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                               .toList()
                                               .cast<PhoneProjectListRecord>();
                                           _model.isLoading = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -855,10 +855,10 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
                                             .toList()
                                             .cast<PhoneProjectListRecord>();
                                         _model.isLoading = false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -920,13 +920,13 @@ class _PhoneProjectPageWidgetState extends State<PhoneProjectPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],

@@ -51,16 +51,16 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget!.dataDocument != null) {
         _model.imageList = widget!.dataDocument!.images.toList().cast<String>();
-        setState(() {});
+        safeSetState(() {});
         if (widget!.dataDocument?.displayImage == null ||
             widget!.dataDocument?.displayImage == '') {
           if (_model.imageList.isNotEmpty) {
             _model.displayImage = _model.imageList.first;
-            setState(() {});
+            safeSetState(() {});
           }
         } else {
           _model.displayImage = widget!.dataDocument?.displayImage;
-          setState(() {});
+          safeSetState(() {});
         }
       }
     });
@@ -73,7 +73,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
         TextEditingController(text: widget!.dataDocument?.detail);
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -573,7 +573,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                         .isDelete!) {
                                                                       _model.removeFromImageList(
                                                                           imageListViewItem);
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                       if (widget!
                                                                               .dataDocument !=
@@ -582,7 +582,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                             _model.displayImage) {
                                                                           _model.displayImage =
                                                                               '';
-                                                                          setState(
+                                                                          safeSetState(
                                                                               () {});
                                                                         }
 
@@ -603,7 +603,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                       }
                                                                     }
 
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   },
                                                                   child: Icon(
@@ -638,7 +638,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                                         imageListViewItem) {
                                                                       _model.displayImage =
                                                                           imageListViewItem;
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
                                                                   },
@@ -735,7 +735,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                       validateFileFormat(
                                                           m.storagePath,
                                                           context))) {
-                                                setState(() => _model
+                                                safeSetState(() => _model
                                                     .isDataUploading = true);
                                                 var selectedUploadedFiles =
                                                     <FFUploadedFile>[];
@@ -767,13 +767,13 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 if (selectedUploadedFiles
                                                         .length ==
                                                     selectedMedia.length) {
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.uploadedLocalFile =
                                                         selectedUploadedFiles
                                                             .first;
                                                   });
                                                 } else {
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                   return;
                                                 }
                                               }
@@ -816,10 +816,10 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                     );
                                                     _model.addToImageList(
                                                         _model.urlList!.first);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 }
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.isDataUploading =
                                                       false;
                                                   _model.uploadedLocalFile =
@@ -829,7 +829,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                                 });
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'อัพโหลดรูป',
                                             icon: Icon(
@@ -913,7 +913,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                             .dataStatusList
                                             .map((e) => e.subject)
                                             .toList(),
-                                        onChanged: (val) => setState(
+                                        onChanged: (val) => safeSetState(
                                             () => _model.dropDownValue = val),
                                         width: 300.0,
                                         height: 56.0,
@@ -1074,7 +1074,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                           if (_model.dropDownValue != null) {
                                             _model.isEmptyDropdown1Value =
                                                 false;
-                                            setState(() {});
+                                            safeSetState(() {});
                                             if (widget!.dataDocument != null) {
                                               if ((_model.displayImage ==
                                                           null ||
@@ -1146,7 +1146,7 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                             Navigator.pop(context, 'update');
                                           } else {
                                             _model.isEmptyDropdown1Value = true;
-                                            setState(() {});
+                                            safeSetState(() {});
                                           }
                                         },
                                         text: 'บันทึกข้อมูล',

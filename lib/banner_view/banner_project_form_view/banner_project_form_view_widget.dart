@@ -54,7 +54,7 @@ class _BannerProjectFormViewWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget!.dataDocument != null) {
         _model.imageList = widget!.dataDocument!.images.toList().cast<String>();
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
@@ -70,7 +70,7 @@ class _BannerProjectFormViewWidgetState
         TextEditingController(text: widget!.dataDocument?.seq?.toString());
     _model.textFieldFocusNode3 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -715,11 +715,11 @@ class _BannerProjectFormViewWidgetState
                                                                         });
                                                                       }
 
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
 
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   },
                                                                   child: Icon(
@@ -771,7 +771,7 @@ class _BannerProjectFormViewWidgetState
                                                       validateFileFormat(
                                                           m.storagePath,
                                                           context))) {
-                                                setState(() => _model
+                                                safeSetState(() => _model
                                                     .isDataUploading = true);
                                                 var selectedUploadedFiles =
                                                     <FFUploadedFile>[];
@@ -803,13 +803,13 @@ class _BannerProjectFormViewWidgetState
                                                 if (selectedUploadedFiles
                                                         .length ==
                                                     selectedMedia.length) {
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.uploadedLocalFile =
                                                         selectedUploadedFiles
                                                             .first;
                                                   });
                                                 } else {
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                   return;
                                                 }
                                               }
@@ -851,10 +851,10 @@ class _BannerProjectFormViewWidgetState
                                                     );
                                                     _model.addToImageList(
                                                         _model.urlList!.first);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 }
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.isDataUploading =
                                                       false;
                                                   _model.uploadedLocalFile =
@@ -864,7 +864,7 @@ class _BannerProjectFormViewWidgetState
                                                 });
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'อัพโหลดรูป',
                                             icon: Icon(
@@ -948,7 +948,7 @@ class _BannerProjectFormViewWidgetState
                                             .dataStatusList
                                             .map((e) => e.subject)
                                             .toList(),
-                                        onChanged: (val) => setState(
+                                        onChanged: (val) => safeSetState(
                                             () => _model.dropDownValue = val),
                                         width: 300.0,
                                         height: 56.0,

@@ -59,7 +59,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
           _model.isLoading = false;
           _model.dateList = _model.parkChartDataList!.toList().cast<String>();
           _model.valueList = _model.parkChartValueList!.toList().cast<int>();
-          setState(() {});
+          safeSetState(() {});
         } else {
           await showDialog(
             context: context,
@@ -83,7 +83,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -104,7 +104,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -728,7 +728,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

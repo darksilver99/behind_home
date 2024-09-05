@@ -55,7 +55,6 @@ class ParkPageModel extends FlutterFlowModel<ParkPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in ParkPage widget.
   List<TransactionListRecord>? dataResult;
   // State field(s) for DropDown widget.

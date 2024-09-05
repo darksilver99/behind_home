@@ -36,7 +36,7 @@ class _ParkDetailViewWidgetState extends State<ParkDetailViewWidget> {
     super.initState();
     _model = createModel(context, () => ParkDetailViewModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

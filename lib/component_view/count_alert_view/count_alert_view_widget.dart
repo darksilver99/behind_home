@@ -48,7 +48,7 @@ class _CountAlertViewWidgetState extends State<CountAlertViewWidget> {
           ),
         );
         _model.totalAlert = _model.total!;
-        setState(() {});
+        safeSetState(() {});
       } else if (widget!.pathName == 'WaterPaymentPage') {
         _model.total2 = await queryWaterPaymentListRecordCount(
           queryBuilder: (waterPaymentListRecord) =>
@@ -58,11 +58,11 @@ class _CountAlertViewWidgetState extends State<CountAlertViewWidget> {
           ),
         );
         _model.totalAlert = _model.total2!;
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -50,7 +50,7 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
         );
         await action_blocks.getConfigData(context);
 
-        setState(() {});
+        safeSetState(() {});
       } else {
         await showDialog(
           context: context,
@@ -77,7 +77,7 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
       _navigate();
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -133,7 +133,7 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -269,7 +269,7 @@ class _PaymentAlertPageWidgetState extends State<PaymentAlertPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

@@ -42,7 +42,7 @@ class _DetailWithImagePageWidgetState extends State<DetailWithImagePageWidget> {
       await action_blocks.checkExpireDate(context);
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -63,7 +63,7 @@ class _DetailWithImagePageWidgetState extends State<DetailWithImagePageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -126,7 +126,7 @@ class _DetailWithImagePageWidgetState extends State<DetailWithImagePageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

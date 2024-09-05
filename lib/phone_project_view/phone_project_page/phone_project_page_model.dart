@@ -49,7 +49,6 @@ class PhoneProjectPageModel extends FlutterFlowModel<PhoneProjectPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in PhoneProjectPage widget.
   List<PhoneProjectListRecord>? dataResult;
   // Stores action output result for [Bottom Sheet - PhoneProjectFormView] action in Button widget.

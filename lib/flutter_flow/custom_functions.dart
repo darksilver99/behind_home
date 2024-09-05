@@ -313,3 +313,8 @@ int? convertToIntIfNumeric(String value) {
     return null;
   }
 }
+
+List<MenuDataStruct> getMenuDataList(List<BehindMenuListRecord> menuDocList) {
+  List<MenuDataStruct> menu = [];
+  return menu;
+}

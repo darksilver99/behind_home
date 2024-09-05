@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 class OtpPageModel extends FlutterFlowModel<OtpPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;

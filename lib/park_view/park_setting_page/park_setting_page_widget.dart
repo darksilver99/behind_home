@@ -56,7 +56,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
       _model.logo = FFAppState().projectData.logo;
       _model.moreDetailField = FFAppState().projectData.moreDetailField;
       _model.moreImageField = FFAppState().projectData.moreImageField;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.switchValue = FFAppState().projectData.enableContactAddress;
@@ -75,7 +75,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
     _model.stampValueTextController ??= TextEditingController();
     _model.stampValueFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -98,7 +98,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -243,7 +243,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                     if (confirmDialogResponse) {
                                                                       _model.logo =
                                                                           '';
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
                                                                   },
@@ -340,7 +340,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                               validateFileFormat(
                                                                   m.storagePath,
                                                                   context))) {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .isDataUploading =
                                                             true);
                                                         var selectedUploadedFiles =
@@ -397,7 +397,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                     .length ==
                                                                 selectedMedia
                                                                     .length) {
-                                                          setState(() {
+                                                          safeSetState(() {
                                                             _model.uploadedLocalFile =
                                                                 selectedUploadedFiles
                                                                     .first;
@@ -406,7 +406,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                     .first;
                                                           });
                                                         } else {
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           return;
                                                         }
                                                       }
@@ -417,7 +417,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                               '') {
                                                         _model.logo = _model
                                                             .uploadedFileUrl;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                     },
                                                     text: 'อัพโหลดรูปภาพ',
@@ -504,7 +504,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         Switch.adaptive(
                                           value: _model.switchValue!,
                                           onChanged: (newValue) async {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 _model.switchValue = newValue!);
                                           },
                                           activeColor:
@@ -613,10 +613,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                         _model.moreDetailField =
                                                             _model
                                                                 .moreDetailFieldResult;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
 
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     child: Text(
                                                       'แก้ไขคำ',
@@ -643,7 +643,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         Switch.adaptive(
                                           value: _model.moreDetailSwitchValue!,
                                           onChanged: (newValue) async {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 _model.moreDetailSwitchValue =
                                                     newValue!);
                                           },
@@ -752,10 +752,10 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                         _model.moreImageField =
                                                             _model
                                                                 .moreImageFieldResult;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
 
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     child: Text(
                                                       'แก้ไขคำ',
@@ -782,7 +782,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                         Switch.adaptive(
                                           value: _model.moreImageSwitchValue!,
                                           onChanged: (newValue) async {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 _model.moreImageSwitchValue =
                                                     newValue!);
                                           },
@@ -983,7 +983,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                               .carTypeValueTextController
                                                               .text);
                                                         }
-                                                        setState(() {
+                                                        safeSetState(() {
                                                           _model
                                                               .carTypeValueTextController
                                                               ?.text = '';
@@ -1079,8 +1079,8 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             .map((label) => ChipData(label))
                                             .toList(),
                                         onChanged: (val) async {
-                                          setState(() => _model.carListValue =
-                                              val?.firstOrNull);
+                                          safeSetState(() => _model
+                                              .carListValue = val?.firstOrNull);
                                           var confirmDialogResponse =
                                               await showDialog<bool>(
                                                     context: context,
@@ -1114,7 +1114,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                           if (confirmDialogResponse) {
                                             _model.removeFromCarList(
                                                 _model.carListValue!);
-                                            setState(() {});
+                                            safeSetState(() {});
                                           }
                                         },
                                         selectedChipStyle: ChipStyle(
@@ -1290,7 +1290,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                   .objectiveValueTextController
                                                                   .text);
                                                         }
-                                                        setState(() {
+                                                        safeSetState(() {
                                                           _model
                                                               .objectiveValueTextController
                                                               ?.text = '';
@@ -1386,7 +1386,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             .map((label) => ChipData(label))
                                             .toList(),
                                         onChanged: (val) async {
-                                          setState(() =>
+                                          safeSetState(() =>
                                               _model.objectiveListValue =
                                                   val?.firstOrNull);
                                           var confirmDialogResponse =
@@ -1422,7 +1422,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                           if (confirmDialogResponse) {
                                             _model.removeFromObjectiveList(
                                                 _model.objectiveListValue!);
-                                            setState(() {});
+                                            safeSetState(() {});
                                           }
                                         },
                                         selectedChipStyle: ChipStyle(
@@ -1597,7 +1597,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                                                   .stampValueTextController
                                                                   .text);
                                                         }
-                                                        setState(() {
+                                                        safeSetState(() {
                                                           _model
                                                               .stampValueTextController
                                                               ?.text = '';
@@ -1693,8 +1693,9 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                             .map((label) => ChipData(label))
                                             .toList(),
                                         onChanged: (val) async {
-                                          setState(() => _model.stampListValue =
-                                              val?.firstOrNull);
+                                          safeSetState(() =>
+                                              _model.stampListValue =
+                                                  val?.firstOrNull);
                                           var confirmDialogResponse =
                                               await showDialog<bool>(
                                                     context: context,
@@ -1728,7 +1729,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                           if (confirmDialogResponse) {
                                             _model.removeFromStampList(
                                                 _model.stampListValue!);
-                                            setState(() {});
+                                            safeSetState(() {});
                                           }
                                         },
                                         selectedChipStyle: ChipStyle(
@@ -1878,9 +1879,9 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
                                               .stampField;
                                           _model.logo =
                                               FFAppState().projectData.logo;
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'บันทึกข้อมูล',
                                         options: FFButtonOptions(
@@ -1926,7 +1927,7 @@ class _ParkSettingPageWidgetState extends State<ParkSettingPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

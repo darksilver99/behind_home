@@ -35,7 +35,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
     super.initState();
     _model = createModel(context, () => PaymentPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -58,7 +58,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -305,7 +305,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                                       if (confirmDialogResponse) {
                                                                         _model.removeFromUrlImageList(
                                                                             imageListItem);
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                         await FirebaseStorage
                                                                             .instance
@@ -350,7 +350,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                   validateFileFormat(
                                                       m.storagePath,
                                                       context))) {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 _model.isDataUploading = true);
                                             var selectedUploadedFiles =
                                                 <FFUploadedFile>[];
@@ -380,12 +380,12 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                             }
                                             if (selectedUploadedFiles.length ==
                                                 selectedMedia.length) {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.uploadedLocalFile =
                                                     selectedUploadedFiles.first;
                                               });
                                             } else {
-                                              setState(() {});
+                                              safeSetState(() {});
                                               return;
                                             }
                                           }
@@ -418,9 +418,9 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                   .urlList!
                                                   .toList()
                                                   .cast<String>();
-                                              setState(() {});
+                                              safeSetState(() {});
                                             } else {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.isDataUploading = false;
                                                 _model.uploadedLocalFile =
                                                     FFUploadedFile(
@@ -431,7 +431,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                             }
                                           }
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'แนบสลิป',
                                         icon: Icon(
@@ -587,7 +587,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

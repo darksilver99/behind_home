@@ -56,10 +56,10 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
       _model.paymentList =
           _model.paymetListResult!.toList().cast<PaymentListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -365,7 +365,7 @@ class _PaymentListViewWidgetState extends State<PaymentListViewWidget> {
                                         Navigator.pop(context);
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Text(
                                       'เปลี่ยน',
