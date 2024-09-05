@@ -10,21 +10,12 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class MenuDataStruct extends FFFirebaseStruct {
   MenuDataStruct({
-    String? subject,
     String? pathName,
     int? status,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _subject = subject,
-        _pathName = pathName,
+  })  : _pathName = pathName,
         _status = status,
         super(firestoreUtilData);
-
-  // "subject" field.
-  String? _subject;
-  String get subject => _subject ?? '';
-  set subject(String? val) => _subject = val;
-
-  bool hasSubject() => _subject != null;
 
   // "path_name" field.
   String? _pathName;
@@ -43,7 +34,6 @@ class MenuDataStruct extends FFFirebaseStruct {
   bool hasStatus() => _status != null;
 
   static MenuDataStruct fromMap(Map<String, dynamic> data) => MenuDataStruct(
-        subject: data['subject'] as String?,
         pathName: data['path_name'] as String?,
         status: castToType<int>(data['status']),
       );
@@ -52,17 +42,12 @@ class MenuDataStruct extends FFFirebaseStruct {
       data is Map ? MenuDataStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'subject': _subject,
         'path_name': _pathName,
         'status': _status,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'subject': serializeParam(
-          _subject,
-          ParamType.String,
-        ),
         'path_name': serializeParam(
           _pathName,
           ParamType.String,
@@ -75,11 +60,6 @@ class MenuDataStruct extends FFFirebaseStruct {
 
   static MenuDataStruct fromSerializableMap(Map<String, dynamic> data) =>
       MenuDataStruct(
-        subject: deserializeParam(
-          data['subject'],
-          ParamType.String,
-          false,
-        ),
         pathName: deserializeParam(
           data['path_name'],
           ParamType.String,
@@ -98,17 +78,15 @@ class MenuDataStruct extends FFFirebaseStruct {
   @override
   bool operator ==(Object other) {
     return other is MenuDataStruct &&
-        subject == other.subject &&
         pathName == other.pathName &&
         status == other.status;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([subject, pathName, status]);
+  int get hashCode => const ListEquality().hash([pathName, status]);
 }
 
 MenuDataStruct createMenuDataStruct({
-  String? subject,
   String? pathName,
   int? status,
   Map<String, dynamic> fieldValues = const {},
@@ -117,7 +95,6 @@ MenuDataStruct createMenuDataStruct({
   bool delete = false,
 }) =>
     MenuDataStruct(
-      subject: subject,
       pathName: pathName,
       status: status,
       firestoreUtilData: FirestoreUtilData(
