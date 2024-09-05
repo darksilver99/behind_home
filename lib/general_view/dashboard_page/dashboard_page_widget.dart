@@ -54,6 +54,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
           );
           await action_blocks.checkExpireDate(context);
           await action_blocks.getConfigData(context);
+          await action_blocks.initMenuData(context);
           _model.parkChartDataList = await actions.getParkChartDataList();
           _model.parkChartValueList = await actions.getParkChartValueList();
           _model.isLoading = false;
