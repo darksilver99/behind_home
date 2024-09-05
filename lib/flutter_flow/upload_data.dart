@@ -124,11 +124,11 @@ Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
                 'Gallery',
                 MediaSource.videoGallery,
               ),
-            if (!kIsWeb) ...[
+            //if (!kIsWeb) ...[
               const Divider(),
               createUploadMediaListTile('Camera', MediaSource.camera),
               const Divider(),
-            ],
+            //],
             const SizedBox(height: 10),
           ],
         );
