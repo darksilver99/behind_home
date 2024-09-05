@@ -983,199 +983,189 @@ class _NewsFormViewWidgetState extends State<NewsFormViewWidget> {
                                       ],
                                     ),
                                   ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
+                                Wrap(
+                                  spacing: 0.0,
+                                  runSpacing: 8.0,
+                                  alignment: WrapAlignment.start,
+                                  crossAxisAlignment: WrapCrossAlignment.start,
+                                  direction: Axis.horizontal,
+                                  runAlignment: WrapAlignment.start,
+                                  verticalDirection: VerticalDirection.down,
+                                  clipBehavior: Clip.none,
                                   children: [
                                     if (widget!.dataDocument != null)
-                                      Flexible(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 8.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              var confirmDialogResponse =
-                                                  await showDialog<bool>(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                                'ต้องการลบรายการนี้?'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext,
-                                                                        false),
-                                                                child: Text(
-                                                                    'ยกเลิก'),
-                                                              ),
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext,
-                                                                        true),
-                                                                child: Text(
-                                                                    'ยืนยัน'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      ) ??
-                                                      false;
-                                              if (confirmDialogResponse) {
-                                                await widget!
-                                                    .dataDocument!.reference
-                                                    .delete();
-                                                Navigator.pop(
-                                                    context, 'update');
-                                              }
-                                            },
-                                            text: 'ลบข้อมูล',
-                                            options: FFButtonOptions(
-                                              height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'ต้องการลบรายการนี้?'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: Text(
+                                                                  'ยกเลิก'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: Text(
+                                                                  'ยืนยัน'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
+                                            if (confirmDialogResponse) {
+                                              await widget!
+                                                  .dataDocument!.reference
+                                                  .delete();
+                                              Navigator.pop(context, 'update');
+                                            }
+                                          },
+                                          text: 'ลบข้อมูล',
+                                          options: FFButtonOptions(
+                                            height: 40.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Manrope',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
                                       ),
-                                    Flexible(
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          if (_model.formKey.currentState ==
-                                                  null ||
-                                              !_model.formKey.currentState!
-                                                  .validate()) {
-                                            return;
-                                          }
-                                          if (_model.dropDownValue != null) {
-                                            _model.isEmptyDropdown1Value =
-                                                false;
-                                            safeSetState(() {});
-                                            if (widget!.dataDocument != null) {
-                                              if ((_model.displayImage ==
-                                                          null ||
-                                                      _model.displayImage ==
-                                                          '') &&
-                                                  (_model
-                                                      .imageList.isNotEmpty)) {
-                                                _model.displayImage =
-                                                    _model.imageList.first;
-                                              }
-
-                                              await widget!
-                                                  .dataDocument!.reference
-                                                  .update({
-                                                ...createNewsListRecordData(
-                                                  status: _model.dropDownValue,
-                                                  updateDate:
-                                                      getCurrentTimestamp,
-                                                  updateBy:
-                                                      currentUserReference,
-                                                  subject: _model
-                                                      .textController1.text,
-                                                  detail: _model
-                                                      .textController2.text,
-                                                  displayImage:
-                                                      _model.displayImage,
-                                                ),
-                                                ...mapToFirestore(
-                                                  {
-                                                    'images': _model.imageList,
-                                                  },
-                                                ),
-                                              });
-                                            } else {
-                                              if ((_model.displayImage ==
-                                                          null ||
-                                                      _model.displayImage ==
-                                                          '') &&
-                                                  (_model
-                                                      .imageList.isNotEmpty)) {
-                                                _model.displayImage =
-                                                    _model.imageList.first;
-                                              }
-
-                                              await NewsListRecord.collection
-                                                  .doc()
-                                                  .set({
-                                                ...createNewsListRecordData(
-                                                  createDate:
-                                                      getCurrentTimestamp,
-                                                  createBy:
-                                                      currentUserReference,
-                                                  status: _model.dropDownValue,
-                                                  subject: _model
-                                                      .textController1.text,
-                                                  detail: _model
-                                                      .textController2.text,
-                                                  displayImage:
-                                                      _model.displayImage,
-                                                ),
-                                                ...mapToFirestore(
-                                                  {
-                                                    'images': _model.imageList,
-                                                  },
-                                                ),
-                                              });
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        if (_model.formKey.currentState ==
+                                                null ||
+                                            !_model.formKey.currentState!
+                                                .validate()) {
+                                          return;
+                                        }
+                                        if (_model.dropDownValue != null) {
+                                          _model.isEmptyDropdown1Value = false;
+                                          safeSetState(() {});
+                                          if (widget!.dataDocument != null) {
+                                            if ((_model.displayImage == null ||
+                                                    _model.displayImage ==
+                                                        '') &&
+                                                (_model.imageList.isNotEmpty)) {
+                                              _model.displayImage =
+                                                  _model.imageList.first;
                                             }
 
-                                            Navigator.pop(context, 'update');
+                                            await widget!
+                                                .dataDocument!.reference
+                                                .update({
+                                              ...createNewsListRecordData(
+                                                status: _model.dropDownValue,
+                                                updateDate: getCurrentTimestamp,
+                                                updateBy: currentUserReference,
+                                                subject:
+                                                    _model.textController1.text,
+                                                detail:
+                                                    _model.textController2.text,
+                                                displayImage:
+                                                    _model.displayImage,
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'images': _model.imageList,
+                                                },
+                                              ),
+                                            });
                                           } else {
-                                            _model.isEmptyDropdown1Value = true;
-                                            safeSetState(() {});
+                                            if ((_model.displayImage == null ||
+                                                    _model.displayImage ==
+                                                        '') &&
+                                                (_model.imageList.isNotEmpty)) {
+                                              _model.displayImage =
+                                                  _model.imageList.first;
+                                            }
+
+                                            await NewsListRecord.collection
+                                                .doc()
+                                                .set({
+                                              ...createNewsListRecordData(
+                                                createDate: getCurrentTimestamp,
+                                                createBy: currentUserReference,
+                                                status: _model.dropDownValue,
+                                                subject:
+                                                    _model.textController1.text,
+                                                detail:
+                                                    _model.textController2.text,
+                                                displayImage:
+                                                    _model.displayImage,
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'images': _model.imageList,
+                                                },
+                                              ),
+                                            });
                                           }
-                                        },
-                                        text: 'บันทึกข้อมูล',
-                                        options: FFButtonOptions(
-                                          height: 40.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .success,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Manrope',
-                                                    color: Colors.white,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          elevation: 3.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+
+                                          Navigator.pop(context, 'update');
+                                        } else {
+                                          _model.isEmptyDropdown1Value = true;
+                                          safeSetState(() {});
+                                        }
+                                      },
+                                      text: 'บันทึกข้อมูล',
+                                      options: FFButtonOptions(
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .success,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
                                         ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                     ),
                                   ],
