@@ -189,8 +189,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                 Divider(
                                   height: 32.0,
                                   thickness: 3.0,
-                                  indent: 32.0,
-                                  endIndent: 2.0,
+                                  endIndent: 32.0,
                                   color: FlutterFlowTheme.of(context).alternate,
                                 ),
                               ],
@@ -529,8 +528,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                         Divider(
                                           height: 32.0,
                                           thickness: 1.0,
-                                          indent: 32.0,
-                                          endIndent: 2.0,
+                                          endIndent: 32.0,
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
                                         ),
@@ -550,7 +548,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                   if (FFAppState()
                                       .menuDataList
                                       .contains(MenuDataStruct(
-                                        pathName: ' IssueProjectPage',
+                                        pathName: 'IssueProjectPage',
                                         status: 1,
                                       )))
                                     Column(
@@ -1153,8 +1151,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                         Divider(
                                           height: 32.0,
                                           thickness: 1.0,
-                                          indent: 32.0,
-                                          endIndent: 2.0,
+                                          endIndent: 32.0,
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
                                         ),
