@@ -51,7 +51,7 @@ class _PhoneProjectFormViewWidgetState
         TextEditingController(text: widget!.dataDocument?.phone);
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -408,7 +408,7 @@ class _PhoneProjectFormViewWidgetState
                                             .dataStatusList
                                             .map((e) => e.subject)
                                             .toList(),
-                                        onChanged: (val) => setState(
+                                        onChanged: (val) => safeSetState(
                                             () => _model.dropDownValue = val),
                                         width: 300.0,
                                         height: 56.0,

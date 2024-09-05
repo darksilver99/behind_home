@@ -50,7 +50,6 @@ class BannerProjectPageModel extends FlutterFlowModel<BannerProjectPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in BannerProjectPage widget.
   List<BannerProjectListRecord>? dataResult;
   // Stores action output result for [Bottom Sheet - BannerProjectFormView] action in Button widget.

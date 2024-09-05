@@ -52,7 +52,6 @@ class NewsPageModel extends FlutterFlowModel<NewsPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in NewsPage widget.
   List<NewsListRecord>? dataResult;
   // State field(s) for DropDown widget.

@@ -11,10 +11,12 @@ import '/flutter_flow/flutter_flow_util.dart';
 class MenuDataStruct extends FFFirebaseStruct {
   MenuDataStruct({
     String? subject,
-    String? collectionName,
+    String? pathName,
+    int? status,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _subject = subject,
-        _collectionName = collectionName,
+        _pathName = pathName,
+        _status = status,
         super(firestoreUtilData);
 
   // "subject" field.
@@ -24,16 +26,26 @@ class MenuDataStruct extends FFFirebaseStruct {
 
   bool hasSubject() => _subject != null;
 
-  // "collection_name" field.
-  String? _collectionName;
-  String get collectionName => _collectionName ?? '';
-  set collectionName(String? val) => _collectionName = val;
+  // "path_name" field.
+  String? _pathName;
+  String get pathName => _pathName ?? '';
+  set pathName(String? val) => _pathName = val;
 
-  bool hasCollectionName() => _collectionName != null;
+  bool hasPathName() => _pathName != null;
+
+  // "status" field.
+  int? _status;
+  int get status => _status ?? 0;
+  set status(int? val) => _status = val;
+
+  void incrementStatus(int amount) => status = status + amount;
+
+  bool hasStatus() => _status != null;
 
   static MenuDataStruct fromMap(Map<String, dynamic> data) => MenuDataStruct(
         subject: data['subject'] as String?,
-        collectionName: data['collection_name'] as String?,
+        pathName: data['path_name'] as String?,
+        status: castToType<int>(data['status']),
       );
 
   static MenuDataStruct? maybeFromMap(dynamic data) =>
@@ -41,7 +53,8 @@ class MenuDataStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'subject': _subject,
-        'collection_name': _collectionName,
+        'path_name': _pathName,
+        'status': _status,
       }.withoutNulls;
 
   @override
@@ -50,9 +63,13 @@ class MenuDataStruct extends FFFirebaseStruct {
           _subject,
           ParamType.String,
         ),
-        'collection_name': serializeParam(
-          _collectionName,
+        'path_name': serializeParam(
+          _pathName,
           ParamType.String,
+        ),
+        'status': serializeParam(
+          _status,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -63,9 +80,14 @@ class MenuDataStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
-        collectionName: deserializeParam(
-          data['collection_name'],
+        pathName: deserializeParam(
+          data['path_name'],
           ParamType.String,
+          false,
+        ),
+        status: deserializeParam(
+          data['status'],
+          ParamType.int,
           false,
         ),
       );
@@ -77,16 +99,18 @@ class MenuDataStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     return other is MenuDataStruct &&
         subject == other.subject &&
-        collectionName == other.collectionName;
+        pathName == other.pathName &&
+        status == other.status;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([subject, collectionName]);
+  int get hashCode => const ListEquality().hash([subject, pathName, status]);
 }
 
 MenuDataStruct createMenuDataStruct({
   String? subject,
-  String? collectionName,
+  String? pathName,
+  int? status,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -94,7 +118,8 @@ MenuDataStruct createMenuDataStruct({
 }) =>
     MenuDataStruct(
       subject: subject,
-      collectionName: collectionName,
+      pathName: pathName,
+      status: status,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

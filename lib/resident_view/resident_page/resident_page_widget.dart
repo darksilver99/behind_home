@@ -57,13 +57,13 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
       _model.tmpDataList =
           _model.dataResult!.toList().cast<ResidentListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -86,7 +86,7 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -173,17 +173,17 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                                       .toList()
                                                       .cast<
                                                           ResidentListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
                                                       .cast<
                                                           ResidentListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                             ),
                                             autofocus: false,
@@ -280,18 +280,18 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                                               .toList()
                                                               .cast<
                                                                   ResidentListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.dataList = _model
                                                               .tmpDataList
                                                               .toList()
                                                               .cast<
                                                                   ResidentListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
 
-                                                        setState(() {});
-                                                        setState(() {});
+                                                        safeSetState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Icon(
                                                         Icons.clear,
@@ -636,10 +636,10 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
                                               .toList()
                                               .cast<ResidentListRecord>();
                                           _model.isLoading = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -702,13 +702,13 @@ class _ResidentPageWidgetState extends State<ResidentPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],

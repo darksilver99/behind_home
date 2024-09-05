@@ -49,10 +49,10 @@ class _WaterPaymentSettingPageWidgetState
       await action_blocks.checkExpireDate(context);
       _model.imageWaterPaymentList =
           FFAppState().projectData.imageWaterPayment.toList().cast<String>();
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -75,7 +75,7 @@ class _WaterPaymentSettingPageWidgetState
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -402,11 +402,11 @@ class _WaterPaymentSettingPageWidgetState
                                                                           .isDelete!) {
                                                                         _model.removeFromImageWaterPaymentList(
                                                                             imageListItem);
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                       }
 
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     },
                                                                     child: Icon(
@@ -455,7 +455,7 @@ class _WaterPaymentSettingPageWidgetState
                                                   validateFileFormat(
                                                       m.storagePath,
                                                       context))) {
-                                            setState(() =>
+                                            safeSetState(() =>
                                                 _model.isDataUploading = true);
                                             var selectedUploadedFiles =
                                                 <FFUploadedFile>[];
@@ -485,12 +485,12 @@ class _WaterPaymentSettingPageWidgetState
                                             }
                                             if (selectedUploadedFiles.length ==
                                                 selectedMedia.length) {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.uploadedLocalFile =
                                                     selectedUploadedFiles.first;
                                               });
                                             } else {
-                                              setState(() {});
+                                              safeSetState(() {});
                                               return;
                                             }
                                           }
@@ -526,9 +526,9 @@ class _WaterPaymentSettingPageWidgetState
                                                   _model.urlList!
                                                       .toList()
                                                       .cast<String>();
-                                              setState(() {});
+                                              safeSetState(() {});
                                             } else {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.isDataUploading = false;
                                                 _model.uploadedLocalFile =
                                                     FFUploadedFile(
@@ -539,7 +539,7 @@ class _WaterPaymentSettingPageWidgetState
                                             }
                                           }
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'รูปภาพข้อมูลการโอนเงิน',
                                         icon: Icon(
@@ -634,9 +634,9 @@ class _WaterPaymentSettingPageWidgetState
                                                   .imageWaterPayment
                                                   .toList()
                                                   .cast<String>();
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'บันทึกข้อมูล',
                                         options: FFButtonOptions(
@@ -682,7 +682,7 @@ class _WaterPaymentSettingPageWidgetState
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
             ],

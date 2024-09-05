@@ -44,7 +44,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
         TextEditingController(text: widget!.dataDocument?.adminDetail);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -408,7 +408,7 @@ class _ResidentDetailViewWidgetState extends State<ResidentDetailViewWidget> {
                                               .residentStatusList
                                               .map((e) => e.subject)
                                               .toList(),
-                                          onChanged: (val) => setState(
+                                          onChanged: (val) => safeSetState(
                                               () => _model.dropDownValue = val),
                                           width: 300.0,
                                           height: 56.0,

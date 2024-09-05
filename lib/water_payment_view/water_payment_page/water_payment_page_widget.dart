@@ -68,13 +68,13 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
       _model.tmpDataList =
           _model.dataResult!.toList().cast<WaterPaymentListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -97,7 +97,7 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -172,8 +172,9 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                             ),
                                             options:
                                                 FFAppConstants.thaiMonthList,
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue1 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue1 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -218,8 +219,9 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                             ),
                                             options: functions.getYearList(
                                                 getCurrentTimestamp),
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue2 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue2 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -314,9 +316,9 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                                   .toList()
                                                   .cast<
                                                       WaterPaymentListRecord>();
-                                              setState(() {});
+                                              safeSetState(() {});
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'ค้นหา',
                                             options: FFButtonOptions(
@@ -400,17 +402,17 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                                       .toList()
                                                       .cast<
                                                           WaterPaymentListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
                                                       .cast<
                                                           WaterPaymentListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                             ),
                                             autofocus: false,
@@ -507,18 +509,18 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                                               .toList()
                                                               .cast<
                                                                   WaterPaymentListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.dataList = _model
                                                               .tmpDataList
                                                               .toList()
                                                               .cast<
                                                                   WaterPaymentListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
 
-                                                        setState(() {});
-                                                        setState(() {});
+                                                        safeSetState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Icon(
                                                         Icons.clear,
@@ -925,10 +927,10 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                               .toList()
                                               .cast<WaterPaymentListRecord>();
                                           _model.isLoading = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -1019,10 +1021,10 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
                                               .toList()
                                               .cast<WaterPaymentListRecord>();
                                           _model.isLoading = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -1084,13 +1086,13 @@ class _WaterPaymentPageWidgetState extends State<WaterPaymentPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],

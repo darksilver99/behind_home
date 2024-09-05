@@ -51,7 +51,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget!.dataDocument != null) {
         _model.imageList = widget!.dataDocument!.images.toList().cast<String>();
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
@@ -63,7 +63,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
         TextEditingController(text: widget!.dataDocument?.detail);
     _model.detailFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -479,11 +479,11 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                           });
                                                                         }
 
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                       }
 
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     },
                                                                     child: Icon(
@@ -540,7 +540,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                         validateFileFormat(
                                                             m.storagePath,
                                                             context))) {
-                                                  setState(() => _model
+                                                  safeSetState(() => _model
                                                       .isDataUploading = true);
                                                   var selectedUploadedFiles =
                                                       <FFUploadedFile>[];
@@ -574,13 +574,13 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   if (selectedUploadedFiles
                                                           .length ==
                                                       selectedMedia.length) {
-                                                    setState(() {
+                                                    safeSetState(() {
                                                       _model.uploadedLocalFile =
                                                           selectedUploadedFiles
                                                               .first;
                                                     });
                                                   } else {
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     return;
                                                   }
                                                 }
@@ -626,10 +626,10 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                       _model.addToImageList(
                                                           _model
                                                               .urlList!.first);
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     }
                                                   }
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.isDataUploading =
                                                         false;
                                                     _model.uploadedLocalFile =
@@ -639,7 +639,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                   });
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               text: 'อัพโหลดรูป',
                                               icon: Icon(
@@ -1179,7 +1179,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                     context, 'update');
                                               }
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text:
                                                 'จ่ายพัสดุ (ลูกบ้านมารับด้วยตัวเอง)',
@@ -1381,7 +1381,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                     ),
                                                   });
                                                 } else {
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model
                                                         .contactAddressTextController
                                                         ?.text = '';
@@ -1394,7 +1394,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
                                                                 .length);
                                                   });
                                                   if (_shouldSetState)
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   return;
                                                 }
                                               }
@@ -1402,7 +1402,7 @@ class _StockFormViewWidgetState extends State<StockFormViewWidget> {
 
                                             Navigator.pop(context, 'update');
                                             if (_shouldSetState)
-                                              setState(() {});
+                                              safeSetState(() {});
                                           },
                                           text: 'บันทึกข้อมูล',
                                           options: FFButtonOptions(

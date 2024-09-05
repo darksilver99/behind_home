@@ -55,7 +55,6 @@ class WaterPaymentPageModel extends FlutterFlowModel<WaterPaymentPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in WaterPaymentPage widget.
   List<WaterPaymentListRecord>? dataResult;
   // State field(s) for DropDown widget.

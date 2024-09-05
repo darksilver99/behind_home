@@ -55,7 +55,7 @@ class _WaterPaymentDetailViewWidgetState
           FFAppState().waterPaymentStatusList.toList().cast<DataStatusStruct>();
       _model.removeAtIndexFromTmpWaterPaymentStatusList(0);
       _model.removeAtIndexFromTmpWaterPaymentStatusList(0);
-      setState(() {});
+      safeSetState(() {});
       if (widget!.dataDocument?.status == 0) {
         await widget!.dataDocument!.reference
             .update(createWaterPaymentListRecordData(
@@ -65,7 +65,7 @@ class _WaterPaymentDetailViewWidgetState
         _model.tmpDropDownValue = widget!.dataDocument!.status;
         _model.urlFileList =
             widget!.dataDocument!.receiptFile.toList().cast<String>();
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
@@ -77,7 +77,7 @@ class _WaterPaymentDetailViewWidgetState
         TextEditingController(text: widget!.dataDocument?.adminDetail);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -542,11 +542,11 @@ class _WaterPaymentDetailViewWidgetState
                                                   .map((e) => e.subject)
                                                   .toList(),
                                               onChanged: (val) async {
-                                                setState(() =>
+                                                safeSetState(() =>
                                                     _model.dropDownValue = val);
                                                 if (_model.dropDownValue! <=
                                                     3) {
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.remarkTextController
                                                             ?.text =
                                                         widget!.dataDocument!
@@ -555,12 +555,12 @@ class _WaterPaymentDetailViewWidgetState
                                                   if (_model.dropDownValue ==
                                                       5) {
                                                     _model.tmpFileList = [];
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 }
                                                 _model.tmpDropDownValue =
                                                     _model.dropDownValue!;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               width: 300.0,
                                               height: 56.0,
@@ -833,7 +833,7 @@ class _WaterPaymentDetailViewWidgetState
                                                                       if (confirmDialogResponse) {
                                                                         _model.removeFromUrlFileList(
                                                                             fileListItem);
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                         await FirebaseStorage
                                                                             .instance
@@ -935,7 +935,7 @@ class _WaterPaymentDetailViewWidgetState
                                               multiFile: false,
                                             );
                                             if (selectedFiles != null) {
-                                              setState(() => _model
+                                              safeSetState(() => _model
                                                   .isDataUploading = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
@@ -958,13 +958,13 @@ class _WaterPaymentDetailViewWidgetState
                                               if (selectedUploadedFiles
                                                       .length ==
                                                   selectedFiles.length) {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.uploadedLocalFile =
                                                       selectedUploadedFiles
                                                           .first;
                                                 });
                                               } else {
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 return;
                                               }
                                             }
@@ -998,9 +998,9 @@ class _WaterPaymentDetailViewWidgetState
                                                     .urlListResult!
                                                     .toList()
                                                     .cast<String>();
-                                                setState(() {});
+                                                safeSetState(() {});
                                               } else {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.isDataUploading =
                                                       false;
                                                   _model.uploadedLocalFile =
@@ -1011,7 +1011,7 @@ class _WaterPaymentDetailViewWidgetState
                                               }
                                             }
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           text: 'แนบใบเสร็จ',
                                           options: FFButtonOptions(

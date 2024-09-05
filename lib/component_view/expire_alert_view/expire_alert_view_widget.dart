@@ -29,7 +29,7 @@ class _ExpireAlertViewWidgetState extends State<ExpireAlertViewWidget> {
     super.initState();
     _model = createModel(context, () => ExpireAlertViewModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

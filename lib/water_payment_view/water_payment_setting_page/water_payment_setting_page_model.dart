@@ -54,7 +54,6 @@ class WaterPaymentSettingPageModel
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Action Block - deleteImageBlock] action in Icon widget.
   bool? isDelete;
   bool isDataUploading = false;

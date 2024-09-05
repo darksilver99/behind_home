@@ -45,7 +45,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
         TextEditingController(text: widget!.dataDocument?.name);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -399,7 +399,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                                           functions.getNextDay(
                                                               _model.nextDay!,
                                                               getCurrentTimestamp));
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.nextDate =
                                                       functions.getEndDayTime(
@@ -408,7 +408,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                                               widget!
                                                                   .dataDocument!
                                                                   .expireDate!));
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
                                               } else {
                                                 await showDialog(
@@ -431,7 +431,7 @@ class _ProjectDetailViewWidgetState extends State<ProjectDetailViewWidget> {
                                               }
                                             }
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           text: 'เพิ่มวัน',
                                           icon: Icon(

@@ -349,6 +349,35 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInHelpStatusList(int index, DataStatusStruct value) {
     helpStatusList.insert(index, value);
   }
+
+  List<MenuDataStruct> _menuDataList = [];
+  List<MenuDataStruct> get menuDataList => _menuDataList;
+  set menuDataList(List<MenuDataStruct> value) {
+    _menuDataList = value;
+  }
+
+  void addToMenuDataList(MenuDataStruct value) {
+    menuDataList.add(value);
+  }
+
+  void removeFromMenuDataList(MenuDataStruct value) {
+    menuDataList.remove(value);
+  }
+
+  void removeAtIndexFromMenuDataList(int index) {
+    menuDataList.removeAt(index);
+  }
+
+  void updateMenuDataListAtIndex(
+    int index,
+    MenuDataStruct Function(MenuDataStruct) updateFn,
+  ) {
+    menuDataList[index] = updateFn(_menuDataList[index]);
+  }
+
+  void insertAtIndexInMenuDataList(int index, MenuDataStruct value) {
+    menuDataList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

@@ -15,7 +15,6 @@ class DetailWithImagePageModel
     extends FlutterFlowModel<DetailWithImagePageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for menuView component.

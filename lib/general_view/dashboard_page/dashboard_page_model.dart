@@ -42,7 +42,6 @@ class DashboardPageModel extends FlutterFlowModel<DashboardPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in DashboardPage widget.
   ProjectListRecord? projectResult;
   // Stores action output result for [Custom Action - getParkChartDataList] action in DashboardPage widget.

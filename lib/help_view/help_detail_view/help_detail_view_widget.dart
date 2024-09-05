@@ -34,7 +34,7 @@ class _HelpDetailViewWidgetState extends State<HelpDetailViewWidget> {
     super.initState();
     _model = createModel(context, () => HelpDetailViewModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

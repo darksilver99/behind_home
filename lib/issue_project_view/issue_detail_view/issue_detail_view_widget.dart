@@ -48,7 +48,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
           FFAppState().issueStatusList.toList().cast<IssueStatusDataStruct>();
       _model.removeAtIndexFromTmpIssueStatusList(0);
       _model.removeAtIndexFromTmpIssueStatusList(0);
-      setState(() {});
+      safeSetState(() {});
       if (widget!.dataDocument?.status == 0) {
         await widget!.dataDocument!.reference
             .update(createIssueProjectListRecordData(
@@ -65,7 +65,7 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
         TextEditingController(text: widget!.dataDocument?.remark);
     _model.remarkFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -733,19 +733,19 @@ class _IssueDetailViewWidgetState extends State<IssueDetailViewWidget> {
                                                   .map((e) => e.subject)
                                                   .toList(),
                                               onChanged: (val) async {
-                                                setState(() =>
+                                                safeSetState(() =>
                                                     _model.dropDownValue = val);
                                                 if (_model.dropDownValue! > 3) {
                                                   _model.showRemarkNotComplete =
                                                       true;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.showRemarkNotComplete =
                                                       false;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
 
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.remarkTextController
                                                           ?.text =
                                                       widget!

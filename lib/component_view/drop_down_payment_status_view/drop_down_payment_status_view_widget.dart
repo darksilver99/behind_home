@@ -37,7 +37,7 @@ class _DropDownPaymentStatusViewWidgetState
     super.initState();
     _model = createModel(context, () => DropDownPaymentStatusViewModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -107,7 +107,7 @@ class _DropDownPaymentStatusViewWidgetState
                           .map((e) => e.subject)
                           .toList(),
                       onChanged: (val) =>
-                          setState(() => _model.dropDownValue = val),
+                          safeSetState(() => _model.dropDownValue = val),
                       width: 300.0,
                       height: 56.0,
                       textStyle:

@@ -33,7 +33,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           DateTime.fromMillisecondsSinceEpoch(1720501200000);
       FFAppState().isSkipExpireAlert = false;
       FFAppState().projectData = ProjectDataStruct();
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.emailTextController ??= TextEditingController();
@@ -42,7 +42,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     _model.passwordTextController ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -297,7 +297,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                             8.0),
                                                   ),
                                                   suffixIcon: InkWell(
-                                                    onTap: () => setState(
+                                                    onTap: () => safeSetState(
                                                       () => _model
                                                               .passwordVisibility =
                                                           !_model

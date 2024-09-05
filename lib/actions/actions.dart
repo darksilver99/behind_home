@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -210,4 +211,16 @@ Future<bool?> deleteImageBlock(
   } else {
     return false;
   }
+}
+
+Future initMenuData(BuildContext context) async {
+  List<BehindMenuListRecord>? menuResult;
+
+  menuResult = await queryBehindMenuListRecordOnce(
+    queryBuilder: (behindMenuListRecord) => behindMenuListRecord.orderBy('seq'),
+  );
+  FFAppState().menuDataList = functions
+      .getMenuDataList(menuResult!.toList())
+      .toList()
+      .cast<MenuDataStruct>();
 }

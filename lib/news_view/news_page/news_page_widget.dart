@@ -66,13 +66,13 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
       _model.dataList = _model.dataResult!.toList().cast<NewsListRecord>();
       _model.tmpDataList = _model.dataResult!.toList().cast<NewsListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -95,7 +95,7 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -170,8 +170,9 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                             ),
                                             options:
                                                 FFAppConstants.thaiMonthList,
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue1 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue1 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -216,8 +217,9 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                             ),
                                             options: functions.getYearList(
                                                 getCurrentTimestamp),
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue2 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue2 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -310,9 +312,9 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                   .dataResult2!
                                                   .toList()
                                                   .cast<NewsListRecord>();
-                                              setState(() {});
+                                              safeSetState(() {});
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'ค้นหา',
                                             options: FFButtonOptions(
@@ -429,10 +431,10 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                   .toList()
                                                   .cast<NewsListRecord>();
                                               _model.isLoading = false;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             }
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           text: 'เพิ่มข้อมูล',
                                           options: FFButtonOptions(
@@ -489,16 +491,16 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                       .dataResult3!
                                                       .toList()
                                                       .cast<NewsListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
                                                       .cast<NewsListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                             ),
                                             autofocus: false,
@@ -595,18 +597,18 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                                               .toList()
                                                               .cast<
                                                                   NewsListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.dataList = _model
                                                               .tmpDataList
                                                               .toList()
                                                               .cast<
                                                                   NewsListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
 
-                                                        setState(() {});
-                                                        setState(() {});
+                                                        safeSetState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Icon(
                                                         Icons.clear,
@@ -996,10 +998,10 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                               .toList()
                                               .cast<NewsListRecord>();
                                           _model.isLoading = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -1086,10 +1088,10 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
                                             .toList()
                                             .cast<NewsListRecord>();
                                         _model.isLoading = false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -1151,13 +1153,13 @@ class _NewsPageWidgetState extends State<NewsPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],

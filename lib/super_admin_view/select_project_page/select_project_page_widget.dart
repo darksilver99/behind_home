@@ -48,13 +48,13 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
       _model.isLoading = false;
       _model.tmpProjectList =
           _model.projectListResult!.toList().cast<ProjectListRecord>();
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -124,7 +124,7 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                   _navigate =
                       () => context.goNamedAuth('LoginPage', context.mounted);
                 } else {
-                  setState(() {});
+                  safeSetState(() {});
                 }
 
                 _navigate();
@@ -177,15 +177,15 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                           .projectListResult3!
                                           .toList()
                                           .cast<ProjectListRecord>();
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       _model.projectList = _model.tmpProjectList
                                           .toList()
                                           .cast<ProjectListRecord>();
-                                      setState(() {});
+                                      safeSetState(() {});
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                 ),
                                 autofocus: false,
@@ -259,17 +259,17 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                                   .projectListResult3!
                                                   .toList()
                                                   .cast<ProjectListRecord>();
-                                              setState(() {});
+                                              safeSetState(() {});
                                             } else {
                                               _model.projectList = _model
                                                   .tmpProjectList
                                                   .toList()
                                                   .cast<ProjectListRecord>();
-                                              setState(() {});
+                                              safeSetState(() {});
                                             }
 
-                                            setState(() {});
-                                            setState(() {});
+                                            safeSetState(() {});
+                                            safeSetState(() {});
                                           },
                                           child: Icon(
                                             Icons.clear,
@@ -520,10 +520,10 @@ class _SelectProjectPageWidgetState extends State<SelectProjectPageWidget> {
                                             .projectListResult2!
                                             .toList()
                                             .cast<ProjectListRecord>();
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,

@@ -25,7 +25,7 @@ class _OtpPageWidgetState extends State<OtpPageWidget> {
     super.initState();
     _model = createModel(context, () => OtpPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 class QRCodeProjectPageModel extends FlutterFlowModel<QRCodeProjectPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for MenuToggleView component.
   late MenuToggleViewModel menuToggleViewModel;
   // Model for menuView component.

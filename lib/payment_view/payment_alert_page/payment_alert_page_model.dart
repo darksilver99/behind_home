@@ -18,7 +18,6 @@ import 'package:provider/provider.dart';
 class PaymentAlertPageModel extends FlutterFlowModel<PaymentAlertPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in PaymentAlertPage widget.
   ProjectListRecord? projectResult;
   // Model for MenuToggleView component.

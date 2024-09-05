@@ -66,13 +66,13 @@ class _StockPageWidgetState extends State<StockPageWidget> {
       _model.dataList = _model.dataResult!.toList().cast<StockListRecord>();
       _model.tmpDataList = _model.dataResult!.toList().cast<StockListRecord>();
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -95,7 +95,7 @@ class _StockPageWidgetState extends State<StockPageWidget> {
           elevation: 16.0,
           child: wrapWithModel(
             model: _model.menuViewModel,
-            updateCallback: () => setState(() {}),
+            updateCallback: () => safeSetState(() {}),
             child: MenuViewWidget(),
           ),
         ),
@@ -170,8 +170,9 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                             ),
                                             options:
                                                 FFAppConstants.thaiMonthList,
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue1 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue1 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -216,8 +217,9 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                             ),
                                             options: functions.getYearList(
                                                 getCurrentTimestamp),
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue2 = val),
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.dropDownValue2 =
+                                                    val),
                                             width: 300.0,
                                             height: 56.0,
                                             textStyle:
@@ -310,9 +312,9 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                                   .dataResult2!
                                                   .toList()
                                                   .cast<StockListRecord>();
-                                              setState(() {});
+                                              safeSetState(() {});
 
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             text: 'ค้นหา',
                                             options: FFButtonOptions(
@@ -346,7 +348,7 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                             onPressed: () async {
                                               if (_model.dataList.isNotEmpty) {
                                                 _model.isLoading = true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 await actions.exportStock(
                                                   _model.dataList.toList(),
                                                   functions.getCurrentMonth(
@@ -358,7 +360,7 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                                       _model.startDate!),
                                                 );
                                                 _model.isLoading = false;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               }
                                             },
                                             text: 'Export Excel',
@@ -476,10 +478,10 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                                   .toList()
                                                   .cast<StockListRecord>();
                                               _model.isLoading = false;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             }
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           text: 'เพิ่มพัสดุ',
                                           options: FFButtonOptions(
@@ -536,16 +538,16 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                                       .dataResult3!
                                                       .toList()
                                                       .cast<StockListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.dataList = _model
                                                       .tmpDataList
                                                       .toList()
                                                       .cast<StockListRecord>();
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                             ),
                                             autofocus: false,
@@ -642,18 +644,18 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                                               .toList()
                                                               .cast<
                                                                   StockListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.dataList = _model
                                                               .tmpDataList
                                                               .toList()
                                                               .cast<
                                                                   StockListRecord>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
 
-                                                        setState(() {});
-                                                        setState(() {});
+                                                        safeSetState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Icon(
                                                         Icons.clear,
@@ -1083,10 +1085,10 @@ class _StockPageWidgetState extends State<StockPageWidget> {
                                         _model.tmpDataList = _model.dataResult4!
                                             .toList()
                                             .cast<StockListRecord>();
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -1148,13 +1150,13 @@ class _StockPageWidgetState extends State<StockPageWidget> {
               ),
               wrapWithModel(
                 model: _model.menuToggleViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: MenuToggleViewWidget(),
               ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],
