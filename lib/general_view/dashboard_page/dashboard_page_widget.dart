@@ -772,7 +772,7 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                         0.0,
                                                                         16.0),
                                                             child: Text(
-                                                              'รายการใหม่',
+                                                              'รายการใหม่/กำลังดำเนินการ',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -804,6 +804,10 @@ class _DashboardPageWidgetState extends State<DashboardPageWidget> {
                                                                 Filter(
                                                                   'status',
                                                                   isEqualTo: 1,
+                                                                ),
+                                                                Filter(
+                                                                  'status',
+                                                                  isEqualTo: 3,
                                                                 ),
                                                               )),
                                                             ),
